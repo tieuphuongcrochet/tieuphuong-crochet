@@ -1,0 +1,85 @@
+@import './../../utils//variables.scss';
+
+
+.card-product {
+	&.ant-card {
+		box-shadow: none;
+
+		.ant-card-body {
+			padding: 20px 0 0;
+		}
+	}
+
+	.ant-card-cover {
+		position: relative;
+		cursor: pointer;
+
+		&:hover {
+			.mask {
+				opacity: .5;
+			}
+
+			.card-actions {
+				transform: translate(-50%, -50%) scale(1);
+			}
+
+			.ant-image {
+				img {
+					transform: scale(1.1);
+				}
+			}
+		}
+
+		.ant-image {
+			overflow: hidden;
+			img {
+				transform: scale(1);
+				transition: all .7s ease 0s;
+				-webkit-transition: all .7s ease 0s;
+			}
+		}
+	}
+
+	.card-actions {
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		width: 100%;
+		max-width: 160px;
+		z-index: 9;
+		transform: translate(-50%, -50%) scale(0);
+
+		button {
+			border: none;
+			box-shadow: none;
+			border-radius: 0;
+			display: inline-block;
+			width: 50px;
+			font-size: 20px;
+			text-align: center;
+			background: none;
+			line-height: 1;
+			vertical-align: middle;
+			background-color: $backgroundColor;
+			padding: 0;
+
+			&.read,
+			&.read:hover {
+				border-right: 1px solid $borderColor;
+				border-left: 1px solid $borderColor;
+			}
+		}
+	}
+
+	.mask {
+		top: 0;
+		left: 0;
+		opacity: 0;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-color: $borderColor;
+		transition: all .7s ease 0s;
+		-webkit-transition: all .7s ease 0s;
+	}
+}

@@ -1,0 +1,85 @@
+@import './../../utils//variables.scss';
+
+.layout-wrap {
+	color: $textPrimaryColor;
+	background-color: $backgroundColor;
+	overflow: hidden;
+	padding: 0 30px;
+
+	@media screen and (min-width: $xxl) {
+		width: 1440px;
+		margin: 0 auto;
+	}
+
+	@media screen and (min-width: $md) {
+		padding: 0 50px;
+	}
+
+	@media screen and (min-width: $xl) {
+		padding: 0 100px;
+	}
+
+	.author,
+	.description {
+		color: $textSecondColor;
+	}
+
+	.card-title {
+		color: $textPrimaryColor;
+	}
+
+	>*,
+	.ant-card,
+	.ant-row .ant-flex,
+	.ant-menu {
+		font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
+	}
+}
+
+// button
+:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+	color: $colorPrimary;
+	border-color: $colorPrimary;
+}
+
+.content-wrap {
+	padding: 40px 0;
+
+}
+
+.actions-links {
+	text-align: center;
+	background: #fff;
+	box-shadow: 1px 1px 1px #0000001a;
+	padding: 10px 0;
+	border-radius: 3px;
+	transition: all .7s ease 0s;
+	-webkit-transition: all .7s ease 0s;
+}
+
+.card-title {
+	cursor: pointer;
+}
+
+.ant-card {
+
+	.ant-card-cover {
+		&:hover {
+			.ant-image {
+				img {
+					transform: scale(1.1);
+				}
+			}
+		}
+
+		.ant-image {
+			overflow: hidden;
+
+			img {
+				transform: scale(1);
+				transition: all .7s ease 0s;
+				-webkit-transition: all .7s ease 0s;
+			}
+		}
+	}
+}
