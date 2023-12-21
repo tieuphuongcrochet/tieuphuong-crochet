@@ -9,13 +9,15 @@ import FreePatterns from "../pages/freePattern";
 import Blog from "../pages/blog";
 import Contact from "../pages/contact";
 import About from "../pages/about";
+import { PrivateRoute } from "../components/Common/PrivateRoute";
+import Login from "../pages/login";
 
 const router = createBrowserRouter([
   {
     path: ROUTE_PATH.HOME,
     element: <LayoutPage />,
-    errorElement: ErrorPage,
-    
+    errorElement: <ErrorPage />,
+
     children: [
       {
         index: true,
@@ -40,8 +42,17 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATH.ABOUT,
         element: <About />
+      },
+
+      {
+        path: ROUTE_PATH.ADMIN,
+        element: <PrivateRoute/>,
       }
     ]
+  },
+  {
+    path: ROUTE_PATH.LOGIN,
+    element: <Login />
   },
 ]);
 

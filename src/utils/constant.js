@@ -20,7 +20,8 @@ export const ROUTE_PATH = {
 	BLOG: '/blog',
 	ABOUT: '/about',
 	CONTACT: '/contact',
-
+	LOGIN: '/login',
+	ADMIN: '/admin'
 };
 
 export const MENU_NAV = [
@@ -32,6 +33,14 @@ export const MENU_NAV = [
 	{ path: ROUTE_PATH.CONTACT, name: 'Contact' },
 ];
 
+export const API_URL = {
+	HOME: '/home',
+	PRODUCT: '/product',
+	PATTERN: '/pattern',
+	PRODUCT_CATEGORY: '/product-category',
+	FREE_PATTERN: '/free-pattern',
+	BLOG: '/blog'
+}
 export const MOCK_FREE_PATTERNS = [
 	{
 		img: pattern1,

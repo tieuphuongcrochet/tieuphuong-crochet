@@ -13,13 +13,17 @@ import SocialBox from '../../components/Social';
 import ProductsNode from './components/ProductsNode';
 import BlogsNode from './components/BlogsNode';
 import FreePatternsNode from './components/FreePatternsNode';
-import homeApi from '../../api/homeApi';
+import { useAppDispatch } from 'app/hooks';
+import { homeActions } from './homeSlice';
 
 const HomePage = () => {
 
+	const dispatch = useAppDispatch();
+
 	useEffect(() => {
-		homeApi.getAll().then((response) => console.log(response));
-	}, [])
+		// homeApi.getAll().then((response) => console.log(response));
+		dispatch(homeActions.fetchData());
+	}, [dispatch])
 
 	return (
 		<div className='home-page'>

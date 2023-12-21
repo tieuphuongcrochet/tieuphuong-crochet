@@ -4,7 +4,6 @@ import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-desi
 
 import demo from '../../assets/products/pd2.jpg'
 import './index.scss';
-import { Link } from 'react-router-dom';
 
 const CardProduct = (
 	{
