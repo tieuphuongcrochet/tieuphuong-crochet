@@ -43,44 +43,52 @@ export const API_URL = {
 }
 export const MOCK_FREE_PATTERNS = [
 	{
-		img: pattern1,
+		id: '1',
+		src: pattern1,
 		author: 'Tiểu Phương',
-		title: 'Mặt trời ú'
+		name: 'Mặt trời ú'
 	},
 	{
-		img: pattern2,
+		id: '1',
+		src: pattern2,
 		author: 'Susan family',
-		title: 'Gối hoa'
+		name: 'Gối hoa'
 	},
 	{
-		img: pattern3,
+		id: '1',
+		src: pattern3,
 		author: 'Vô danh',
-		title: 'Túi gấu nhỏ'
+		name: 'Túi gấu nhỏ'
 	},
 	{
-		img: pattern4,
+		id: '1',
+		src: pattern4,
 		author: 'Tiểu Vũ',
-		title: 'Búp bê'
+		name: 'Búp bê'
 	},
 	{
-		img: pattern5,
+		id: '1',
+		src: pattern5,
 		author: 'Vô sắc',
-		title: 'Cây thông noel'
+		name: 'Cây thông noel'
 	},
 	{
-		img: pattern6,
+		id: '1',
+		src: pattern6,
 		author: 'Sưu tầm',
-		title: 'Đầu cừu'
+		name: 'Đầu cừu'
 	},
 	{
-		img: pattern7,
+		id: '1',
+		src: pattern7,
 		author: 'Sưu tầm',
-		title: 'Thú nhỏ'
+		name: 'Thú nhỏ'
 	},
 	{
-		img: pattern8,
+		id: '1',
+		src: pattern8,
 		author: 'Sưu tầm',
-		title: 'Kẹo hồ lô'
+		name: 'Kẹo hồ lô'
 	},
 ];
 
@@ -101,7 +109,7 @@ export const FOOTER_LINK = [
 ];
 
 export const MOCK_BLOGS = [
-	{src: banner2, title: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam.'},
-	{src: banner3, title: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam. '},
-	{src: banner4, title: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam. '},
+	{src: banner2, name: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam.'},
+	{src: banner3, name: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam. '},
+	{src: banner4, name: 'Các ký hiệu trong chart móc len', description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam. '},
 ];

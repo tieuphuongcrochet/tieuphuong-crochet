@@ -12,7 +12,7 @@ const initialState: HomeState = {
 	data: {
 		products: [],
 		patterns: [],
-		freePattern: []
+		freePatterns: []
 	}
 };
 
@@ -42,7 +42,7 @@ export const homeActions = homeSlice.actions;
 export const selectHomeLoading = (state: RootState) => state.home.loading;
 export const selectHomeProducts = (state: RootState) => state.home.data.products;
 export const selectHomePatterns = (state: RootState) => state.home.data.patterns;
-export const selectHomeFreePatterns = (state: RootState) => state.home.data.freePattern;
+export const selectHomeFreePatterns = (state: RootState) => state.home.data.freePatterns;
 
 //Reducer
 const homeReducer = homeSlice.reducer;

@@ -1,25 +1,38 @@
 import React from 'react';
-import { Button, Card, Flex, Image } from 'antd';
-import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Card, Image } from 'antd';
 
 import demo from '../../assets/products/pd2.jpg'
 import './index.scss';
 
+interface CardPatternProps {
+	width?: string | number;
+	src?: string;
+	title: string;
+	author: string;
+	onReadDetail?: Function
+};
+
 const CardFreePattern = (
 	{
-		witdh,
+		width,
 		src,
 		title,
 		author,
 		onReadDetail
-	}) => {
+	}: CardPatternProps) => {
 	const { Meta } = Card;
+
+	const onDetail = () => {
+		if(onReadDetail instanceof Function){
+			onReadDetail();
+		}
+	}
 
 	return (
 		<Card
 			className='card-free-pattern'
 			bordered={false}
-			style={{ width: witdh || '100%' }}
+			style={{ width: width || '100%'}}
 			bodyStyle={{
 				overflow: 'hidden',
 			}}
@@ -33,7 +46,7 @@ const CardFreePattern = (
 		>
 			{title &&
 				<Meta
-					title={<span tabIndex={1} className='card-title' type="link" onClick={onReadDetail}>{title}</span>}
+					title={<span tabIndex={1} className='card-title' onClick={onDetail}>{title}</span>}
 					description={<div className='author'>Tác giả: {author}</div>}
 				/>
 			}

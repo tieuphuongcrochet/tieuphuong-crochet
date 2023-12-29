@@ -1,11 +1,11 @@
 import React from "react";
 import { Col, Row } from "antd";
 
-import ReadMoreBtn from "../../../components/ReadMoreBtn";
-import HeaderPart from "../../../components/HeaderPart";
+import ReadMoreBtn from "components/ReadMoreBtn";
+import HeaderPart from "./HeaderPart";
 
-import { MOCK_FREE_PATTERNS, ROUTE_PATH } from "../../../utils/constant";
-import CardFreePattern from "../../../components/CardPattern";
+import { MOCK_FREE_PATTERNS, ROUTE_PATH } from "utils/constant";
+import CardFreePattern from "components/CardPattern";
 
 const FreePatternsNode = () => {
 	return (
@@ -15,9 +15,9 @@ const FreePatternsNode = () => {
 			/>
 			<Row gutter={[30, 50]}>
 				{
-					MOCK_FREE_PATTERNS.map(({ title, author, img }, index) =>
+					MOCK_FREE_PATTERNS.map(({ name, author, src }, index) =>
 						<Col key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
-							<CardFreePattern src={img} title={title} author={author} />
+							<CardFreePattern src={src} title={name} author={author} />
 						</Col>
 					)
 				}

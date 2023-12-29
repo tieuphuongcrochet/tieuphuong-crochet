@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderPart from "../../../components/HeaderPart";
+import HeaderPart from "./HeaderPart";
 import { Col, Row } from "antd";
 import CardBlog from "../../../components/CardBlog";
 import ReadMoreBtn from "../../../components/ReadMoreBtn";

@@ -1,28 +1,6 @@
 @import './../../utils//variables.scss';
 
 .home-page {
-	.introduce {
-		width: 100%;
-
-
-		&-product,
-		&-pattern,
-		&-banner {
-
-			&-bg {
-				background-size: cover;
-				background-position: center center;
-			}
-		}
-
-		&-banner {
-			padding: 0 40px;
-
-			&-bg {
-				padding-top: 50%;
-			}
-		}
-	}
 
 	.slick-list {
 		height: 190px;

@@ -1,5 +1,5 @@
-import { Divider, Flex } from "antd";
 import React from "react";
+import { Divider, Flex } from "antd";
 import './style.scss';
 
 const HeaderPart = ({ title, description, ...restProps }) => {

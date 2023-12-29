@@ -3,7 +3,7 @@ import { Col, Flex, Row } from "antd";
 
 import CardProduct from "../../../components/CardProduct";
 import ReadMoreBtn from "../../../components/ReadMoreBtn";
-import HeaderPart from "../../../components/HeaderPart";
+import HeaderPart from "./HeaderPart";
 
 import { ROUTE_PATH } from "../../../utils/constant";
 import product2 from '../../../assets/products/pd3.jpg';

@@ -15,7 +15,7 @@ function* fetchDataHome() {
 		])
 	} catch (err) {
 		console.log('Failed to fetch data home', err);
-		put(homeActions.loadingSuccess())
+		yield put(homeActions.loadingSuccess())
 	}
 }
 

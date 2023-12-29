@@ -4,20 +4,6 @@
 	color: $textPrimaryColor;
 	background-color: $backgroundColor;
 	overflow: hidden;
-	padding: 0 30px;
-
-	@media screen and (min-width: $xxl) {
-		width: 1440px;
-		margin: 0 auto;
-	}
-
-	@media screen and (min-width: $md) {
-		padding: 0 50px;
-	}
-
-	@media screen and (min-width: $xl) {
-		padding: 0 100px;
-	}
 
 	.author,
 	.description {
@@ -31,8 +17,31 @@
 	>*,
 	.ant-card,
 	.ant-row .ant-flex,
+	.ant-breadcrumb,
 	.ant-menu {
 		font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
+	}
+
+	.introduce {
+		width: 100%;
+
+		&-product,
+		&-pattern,
+		&-banner {
+
+			&-bg {
+				background-size: cover;
+				background-position: center center;
+			}
+		}
+
+		&-banner {
+			padding: 0 40px;
+
+			&-bg {
+				padding-top: 50%;
+			}
+		}
 	}
 }
 
@@ -81,5 +90,22 @@
 				-webkit-transition: all .7s ease 0s;
 			}
 		}
+	}
+}
+
+.container {
+	padding: 0 30px;
+
+	@media screen and (min-width: $xxl) {
+		width: 1440px;
+		margin: 0 auto;
+	}
+
+	@media screen and (min-width: $md) {
+		padding: 0 50px;
+	}
+
+	@media screen and (min-width: $xl) {
+		padding: 0 100px;
 	}
 }
