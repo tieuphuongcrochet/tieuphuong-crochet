@@ -10,15 +10,16 @@ import BreadCrumbs from 'components/BreadCrumb';
 
 const LayoutPage = () => {
 	const { Content } = Layout;
-	const { pathname } = useLocation();
+	const location = useLocation();
+	console.log('location', location);
 
 	return (
 		<Layout className='layout-wrap'>
 			<HeaderPage />
 			{
-				pathname === ROUTE_PATH.HOME ?
+				location?.pathname === ROUTE_PATH.HOME ?
 					<HeaderHomePage /> :
-					<BreadCrumbs pathname={pathname} />
+					<BreadCrumbs pathname={location?.pathname} />
 			}
 			<Content className='content-wrap container'>
 				<Outlet />

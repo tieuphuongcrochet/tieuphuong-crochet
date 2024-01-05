@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import './style.scss';
 import breadcrumb_backgroud from 'assets/breadcrumbs/1.jpg';
 
-const BreadCrumbs = ({ background, pathname }: BreadcrumbProp) => {
+const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 	const initialCrumbs: BreadCrumbItem[] = [];
 	const [crumbs, setCrumbs] = useState(initialCrumbs);
 
 	useEffect(() => {
-		const temp: BreadCrumbItem[] = pathname.split('/')
+		const temp: BreadCrumbItem[] = pathname?.split('/')
 			.map(crumb => {
 				if (crumb === '') {
 					return {

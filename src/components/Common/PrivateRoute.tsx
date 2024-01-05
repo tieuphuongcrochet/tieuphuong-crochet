@@ -1,14 +1,20 @@
-import { Navigate, RouteProps } from 'react-router-dom';
+import { Navigate, Outlet, RouteProps, useLocation } from 'react-router-dom';
 import { ROUTE_PATH } from '../../utils/constant';
 import Admin from '../../pages/Admin';
+import { useAppSelector } from 'app/hooks';
 
-export const PrivateRoute = (props: RouteProps) => {
+export const PrivateRoute = () => {
 	//Check if user is logged in
 	//If yes, show route
 	//Otherwise, redirect to login page
-	console.log('private route');
-	const isLoggedIn = Boolean(localStorage.getItem('access_token'));
-	if (!isLoggedIn) return <Navigate to={ROUTE_PATH.LOGIN} replace={true} />;
+	const location = useLocation();
+  const isLoggedIn = useAppSelector((state) => state.auth.isLogggedIn);
 
-	return <Admin {...props} />
+  if (isLoggedIn === undefined) {
+    return null; // or a loading indicator, etc.
+  }
+
+  return isLoggedIn
+    ? <Outlet />
+    : <Navigate to={ROUTE_PATH.LOGIN} state={{ from: location }} replace />;	
 }

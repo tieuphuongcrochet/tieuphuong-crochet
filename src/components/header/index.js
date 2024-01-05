@@ -4,8 +4,8 @@ import { Layout } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
-import logo from '../../assets/logo.png';
-import { MENU_NAV, ROUTE_PATH } from '../../utils/constant';
+import logo from 'assets/logo.png';
+import { MENU_NAV, ROUTE_PATH } from 'utils/constant';
 import './index.scss';
 
 const HeaderPage = (props) => {
@@ -13,11 +13,10 @@ const HeaderPage = (props) => {
 
 	const { Header } = Layout;
 	const location = useLocation();
-	const { pathname } = location;
 	useEffect(() => {
-		setCurrentNav(pathname);
+		setCurrentNav(location?.pathname);
 
-	}, [pathname]);
+	}, []);
 
 	const onClickNav = (e) => {
 		console.log('click ', e);
