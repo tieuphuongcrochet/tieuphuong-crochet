@@ -1,24 +1,39 @@
-#components-form-demo-normal-login .login-form {
-  max-width: 300px;
-}
+@import 'utils/variables.scss';
 
-#components-form-demo-normal-login .login-form-forgot {
-  float: right;
-}
+.auth-page {
+  .logo {
+    max-height: 170px;
 
-#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
-  float: left;
-}
+    img {
+      max-height: 150px;
+      margin: 10px 0;
+    }
+  }
 
-#components-form-demo-normal-login .login-form-button {
-  width: 100%;
-}
+  .header-title {
+    .title {
+      margin-bottom: 10px;
+    }
 
-.login-page {
-  .login-box {
-    width: 60%;
-    margin-top: 50%;
-    margin-left: 50%;
-    transform: translate(-50%, -50%);
+    color: $textPrimaryColor;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .ant-row {
+    justify-content: center;
+
+    &>* {
+      font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
+
+      label {
+        color: $textPrimaryColor;
+      }
+    }
+
+    .note {
+      font-style: italic;
+      color: $textSecondColor;
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { ListParams, ListResponse, Product } from "../models";
-import { API_URL } from "../utils/constant";
+import { ListParams, ListResponse, Product } from "models";
+import { API_URL } from "utils";
 import axiosClient from "./axiosClient";
 
 const productApi = {

@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../models/user";
-
-export interface LoginPayload {
-	username: string;
-	password: string;
-};
+import { LoginPayload, User } from "models/user";
 
 export interface AuthState {
 	isLogggedIn: boolean;
@@ -20,20 +15,23 @@ const initialState: AuthState = {
 }
 
 const authSlice = createSlice({
-	name: 'auth',  
+	name: 'auth',
 	initialState,
 	reducers: {
 		login(state, action: PayloadAction<LoginPayload>) {
 			state.logging = true;
 		},
 
-		loginSuccess(state, action: PayloadAction<User>) {
+		loginSuccess(state) {
 			state.isLogggedIn = true;
 			state.logging = false;
+		},
+
+		saveCurrentUser(state, action: PayloadAction<User>) {
 			state.currentUser = action.payload;
 		},
 
-		loginFailed(state, action: PayloadAction<string>) {
+		loginFailed(state) {
 			state.logging = false;
 		},
 

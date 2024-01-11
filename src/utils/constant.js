@@ -13,6 +13,11 @@ import banner2 from '../assets/bn4.jpg';
 import banner3 from '../assets/bn3.jpg';
 import banner4 from '../assets/banner2.jpg';
 
+export const LOCAL_STORAGE_NAMES = {
+  SYSTEM_AUTHORITY: 'system-authority',
+	ACCESS_TOKEN: 'accessToken'
+};
+
 export const ROUTE_PATH = {
 	HOME: '/',
 	SHOP: '/shop',
@@ -21,7 +26,9 @@ export const ROUTE_PATH = {
 	ABOUT: '/about',
 	CONTACT: '/contact',
 	LOGIN: '/login',
-	ADMIN: '/admin'
+	ADMIN: '/admin',
+	CATEGORY: '/category',
+	REGISTER: '/register',
 };
 
 export const MENU_NAV = [
@@ -33,14 +40,24 @@ export const MENU_NAV = [
 	{ path: ROUTE_PATH.CONTACT, name: 'Contact' },
 ];
 
-export const API_URL = {
-	HOME: '/home',
-	PRODUCT: '/product',
-	PATTERN: '/pattern',
-	PRODUCT_CATEGORY: '/product-category',
-	FREE_PATTERN: '/free-pattern',
-	BLOG: '/blog'
-}
+export const REGEX = {
+  PHONE_NUMBER: /^(0|\+?84)\d{9}$/,
+  // eslint-disable-next-line no-control-regex
+  EMAIL: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  EMAIL_AIA: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@aia\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
+  IDENTIFY: /^[0-9]{9}$/,
+  POLICY_NUMBER: /^[a-zA-Z]{1}[0-9]{9}$/,
+  BILLING: /^[0-9]{7}$/,
+  NUMBER: /^\d+$/,
+  FW_POLNUM: /^[C|U][0-9]{9}$/,
+  VN_TEXT_ONLY: /^[a-zA-Z 0-9\.\,\+\-\;\&\_\\\)\(\/\" a|à|á|ạ|ả|ã â|ầ|ấ|ậ|ẩ|ẫ ă|ằ|ắ|ặ|ẳ|ẵ đ e|è|é|ẹ|ẻ|ẽ ê|ề|ế|ệ|ể|ễ i|ì|í|ị|ỉ|ĩ o|ò|ó|ọ|ỏ|õ ô|ồ|ố|ộ|ổ|ỗ ơ|ờ|ớ|ợ|ở|ỡ u|ù|ú|ụ|ủ|ũ ư|ừ|ứ|ự|ử|ữ y|ỳ|ý|ỵ|ỷ|ỹ]*$/,
+  ID_NO: /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/,
+  VN_NAME: /^[a-zA-Z0-9 aàáạảã âầấậẩẫ ăằắặẳẵ đ eèéẹẻẽ êềếệểễ iìíịỉĩ oòóọỏõ ôồốộổỗ ơờớợởỡ uùúụủũ ưừứựửữ yỳýỵỷỹ]*$/i,
+  MULTI_EMAIL: /^([A-Za-z0-9\.|-|_]*[@]{1}[A-Za-z0-9\.|-|_]*[.]{1}[a-z]{2,5})(;[A-Za-z0-9\.|-|_]*[@]{1}[A-Za-z0-9\.|-|_]*[.]{1}[a-z]{2,5})*?$/,
+  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*\-_!+=\[\]{}|\\:',.?/`~"();])(?!.*@\.)[A-Za-z\d@#$%^&*\-_!+=\[\]{}|\\:',.?/`~"();]{8,}$/,
+  USERNAME: /^(\d|\w)+$/
+};
+
 export const MOCK_FREE_PATTERNS = [
 	{
 		id: '1',

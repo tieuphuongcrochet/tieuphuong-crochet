@@ -12,6 +12,8 @@ import About from "pages/about";
 import { PrivateRoute } from "components/Common/PrivateRoute";
 import Login from "pages/login";
 import NotFound from "pages/NotFound";
+import CategoryList from "pages/category";
+import RegisterPage from "pages/login/Register";
 
 const router = createBrowserRouter([
   {
@@ -45,14 +47,23 @@ const router = createBrowserRouter([
         element: <About />
       },
       {
-        path: ROUTE_PATH.ADMIN,
-        element: <PrivateRoute/>,
-      }
+        path: ROUTE_PATH.CATEGORY,
+        element: <CategoryList />
+      },
     ]
   },
   {
     path: ROUTE_PATH.LOGIN,
     element: <Login />
+  },
+  {
+    path: ROUTE_PATH.REGISTER,
+    element: <RegisterPage />
+  },
+  // Admin page
+  {
+    path: ROUTE_PATH.ADMIN,
+    element: <PrivateRoute />,
   },
   {
     path: '*',
