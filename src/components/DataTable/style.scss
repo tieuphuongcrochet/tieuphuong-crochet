@@ -1,47 +1,5 @@
-@import 'utils//variables.scss';
+@import 'utils/variables.scss';
 
-.data-list {
-	.col-data {
-		padding-top: 60px;
-		padding-left: 24px;
-	}
-
-	.direction-icon {
-		margin-right: 30px;
-
-		.ant-btn {
-			padding: 4px 10px;
-
-			&:hover {
-				background: none;
-
-				.anticon {
-					color: $colorPrimary;
-				}
-			}
-
-			.anticon {
-				color: $textPrimaryColor;
-			}
-		}
-	}
-
-	.search-wrap,
-	.pagination {
-		margin-top: 60px;
-		padding: 15px 0;
-		border-top: 1px solid $borderColor;
-		border-bottom: 1px solid $borderColor;
-	}
-
-	.pagination {
-		display: flex;
-		justify-content: flex-end;
-		position: relative;
-
-		.ant-pagination-total-text {
-			position: absolute;
-			left: 0;
-		}
-	}
+.search-table {
+    padding-bottom: 30px;
 }

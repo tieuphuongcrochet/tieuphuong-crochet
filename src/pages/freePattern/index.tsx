@@ -1,5 +1,5 @@
 import React from 'react';
-import DataTable from 'components/DataTable';
+import ViewTable from 'components/ViewTable';
 import { MOCK_FREE_PATTERNS } from 'utils';
 
 const FreePatterns = () => {
@@ -13,7 +13,7 @@ const FreePatterns = () => {
 	}
 	return (
 		<div className='free-patterns-page'>
-			<DataTable
+			<ViewTable
 				isFreePatterns
 				dataSource={MOCK_FREE_PATTERNS}
 				onChange={onChange}

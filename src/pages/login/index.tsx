@@ -5,21 +5,22 @@ import './style.scss';
 import { useAppDispatch } from '../../app/hooks';
 import { authActions } from './authSlice';
 import { REGEX, ROUTE_PATH } from 'utils';
-import { Link, redirect } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import logo from 'assets/logo.png';
 
 const Login = () => {
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
+	const navigate = useNavigate();
 
 	const onFinish = (values: any) => {
 		console.log('Received values of form: ', values);
 		const callback = () => {
-			// redirect(ROUTE_PATH.HOME);
-			window.location.replace(ROUTE_PATH.HOME);
+			navigate('/');
+			// window.location.replace(path);
 			form.resetFields();
+		};
 
-		}
 		dispatch(authActions.login({
 			params: {
 				email: values.email,

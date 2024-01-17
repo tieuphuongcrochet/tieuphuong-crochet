@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pattern, Product } from 'models';
-import DataTable from 'components/DataTable';
+import DataTable from 'components/ViewTable';
 
 const ShopPage = () => {
 

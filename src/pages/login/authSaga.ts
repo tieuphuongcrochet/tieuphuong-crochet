@@ -1,40 +1,35 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { authActions } from "./authSlice";
-import { call, delay, fork, put, take, takeLatest } from "redux-saga/effects";
-import { redirect, useNavigate } from "react-router-dom";
-import { LOCAL_STORAGE_NAMES, ROUTE_PATH } from "utils/constant";
+import { call, delay, fork, put, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { redirect } from "react-router-dom";
+import { LOCAL_STORAGE_NAMES, ROLES, ROUTE_PATH } from "utils/constant";
 import userApi from "api/userApi";
 import { LoginPayload, LoginRes, User } from "models";
 import { all } from "axios";
 
 function* handleLogin(payload: LoginPayload) {
 	try {
-		// yield delay(1000);
+
 		const { params, callback } = payload;
 		console.log('login payload', payload);
 		const data: LoginRes = {
 			email: params.email,
 			role: 'ADMIN',
-			accessToken:'accessTOkenasdfdjkdjkfsdjfdskfdjfdfdkjfgfdgfdg',
+			accessToken: 'accessTOkenasdfdjkdjkfsdjfdskfdjfdfdkjfgfdgfdg',
 			tokenType: 'Bear'
 		}
 		// const data: LoginRes = yield call(userApi.login, params)
 		console.log('response loggin', data);
 		// localStorage.setItem(LOCAL_STORAGE_NAMES.ACCESS_TOKEN, data.accessToken);
-		// yield call()
 		const currentUser: User = {
 			email: params.email,
 			role: data.role
 		}
-		yield all([
-			put(authActions.saveCurrentUser(currentUser)),
-			put(authActions.loginSuccess()),
-			// put(redirect(ROUTE_PATH.LOGIN))
-		])
-		callback  && callback();
-
-		// redirect to admin page
-		// yield put(navigate(ROUTE_PATH.ADMIN));
+		yield put(authActions.loginSuccess());
+		yield put(authActions.saveCurrentUser(currentUser));
+		// yield all([
+		// ])
+		callback instanceof Function && callback();
 
 	} catch (error) {
 		console.log('error login', error);

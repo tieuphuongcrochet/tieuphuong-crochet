@@ -13,6 +13,11 @@ import banner2 from '../assets/bn4.jpg';
 import banner3 from '../assets/bn3.jpg';
 import banner4 from '../assets/banner2.jpg';
 
+export const ROLES = {
+	ADMIN: 'ADMIN',
+	USER: 'USER'
+}
+
 export const LOCAL_STORAGE_NAMES = {
   SYSTEM_AUTHORITY: 'system-authority',
 	ACCESS_TOKEN: 'accessToken'
@@ -27,8 +32,12 @@ export const ROUTE_PATH = {
 	CONTACT: '/contact',
 	LOGIN: '/login',
 	ADMIN: '/admin',
-	CATEGORY: '/category',
 	REGISTER: '/register',
+	ADMIN_PATTERNS: '/admin/patterns',
+	AMIN_PRODUCTS: '/admin/products',
+	ADMIN_USERS: '/admin/users',
+	ADMIN_POSTS: '/admin/blog',
+	ADMIN_CATEGORY: '/admin/category'
 };
 
 export const MENU_NAV = [

@@ -1,31 +1,40 @@
-import React from 'react';
-import { Layout } from 'antd';
-import { Outlet, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { FloatButton, Layout } from 'antd';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import FooterPage from '../../components/footer';
 import HeaderPage from '../../components/header';
 import './index.scss';
-import { ROUTE_PATH } from 'utils';
+import { ROLES, ROUTE_PATH } from 'utils';
 import HeaderHomePage from './components/HeaderHomePage';
 import BreadCrumbs from 'components/BreadCrumb';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 const LayoutPage = () => {
 	const { Content } = Layout;
 	const location = useLocation();
 	console.log('location', location);
-
+	const currentUser = useAppSelector((state) => state.auth.currentUser);
 	return (
-		<Layout className='layout-wrap'>
-			<HeaderPage />
-			{
-				location?.pathname === ROUTE_PATH.HOME ?
-					<HeaderHomePage /> :
-					<BreadCrumbs pathname={location?.pathname} />
+		<>
+			{currentUser?.role === ROLES.ADMIN ?
+				<Navigate to={ROUTE_PATH.ADMIN} replace={true} />
+				:
+				<Layout className='layout-wrap'>
+					<HeaderPage />
+					{
+						location?.pathname === ROUTE_PATH.HOME ?
+							<HeaderHomePage /> :
+							<BreadCrumbs pathname={location?.pathname} />
+					}
+					<Content className='content-wrap container'>
+						<Outlet />
+					</Content>
+					<FooterPage />
+					<FloatButton.BackTop visibilityHeight={0} />
+
+				</Layout>
 			}
-			<Content className='content-wrap container'>
-				<Outlet />
-			</Content>
-			<FooterPage />
-		</Layout>
+		</>
 	)
 }
 
