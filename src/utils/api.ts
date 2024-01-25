@@ -6,9 +6,16 @@ export const API_URL = {
 	PRODUCT_CATEGORY: '/product-category',
 	FREE_PATTERN: '/free-pattern',
 	BLOG: '/blog',
+
+	// Common CRUD
+	CREATE: 'create',
+	DETAIL: 'detail',
+	PAGINATION: 'pagination',
+
 	// Auth
 	LOGIN: 'auth/login',
-	SIGNUP: 'auth/sigup',
+	SIGNUP: 'auth/signup',
+	LOGOUT: 'auth/login',
 	RESET_PASSWORD: 'auth/login',
-	LOGOUT: 'auth/login'
+	REFRESH_TOKEN: 'auth/refresh-token'
 }

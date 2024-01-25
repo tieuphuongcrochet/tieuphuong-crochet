@@ -19,6 +19,7 @@ import UsersList from 'pages/Admin/users';
 import PostsList from 'pages/Admin/posts';
 import ProductsList from 'pages/Admin/products';
 import CategoriesList from 'pages/Admin/categories';
+import CRUPattern from 'pages/Admin/patterns/CRUPattern';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATH.ADMIN_PATTERNS,
         element: <PatternsList />,
+      },
+      {
+        path: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`,
+        element: <CRUPattern />,
       },
       {
         path: ROUTE_PATH.ADMIN_USERS,

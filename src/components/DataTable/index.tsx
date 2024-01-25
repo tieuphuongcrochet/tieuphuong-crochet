@@ -4,7 +4,19 @@ import { DataTableProps, DataType } from 'models';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { filter } from 'lodash';
 
-const DataTable = (props: DataTableProps) => {
+const DataTable = ({
+  dataSource,
+  customColumns,
+  isShowImage,
+  visiblePagination,
+  totalPageSize,
+  onEditRecord,
+  onDeleteRecord,
+  onPageChange,
+  onShowSizeChange,
+  ...restProps
+}: DataTableProps) => {
+  
   const defaultColumns = [
     {
       title: 'ID',
@@ -21,17 +33,17 @@ const DataTable = (props: DataTableProps) => {
       key: 'x',
       width: '110px',
       render: (_: any, record: DataType) =>
-        props.dataSource && props.dataSource.length > 0 ?
+        dataSource && dataSource.length > 0 ?
           <>
             <Button
               style={{ marginRight: '10px' }}
               shape='circle'
               icon={<EditOutlined />}
-              onClick={() => props.onEditRecord(record.key)}
+              onClick={() => onEditRecord(record.key)}
             />
             <Popconfirm
               title="Sure to delete?"
-              onConfirm={() => props.onDeleteRecord(record.key)}>
+              onConfirm={() => onDeleteRecord(record.key)}>
               <Button
                 shape='circle'
                 icon={<DeleteOutlined />}
@@ -43,14 +55,14 @@ const DataTable = (props: DataTableProps) => {
   ];
 
   const newColumns: TableColumnsType<DataType> =
-    props.customColumns ?
+    customColumns ?
       [
         {
           title: 'ID',
           dataIndex: 'key',
           width: '150px',
         },
-        (props.isShowImage ?
+        (isShowImage ?
           {
             title: 'Image',
             dataIndex: 'imgUrl',
@@ -66,24 +78,24 @@ const DataTable = (props: DataTableProps) => {
           title: 'Name',
           dataIndex: 'name',
         },
-        ...props.customColumns,
+        ...customColumns,
         {
           title: 'Action',
           dataIndex: 'action',
           key: 'x',
           width: '110px',
           render: (_: any, record: DataType) =>
-            props.dataSource && props.dataSource.length > 0 ?
+            dataSource && dataSource.length > 0 ?
               <>
                 <Button
                   style={{ marginRight: '10px' }}
                   shape='circle'
                   icon={<EditOutlined />}
-                  onClick={() => props.onEditRecord(record.key)}
+                  onClick={() => onEditRecord(record.key)}
                 />
                 <Popconfirm
                   title="Sure to delete?"
-                  onConfirm={() => props.onDeleteRecord(record.key)}>
+                  onConfirm={() => onDeleteRecord(record.key)}>
                   <Button
                     shape='circle'
                     icon={<DeleteOutlined />}
@@ -93,11 +105,22 @@ const DataTable = (props: DataTableProps) => {
               </> : null
         }] : [...defaultColumns];
 
+  const paginationProps = visiblePagination ? {
+    pageSizeOptions: [10, 20, 50],
+    showSizeChanger: true,
+    showQuickJumper: true,
+    ...(totalPageSize !== -1 ? { total: totalPageSize } : {}),
+    ...(onPageChange ? { onchange: onPageChange } : {}),
+    ...(onShowSizeChange ? { onShowSizeChange } : {}),
+    showTotal: (total: number, range: any) => `${range[0]}-${range[1]} of ${total} items`
+  } : false;
   return (
     <Table
       bordered
+      dataSource={dataSource}
       columns={filter(newColumns, col => Object.keys(col).length !== 0)}
-      {...props}
+      pagination={paginationProps}
+      {...restProps}
     />
   );
 };

@@ -2,7 +2,6 @@ import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType } from 'models';
-import product4 from 'assets/products/pd6.jpg';
 
 const ProductsList = () => {
     const originData: DataType[] = [];

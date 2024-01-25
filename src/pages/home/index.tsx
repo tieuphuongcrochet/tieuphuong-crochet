@@ -6,12 +6,11 @@ import SocialBox from '../../components/Social';
 import ProductsNode from './components/ProductsNode';
 import BlogsNode from './components/BlogsNode';
 import FreePatternsNode from './components/FreePatternsNode';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch } from 'app/hooks';
 import { homeActions } from './homeSlice';
 import './index.scss';
 
 const HomePage = () => {
-
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(homeActions.fetchData());

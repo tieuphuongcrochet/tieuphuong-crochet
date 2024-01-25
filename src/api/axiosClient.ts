@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 const axiosClient = axios.create({
 	baseURL: 'http://localhost:8080',
 	headers: {
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json;charset=UTF-8'
 	}
 });
 
@@ -22,10 +22,10 @@ axiosClient.interceptors.response.use(function (response: AxiosResponse) {
 	// Any status code that lie within the range of 2xx cause this function to trigger
 	// Do something with response data
 	return response.data;
-}, function (error) {
+}, function (error: AxiosError) {
 	// Any status codes that falls outside the range of 2xx cause this function to trigger
-	// Do something with response error
-	return Promise.reject(error);
+	// Do something with response error	
+	return Promise.reject(error.response?.data);
 });
 
 export default axiosClient;

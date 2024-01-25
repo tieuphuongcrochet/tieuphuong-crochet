@@ -33,7 +33,7 @@ const items = [
         label: 'Patterns',
         children: [
             {
-                key: 'addPattern',
+                key: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`,
                 label: 'Add pattern'
             },
             {
@@ -64,7 +64,7 @@ const items = [
         label: 'Posts',
         children: [
             {
-                key: 'addPost',
+                key: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`,
                 label: 'Add post'
             },
             {

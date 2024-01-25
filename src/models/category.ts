@@ -1,4 +1,12 @@
+import { DataType } from "./table";
+
 export interface Category {
     id?: string;
-    name: string;
+    categoryName: string;
 };
+
+export interface CategoryState {
+    loading: boolean;
+    data: DataType[];
+    totalRecord: number;
+}

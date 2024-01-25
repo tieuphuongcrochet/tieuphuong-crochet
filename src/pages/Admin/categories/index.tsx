@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CRUCategory from './ModalCUCategory';
-import { DataType } from 'models';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { SearchProps } from 'antd/es/input';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { categoryAction } from './categorySlice';
 
 const CategoriesList = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const dispatch = useAppDispatch();
+	const {data, loading} = useAppSelector((state) => state.category);
+
+	useEffect(()=> {
+		dispatch(categoryAction.fetchData(''))
+	},[]);
 
 	const showModal = () => {
 		setIsModalOpen(true);
 	}
-
-	const originData: DataType[] = [];
 
 	const onEditRecord = (rd: React.Key) => {
 		console.log('edit rd', rd);
@@ -32,9 +37,11 @@ const CategoriesList = () => {
 				<SearchTable onAddNew={showModal} onSearch={onSearch} />
 				<div className='admin-table'>
 					<DataTable
-						dataSource={originData}
+						dataSource={data}
 						onDeleteRecord={onDeleteRecord}
 						onEditRecord={onEditRecord}
+						loading={loading}
+						visiblePagination
 					/>
 				</div>
 			</div>

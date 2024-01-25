@@ -1,5 +1,7 @@
 import React from 'react';
 import { Form, Input, Modal,} from 'antd';
+import { useAppDispatch } from 'app/hooks';
+import { categoryAction } from './categorySlice';
 
 
 interface PropsCUCategory {
@@ -9,12 +11,13 @@ interface PropsCUCategory {
 
 const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
   const [form] = Form.useForm();
+	const dispatch = useAppDispatch();
 
   const handleOk = () => {
     form.validateFields()
       .then((values) => {
         console.log('form values', values);
-
+        dispatch(categoryAction.cUCategory(values));
         handleCancel();
       })
       .catch((errorInfo) => {
@@ -39,8 +42,8 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
           form={form}
         >
           <Form.Item
-            name="name"
-            label="Name"
+            name="categoryName"
+            label="Category name "
             rules={[{ required: true, message: 'Please enter category name' }]}
           >
             <Input ref={el => { setTimeout(() => el?.focus(), 0); }} placeholder="Category name" />

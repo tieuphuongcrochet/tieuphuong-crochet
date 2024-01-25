@@ -1,23 +1,23 @@
 import React from 'react';
-import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, Flex, Form, Input, Layout, Row } from 'antd';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Col, Flex, Form, Input, Row } from 'antd';
 import './style.scss';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { authActions } from './authSlice';
 import { REGEX, ROUTE_PATH } from 'utils';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from 'assets/logo.png';
 
 const Login = () => {
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
+	const { loading } = useAppSelector((state) => state.auth);
 
 	const onFinish = (values: any) => {
 		console.log('Received values of form: ', values);
 		const callback = () => {
-			navigate('/');
-			// window.location.replace(path);
+			navigate(ROUTE_PATH.HOME);
 			form.resetFields();
 		};
 
@@ -92,12 +92,17 @@ const Login = () => {
 								<Checkbox>Remember me</Checkbox>
 							</Form.Item>
 
-							<a className="login-form-forgot" href="">
+							<Link className="login-form-forgot" to="#">
 								Forgot password
-							</a>
+							</Link>
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" className="login-form-button">
+							<Button
+								type="primary"
+								htmlType="submit"
+								className="login-form-button"
+								disabled={loading}
+							>
 								Log in
 							</Button>
 							Or <Link to={ROUTE_PATH.REGISTER}>register now!</Link>

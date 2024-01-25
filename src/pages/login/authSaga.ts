@@ -1,40 +1,36 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { authActions } from "./authSlice";
-import { call, delay, fork, put, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { authActions, selectIsLoggedIn } from "./authSlice";
+import { all, call, fork, put, select, take, takeLatest } from "redux-saga/effects";
 import { redirect } from "react-router-dom";
-import { LOCAL_STORAGE_NAMES, ROLES, ROUTE_PATH } from "utils/constant";
+import { COOKIE_NAMES, LOCAL_STORAGE_NAMES, ROUTE_PATH } from "utils/constant";
 import userApi from "api/userApi";
-import { LoginPayload, LoginRes, User } from "models";
-import { all } from "axios";
+import { AuthPayload, ErrorRes, LoginRes } from "models";
+import { setCookie } from "utils";
 
-function* handleLogin(payload: LoginPayload) {
+const saveToken = ({ accessToken, refreshToken }: LoginRes) => {
+	accessToken && setCookie(COOKIE_NAMES.ACCESS_TOKEN, accessToken, 1);
+	refreshToken && setCookie(COOKIE_NAMES.REFRESHER_TOKEN, refreshToken, 1);
+};
+
+function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 	try {
-
+		yield put(authActions.loadingRequest());
 		const { params, callback } = payload;
-		console.log('login payload', payload);
-		const data: LoginRes = {
-			email: params.email,
-			role: 'ADMIN',
-			accessToken: 'accessTOkenasdfdjkdjkfsdjfdskfdjfdfdkjfgfdgfdg',
-			tokenType: 'Bear'
+		const data: LoginRes = yield call(userApi.login, params)
+		if (data?.accessToken) {
+			saveToken({ accessToken: data.accessToken, refreshToken: data.refreshToken });
 		}
-		// const data: LoginRes = yield call(userApi.login, params)
-		console.log('response loggin', data);
-		// localStorage.setItem(LOCAL_STORAGE_NAMES.ACCESS_TOKEN, data.accessToken);
-		const currentUser: User = {
-			email: params.email,
-			role: data.role
-		}
-		yield put(authActions.loginSuccess());
-		yield put(authActions.saveCurrentUser(currentUser));
-		// yield all([
-		// ])
+
+		yield all([
+			put(authActions.loadingSuccess()),
+			put(authActions.saveCurrentUser(data))
+		])
+
 		callback instanceof Function && callback();
 
-	} catch (error) {
-		console.log('error login', error);
-
-		yield put(authActions.loginFailed())
+	} catch (error: unknown) {
+		const knownError = error as ErrorRes;
+		yield put(authActions.requestFailed(knownError))
 	}
 
 }
@@ -49,11 +45,10 @@ function* handleLogout() {
 function* watchLoginFlow() {
 	// đợi đến khi user dispatch action login
 	while (true) {
-		const isLogggedIn = Boolean(localStorage.getItem(LOCAL_STORAGE_NAMES.ACCESS_TOKEN));
+		const isLogggedIn: boolean = yield select(selectIsLoggedIn)
 		if (!isLogggedIn) {
-			const action: PayloadAction<LoginPayload> = yield take(authActions.login.type);
-			console.log('action', action);
-			yield fork(handleLogin, action.payload);
+			const action: PayloadAction<AuthPayload> = yield take(authActions.login.type);
+			yield fork(handleLogin, action);
 		}
 
 		yield take(authActions.logout.type);
@@ -61,9 +56,24 @@ function* watchLoginFlow() {
 	}
 }
 
-export function* authSaga() {
+function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
+	try {
+		yield put(authActions.loadingRequest());
+		const { params, callback } = payload;
+		yield call(userApi.registerAccount, params)
+		yield put(authActions.loadingSuccess());
+		callback instanceof Function && callback();
+	} catch (error: unknown) {
+		const knownError = error as ErrorRes;
+		yield put(authActions.requestFailed(knownError))
+	}
+}
+
+export default function* authSaga() {
 	console.log('auth saga');
-	yield fork(watchLoginFlow);
+	// yield fork(watchLoginFlow);
+	yield takeLatest(authActions.login.type, handleLogin);
+	yield takeLatest(authActions.resigter.type, handleRegister);
 }
 
 

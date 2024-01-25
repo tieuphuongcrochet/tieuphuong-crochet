@@ -2,10 +2,12 @@ import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType } from 'models';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from 'utils';
 
 const PatternsList = () => {
-
     const originData: DataType[] = [];
+	const navigate = useNavigate();
 
     const onEditRecord = (rd: React.Key) => {
         console.log('edit rd', rd);
@@ -27,7 +29,9 @@ const PatternsList = () => {
         },
     ]
 
-    const onAddNew = () => { }
+    const onAddNew = () => {
+        navigate(`${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`)
+    }
     return (
         <>
             <div className='patterns-admin'>
