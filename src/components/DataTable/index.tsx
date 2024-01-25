@@ -1,100 +1,128 @@
-import { Input, Button, Flex, Tooltip, Col, Pagination } from 'antd';
-import React, { useState } from 'react';
-import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
-import { Pattern, Product } from 'models';
-import CardFreePattern from 'components/CardPattern';
-import './style.scss';
-import CardProduct from 'components/CardProduct';
+import React from 'react';
+import { Button, Image, Popconfirm, Table, TableColumnsType } from 'antd';
+import { DataTableProps, DataType } from 'models';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { filter } from 'lodash';
 
-interface DataTableProps {
-	dataSource: Product[] | Pattern[]
-	isFreePatterns?: boolean;
-	total?: number;
-	pageSize?: number;
-	onChange?: Function;
-	onSeach?: Function
-}
+const DataTable = ({
+  dataSource,
+  customColumns,
+  isShowImage,
+  visiblePagination,
+  totalPageSize,
+  onEditRecord,
+  onDeleteRecord,
+  onPageChange,
+  onShowSizeChange,
+  ...restProps
+}: DataTableProps) => {
+  
+  const defaultColumns = [
+    {
+      title: 'ID',
+      dataIndex: 'key',
+      width: '150px',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'x',
+      width: '110px',
+      render: (_: any, record: DataType) =>
+        dataSource && dataSource.length > 0 ?
+          <>
+            <Button
+              style={{ marginRight: '10px' }}
+              shape='circle'
+              icon={<EditOutlined />}
+              onClick={() => onEditRecord(record.key)}
+            />
+            <Popconfirm
+              title="Sure to delete?"
+              onConfirm={() => onDeleteRecord(record.key)}>
+              <Button
+                shape='circle'
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
 
-const DataTable = (
-	{ dataSource,
-		isFreePatterns = false,
-		total = 0,
-		pageSize = 12,
-		onChange,
-		onSeach
-	}: DataTableProps) => {
+          </> : null
+    },
+  ];
 
-	const [direction, setDirection] = useState<string>('horizontal');
-	const { Search } = Input;
+  const newColumns: TableColumnsType<DataType> =
+    customColumns ?
+      [
+        {
+          title: 'ID',
+          dataIndex: 'key',
+          width: '150px',
+        },
+        (isShowImage ?
+          {
+            title: 'Image',
+            dataIndex: 'imgUrl',
+            width: '120px',
+            render: (_: any, rd: DataType) =>
+              <Image
+                width={88}
+                src={rd.imgUrl}
+                fallback="data:image/png;base64,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"
+              />
+          } : {}),
+        {
+          title: 'Name',
+          dataIndex: 'name',
+        },
+        ...customColumns,
+        {
+          title: 'Action',
+          dataIndex: 'action',
+          key: 'x',
+          width: '110px',
+          render: (_: any, record: DataType) =>
+            dataSource && dataSource.length > 0 ?
+              <>
+                <Button
+                  style={{ marginRight: '10px' }}
+                  shape='circle'
+                  icon={<EditOutlined />}
+                  onClick={() => onEditRecord(record.key)}
+                />
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => onDeleteRecord(record.key)}>
+                  <Button
+                    shape='circle'
+                    icon={<DeleteOutlined />}
+                  />
+                </Popconfirm>
 
-	const onSearchBtn = (value: string) => {
-		console.log('search value', value);
-		if (onSeach instanceof Function) {
-			onSeach(value);
-		}
-	};
+              </> : null
+        }] : [...defaultColumns];
 
-	const onChangePage = (page: number, pageSize: number) => {
-		console.log('child node, page', page, 'pagesize', pageSize);
-		if (onChange instanceof Function) {
-			onChange(page, pageSize);
-		}
-	}
-	return (
-		<div className='data-list'>
-
-			{/* search area */}
-			<Flex className='search-wrap'>
-				{/* direction icon */}
-				<div className='direction-icon'>
-					<Tooltip color='#fd9b9b' title="Grid">
-						<Button type="text" onClick={() => setDirection('horizontal')}>
-							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fd9b9b' : '#292929' }} />
-						</Button>
-					</Tooltip>
-					<Tooltip color='#fd9b9b' title="List">
-						<Button type="text" onClick={() => setDirection('vertical')}>
-							<MenuOutlined style={{ color: direction === 'vertical' ? '#fd9b9b' : '#292929' }} />
-						</Button>
-					</Tooltip>
-				</div>
-				{/* Search */}
-				<Search
-					allowClear
-					placeholder="input search text"
-					style={{ width: 304 }}
-					onSearch={onSearchBtn}
-				/>
-			</Flex>
-
-			{/* Data source */}
-			<Flex vertical={direction === 'vertical'} wrap='wrap'>
-				{
-					dataSource.map((item, index) =>
-						<Col className='col-data' key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
-							{
-								isFreePatterns ?
-									<CardFreePattern title={item.name} author={item.name} src={item.src} /> :
-									<CardProduct title={item.name} price={item.price || 0} src={item.src} />
-							}
-						</Col>
-					)
-				}
-			</Flex>
-
-			{/* Pagination area */}
-			<Pagination
-				className='pagination'
-				responsive
-				total={total}
-				pageSize={pageSize}
-				showSizeChanger
-				showQuickJumper
-				showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-				onChange={onChangePage}
-			/>
-		</div>
-	)
-}
+  const paginationProps = visiblePagination ? {
+    pageSizeOptions: [10, 20, 50],
+    showSizeChanger: true,
+    showQuickJumper: true,
+    ...(totalPageSize !== -1 ? { total: totalPageSize } : {}),
+    ...(onPageChange ? { onchange: onPageChange } : {}),
+    ...(onShowSizeChange ? { onShowSizeChange } : {}),
+    showTotal: (total: number, range: any) => `${range[0]}-${range[1]} of ${total} items`
+  } : false;
+  return (
+    <Table
+      bordered
+      dataSource={dataSource}
+      columns={filter(newColumns, col => Object.keys(col).length !== 0)}
+      pagination={paginationProps}
+      {...restProps}
+    />
+  );
+};
 
 export default DataTable;

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
-import { Form, Input, Button, Layout, Row, Col, Flex } from 'antd';
+import { Form, Input, Button, Row, Col, Flex } from 'antd';
 import { REGEX, ROUTE_PATH } from "utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from 'assets/logo.png';
+import { User } from "models";
+import { useAppDispatch } from "app/hooks";
+import { authActions } from "./authSlice";
 import './style.scss';
 
 const RegisterPage = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const [isDisable, setIsDisable] = useState(false);
 	const [form] = Form.useForm();
@@ -15,26 +20,22 @@ const RegisterPage = () => {
 		form.resetFields();
 	}
 
-	const onSubmitRegister = async (values: any) => {
+	const onSubmitRegister = async (values: User) => {
 		const callback = () => {
 			setIsDisable(true);
-			// setTimeout(() => {
-			//   const stringUrlCallback = !isEmpty(callbackUrl) ? `?callbackUrl=${callbackUrl}` : '';
-			//   const paramQuery = setPageQuery(
-			//     {
-			//       clientId: CLIENT_ID,
-			//       appUrl: `${window.location.origin}/icm/user/login${stringUrlCallback}`,
-			//     },
-			//     { addQueryPrefix: true }
-			//   );
-			//   const loginUrl = `${SSO_URL}/login${paramQuery}`;
-			//   window.location.replace(loginUrl);
-			// }, 1500);
+			navigate(ROUTE_PATH.LOGIN);
 			form.resetFields();
-		}
+		};
+
 		if (values) {
-			console.log('values');
-			// registerAccountDispatch({ params, callback })
+			const params: User = {
+				name: values.name,
+				email: values.email,
+				password: values.password,
+				role: values.email === 'thamphuong.study@gmail.com' ? 'ADMIN' : 'USER'
+			};
+			console.log('params', params);
+			dispatch(authActions.resigter({ params, callback }));
 		}
 	}
 
@@ -60,7 +61,7 @@ const RegisterPage = () => {
 					>
 						<Form.Item
 							label='Full name'
-							name="fullname"
+							name="name"
 							rules={[
 								{
 									required: true,
@@ -68,7 +69,11 @@ const RegisterPage = () => {
 								},
 							]}
 						>
-							<Input maxLength={100} placeholder="Fullname" />
+							<Input
+								maxLength={100}
+								placeholder="Fullname"
+								ref={el => { setTimeout(() => el?.focus(), 0); }}
+							/>
 						</Form.Item>
 						{/* <Form.Item
 							name="username"

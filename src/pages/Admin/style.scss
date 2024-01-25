@@ -1,0 +1,19 @@
+@import 'utils/variables.scss';
+
+.table-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: $textPrimaryColor;
+}
+
+.dashboard-wrap {
+    .logo-sidebar {
+      img {
+        height: 75px;
+      }
+    }
+    .ant-menu {
+      border: 0;
+    }
+  }
+  

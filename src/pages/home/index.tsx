@@ -11,9 +11,7 @@ import { homeActions } from './homeSlice';
 import './index.scss';
 
 const HomePage = () => {
-
 	const dispatch = useAppDispatch();
-
 	useEffect(() => {
 		dispatch(homeActions.fetchData());
 	}, [dispatch])

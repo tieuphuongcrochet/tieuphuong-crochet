@@ -1,15 +1,17 @@
-import { configureStore, ThunkAction, Action, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import authReducer from 'pages/login/authSlice';
 import homeReducer from 'pages/home/homeSlice';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { history } from 'utils';
+import categoryReducer from 'pages/Admin/categories/categorySlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   home: homeReducer,
-  router: connectRouter(history)
+  router: connectRouter(history),
+  category: categoryReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

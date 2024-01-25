@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import router from './config/routerConfig';
 import './index.scss';
+import { ConfigProvider } from 'antd';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -13,9 +14,17 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#fd9b9b',
+          },
+        }}
+      >
+        <RouterProvider router={router} />
+      </ConfigProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function
