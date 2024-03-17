@@ -4,6 +4,7 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import category from 'api/category';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
+import { notification } from 'antd';
 
 
 function* fetchCategories(payload: any) {
@@ -13,8 +14,8 @@ function* fetchCategories(payload: any) {
 		const data: Category[] = yield call(category.getAll);
 		console.log('Category data', data);
 		const newData = map(data, item => ({
-			key: item.id,
-			name: item.categoryName
+			id: item.id,
+			name: item.name,
 		}));
 		yield all([
 			put(categoryAction.saveData(newData)),
@@ -32,6 +33,8 @@ function *handleCreateUpdate({payload}: PayloadAction<DataType>){
 		yield put(categoryAction.loadingRequest());
 		const data: DataType[] = yield call(category.add, payload);
 		console.log('Category data', data);
+		notification.success({message: 'Successfully', description: 'Create sucess a new category'})
+
 		yield call(fetchCategories, '');
 		yield put(categoryAction.loadingSuccess());
 

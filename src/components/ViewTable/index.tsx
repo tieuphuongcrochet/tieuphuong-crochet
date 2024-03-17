@@ -1,18 +1,21 @@
 import { Input, Button, Flex, Tooltip, Col, Pagination } from 'antd';
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
-import { Pattern, Product } from 'models';
+import { DataType, Pattern, Product } from 'models';
 import CardFreePattern from 'components/CardPattern';
 import './style.scss';
 import CardProduct from 'components/CardProduct';
 
-interface DataTableProps {
-	dataSource: Product[] | Pattern[]
+interface ViewTableProps {
+	dataSource: Product[] | Pattern[] | DataType[];
 	isFreePatterns?: boolean;
 	total?: number;
 	pageSize?: number;
 	onChange?: Function;
-	onSeach?: Function
+	onSeach?: Function;
+	pageIndex?: number;
+	loading?: boolean;
+	onReadDetail: (key: React.Key) => void
 }
 
 const ViewTable = (
@@ -21,8 +24,10 @@ const ViewTable = (
 		total = 0,
 		pageSize = 12,
 		onChange,
-		onSeach
-	}: DataTableProps) => {
+		onSeach,
+		pageIndex = 0,
+		onReadDetail,
+	}: ViewTableProps) => {
 
 	const [direction, setDirection] = useState<string>('horizontal');
 	const { Search } = Input;
@@ -39,7 +44,8 @@ const ViewTable = (
 		if (onChange instanceof Function) {
 			onChange(page, pageSize);
 		}
-	}
+	};
+
 	return (
 		<div className='data-list'>
 
@@ -70,12 +76,15 @@ const ViewTable = (
 			{/* Data source */}
 			<Flex vertical={direction === 'vertical'} wrap='wrap'>
 				{
-					dataSource.map((item, index) =>
+					dataSource && dataSource.map((item, index) =>
 						<Col className='col-data' key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
 							{
 								isFreePatterns ?
-									<CardFreePattern title={item.name} author={item.name} src={item.src} /> :
-									<CardProduct title={item.name} price={item.price || 0} src={item.src} />
+									<CardFreePattern
+										pattern={item}
+										onReadDetail={() => onReadDetail(item.id || '')}
+									/> :
+									<CardProduct title={item.name || 'N/A'} price={item.price || 0} src={item.src} />
 							}
 						</Col>
 					)
@@ -87,6 +96,10 @@ const ViewTable = (
 				className='pagination'
 				responsive
 				total={total}
+				// if not use value = -1}
+				{
+				...(pageIndex !== - 1 ? { current: pageIndex + 1 } : {})
+				}
 				pageSize={pageSize}
 				showSizeChanger
 				showQuickJumper

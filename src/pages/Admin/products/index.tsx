@@ -32,13 +32,13 @@ const ProductsList = () => {
             <div className='category-page'>
                 <SearchTable onAddNew={onAddNew} onSearch={onSearch} />
                 <div className='admin-table'>
-                    <DataTable
+                    {/* <DataTable
                         dataSource={originData}
                         onDeleteRecord={onDeleteRecord}
                         onEditRecord={onEditRecord}
                         customColumns={columns}
                         isShowImage
-                    />
+                    /> */}
                 </div>
             </div>
         </>

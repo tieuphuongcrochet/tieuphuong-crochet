@@ -5,16 +5,16 @@ import axiosJWT from './axiosJWT';
 
 const category = {
 	getAll(): Promise<DataType> {
-		const url = `${API_URL.PRODUCT_CATEGORY}/getAll`;
+		const url = API_URL.ALL_CATEGORY;
 		return axiosClient.get(url);
 	},
     add(data: DataType): Promise<DataType> {
-        const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
+        const url = `${API_URL.CATEGORY}/${API_URL.CREATE}`
 		return axiosJWT.post(url, data);
 	},
 
 	update(data: DataType): Promise<DataType> {
-        const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
+        const url = `${API_URL.CATEGORY}/${API_URL.CREATE}`
 		return axiosJWT.post(url, { data });
 	},
 

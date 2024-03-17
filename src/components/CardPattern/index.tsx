@@ -1,52 +1,45 @@
 import React from 'react';
 import { Card, Image } from 'antd';
 
-import demo from '../../assets/products/pd2.jpg'
+import demo from 'assets/products/pd2.jpg'
 import './index.scss';
+import { DataType, Pattern, Product } from 'models';
 
 interface CardPatternProps {
 	width?: string | number;
-	src?: string;
-	title: string;
-	author: string;
-	onReadDetail?: Function
+	pattern: Pattern | Product | DataType;
+	onReadDetail: Function
 };
 
 const CardFreePattern = (
 	{
+		pattern = {name: '', author: '', src: ''},
 		width,
-		src,
-		title,
-		author,
 		onReadDetail
 	}: CardPatternProps) => {
-	const { Meta } = Card;
 
-	const onDetail = () => {
-		if(onReadDetail instanceof Function){
-			onReadDetail();
-		}
-	}
+	const { Meta } = Card;
+	const { name, src, author } = pattern;
 
 	return (
 		<Card
 			className='card-free-pattern'
 			bordered={false}
-			style={{ width: width || '100%'}}
+			style={{ width: width || '100%' }}
 			bodyStyle={{
 				overflow: 'hidden',
 			}}
 			cover={
 				<>
 					<Image
-						alt={title}
+						alt={name}
 						src={src || demo} />
 				</>
 			}
 		>
-			{title &&
+			{name &&
 				<Meta
-					title={<span tabIndex={1} className='card-title' onClick={onDetail}>{title}</span>}
+					title={<span tabIndex={1} className='card-title' onClick={()=>onReadDetail()}>{name}</span>}
 					description={<div className='author'>Tác giả: {author}</div>}
 				/>
 			}

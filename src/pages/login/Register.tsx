@@ -72,7 +72,6 @@ const RegisterPage = () => {
 							<Input
 								maxLength={100}
 								placeholder="Fullname"
-								ref={el => { setTimeout(() => el?.focus(), 0); }}
 							/>
 						</Form.Item>
 						{/* <Form.Item

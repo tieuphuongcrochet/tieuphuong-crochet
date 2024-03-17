@@ -6,12 +6,16 @@ import homeReducer from 'pages/home/homeSlice';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { history } from 'utils';
 import categoryReducer from 'pages/Admin/categories/categorySlice';
+import productReducer from 'pages/Admin/products/productSlice';
+import patternReducer from 'saga/pattern/patternSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   home: homeReducer,
   router: connectRouter(history),
-  category: categoryReducer
+  category: categoryReducer,
+  pattern: patternReducer,
+  product: productReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

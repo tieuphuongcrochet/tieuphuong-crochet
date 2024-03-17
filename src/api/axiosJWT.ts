@@ -5,15 +5,23 @@ import { API_URL, COOKIE_NAMES, getCookie } from "utils";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { authActions } from "pages/login/authSlice";
+import { ErrorData, LoginRes, RefreshTokenRes } from "models";
+import { notification } from "antd";
 
 const refreshToken = async () => {
     console.log('refreshe token', getCookie(COOKIE_NAMES.REFRESHER_TOKEN));
-    
+    let refreshData: RefreshTokenRes = {
+        jwtToken: '',
+        refreshToken: ''
+    };
+
     try {
-        const res = await axiosClient.post(`${API_URL.REFRESH_TOKEN}?refreshToken=${getCookie(COOKIE_NAMES.REFRESHER_TOKEN)}`);
-        return res.data;
+        refreshData = await axiosClient.post(`${API_URL.REFRESH_TOKEN}?refreshToken=${getCookie(COOKIE_NAMES.REFRESHER_TOKEN)}`);
+        console.log('resfresh api', refreshData);
+        return refreshData;
     } catch (err) {
         console.log(err);
+        return refreshData
     }
 };
 
@@ -38,11 +46,11 @@ axiosJWT.interceptors.request.use(async function (config: InternalAxiosRequestCo
         let date = new Date();
         if (tokenInfo.exp && tokenInfo.exp < date.getTime() / 1000) {
             console.log('run reshehj');
-            
+
             const data = await refreshToken();
             console.log('rfresh', data);
-            
-            config.headers.Authorization = `Bearer ${data.refreshToken}`;
+
+            config.headers.Authorization = `Bearer ${data.jwtToken}`;
             return config;
         }
         config.headers.Authorization = `Bearer ${getCookie(COOKIE_NAMES.ACCESS_TOKEN)}`;
@@ -61,6 +69,9 @@ axiosJWT.interceptors.response.use(function (response: AxiosResponse) {
 }, function (error: AxiosError) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error	
+    const { response } = error
+    const message = (response?.data as ErrorData).message;
+    notification.error({message: 'Failed', description: message})
     return Promise.reject(error);
 });
 

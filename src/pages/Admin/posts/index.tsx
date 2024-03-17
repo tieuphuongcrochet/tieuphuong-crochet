@@ -33,12 +33,12 @@ const PostsList = () => {
             <div className='posts-admin'>
                 <SearchTable onAddNew={onAddNew} onSearch={onSearch} />
                 <div className='admin-table'>
-                    <DataTable
+                    {/* <DataTable
                         dataSource={originData}
                         onDeleteRecord={onDeleteRecord}
                         onEditRecord={onEditRecord}
                         customColumns={columns}
-                    />
+                    /> */}
                 </div>
             </div>
         </>

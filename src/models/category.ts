@@ -2,7 +2,9 @@ import { DataType } from "./table";
 
 export interface Category {
     id?: string;
-    categoryName: string;
+    name: string;
+    chilren?: any[];
+    parentId?: string;
 };
 
 export interface CategoryState {

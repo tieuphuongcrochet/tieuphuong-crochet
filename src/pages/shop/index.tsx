@@ -37,9 +37,14 @@ const ShopPage = () => {
 		},
 	];
 
+	const onViewProduct = (id: React.Key) => {
+		console.log('onview product', id);
+	};
+
 	return (
 		<div className='shop-page'>
-			<DataTable dataSource={dataList}/>
+			<DataTable onReadDetail={(id) => onViewProduct(id)}
+				dataSource={dataList} />
 		</div>
 	)
 }

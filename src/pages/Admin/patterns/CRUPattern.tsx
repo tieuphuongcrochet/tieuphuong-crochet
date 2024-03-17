@@ -1,105 +1,149 @@
-import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal } from "antd";
-import { useState } from "react";
-import ImgCrop from 'antd-img-crop';
+import { Form, Input, TreeSelect, Button, Row, Col, Flex } from "antd";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import UploadFiles from "components/Upload";
+import { FileUpload, Pattern, initialListParams } from "models";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTE_PATH } from "utils";
+import { useEffect } from "react";
+import { cloneDeep, map } from "lodash";
+import { patternAction, selectPattern } from "saga/pattern/patternSlice";
+import { categoryAction } from "../categories/categorySlice";
 
 const CRUPattern = () => {
     const [form] = Form.useForm();
     const { TextArea } = Input;
     const { Item } = Form;
-    // type FileType = Parameters<UploadProps, 'beforeUpload'>[0];
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const pattern: Pattern = useAppSelector(selectPattern);
+    const categories = useAppSelector(state => state.category.data);
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([]);
+    console.log('pattern detail', pattern);
+    
+    useEffect(() => {
+        dispatch(categoryAction.fetchData(initialListParams))
 
-    const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-    };
-
-    const getBase64 = (file: File): Promise<string> =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
-        });
-
-
-    const handleCancel = () => setPreviewOpen(false);
-
-    const handlePreview = async (file: UploadFile) => {
-        console.log('file', file);
-
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj as File);
+        if (id) {
+            dispatch(patternAction.fetchPattern(id))
         }
+    }, []);
 
-        setPreviewImage(file.url || (file.preview as string));
-        setPreviewOpen(true);
-        setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-    };
+    useEffect(() => {
+        if (id && pattern.name) {
+            const tempData = cloneDeep(pattern);
+            form.setFieldsValue(tempData);
+        }
+    }, [pattern, id]);
+
+    const onSubmitForm = (values: Pattern) => {
+        console.log('values', values);
+        let sendData = { ...values }
+        if (id) {
+            sendData = {
+                ...sendData,
+                id: id
+            }
+        }
+        const callback = () => {
+            form.resetFields();
+            navigate(ROUTE_PATH.ADMIN_PATTERNS);
+        };
+        dispatch(patternAction.cUPattern({ params: sendData, callback }));
+    }
+
+    const onCancel = () => {
+        form.resetFields();
+        dispatch(patternAction.resetPattern());
+        navigate(-1);
+    }
 
     return (<>
         <div className="crupattern-page">
+            <Flex justify="center">
+                <h1>{id ? 'Update the pattern' : 'Create a new pattern'}</h1>
+            </Flex>
             <Form layout="vertical"
                 name='CUCategoryForm'
                 form={form}
+                onFinish={onSubmitForm}
+                className="form-wrap"
             >
-                <Item
-                    name="name"
-                    label="Pattern name:"
-                    rules={[{ required: true, message: 'Please enter pattern name' }]}
-                >
-                    <Input ref={el => { setTimeout(() => el?.focus(), 0); }} placeholder="Category name" />
-                </Item>
+                <Row gutter={48}>
+                    <Col xs={20} md={12}>
+                        <Item
+                            name="name"
+                            label="Pattern name:"
+                            rules={[{ required: true, message: 'Please enter pattern name' }]}
+                        >
+                            <Input placeholder="Category name" />
+                        </Item>
+                    </Col>
+                    <Col xs={20} md={12}>
+                        <Row gutter={24}>
+                            <Col span={12}>
+                                <Item
+                                    name="author"
+                                    label="Author:"
+                                    rules={[{ required: true, message: 'Please enter the author' }]}
+                                >
+                                    <Input placeholder="Author" />
+                                </Item>
+                            </Col>
+                            <Col span={12}>
+                                <Item
+                                    name='category_id'
+                                    label='Category'
+                                >
+                                    <TreeSelect
+                                        treeData={map(categories, c => ({
+                                            value: c.id,
+                                            title: c.name,
+                                            // children
+                                        }))}
+                                    />
+                                </Item>
+                            </Col>
+
+                        </Row>
+                    </Col>
+                </Row>
                 <Item
                     name="description"
                     label="Description:"
                 >
                     <TextArea placeholder="Description" />
                 </Item>
+
                 <Item
-                    name='category'
-                    label='Category'
-                >
-                    <TreeSelect
-                        treeData={[
-                            { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
-                        ]} />
+                    name='images'
+                    label='Photos'>
+                    <UploadFiles
+                        files={pattern.images || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ images: files });
+                        }}
+                    />
                 </Item>
                 <Item
-                    name='pattern'
+                    name='files'
                     label='Pattern'>
-                    <ImgCrop
-                        rotationSlider
-                        cropShape='rect'
-                        showGrid
-                        aspectSlider
-                        showReset
-                    >
-                        <Upload
-                            // action={file => uploadFile(file)}
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChange}
-                            onPreview={handlePreview}
-                        >
-                            {fileList.length < 20 && '+ Upload'}
-                        </Upload>
-                    </ImgCrop>
+                    <UploadFiles
+                        files={pattern.files || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ files: files });
+                        }}
+                    />
                 </Item>
+                <Flex justify='center' gap={24}>
+                    <Button className="btn-form" type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                    <Button className="btn-form" onClick={onCancel}>Cancel</Button>
+                </Flex>
             </Form>
 
         </div>
-        <Modal
-            open={previewOpen}
-            title={previewTitle}
-            footer={null}
-            onCancel={handleCancel}
-        >
-            <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
     </>)
 }
 

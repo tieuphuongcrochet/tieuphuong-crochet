@@ -1,9 +1,30 @@
+import { FileUpload } from "./common";
+import { DataType } from "./table";
+
 export interface Pattern {
-	id: string;
+	id?: string;
 	name: string;
 	price?: number;
 	description?: string;
-	bytes?: string[];
+	files?: FileUpload[];
 	author?: string;
 	src?: string;
+	images?: FileUpload[];
+}
+
+export interface PayloadFile {
+	file: any;
+	resolve?: any
+}
+
+export interface PatternPayload {
+	params: Pattern;
+	callback: Function
+};
+
+export interface PatternState {
+	loading: boolean;
+	data: DataType[];
+	totalRecord: number;
+	pattern: Pattern;
 }

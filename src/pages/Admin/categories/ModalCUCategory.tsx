@@ -1,17 +1,33 @@
-import React from 'react';
-import { Form, Input, Modal,} from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input, Modal, Select, } from 'antd';
 import { useAppDispatch } from 'app/hooks';
 import { categoryAction } from './categorySlice';
+import { DefaultOptionType } from 'antd/es/select';
+import { Category } from 'models';
 
 
 interface PropsCUCategory {
+  categorySelected: Category;
+  setCategorySelected: Function;
   isModalOpen: boolean;
-  setIsModalOpen: Function
+  setIsModalOpen: Function;
+  parents: DefaultOptionType[]
 }
 
-const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
+const ModalCUCategory = ({ isModalOpen, setIsModalOpen, parents, categorySelected, setCategorySelected }: PropsCUCategory) => {
   const [form] = Form.useForm();
-	const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (Object.keys(categorySelected).length > 0) {
+      const formData: Category = {
+        id: categorySelected.id,
+        name: categorySelected.name,
+        parentId: categorySelected.parentId
+      }
+      form.setFieldsValue(formData);
+    }
+  }, [categorySelected]);
 
   const handleOk = () => {
     form.validateFields()
@@ -26,6 +42,7 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
   };
 
   const handleCancel = () => {
+    categorySelected && setCategorySelected({});
     form.resetFields();
     setIsModalOpen(false);
   };
@@ -33,7 +50,7 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
   return (
     <>
       <Modal
-        title="Basic Modal"
+        title={Object.keys(categorySelected).length > 0 ? 'Update the category' : 'Create a new category'}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}>
@@ -42,11 +59,20 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen }: PropsCUCategory) => {
           form={form}
         >
           <Form.Item
-            name="categoryName"
+            name="name"
             label="Category name "
             rules={[{ required: true, message: 'Please enter category name' }]}
           >
-            <Input ref={el => { setTimeout(() => el?.focus(), 0); }} placeholder="Category name" />
+            <Input placeholder="Category name" />
+          </Form.Item>
+          <Form.Item
+            name="parentId"
+            label="Parents"
+          >
+            <Select
+              allowClear
+              options={parents}
+            />
           </Form.Item>
         </Form>
       </Modal>

@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthPayload, ErrorRes, LoginRes, User } from "models/user";
+import { AuthPayload, ErrorData, LoginRes } from "models/user";
 
 export interface AuthState {
 	loading?: boolean;
 	isLogggedIn: boolean;
 	currentUser?: LoginRes;
-	error?: ErrorRes;
+	error?: ErrorData;
 };
 
 const initialState: AuthState = {
@@ -28,7 +28,7 @@ const authSlice = createSlice({
 			state.isLogggedIn = true;
 			state.currentUser = action.payload;
 		},
-		requestFailed(state, action: PayloadAction<ErrorRes>) {
+		requestFailed(state, action: PayloadAction<ErrorData>) {
 			state.loading = false;
 			state.error = action.payload;
 		},

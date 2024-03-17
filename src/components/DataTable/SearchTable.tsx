@@ -4,14 +4,19 @@ import { PlusOutlined } from '@ant-design/icons';
 import { SearchTableProps } from 'models';
 import './style.scss';
 
-const SearchTable = ({ onAddNew, onSearch, textAddNew }: SearchTableProps) => {
+const SearchTable = ({ onAddNew, onSearch, textAddNew, loading }: SearchTableProps) => {
     const { Search } = Input;
 
     return (
         <Flex className='search-table' justify='space-between'>
             <div className='search'>
-                <Search placeholder='Search'
+                <Search
+                    allowClear
+                    size='large'
+                    placeholder='Search'
                     onSearch={onSearch}
+                    loading={loading}
+                    enterButton
                 />
             </div>
             <Button type="primary" onClick={onAddNew} icon={<PlusOutlined />}>

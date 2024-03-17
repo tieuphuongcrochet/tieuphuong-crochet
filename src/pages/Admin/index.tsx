@@ -49,7 +49,7 @@ const items = [
         label: 'Products',
         children: [
             {
-                key: 'addProduct',
+                key: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`,
                 label: 'Add product'
             },
             {
@@ -64,7 +64,7 @@ const items = [
         label: 'Posts',
         children: [
             {
-                key: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`,
+                key: `${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.CREATE}`,
                 label: 'Add post'
             },
             {

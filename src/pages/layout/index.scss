@@ -94,18 +94,35 @@
 }
 
 .container {
-	padding: 0 30px;
+	padding: 30px;
+}
 
-	@media screen and (min-width: $xxl) {
+// responsive
+@media screen and (min-width: $xxl) {
+	.container {
 		width: 1440px;
 		margin: 0 auto;
 	}
+}
 
-	@media screen and (min-width: $md) {
-		padding: 0 50px;
+@media screen and (min-width: $md) {
+	.container {
+		padding: 50px;
 	}
+}
 
-	@media screen and (min-width: $xl) {
-		padding: 0 100px;
+@media screen and (min-width: $xl) {
+	.container {
+		padding: 80px 100px;
 	}
+}
+
+.transition-transform {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+	transition-duration: .15s;
+}
+
+.rote-180 {
+	transform: rotate(180deg);
 }

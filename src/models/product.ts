@@ -5,8 +5,9 @@ export interface Product {
 	name: string,
 	price?: number,
 	description?: string,
-	bytes?: string[];
+	files?: string[];
 	src?: string;
+	author?: string;
 }
 
 export interface HomeData {

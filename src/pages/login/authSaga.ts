@@ -4,7 +4,7 @@ import { all, call, fork, put, select, take, takeLatest } from "redux-saga/effec
 import { redirect } from "react-router-dom";
 import { COOKIE_NAMES, LOCAL_STORAGE_NAMES, ROUTE_PATH } from "utils/constant";
 import userApi from "api/userApi";
-import { AuthPayload, ErrorRes, LoginRes } from "models";
+import { AuthPayload, ErrorData, LoginRes } from "models";
 import { setCookie } from "utils";
 
 const saveToken = ({ accessToken, refreshToken }: LoginRes) => {
@@ -29,7 +29,7 @@ function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 		callback instanceof Function && callback();
 
 	} catch (error: unknown) {
-		const knownError = error as ErrorRes;
+		const knownError = error as ErrorData;
 		yield put(authActions.requestFailed(knownError))
 	}
 
@@ -64,7 +64,7 @@ function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
 		yield put(authActions.loadingSuccess());
 		callback instanceof Function && callback();
 	} catch (error: unknown) {
-		const knownError = error as ErrorRes;
+		const knownError = error as ErrorData;
 		yield put(authActions.requestFailed(knownError))
 	}
 }

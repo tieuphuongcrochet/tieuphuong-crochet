@@ -1,18 +1,43 @@
-export interface PaginationParams {
-	_limit: number;
-	_page: number;
-	_total: number;
+export interface Pagination {
+	last: boolean;
+	pageNo: number;
+	pageSize: number;
+	totalElements: number;
+	totalPages: number;
 }
 
 export interface ListResponse<T> {
-	data: T[],
-	pagination: PaginationParams
+	contents: T[];
+	last: boolean;
+	pageNo: number;
+	pageSize: number;
+	totalElements: number;
+	totalPages: number;
 };
 
 export interface ListParams {
 	_pageNo: number;
 	_pageSize: number;
-	_sortBy: string;
-	_sortDir: 'asc' | 'desc';
+	_sortBy?: string;
+	_sortDir?: 'asc' | 'desc';
 	[key: string]: any;
+};
+
+export const initialListParams: ListParams = {
+	_pageNo: 0,
+	_pageSize: 10,
+	_sortBy: 'id',
+	_sortDir: 'asc',
+	text: ''
+};
+
+export interface ListTablePayload<T> {
+	data: T[];
+	total: number;
+}
+
+export interface FileUpload {
+	fileContent: string;
+	fileName: string;
+	url: string;
 };

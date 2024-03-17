@@ -12,6 +12,16 @@ import banner2 from '../assets/bn4.jpg';
 import banner3 from '../assets/bn3.jpg';
 import banner4 from '../assets/banner2.jpg';
 
+export const LANGUAGES = {
+  VN: 'vi-VN',
+  EN: 'en-US'
+};
+
+export const LANGUAGES_LIST = [
+  {    key: LANGUAGES.VN, label: 'VN'  },
+  {    key: LANGUAGES.EN, label: 'EN'  },
+];
+
 export const ROLES = {
   ADMIN: 'ADMIN',
   USER: 'USER',
@@ -47,12 +57,12 @@ export const ROUTE_PATH = {
 };
 
 export const MENU_NAV = [
-  { path: ROUTE_PATH.HOME, name: 'Home' },
-  { path: ROUTE_PATH.SHOP, name: 'Shop' },
-  { path: ROUTE_PATH.FREEPATTERNS, name: 'Free patterns' },
-  { path: ROUTE_PATH.BLOG, name: 'Blog' },
-  { path: ROUTE_PATH.ABOUT, name: 'About' },
-  { path: ROUTE_PATH.CONTACT, name: 'Contact' },
+  { path: ROUTE_PATH.HOME, name: 'menu_nav.home' },
+  { path: ROUTE_PATH.SHOP, name: 'menu_nav.shop' },
+  { path: ROUTE_PATH.FREEPATTERNS, name: 'menu_nav.freePattern' },
+  { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
+  { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
+  { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
 ];
 
 export const REGEX = {

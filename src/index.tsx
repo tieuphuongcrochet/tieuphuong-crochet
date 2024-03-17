@@ -7,23 +7,26 @@ import { RouterProvider } from 'react-router-dom';
 import router from './config/routerConfig';
 import './index.scss';
 import { ConfigProvider } from 'antd';
+import LanguageProvider from 'components/LanguageProvider';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#fd9b9b',
-          },
-        }}
-      >
-        <RouterProvider router={router} />
-      </ConfigProvider>
-    </Provider>
+    <LanguageProvider>
+      <Provider store={store}>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#fd9b9b',
+            },
+          }}
+        >
+          <RouterProvider router={router} />
+        </ConfigProvider>
+      </Provider>
+    </LanguageProvider>
   </React.StrictMode >
 );
 

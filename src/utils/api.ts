@@ -3,13 +3,22 @@ export const API_URL = {
 	HOME: '/home',
 	PRODUCT: '/product',
 	PATTERN: '/pattern',
-	PRODUCT_CATEGORY: '/product-category',
 	FREE_PATTERN: '/free-pattern',
 	BLOG: '/blog',
+
+	// Category
+	CATEGORY: '/category',
+	// Get sub categories
+	SUB_CATEGORY: '/category/get-sub-categories',
+	// Get parent categories
+	PARENT_CATEGORY: '/category/get-parent-categories',
+	ALL_CATEGORY: '/category/get-all-categories',
 
 	// Common CRUD
 	CREATE: 'create',
 	DETAIL: 'detail',
+	UPDATE: 'update',
+	DELETE: 'delete',
 	PAGINATION: 'pagination',
 
 	// Auth
@@ -17,5 +26,6 @@ export const API_URL = {
 	SIGNUP: 'auth/signup',
 	LOGOUT: 'auth/login',
 	RESET_PASSWORD: 'auth/login',
-	REFRESH_TOKEN: 'auth/refresh-token'
+	REFRESH_TOKEN: 'auth/refresh-token',
+	UPLOAD_FILE: 'firebase-storage/upload-file'
 }

@@ -19,7 +19,14 @@ export interface LoginRes {
 	refreshToken: string;
 }
 
-export interface ErrorRes {
+export interface RefreshTokenRes{
+	refreshToken: string;
+	jwtToken: string;
+}
+
+export interface ErrorData {
 	message: string;
 	statusCode: string;
+	code?: string;
+	error?: string;
 }

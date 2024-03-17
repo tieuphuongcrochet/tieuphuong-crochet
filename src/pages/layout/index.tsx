@@ -7,7 +7,7 @@ import './index.scss';
 import { ROLES, ROUTE_PATH } from 'utils';
 import HeaderHomePage from './components/HeaderHomePage';
 import BreadCrumbs from 'components/BreadCrumb';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppSelector } from 'app/hooks';
 
 const LayoutPage = () => {
 	const { Content } = Layout;
@@ -31,7 +31,6 @@ const LayoutPage = () => {
 					</Content>
 					<FooterPage />
 					<FloatButton.BackTop visibilityHeight={0} />
-
 				</Layout>
 			}
 		</>

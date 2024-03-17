@@ -4,23 +4,32 @@ import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { SearchProps } from 'antd/es/input';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { categoryAction } from './categorySlice';
+import { categoryAction, selectCategories, selectLoading, selectTotalRecords } from './categorySlice';
+import { Category, initialListParams } from 'models';
+import { map } from 'lodash';
 
 const CategoriesList = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const dispatch = useAppDispatch();
-	const {data, loading} = useAppSelector((state) => state.category);
+	const [params, setParams] = useState(initialListParams)
+	const [categorySelected, setCategorySelected] = useState({} as Category);
 
-	useEffect(()=> {
-		dispatch(categoryAction.fetchData(''))
-	},[]);
+	const dispatch = useAppDispatch();
+	const loading = useAppSelector(selectLoading);
+	const categories = useAppSelector(selectCategories);
+	const totalRecords = useAppSelector(selectTotalRecords);
+
+	useEffect(() => {
+		dispatch(categoryAction.fetchData(params));
+	}, []);
 
 	const showModal = () => {
 		setIsModalOpen(true);
 	}
 
-	const onEditRecord = (rd: React.Key) => {
-		console.log('edit rd', rd);
+	const onEditRecord = (rd: React.Key, record: any) => {
+		console.log('edit rd', record);
+		setCategorySelected(record);
+		setIsModalOpen(true);
 	}
 
 	const onDeleteRecord = (rd: React.Key) => {
@@ -29,6 +38,24 @@ const CategoriesList = () => {
 
 	const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
 		console.log(info?.source, value);
+		const newParams = {
+			...initialListParams,
+			text: value
+		};
+		setParams(newParams)
+		dispatch(categoryAction.fetchData(newParams));
+	}
+
+	const onPageChange = (pagination: any, filters: any, sorter: any) => {
+		const { current, pageSize } = pagination;
+		const newParams = {
+			...params,
+			_pageNo: current - 1,
+			_pageSize: pageSize,
+		}
+		setParams(newParams)
+		console.log('page', pagination, 'newParams', newParams);
+		dispatch(categoryAction.fetchData(newParams));
 	}
 
 	return (
@@ -37,17 +64,27 @@ const CategoriesList = () => {
 				<SearchTable onAddNew={showModal} onSearch={onSearch} />
 				<div className='admin-table'>
 					<DataTable
-						dataSource={data}
+						loading={loading}
+						dataSource={categories}
 						onDeleteRecord={onDeleteRecord}
 						onEditRecord={onEditRecord}
-						loading={loading}
 						visiblePagination
+						pageSize={params._pageSize}
+						pageIndex={params._pageNo}
+						totalPageSize={totalRecords}
+						onChange={onPageChange}
 					/>
 				</div>
 			</div>
 			<CRUCategory
+				categorySelected={categorySelected}
+				setCategorySelected={setCategorySelected}
 				isModalOpen={isModalOpen}
 				setIsModalOpen={setIsModalOpen}
+				parents={map(categories, c => ({
+					label: c.name,
+					value: c.id
+				}))}
 			/>
 		</>
 	)

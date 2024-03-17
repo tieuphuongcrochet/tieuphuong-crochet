@@ -20,6 +20,9 @@ import PostsList from 'pages/Admin/posts';
 import ProductsList from 'pages/Admin/products';
 import CategoriesList from 'pages/Admin/categories';
 import CRUPattern from 'pages/Admin/patterns/CRUPattern';
+import CRUProduct from 'pages/Admin/products/CRUProduct';
+import CRUPost from 'pages/Admin/posts/CRUPost';
+import PatternDetail from 'pages/freePattern/PatternDetail';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATH.FREEPATTERNS,
         element: <FreePatterns />,
+      },
+      {
+        path: `${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <PatternDetail />
       },
       {
         path: ROUTE_PATH.BLOG,
@@ -71,10 +78,12 @@ const router = createBrowserRouter([
         index: true,
         element: <Dashboard />,
       },
+      // category
       {
         path: ROUTE_PATH.ADMIN_CATEGORY,
         element: <CategoriesList />,
       },
+      //patern
       {
         path: ROUTE_PATH.ADMIN_PATTERNS,
         element: <PatternsList />,
@@ -84,19 +93,34 @@ const router = createBrowserRouter([
         element: <CRUPattern />,
       },
       {
+        path: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <CRUPattern />,
+      },
+      // user
+      {
         path: ROUTE_PATH.ADMIN_USERS,
         element: <UsersList />,
       },
+      // product
       {
         path: ROUTE_PATH.AMIN_PRODUCTS,
         element: <ProductsList />,
       },
       {
+        path: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`,
+        element: <CRUProduct />,
+      },
+      //post
+      {
         path: ROUTE_PATH.ADMIN_POSTS,
         element: <PostsList />,
       },
-      
-       
+      {
+        path: `${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.CREATE}`,
+        element: < CRUPost />,
+      },
+
+
     ],
   },
   {

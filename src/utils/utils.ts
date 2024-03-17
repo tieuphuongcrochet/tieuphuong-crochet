@@ -1,4 +1,6 @@
 import _get from 'lodash/get';
+import { Paging } from 'models';
+import moment from 'moment';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -25,4 +27,39 @@ export const getCookie = (cookieName: string) => {
   const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
   if (match) return match[2];
   return '';
+}
+
+export const getBase64 = (file: File): Promise<string> =>
+new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+});
+
+export const getCurrentDate = (d: any, formatDate = 'YYYY-MM-DD') => moment(d).format(formatDate);
+
+export const getFileNameAndExt = (name: string) => {
+  if (!name) {
+    return {};
+  }
+  const lastDot = name.lastIndexOf('.');
+  const fileName = name.substring(0, lastDot);
+  const ext = name.substring(lastDot + 1);
+
+  return {
+    fileName,
+    ext,
+  };
+};
+
+export const genBlobName = (originFileName: string, rootBlobFolder: string, uid: string) => {
+  const currentDate = getCurrentDate(new Date())
+  const { fileName, ext } = getFileNameAndExt(originFileName);
+  const blobName = `image/${currentDate}/${rootBlobFolder}/${uid}.${ext}`;
+  return blobName;
+};
+
+export function computePaging({ pageSize, pageIndex, currentIndex }: Paging) {
+  return (pageIndex * pageSize) + 1 + currentIndex;
 }
