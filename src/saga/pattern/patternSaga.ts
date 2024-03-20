@@ -13,7 +13,7 @@ function* fetchPatterns({ payload }: any) {
 		const res: ListResponse<Pattern> = yield call(patternService.getAll, payload);
 
 		const newData = map(res.contents, item => ({
-			id: item.id,
+			key: item.id,
 			name: item.name,
 			description: item.description,
 			files: map(item.files, f => ({...f,url: f.fileContent})),

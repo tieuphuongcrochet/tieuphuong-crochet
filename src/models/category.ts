@@ -3,8 +3,8 @@ import { DataType } from "./table";
 export interface Category {
     id?: string;
     name: string;
-    chilren?: any[];
-    parentId?: string;
+    children?: any[];
+    parentIds?: any[];
 };
 
 export interface CategoryState {

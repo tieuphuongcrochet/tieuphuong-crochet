@@ -3,7 +3,7 @@ import { SearchProps } from "antd/es/input";
 import { ColumnsType } from "antd/es/table";
 
 export interface DataType {
-  id: string;
+  key: string;
   name: string;
   price?: number;
   author?: string;
@@ -11,7 +11,7 @@ export interface DataType {
   src?: string;
   description?: string;
   email?: string;
-  categoryName?: string;
+  children?: any[];
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

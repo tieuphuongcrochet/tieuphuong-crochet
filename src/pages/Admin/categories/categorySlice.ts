@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
-import { CategoryState, DataType } from "models";
+import { Category, CategoryState } from "models";
 
 const initialState: CategoryState = {
     loading: false,
@@ -22,8 +22,9 @@ const categorySlice = createSlice({
             state.data = payload;
         },
         fetchData(_, { payload }) { },
-        cUCategory(_, { payload }: PayloadAction<DataType>) { },
-        delete(_, { payload }: PayloadAction<DataType>) { },
+        create(_, { payload }: PayloadAction<Category>) { },
+        update(_, { payload }: PayloadAction<Category>) { },
+        delete(_, { payload }: PayloadAction<React.Key>) { },
     }
 });
 

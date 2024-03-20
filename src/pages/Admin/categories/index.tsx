@@ -5,13 +5,14 @@ import SearchTable from 'components/DataTable/SearchTable';
 import { SearchProps } from 'antd/es/input';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction, selectCategories, selectLoading, selectTotalRecords } from './categorySlice';
-import { Category, initialListParams } from 'models';
+import { DataType, initialListParams } from 'models';
+import { CheckboxOptionType } from 'antd';
 import { map } from 'lodash';
 
 const CategoriesList = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [params, setParams] = useState(initialListParams)
-	const [categorySelected, setCategorySelected] = useState({} as Category);
+	const [categorySelected, setCategorySelected] = useState({} as DataType);
 
 	const dispatch = useAppDispatch();
 	const loading = useAppSelector(selectLoading);
@@ -27,13 +28,12 @@ const CategoriesList = () => {
 	}
 
 	const onEditRecord = (rd: React.Key, record: any) => {
-		console.log('edit rd', record);
 		setCategorySelected(record);
 		setIsModalOpen(true);
 	}
 
-	const onDeleteRecord = (rd: React.Key) => {
-		console.log('delete rd', rd);
+	const onDeleteRecord = (key: React.Key) => {
+		dispatch(categoryAction.delete(key));
 	}
 
 	const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
@@ -54,7 +54,6 @@ const CategoriesList = () => {
 			_pageSize: pageSize,
 		}
 		setParams(newParams)
-		console.log('page', pagination, 'newParams', newParams);
 		dispatch(categoryAction.fetchData(newParams));
 	}
 
@@ -81,10 +80,7 @@ const CategoriesList = () => {
 				setCategorySelected={setCategorySelected}
 				isModalOpen={isModalOpen}
 				setIsModalOpen={setIsModalOpen}
-				parents={map(categories, c => ({
-					label: c.name,
-					value: c.id
-				}))}
+				categories={map(categories, (item: DataType) => ({value: item.key, label: item.name})) as CheckboxOptionType[]}
 			/>
 		</>
 	)
