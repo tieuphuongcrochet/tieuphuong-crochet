@@ -7,7 +7,7 @@ import './style.scss';
 import CardProduct from 'components/CardProduct';
 
 interface ViewTableProps {
-	dataSource: Product[] | Pattern[] | DataType[];
+	dataSource: DataType[];
 	isFreePatterns?: boolean;
 	total?: number;
 	pageSize?: number;
@@ -82,7 +82,7 @@ const ViewTable = (
 								isFreePatterns ?
 									<CardFreePattern
 										pattern={item}
-										onReadDetail={() => onReadDetail(item.id || '')}
+										onReadDetail={() => onReadDetail(item.key)}
 									/> :
 									<CardProduct title={item.name || 'N/A'} price={item.price || 0} src={item.src} />
 							}

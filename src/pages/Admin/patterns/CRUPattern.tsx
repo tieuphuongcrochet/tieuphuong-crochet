@@ -1,7 +1,7 @@
 import { Form, Input, TreeSelect, Button, Row, Col, Flex } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import UploadFiles from "components/Upload";
-import { FileUpload, Pattern, initialListParams } from "models";
+import { DataType, FileUpload, Pattern, initialListParams } from "models";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTE_PATH } from "utils";
 import { useEffect } from "react";
@@ -20,19 +20,24 @@ const CRUPattern = () => {
     const categories = useAppSelector(state => state.category.data);
 
     console.log('pattern detail', pattern);
-    
-    useEffect(() => {
-        dispatch(categoryAction.fetchData(initialListParams))
 
+    useEffect(() => {
         if (id) {
             dispatch(patternAction.fetchPattern(id))
+        }
+        if(categories.length <= 0) {
+            dispatch(categoryAction.fetchData(initialListParams))
         }
     }, []);
 
     useEffect(() => {
         if (id && pattern.name) {
             const tempData = cloneDeep(pattern);
-            form.setFieldsValue(tempData);
+            const newPattern = {
+                ...tempData,
+                category_id: tempData.category?.id
+            }
+            form.setFieldsValue(newPattern);
         }
     }, [pattern, id]);
 
@@ -96,11 +101,7 @@ const CRUPattern = () => {
                                     label='Category'
                                 >
                                     <TreeSelect
-                                        treeData={map(categories, c => ({
-                                            value: c.id,
-                                            title: c.name,
-                                            // children
-                                        }))}
+                                        treeData={categories}
                                     />
                                 </Item>
                             </Col>

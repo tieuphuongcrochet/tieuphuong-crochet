@@ -52,11 +52,11 @@ const DataTable = ({
               style={{ marginRight: '10px' }}
               shape='circle'
               icon={<EditOutlined />}
-              onClick={() => onEditRecord(record.id, record)}
+              onClick={() => onEditRecord(record.key, record)}
             />
             <Popconfirm
               title="Sure to delete?"
-              onConfirm={() => onDeleteRecord(record.id)}>
+              onConfirm={() => onDeleteRecord(record.key)}>
               <Button
                 shape='circle'
                 icon={<DeleteOutlined />}
@@ -106,11 +106,11 @@ const DataTable = ({
                   style={{ marginRight: '10px' }}
                   shape='circle'
                   icon={<EditOutlined />}
-                  onClick={() => onEditRecord(record.id)}
+                  onClick={() => onEditRecord(record.key)}
                 />
                 <Popconfirm
                   title="Sure to delete?"
-                  onConfirm={() => onDeleteRecord(record.id)}>
+                  onConfirm={() => onDeleteRecord(record.key)}>
                   <Button
                     shape='circle'
                     icon={<DeleteOutlined />}

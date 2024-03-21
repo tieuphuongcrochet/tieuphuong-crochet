@@ -1,29 +1,34 @@
-import React, { useEffect } from 'react';
-import { Form, Input, Modal, Select, } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Checkbox, CheckboxOptionType, CheckboxProps, Divider, Form, Input, List, Modal, Popconfirm, Select, TreeSelect, TreeSelectProps, Typography, } from 'antd';
 import { useAppDispatch } from 'app/hooks';
 import { categoryAction } from './categorySlice';
-import { DefaultOptionType } from 'antd/es/select';
-import { Category } from 'models';
+import { Category, DataType } from 'models';
+import { SaveOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 
-
-interface PropsCUCategory {
-  categorySelected: Category;
+interface CUCategoryProps {
+  categorySelected: DataType;
   setCategorySelected: Function;
   isModalOpen: boolean;
   setIsModalOpen: Function;
-  parents: DefaultOptionType[]
+  categories: CheckboxOptionType[];
 }
 
-const ModalCUCategory = ({ isModalOpen, setIsModalOpen, parents, categorySelected, setCategorySelected }: PropsCUCategory) => {
+const ModalCUCategory = ({ isModalOpen, setIsModalOpen, categorySelected, setCategorySelected, categories }: CUCategoryProps) => {
   const [form] = Form.useForm();
+  const [childForm] = Form.useForm();
+  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
+  const CheckboxGroup = Checkbox.Group;
   const dispatch = useAppDispatch();
 
+  const isEditing = Object.keys(categorySelected || {}).length > 0;
+  const checkAll = categories.length === checkedList.length;
+  const indeterminate = checkedList.length > 0 && checkedList.length < categories.length;
+
   useEffect(() => {
-    if (Object.keys(categorySelected).length > 0) {
+    if (isEditing) {
       const formData: Category = {
-        id: categorySelected.id,
         name: categorySelected.name,
-        parentId: categorySelected.parentId
       }
       form.setFieldsValue(formData);
     }
@@ -32,8 +37,25 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen, parents, categorySelecte
   const handleOk = () => {
     form.validateFields()
       .then((values) => {
-        console.log('form values', values);
-        dispatch(categoryAction.cUCategory(values));
+
+        let sendData: Category = {
+          name: values.name,
+        }
+
+        if (isEditing) {
+          sendData = {
+            ...sendData,
+            id: categorySelected.key
+          }
+          dispatch(categoryAction.update(sendData));
+        }
+        else {
+          sendData = {
+            ...sendData,
+            parentIds: checkedList
+          };
+          dispatch(categoryAction.create(sendData));
+        }
         handleCancel();
       })
       .catch((errorInfo) => {
@@ -43,14 +65,55 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen, parents, categorySelecte
 
   const handleCancel = () => {
     categorySelected && setCategorySelected({});
+    childForm.resetFields();
     form.resetFields();
+    setCheckedList([]);
     setIsModalOpen(false);
   };
+
+  const onDelete = (id: string) => {
+    dispatch(categoryAction.delete(id));
+  }
+
+  const onUpdateChildCategory = (index: string) => {
+    childForm.validateFields()
+      .then((values) => {
+        dispatch(categoryAction.update({
+          id: index,
+          name: values[`children${index}`]
+        } as Category));
+      })
+
+      .catch((errorInfo) => {
+        console.log(errorInfo);
+      });
+  };
+
+  const onChange = (list: CheckboxValueType[]) => {
+    setCheckedList(list);
+  };
+
+  const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
+    console.log('onCheckAllChange', e.target.checked);
+    setCheckedList(e.target.checked ? categories.map(category => category.value) : []);
+  };
+
+  const childActions = (key: string) => [
+    <Button shape='circle' icon={<SaveOutlined />} onClick={() => onUpdateChildCategory(key)} />,
+    <Popconfirm
+      title="Sure to delete?"
+      onConfirm={() => onDelete(key)}>
+      <Button
+        shape='circle'
+        icon={<DeleteOutlined />}
+      />
+    </Popconfirm>
+  ];
 
   return (
     <>
       <Modal
-        title={Object.keys(categorySelected).length > 0 ? 'Update the category' : 'Create a new category'}
+        title={isEditing ? 'Update the category' : 'Create a new category'}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}>
@@ -65,17 +128,56 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen, parents, categorySelecte
           >
             <Input placeholder="Category name" />
           </Form.Item>
-          <Form.Item
-            name="parentId"
-            label="Parents"
-          >
-            <Select
-              allowClear
-              options={parents}
-            />
-          </Form.Item>
+
+          {
+            !isEditing ?
+              // Form Creating
+              <Form.Item
+                name="parentIds"
+                label="Parents"
+              >
+                <Checkbox
+                  indeterminate={indeterminate}
+                  onChange={onCheckAllChange}
+                  checked={checkAll}>
+                  Check all
+                </Checkbox>
+                <Divider />
+                <CheckboxGroup
+                  options={categories}
+                  value={checkedList}
+                  onChange={onChange}
+                />
+              </Form.Item> :
+
+              /* Form editing */
+              < Form.Item name='children' label='Children'>
+                <List
+                  itemLayout="horizontal"
+                  dataSource={categorySelected?.children}
+                  renderItem={(item, index) => (
+                    <List.Item
+                      actions={childActions(item.key)}
+                    >
+                      <Typography.Text >[{index + 1}]</Typography.Text>
+                      <Form
+                        name='childrenForm'
+                        layout='inline'
+                        form={childForm}
+                        initialValues={{ [`children${item.key}`]: item.name }}
+                      >
+                        <Form.Item
+                          name={`children${item.key}`}
+                        >
+                          <Input placeholder="Child category" />
+                        </Form.Item>
+                      </Form>
+                    </List.Item>
+                  )}
+                />
+              </Form.Item>}
         </Form>
-      </Modal>
+      </Modal >
     </>
   );
 };

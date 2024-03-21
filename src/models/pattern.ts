@@ -1,3 +1,4 @@
+import { Category } from "./category";
 import { FileUpload } from "./common";
 import { DataType } from "./table";
 
@@ -10,6 +11,7 @@ export interface Pattern {
 	author?: string;
 	src?: string;
 	images?: FileUpload[];
+	category?: Category
 }
 
 export interface PayloadFile {

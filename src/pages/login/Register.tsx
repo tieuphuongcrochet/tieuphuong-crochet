@@ -32,7 +32,7 @@ const RegisterPage = () => {
 				name: values.name,
 				email: values.email,
 				password: values.password,
-				role: values.email === 'thamphuong.study@gmail.com' ? 'ADMIN' : 'USER'
+				role: values.email === 'thamphuong.crochet@gmail.com'? 'ADMIN' : 'USER'
 			};
 			console.log('params', params);
 			dispatch(authActions.resigter({ params, callback }));

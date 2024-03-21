@@ -22,7 +22,7 @@ const PatternsList = () => {
         dispatch(patternAction.fetchData(params));
     }, []);
 
-    const onEditRecord = (id: React.Key) => {
+    const onEditRecord = (id: React.Key) => {        
        navigate(`${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 

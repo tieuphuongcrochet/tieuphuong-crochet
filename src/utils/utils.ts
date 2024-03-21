@@ -1,5 +1,6 @@
+import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import _get from 'lodash/get';
-import { Paging } from 'models';
+import { Category, DataType, Paging } from 'models';
 import moment from 'moment';
 
 export function hasResponseError(response: any) {
@@ -30,12 +31,12 @@ export const getCookie = (cookieName: string) => {
 }
 
 export const getBase64 = (file: File): Promise<string> =>
-new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error);
-});
+  });
 
 export const getCurrentDate = (d: any, formatDate = 'YYYY-MM-DD') => moment(d).format(formatDate);
 
@@ -63,3 +64,23 @@ export const genBlobName = (originFileName: string, rootBlobFolder: string, uid:
 export function computePaging({ pageSize, pageIndex, currentIndex }: Paging) {
   return (pageIndex * pageSize) + 1 + currentIndex;
 }
+
+export const mapTreeData = (data: Category[]): DefaultOptionType[] => {
+  const result = data.map((item: Category) => {
+    const { children, ...rest } = item;
+    let newItem: DefaultOptionType = {
+      name: rest.name,
+      key: rest.id,
+      title: rest.name,
+      value: rest.id,
+    }
+    if (children && children.length > 0) {
+      newItem = {
+        ...newItem,
+        children: mapTreeData(children),
+      };
+    }
+    return newItem;
+  });
+  return result;
+};
