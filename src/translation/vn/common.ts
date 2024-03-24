@@ -6,4 +6,7 @@ export default {
 	'menu_nav.blog': 'Blog',
 	'menu_nav.about': 'About',
 	'menu_nav.contact': 'Liên hệ',
+	'menu_nav.detail': 'Chi tiết',
+	'menu_nav.create': 'Thêm mới',
+	'menu_nav.menu_noExist': 'Không tồn tại',
 }

@@ -63,6 +63,8 @@ export const MENU_NAV = [
   { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
   { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
   { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
+  { path: ROUTE_PATH.DETAIL, name: 'menu_nav.detail' },
+  { path: ROUTE_PATH.CREATE, name: 'menu_nav.create' },
 ];
 
 export const REGEX = {

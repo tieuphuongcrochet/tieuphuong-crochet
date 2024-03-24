@@ -6,4 +6,7 @@ export default {
 	'menu_nav.blog': 'Blog',
 	'menu_nav.about': 'About',
 	'menu_nav.contact': 'Contact',
+	'menu_nav.detail': 'Detail',
+	'menu_nav.create': 'Create',
+	'menu_nav.menu_noExist': 'No exist',
 };

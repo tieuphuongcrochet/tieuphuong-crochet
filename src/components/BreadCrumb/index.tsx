@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
-import { MENU_NAV, ROUTE_PATH } from "utils";
 import { Breadcrumb } from "antd";
-import { BreadCrumbItem, BreadcrumbProp } from "models";
 import { useEffect, useState } from "react";
-import './style.scss';
-import breadcrumb_backgroud from 'assets/breadcrumbs/1.jpg';
 import { FormattedMessage } from "react-intl";
+
+import { MENU_NAV, ROUTE_PATH } from "utils";
+import { BreadCrumbItem, BreadcrumbProp } from "models";
+import breadcrumb_backgroud from 'assets/breadcrumbs/1.jpg';
+import './style.scss';
 
 const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 	const initialCrumbs: BreadCrumbItem[] = [];
 	const [crumbs, setCrumbs] = useState(initialCrumbs);
 
-	useEffect(() => {
+	useEffect(() => {		
 		const temp: BreadCrumbItem[] = pathname?.split('/')
 			.map(crumb => {
 				if (crumb === '') {
@@ -19,19 +20,21 @@ const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 						path: ROUTE_PATH.HOME,
 						title: 'menu_nav.home',
 					}
-				} else {
+				}
+				else {
 					const link = MENU_NAV.find(nav => nav.path.includes(crumb));
 					return {
 						path: link?.path || '',
-						title: link?.name
+						title: link?.name || ''
 					}
 				}
-			});
+			})
+			.filter(f => f.title !== '');
+			
 		setCrumbs(temp);
 	}, [pathname])
 
 	const itemRender = (route: any, params: any, items: any[], paths: string[]) => {
-		console.log('router breadcrumb', route);
 
 		const last = items.indexOf(route) === items.length - 1;
 		return last ? <span><FormattedMessage id={route.title} /></span> :

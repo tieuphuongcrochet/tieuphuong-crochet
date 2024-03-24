@@ -68,9 +68,10 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 			setFileList(newFileList);
 			onChangeFile(newFileList);
 			onSuccess('ok');
-			notification.error({message: 'Successfull', description: 'Upload file successfully!'});
+			notification.success({message: 'Successful', description: 'Upload file successfully!'});
 		} else {
 			onError('fail');
+			notification.error({message: 'Error', description: 'Allowed maxium size is 5Mb'});
 		}
 	};
 
