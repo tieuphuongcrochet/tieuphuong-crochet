@@ -84,3 +84,40 @@ export const mapTreeData = (data: Category[]): DefaultOptionType[] => {
   });
   return result;
 };
+
+export const getElement = (name: string) => {
+  return document.querySelector(name) as HTMLDivElement;
+}
+
+export const DragScroll = (name: string) => {
+  const slider = getElement(name); // Type assertion
+  let isDown: boolean = false; // Type declaration
+  let startX: number; // Type declaration
+  let scrollLeft: number; // Type declaration
+
+  slider.addEventListener('mousedown', (e: MouseEvent) => { // Type for the event
+    isDown = true;
+    slider.classList.add('active');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+
+  slider.addEventListener('mouseleave', (e: MouseEvent) => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  slider.addEventListener('mouseup', (e: MouseEvent) => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  slider.addEventListener('mousemove', (e: MouseEvent) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 3; //scroll-fast
+    slider.scrollLeft = scrollLeft - walk;
+    console.log(walk);
+  });
+}

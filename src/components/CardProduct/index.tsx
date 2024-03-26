@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Flex, Image } from 'antd';
 import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
-import demo from '../../assets/products/pd2.jpg'
+import demo from 'assets/products/pd2.jpg'
 import './index.scss';
 
 interface CardProductProps {

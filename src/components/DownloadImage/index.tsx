@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	DownloadOutlined,
 	RotateLeftOutlined,
@@ -6,8 +7,9 @@ import {
 	ZoomInOutlined,
 	ZoomOutOutlined,
 } from '@ant-design/icons';
-import React from 'react';
 import { Image, ImageProps, Space } from 'antd';
+
+import logo from 'assets/logo.png';
 
 interface DownloadImageProps extends ImageProps {
 	src?: string;
@@ -36,8 +38,10 @@ const DownloadImage = ({ src, width, ...restProps }: DownloadImageProps) => {
 
 	return (
 		<Image
+
 			width={width}
 			src={src}
+			fallback={logo}
 			preview={{
 				toolbarRender: (
 					_,
