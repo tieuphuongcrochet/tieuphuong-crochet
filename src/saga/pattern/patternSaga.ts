@@ -1,4 +1,4 @@
-import { DataType, ListResponse, Pattern, PatternPayload, PayloadFile } from 'models';
+import { DataType, ListResponse, Pattern, PatternPayload, PayloadFile, initialListParams } from 'models';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
@@ -79,9 +79,27 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 	}
 }
 
+/**
+ * Handles the deletion of a pattern by ID.
+ * @param payload - The ID of the pattern to be deleted.
+ */
+function* handleDeleteById({ payload }: PayloadAction<React.Key>) {
+	try {
+		yield put(patternAction.loadingRequest());
+		yield call(patternService.remove, payload);
+
+		yield call(fetchPatterns, {payload: initialListParams})
+		yield put(patternAction.loadingSuccess());
+	} catch (err) {
+		console.log('Failed to CU pattern', err);
+		yield put(patternAction.loadingSuccess());
+	}
+};
+
 export default function* patternSaga() {
 	yield takeLatest(patternAction.fetchData.type, fetchPatterns);
 	yield takeLatest(patternAction.cUPattern.type, handleCreateUpdate);
 	yield takeLatest(patternAction.uploadFiles.type, uploadPatterns);
 	yield takeLatest(patternAction.fetchPattern.type, handleGetPatternById);
+	yield takeLatest(patternAction.delete.type, handleDeleteById);
 };

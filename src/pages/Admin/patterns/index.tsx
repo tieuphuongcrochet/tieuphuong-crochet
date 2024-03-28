@@ -28,6 +28,7 @@ const PatternsList = () => {
 
     const onDeleteRecord = (rd: React.Key) => {
         console.log('delete rd', rd);
+        dispatch(patternAction.delete(rd));
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
