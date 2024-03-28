@@ -12,6 +12,7 @@ export interface DataType {
   description?: string;
   email?: string;
   children?: any[];
+  icon?: React.ReactNode;
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

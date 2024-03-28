@@ -7,8 +7,6 @@
 	}
 
 	.direction-icon {
-		margin-right: 30px;
-
 		.ant-btn {
 			padding: 4px 10px;
 
@@ -43,5 +41,23 @@
 			position: absolute;
 			left: 0;
 		}
+	}
+
+	.tabs-menu {
+		padding: 15px 0;
+		margin-bottom: -30px;
+		border: none;
+
+		.ant-menu-item {
+			opacity: .9 !important;
+			letter-spacing: .5;
+
+			&.ant-menu-item-selected {
+				opacity: 1 !important;
+			}
+		}
+	}
+	.ant-empty{
+		margin-top: 70px;
 	}
 }

@@ -21,6 +21,7 @@ export interface ListParams {
 	_sortBy?: string;
 	_sortDir?: 'asc' | 'desc';
 	[key: string]: any;
+	categoryIds?: string[]
 };
 
 export const initialListParams: ListParams = {
@@ -28,7 +29,8 @@ export const initialListParams: ListParams = {
 	_pageSize: 10,
 	_sortBy: 'id',
 	_sortDir: 'asc',
-	text: ''
+	text: '',
+	categoryIds: []
 };
 
 export interface ListTablePayload<T> {

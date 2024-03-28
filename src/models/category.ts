@@ -5,6 +5,7 @@ export interface Category {
     name: string;
     children?: any[];
     parentIds?: any[];
+    key?: string;
 };
 
 export interface CategoryState {

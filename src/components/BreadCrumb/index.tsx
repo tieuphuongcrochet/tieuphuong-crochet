@@ -3,7 +3,7 @@ import { Breadcrumb } from "antd";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-import { MENU_NAV, ROUTE_PATH } from "utils";
+import { BREADCRUMB, ROUTE_PATH } from "utils";
 import { BreadCrumbItem, BreadcrumbProp } from "models";
 import breadcrumb_backgroud from 'assets/breadcrumbs/1.jpg';
 import './style.scss';
@@ -22,7 +22,7 @@ const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 					}
 				}
 				else {
-					const link = MENU_NAV.find(nav => nav.path.includes(crumb));
+					const link = BREADCRUMB.find(nav => nav.path.includes(crumb));
 					return {
 						path: link?.path || '',
 						title: link?.name || ''
