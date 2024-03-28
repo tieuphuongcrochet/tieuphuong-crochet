@@ -1,13 +1,23 @@
+import { Category } from "./category";
+import { FileUpload } from "./common";
 import { Pattern } from "./pattern";
+import { DataType } from "./table";
 
 export interface Product {
 	id?: string,
 	name: string,
 	price?: number,
 	description?: string,
-	files?: string[];
+	files?: FileUpload[];
 	src?: string;
 	author?: string;
+	currency_code?: string;
+	category: Category
+}
+
+export interface ProductPayloadFile {
+	file: any;
+	resolve?: any
 }
 
 export interface HomeData {
@@ -15,3 +25,15 @@ export interface HomeData {
 	patterns: Pattern[],
 	freePatterns: Pattern[]
 };
+
+export interface ProductState {
+	loading: boolean;
+	data: DataType[];
+	totalRecord: number;
+	product: Product;
+}
+
+export interface ProductPayload {
+	params: Product;
+	callback: Function;
+}

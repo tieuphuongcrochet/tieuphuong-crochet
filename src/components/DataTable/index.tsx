@@ -11,8 +11,8 @@ const DataTable = ({
   isShowImage,
   visiblePagination,
   totalPageSize,
-  pageSize,
-  pageIndex,
+  pageSize = 0,
+  pageIndex = 0,
   onEditRecord,
   onDeleteRecord,
   onPageChange,
@@ -20,7 +20,7 @@ const DataTable = ({
   onTableChange,
   ...restProps
 }: DataTableProps) => {
-  
+
   const colNumberIndex = {
     title: '#',
     align: 'center',
@@ -77,7 +77,7 @@ const DataTable = ({
         // },
         colNumberIndex,
         (isShowImage ?
-          
+
           {
             title: 'Image',
             dataIndex: 'imgUrl',

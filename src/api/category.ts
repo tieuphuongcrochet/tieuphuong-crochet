@@ -26,7 +26,7 @@ const category = {
 
 	remove(id: React.Key): Promise<any> {
 		const url = `${API_URL.CATEGORY}/${API_URL.DELETE}?id=${id}`;
-		return axiosClient.delete(url);
+		return axiosJWT.delete(url);
 	}
 }
 

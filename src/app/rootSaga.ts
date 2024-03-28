@@ -3,6 +3,7 @@ import homeSaga from "pages/home/homeSaga";
 import categorySaga from "pages/Admin/categories/categorySaga";
 import authSaga from "pages/login/authSaga";
 import patternSaga from "saga/pattern/patternSaga";
+import productSaga from "pages/Admin/products/productSaga";
 
 export default function* rootSaga() {
 	console.log('root sagaa');
@@ -10,6 +11,7 @@ export default function* rootSaga() {
 		authSaga(),
 		homeSaga(),
 		categorySaga(),
-		patternSaga()
+		patternSaga(),
+		productSaga()
 	])
 };
