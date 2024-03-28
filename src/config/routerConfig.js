@@ -110,6 +110,11 @@ const router = createBrowserRouter([
         path: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`,
         element: <CRUProduct />,
       },
+      
+      {
+        path: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <CRUProduct />,
+      },
       //post
       {
         path: ROUTE_PATH.ADMIN_POSTS,

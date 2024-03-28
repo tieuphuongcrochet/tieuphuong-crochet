@@ -1,7 +1,13 @@
 import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select } from "antd";
-import { useState } from "react";
-import ImgCrop from 'antd-img-crop';
-import { getBase64 } from "utils";
+import { useEffect, useState } from "react";
+import { CURRENCY, ROUTE_PATH } from "utils";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { productAction, selectProduct } from "./productSlice";
+import UploadFiles from "components/Upload";
+import { FileUpload, Product } from "models";
+import { categoryAction } from "../categories/categorySlice";
+import { cloneDeep } from "lodash";
 
 const CRUProduct = () => {
     const [form] = Form.useForm();
@@ -9,34 +15,56 @@ const CRUProduct = () => {
     const { Item } = Form;
     // type FileType = Parameters<UploadProps, 'beforeUpload'>[0];
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([]);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { id } = useParams();
+    const categories = useAppSelector(state => state.category.data);
+    const product: Product = useAppSelector(selectProduct);
 
-    const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-    };
-
-
-
-    const handleCancel = () => setPreviewOpen(false);
-
-    const handlePreview = async (file: UploadFile) => {
-        console.log('file', file);
-
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj as File);
+    useEffect(() => {
+        if(!categories || categories.length <= 0) {
+            dispatch(categoryAction.fetchData(''));
+            console.log('test');
         }
+        if (id) {
+            dispatch(productAction.fetchProduct(id));
+        }
+    }, []);
 
-        setPreviewImage(file.url || (file.preview as string));
-        setPreviewOpen(true);
-        setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-    };
+
+    useEffect(() => {
+        if (id && product.name) {
+            const tempData = cloneDeep(product);
+            const newPattern = {
+                ...tempData,
+                category_id: tempData.category?.id
+            }
+            form.setFieldsValue(newPattern);
+        }
+    }, [product, id]);
 
     const onSubmitForm = (values: any) => {
         console.log('values', values);
-        console.log('fileList', fileList);
+        let sendData = { ...values }
+        if (id) {
+            sendData = {
+                ...sendData,
+                id: id
+            }
+        }
+        const callback = () => {
+            form.resetFields();
+            navigate(ROUTE_PATH.AMIN_PRODUCTS);
+        };
+        console.log('sendData', sendData);
+
+        dispatch(productAction.cUProduct({ params: sendData, callback }));
+    }
+
+    const onCancel = () => {
+        form.resetFields();
+        dispatch(productAction.resetProduct());
+        navigate(-1);
     }
 
     return (<>
@@ -46,6 +74,7 @@ const CRUProduct = () => {
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
+                initialValues={{currency_code: CURRENCY[0].value }}
             >
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
@@ -59,13 +88,12 @@ const CRUProduct = () => {
                     </Col>
                     <Col xs={20} md={12}>
                         <Item
-                            name='category'
-                            label='Category'
+                            name='category_id'
+                            label='Category:'
                         >
                             <TreeSelect
-                                treeData={[
-                                    { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
-                                ]} />
+                                treeData={categories}
+                            />
                         </Item>
                     </Col>
                     <Col xs={20} md={12}>
@@ -73,26 +101,16 @@ const CRUProduct = () => {
                             name="price"
                             label='Price'
                         >
-                            <InputNumber min={1} max={100000000} />
+                            <InputNumber width={'100%'} min={1} max={100000000} />
                         </Item>
                     </Col>
                     <Col xs={20} md={12}>
                         <Item
-                            name="currency"
-                            label='Currency'>
+                            name="currency_code"
+                            label='Currency'
+                            >
                             <Select
-                                labelInValue
-                                defaultValue={{ value: 'VND', label: 'VND' }}
-                                options={[
-                                    {
-                                        value: 'VND',
-                                        label: 'VND',
-                                    },
-                                    {
-                                        value: 'USA',
-                                        label: '$',
-                                    },
-                                ]}
+                                options={CURRENCY}
                             />
                         </Item>
                     </Col>
@@ -105,45 +123,27 @@ const CRUProduct = () => {
                 </Item>
 
                 <Item
-                    name='image'
-                    label='Image'>
-                    <ImgCrop
-                        rotationSlider
-                        cropShape='rect'
-                        showGrid
-                        aspectSlider
-                        showReset
-                    >
-                        <Upload
-                            // action={file => uploadFile(file)}
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChange}
-                            onPreview={handlePreview}
-                        >
-                            {fileList.length < 20 && '+ Upload'}
-                        </Upload>
-                    </ImgCrop>
+                    name='files'
+                    label='Image:'>
+                    <UploadFiles
+                        files={product.files || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ files: files });
+                        }}
+                    />
                 </Item>
                 <Item wrapperCol={{ span: 12, offset: 10 }}>
                     <Space>
-                        <Button type="primary" htmlType="submit">
+                        <Button className="btn-form" type="primary" htmlType="submit">
                             Submit
                         </Button>
-                        <Button htmlType="reset">reset</Button>
+                        {/* <Button className="btn-form" htmlType="reset">reset</Button> */}
+                        <Button className="btn-form" onClick={onCancel}>Cancel</Button>
                     </Space>
                 </Item>
             </Form>
 
         </div>
-        <Modal
-            open={previewOpen}
-            title={previewTitle}
-            footer={null}
-            onCancel={handleCancel}
-        >
-            <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
     </>)
 }
 

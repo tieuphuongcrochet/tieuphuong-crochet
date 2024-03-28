@@ -1,22 +1,44 @@
 import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType } from 'models';
+import { DataType, initialListParams } from 'models';
+import { productAction, selectLoading, selectProducts, selectTotalRecords } from './productSlice';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from 'utils';
 
 const ProductsList = () => {
-    const originData: DataType[] = [];
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [params, setParams] = useState(initialListParams)
+    const loading = useAppSelector(selectLoading);
+    const totalRecords = useAppSelector(selectTotalRecords);
+    const originData: DataType[] = useAppSelector(selectProducts);
 
-
-    const onEditRecord = (rd: React.Key) => {
-        console.log('edit rd', rd);
-    }
+    useEffect(() => {
+        dispatch(productAction.fetchData(params));
+    }, []);
 
     const onDeleteRecord = (rd: React.Key) => {
         console.log('delete rd', rd);
+        dispatch(productAction.delete(rd));
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
         console.log(info?.source, value);
+    }
+
+    const onPageChange = (pagination: any, filters: any, sorter: any) => {
+        const { current, pageSize } = pagination;
+        const newParams = {
+            ...params,
+            _pageNo: current - 1,
+            _pageSize: pageSize,
+        }
+        setParams(newParams)
+        console.log('page', pagination, 'newParams', newParams);
+        dispatch(productAction.fetchData(newParams));
     }
 
     const columns = [
@@ -26,19 +48,32 @@ const ProductsList = () => {
             width: '100px',
         },
     ]
-    const onAddNew = () => { }
+    const onAddNew = () => {
+        navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`)
+    }
+
+    const onEditRecord = (id: React.Key) => {
+        navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/${id}`)
+    }
+
     return (
         <>
-            <div className='category-page'>
+            <div className='product-admin'>
                 <SearchTable onAddNew={onAddNew} onSearch={onSearch} />
                 <div className='admin-table'>
-                    {/* <DataTable
-                        dataSource={originData}
-                        onDeleteRecord={onDeleteRecord}
-                        onEditRecord={onEditRecord}
-                        customColumns={columns}
+                    <DataTable
+                        loading={loading}
+                        pageSize={params._pageSize}
+                        pageIndex={params._pageNo}
                         isShowImage
-                    /> */}
+                        visiblePagination
+                        dataSource={originData}
+                        customColumns={columns}
+                        totalPageSize={totalRecords}
+                        onEditRecord={onEditRecord}
+                        onTableChange={onPageChange}
+                        onDeleteRecord={onDeleteRecord}
+                    />
                 </div>
             </div>
         </>

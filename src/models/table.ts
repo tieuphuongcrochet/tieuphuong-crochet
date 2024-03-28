@@ -25,8 +25,8 @@ export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export interface DataTableProps extends TableProps<DataType> {
-  pageSize: number;
-  pageIndex: number;
+  pageSize?: number;
+  pageIndex?: number;
   onEditRecord: (key: React.Key, record?: any) => void;
   onDeleteRecord: (key: React.Key) => void;
   customColumns?: ColumnsType<DataType>;

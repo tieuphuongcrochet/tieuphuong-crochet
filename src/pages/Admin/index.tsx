@@ -102,7 +102,7 @@ const LayoutAdmin = () => {
     }
 
     return (
-        <Layout className='dashboard-wrap'>
+        <Layout className='dashboard-wrap admin-page'>
             <Sider
                 trigger={null}
                 collapsible

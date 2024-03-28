@@ -67,10 +67,6 @@ const CategoriesList = () => {
 						dataSource={categories}
 						onDeleteRecord={onDeleteRecord}
 						onEditRecord={onEditRecord}
-						visiblePagination
-						pageSize={params._pageSize}
-						pageIndex={params._pageNo}
-						totalPageSize={totalRecords}
 						onChange={onPageChange}
 					/>
 				</div>

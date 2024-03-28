@@ -17,6 +17,17 @@ export const LANGUAGES = {
   EN: 'en-US'
 };
 
+export const CURRENCY = [
+  {
+      value: 'VND',
+      label: 'VND',
+  },
+  {
+      value: 'USD',
+      label: '$',
+  },
+]
+
 export const LANGUAGES_LIST = [
   {    key: LANGUAGES.VN, label: 'VN'  },
   {    key: LANGUAGES.EN, label: 'EN'  },

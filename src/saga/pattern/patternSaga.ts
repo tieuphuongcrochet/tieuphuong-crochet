@@ -16,15 +16,15 @@ function* fetchPatterns({ payload }: any) {
 			key: item.id,
 			name: item.name,
 			description: item.description,
-			files: map(item.files, f => ({...f,url: f.fileContent})),
-			src: item.images?.[0].fileContent
+			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
+			src: item.images?.[0]?.fileContent
 		}));
 		yield all([
 			put(patternAction.saveData({ data: newData, total: res.totalElements })),
 			put(patternAction.loadingSuccess())
 		])
 	} catch (err) {
-		console.log('Failed to fetch categories data', err);
+		console.log('Failed to fetch patterns data', err);
 		yield put(patternAction.loadingSuccess())
 	}
 }
@@ -35,11 +35,11 @@ function* handleCreateUpdate({ payload }: PayloadAction<PatternPayload>) {
 	try {
 		yield put(patternAction.loadingRequest());
 		const data: DataType[] = yield call(patternService.add, params);
-		console.log('Category data', data);
+		console.log('Pattern data', data);
 		callback instanceof Function && callback();
 		yield put(patternAction.loadingSuccess());
 	} catch (err) {
-		console.log('Failed to CU category', err);
+		console.log('Failed to CU Pattern', err);
 		yield put(patternAction.loadingSuccess());
 	}
 };
@@ -66,15 +66,15 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 		const data: Pattern = yield call(patternService.getById, payload);
 		const newData: Pattern = {
 			...data,
-			src: data.images?.[0].fileContent,
-			files: map(data.files, f => ({...f, url: f.fileContent})),
-			images: map(data.images, f => ({...f, url: f.fileContent})),
+			src: data.images?.[0]?.fileContent,
+			files: data.files ? map(data.files, f => ({...f, url: f?.fileContent})) : [],
+			images: data.images ? map(data.images, f => ({...f, url: f?.fileContent})) : [],
 		};
 
 		console.log('get pattern by id, data: ', data, newData);
 		yield put(patternAction.savePattern(newData));
 	} catch (error) {
-		console.log('Failed to CU category', error);
+		console.log('Failed to CU Pattern', error);
 		yield put(patternAction.loadingSuccess());
 	}
 }

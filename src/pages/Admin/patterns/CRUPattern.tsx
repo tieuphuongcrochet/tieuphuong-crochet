@@ -1,11 +1,11 @@
 import { Form, Input, TreeSelect, Button, Row, Col, Flex } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import UploadFiles from "components/Upload";
-import { DataType, FileUpload, Pattern, initialListParams } from "models";
+import { FileUpload, Pattern } from "models";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTE_PATH } from "utils";
 import { useEffect } from "react";
-import { cloneDeep, map } from "lodash";
+import { cloneDeep } from "lodash";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
 import { categoryAction } from "../categories/categorySlice";
 
@@ -23,10 +23,10 @@ const CRUPattern = () => {
 
     useEffect(() => {
         if (id) {
-            dispatch(patternAction.fetchPattern(id))
+            dispatch(patternAction.fetchPattern(id));
         }
         if(categories.length <= 0) {
-            dispatch(categoryAction.fetchData(initialListParams))
+            dispatch(categoryAction.fetchData(''));
         }
     }, []);
 
@@ -81,7 +81,7 @@ const CRUPattern = () => {
                             label="Pattern name:"
                             rules={[{ required: true, message: 'Please enter pattern name' }]}
                         >
-                            <Input placeholder="Category name" />
+                            <Input placeholder="Pattern name" />
                         </Item>
                     </Col>
                     <Col xs={20} md={12}>
