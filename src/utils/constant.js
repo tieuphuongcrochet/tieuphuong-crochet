@@ -74,6 +74,15 @@ export const MENU_NAV = [
   { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
   { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
   { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
+];
+
+export const BREADCRUMB = [
+  { path: ROUTE_PATH.HOME, name: 'menu_nav.home' },
+  { path: ROUTE_PATH.SHOP, name: 'menu_nav.shop' },
+  { path: ROUTE_PATH.FREEPATTERNS, name: 'menu_nav.freePattern' },
+  { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
+  { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
+  { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
   { path: ROUTE_PATH.DETAIL, name: 'menu_nav.detail' },
   { path: ROUTE_PATH.CREATE, name: 'menu_nav.create' },
 ];
@@ -100,6 +109,11 @@ export const REGEX = {
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*\-_!+=\[\]{}|\\:',.?/`~"();])(?!.*@\.)[A-Za-z\d@#$%^&*\-_!+=\[\]{}|\\:',.?/`~"();]{8,}$/,
   USERNAME: /^(\d|\w)+$/,
+};
+
+export const ALL_ITEM = {
+  label: 'tab.all',
+  key: 'all'
 };
 
 export const MOCK_FREE_PATTERNS = [
