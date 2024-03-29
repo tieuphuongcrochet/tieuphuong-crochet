@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import { DataType } from 'models';
 import CardFreePattern from 'components/CardPattern';
 import CardProduct from 'components/CardProduct';
-import logo from 'assets/logo.png';
+import { ItemType } from 'antd/es/menu/hooks/useItems';
 import './style.scss';
 
 export interface ViewTableProps {
@@ -65,10 +65,32 @@ const ViewTable = (
 		return {
 			label: c.name,
 			key: c.key || 'N/A',
-			icon: c.icon
+			icon: c.icon,
+			children: c.children
 		};
 	});
 
+	const mapTabsData = (data: DataType[]): ItemType[] => {
+		const result = map(data, c => {
+			const { children, name, key, icon } = c;
+			let newTab: ItemType = {
+				label: name,
+				key: key || 'N/A',
+				icon: icon,
+			};
+
+			if (children && children.length > 0) {
+				newTab = {
+					...newTab,
+					children: mapTabsData(children)
+				}
+			}
+			return newTab;
+		});
+		
+		return result;
+	}
+	
 	const onClickTabs = (e: any) => {
 		console.log('click ', e);
 		setCurrentNav(e.key);
@@ -115,7 +137,7 @@ const ViewTable = (
 								label: <FormattedMessage id={ALL_ITEM.label} />,
 								key: ALL_ITEM.key
 							},
-							...renderItems
+							...mapTabsData(itemsTabs)
 						]}
 					{...tabsProps}
 				/>

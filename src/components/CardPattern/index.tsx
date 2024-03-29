@@ -1,15 +1,14 @@
 import React from 'react';
 import { Card, Image, Skeleton } from 'antd';
 
-import demo from 'assets/products/pd2.jpg'
 import './index.scss';
-import { DataType, Pattern, Product } from 'models';
+import { Pattern, Product } from 'models';
 
 interface CardPatternProps {
 	width?: string | number;
-	pattern: Pattern | Product | DataType;
+	pattern: Pattern | Product;
 	onReadDetail: Function;
-	loading?: boolean
+	loading?: boolean;
 };
 
 const CardFreePattern = (
@@ -17,12 +16,12 @@ const CardFreePattern = (
 		pattern = { name: '', author: '', src: '' },
 		width,
 		onReadDetail,
-		loading
+		loading,
 	}: CardPatternProps) => {
-	console.log('pattern card', pattern);
 
 	const { Meta } = Card;
-	const { name, src, author } = pattern;
+	const { name, src, author, imagesPreview } = pattern;
+
 
 	return (
 		<Card
@@ -36,9 +35,14 @@ const CardFreePattern = (
 			cover={
 				<>
 					{src ?
-						<Image
-							alt={name}
-							src={src} /> :
+						<Image.PreviewGroup
+							items={imagesPreview}
+						>
+							<Image
+								alt={name}
+								src={src} />
+						</Image.PreviewGroup>
+						:
 						<Skeleton.Image active />
 					}
 				</>

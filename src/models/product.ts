@@ -12,7 +12,9 @@ export interface Product {
 	src?: string;
 	author?: string;
 	currency_code?: string;
-	category: Category
+	category: Category;
+	images?: FileUpload[];
+	imagesPreview?: { src: string, alt: string }[]
 }
 
 export interface ProductPayloadFile {

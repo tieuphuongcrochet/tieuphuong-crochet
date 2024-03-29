@@ -1,18 +1,20 @@
 import { TableProps } from "antd";
 import { SearchProps } from "antd/es/input";
 import { ColumnsType } from "antd/es/table";
+import { FileUpload } from "./common";
 
 export interface DataType {
   key: string;
   name: string;
   price?: number;
   author?: string;
-  files?: File[];
+  files?: FileUpload[];
   src?: string;
   description?: string;
   email?: string;
   children?: any[];
   icon?: React.ReactNode;
+  images?: FileUpload[];
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
