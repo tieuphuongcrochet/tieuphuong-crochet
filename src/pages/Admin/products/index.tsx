@@ -27,6 +27,12 @@ const ProductsList = () => {
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
         console.log(info?.source, value);
+        const newParams = {
+            ...initialListParams,
+            searchText: value,
+        }
+        setParams(newParams);
+        dispatch(productAction.fetchData(newParams));
     }
 
     const onPageChange = (pagination: any, filters: any, sorter: any) => {

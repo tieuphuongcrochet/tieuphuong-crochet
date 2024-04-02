@@ -195,3 +195,13 @@ export const MOCK_BLOGS = [
     description: 'Aypi non habent claritatem  insitam. Aypi non habent claritatem  insitam. ',
   },
 ];
+
+
+export const OPERATOR = {
+  GREATER_THAN: 'GREATER_THAN',
+    LESS_THAN: 'LESS_THAN',
+    EQUALS: 'EQUALS',
+    LIKE: 'LIKE',
+    NOT_EQUALS: 'NOT_EQUALS',
+    IN: 'IN',
+}

@@ -35,7 +35,7 @@ const PatternsList = () => {
         console.log(info?.source, value);
         const newParams = {
             ...initialListParams,
-            text: value
+            searchText: value
         };
         setParams(newParams)
         dispatch(patternAction.fetchData(newParams));

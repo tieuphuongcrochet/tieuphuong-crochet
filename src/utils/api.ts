@@ -5,6 +5,7 @@ export const API_URL = {
 	PATTERN: '/pattern',
 	FREE_PATTERN: '/free-pattern',
 	BLOG: '/blog',
+	USER: '/users',
 
 	// Category
 	CATEGORY: '/category',

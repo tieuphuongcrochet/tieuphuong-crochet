@@ -20,6 +20,7 @@ export interface ListParams {
 	_pageSize: number;
 	_sortBy?: string;
 	_sortDir?: 'asc' | 'desc';
+	filters?: Filter[];
 	[key: string]: any;
 };
 
@@ -28,7 +29,17 @@ export const initialListParams: ListParams = {
 	_pageSize: 10,
 	_sortBy: 'id',
 	_sortDir: 'asc',
-	text: ''
+	searchText: '',
+	filters: []
+};
+
+export const initialUserListParams: ListParams = {
+	_pageNo: 0,
+	_pageSize: 10,
+	_sortBy: 'id',
+	_sortDir: 'asc',
+	searchText: '',
+	filters: []
 };
 
 export interface ListTablePayload<T> {
@@ -41,3 +52,10 @@ export interface FileUpload {
 	fileName: string;
 	url: string;
 };
+
+export interface Filter {
+	field?: string;
+	operator?: string;
+	value?: string;
+	values?: string[];
+}
