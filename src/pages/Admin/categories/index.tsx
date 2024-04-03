@@ -4,7 +4,7 @@ import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { SearchProps } from 'antd/es/input';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { categoryAction, selectCategories, selectLoading, selectTotalRecords } from './categorySlice';
+import { categoryAction, selectCategories, selectLoading } from './categorySlice';
 import { DataType, initialListParams } from 'models';
 import { CheckboxOptionType } from 'antd';
 import { map } from 'lodash';
@@ -17,7 +17,6 @@ const CategoriesList = () => {
 	const dispatch = useAppDispatch();
 	const loading = useAppSelector(selectLoading);
 	const categories = useAppSelector(selectCategories);
-	const totalRecords = useAppSelector(selectTotalRecords);
 
 	useEffect(() => {
 		dispatch(categoryAction.fetchData(params));

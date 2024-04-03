@@ -103,11 +103,23 @@
 		width: 1440px;
 		margin: 0 auto;
 	}
+
+	.tabs-menu {
+		.ant-menu-item {
+			font-size: $fontSize_large;
+		}
+	}
 }
 
 @media screen and (min-width: $md) {
 	.container {
 		padding: 50px;
+	}
+
+	.tabs-menu {
+		.ant-menu-item {
+			font-size: $fontSize_middle;
+		}
 	}
 }
 

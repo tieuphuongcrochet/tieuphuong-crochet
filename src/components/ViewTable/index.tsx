@@ -1,12 +1,17 @@
-import { Input, Button, Flex, Tooltip, Col, Pagination } from 'antd';
+import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty } from 'antd';
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
-import { DataType, Pattern, Product } from 'models';
-import CardFreePattern from 'components/CardPattern';
-import './style.scss';
-import CardProduct from 'components/CardProduct';
+import { map } from 'lodash';
+import { ALL_ITEM } from 'utils';
+import { FormattedMessage } from 'react-intl';
 
-interface ViewTableProps {
+import { DataType } from 'models';
+import CardFreePattern from 'components/CardPattern';
+import CardProduct from 'components/CardProduct';
+import { ItemType } from 'antd/es/menu/hooks/useItems';
+import './style.scss';
+
+export interface ViewTableProps {
 	dataSource: DataType[];
 	isFreePatterns?: boolean;
 	total?: number;
@@ -15,7 +20,11 @@ interface ViewTableProps {
 	onSeach?: Function;
 	pageIndex?: number;
 	loading?: boolean;
-	onReadDetail: (key: React.Key) => void
+	onReadDetail: (key: React.Key) => void;
+	isShowTabs?: boolean;
+	itemsTabs?: DataType[];
+	tabsProps?: MenuProps;
+	onChangeTab?: Function
 }
 
 const ViewTable = (
@@ -26,12 +35,18 @@ const ViewTable = (
 		onChange,
 		onSeach,
 		pageIndex = 0,
+		itemsTabs = [],
+		tabsProps,
+		isShowTabs,
+		onChangeTab,
 		onReadDetail,
 	}: ViewTableProps) => {
 
 	const [direction, setDirection] = useState<string>('horizontal');
 	const { Search } = Input;
+	const [currentTab, setCurrentNav] = useState('all');
 
+	console.log('itemsTabs', itemsTabs);
 	const onSearchBtn = (value: string) => {
 		console.log('search value', value);
 		if (onSeach instanceof Function) {
@@ -46,11 +61,53 @@ const ViewTable = (
 		}
 	};
 
+	const renderItems = map(itemsTabs, c => {
+		return {
+			label: c.name,
+			key: c.key || 'N/A',
+			icon: c.icon,
+			children: c.children
+		};
+	});
+
+	const mapTabsData = (data: DataType[]): ItemType[] => {
+		const result = map(data, c => {
+			const { children, name, key, icon } = c;
+			let newTab: ItemType = {
+				label: name,
+				key: key || 'N/A',
+				icon: icon,
+			};
+
+			if (children && children.length > 0) {
+				newTab = {
+					...newTab,
+					children: mapTabsData(children)
+				}
+			}
+			return newTab;
+		});
+
+		return result;
+	}
+
+	const onClickTabs = (e: any) => {
+		console.log('click ', e);
+		setCurrentNav(e.key);
+		onChangeTab instanceof Function && onChangeTab(e.key);
+	};
+
 	return (
 		<div className='data-list'>
-
 			{/* search area */}
-			<Flex className='search-wrap'>
+			<Flex className='search-wrap' justify='space-between'>
+				{/* Search */}
+				<Search
+					allowClear
+					placeholder="input search text"
+					style={{ width: 304 }}
+					onSearch={onSearchBtn}
+				/>
 				{/* direction icon */}
 				<div className='direction-icon'>
 					<Tooltip color='#fd9b9b' title="Grid">
@@ -64,14 +121,27 @@ const ViewTable = (
 						</Button>
 					</Tooltip>
 				</div>
-				{/* Search */}
-				<Search
-					allowClear
-					placeholder="input search text"
-					style={{ width: 304 }}
-					onSearch={onSearchBtn}
-				/>
 			</Flex>
+
+			{/* Tabs categories */}
+			{
+				isShowTabs && renderItems &&
+				<Menu
+					className='tabs-menu'
+					selectedKeys={[currentTab]}
+					mode="horizontal"
+					onClick={onClickTabs}
+					items={
+						[
+							{
+								label: <FormattedMessage id={ALL_ITEM.label} />,
+								key: ALL_ITEM.key
+							},
+							...mapTabsData(itemsTabs)
+						]}
+					{...tabsProps}
+				/>
+			}
 
 			{/* Data source */}
 			<Flex vertical={direction === 'vertical'} wrap='wrap'>
@@ -92,20 +162,27 @@ const ViewTable = (
 			</Flex>
 
 			{/* Pagination area */}
-			<Pagination
-				className='pagination'
-				responsive
-				total={total}
-				// if not use value = -1}
-				{
-				...(pageIndex !== - 1 ? { current: pageIndex + 1 } : {})
-				}
-				pageSize={pageSize}
-				showSizeChanger
-				showQuickJumper
-				showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-				onChange={onChangePage}
-			/>
+			{dataSource?.length > 0 ?
+				<Pagination
+					className='pagination'
+					responsive
+					total={total}
+					// if not use value = -1}
+					{
+					...(pageIndex !== - 1 ? { current: pageIndex + 1 } : {})
+					}
+					pageSize={pageSize}
+					showSizeChanger
+					showQuickJumper
+					showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+					onChange={onChangePage}
+				/>
+				:
+				<Empty
+					imageStyle={{ height: 80 }}
+					image={Empty.PRESENTED_IMAGE_SIMPLE}
+				/>
+			}
 		</div>
 	)
 }

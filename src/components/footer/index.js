@@ -8,7 +8,7 @@ import './style.scss';
 const FooterPage = () => {
 	return (
 		<>
-			<footer className='footer-wrap'>
+			<footer className='footer-wrap container'>
 				<Flex vertical align='center'>
 					<Image preview={false} className='footer-logo' src={logo} />
 					<Row gutter={[48, 12]}>

@@ -10,7 +10,6 @@ import Blog from 'pages/blog';
 import Contact from 'pages/contact';
 import About from 'pages/about';
 import Login from 'pages/login';
-import NotFound from 'pages/NotFound';
 import RegisterPage from 'pages/login/Register';
 import Dashboard from 'pages/Admin/Dashboard';
 import PatternsList from 'pages/Admin/patterns';
@@ -23,6 +22,7 @@ import CRUPattern from 'pages/Admin/patterns/CRUPattern';
 import CRUProduct from 'pages/Admin/products/CRUProduct';
 import CRUPost from 'pages/Admin/posts/CRUPost';
 import PatternDetail from 'pages/freePattern/PatternDetail';
+import { NotFound } from 'components/Common/NotFound';
 
 const router = createBrowserRouter([
   {

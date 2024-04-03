@@ -1,28 +1,31 @@
 import React from 'react';
-import { Card, Image } from 'antd';
+import { Card, Image, Skeleton } from 'antd';
 
-import demo from 'assets/products/pd2.jpg'
 import './index.scss';
-import { DataType, Pattern, Product } from 'models';
+import { Pattern, Product } from 'models';
 
 interface CardPatternProps {
 	width?: string | number;
-	pattern: Pattern | Product | DataType;
-	onReadDetail: Function
+	pattern: Pattern | Product;
+	onReadDetail: Function;
+	loading?: boolean;
 };
 
 const CardFreePattern = (
 	{
-		pattern = {name: '', author: '', src: ''},
+		pattern = { name: '', author: '', src: '' },
 		width,
-		onReadDetail
+		onReadDetail,
+		loading,
 	}: CardPatternProps) => {
 
 	const { Meta } = Card;
-	const { name, src, author } = pattern;
+	const { name, src, author, imagesPreview } = pattern;
+
 
 	return (
 		<Card
+			loading={loading}
 			className='card-free-pattern'
 			bordered={false}
 			style={{ width: width || '100%' }}
@@ -31,18 +34,29 @@ const CardFreePattern = (
 			}}
 			cover={
 				<>
-					<Image
-						alt={name}
-						src={src || demo} />
+					{src ?
+						<Image.PreviewGroup
+							items={imagesPreview}
+						>
+							<Image
+								alt={name}
+								src={src} />
+						</Image.PreviewGroup>
+						:
+						<Skeleton.Image active />
+					}
 				</>
 			}
 		>
-			{name &&
-				<Meta
-					title={<span tabIndex={1} className='card-title' onClick={()=>onReadDetail()}>{name}</span>}
-					description={<div className='author'>Tác giả: {author}</div>}
-				/>
-			}
+			<Skeleton loading={!name} active>
+				{name &&
+					<Meta
+						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
+						description={<div className='author'>Tác giả: {author}</div>}
+					/>
+				}
+			</Skeleton>
+
 		</Card>
 	)
 

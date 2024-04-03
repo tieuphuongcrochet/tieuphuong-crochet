@@ -15,6 +15,7 @@ function* fetchPatterns({ payload }: any) {
 		const newData = map(res.contents, item => ({
 			key: item.id,
 			name: item.name,
+			author: item.author,
 			description: item.description,
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
 			src: item.images?.[0]?.fileContent

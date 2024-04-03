@@ -1,13 +1,24 @@
 import React from "react";
 import { Col, Row } from "antd";
+import { map } from "lodash";
 
 import ReadMoreBtn from "components/ReadMoreBtn";
 import HeaderPart from "./HeaderPart";
 
-import { MOCK_FREE_PATTERNS, ROUTE_PATH } from "utils/constant";
+import { ROUTE_PATH } from "utils/constant";
 import CardFreePattern from "components/CardPattern";
+import { useAppSelector } from "app/hooks";
+import { selectHomeFreePatterns } from "../homeSlice";
+import { useNavigate } from "react-router-dom";
 
 const FreePatternsNode = () => {
+	const patterns = useAppSelector(selectHomeFreePatterns);
+	const navigate = useNavigate();
+
+	const onViewPattern = (id: string) => {
+		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
+	}
+
 	return (
 		<div className='patterns'>
 			<HeaderPart title='Free Patterns'
@@ -15,9 +26,10 @@ const FreePatternsNode = () => {
 			/>
 			<Row gutter={[30, 50]}>
 				{
-					MOCK_FREE_PATTERNS.map(({ name, author, src }, index) =>
+
+					map(patterns, (pattern, index) =>
 						<Col key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
-							<CardFreePattern src={src} title={name} author={author} />
+							<CardFreePattern onReadDetail={()=>onViewPattern(pattern.id || '')} pattern={pattern} />
 						</Col>
 					)
 				}

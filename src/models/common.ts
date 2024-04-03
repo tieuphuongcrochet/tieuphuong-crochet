@@ -22,6 +22,7 @@ export interface ListParams {
 	_sortDir?: 'asc' | 'desc';
 	filters?: Filter[];
 	[key: string]: any;
+	categoryIds?: string[]
 };
 
 export const initialListParams: ListParams = {
@@ -39,7 +40,8 @@ export const initialUserListParams: ListParams = {
 	_sortBy: 'id',
 	_sortDir: 'asc',
 	searchText: '',
-	filters: []
+	filters: [],
+	categoryIds: []
 };
 
 export interface ListTablePayload<T> {

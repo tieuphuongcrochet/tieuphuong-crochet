@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './style.scss';
 
-const ReadMoreBtn = ({ path, className }) => {
+const ReadMoreBtn = ({ path, className = '' }) => {
 	const classess = className ? `readmore-btn ${className}` : 'readmore-btn';
 
 	return (

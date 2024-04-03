@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
-import {  HomeData } from "models";
+import {  HomeData, Pattern, Product } from "models";
 
 export interface HomeState {
 	loading: boolean,
@@ -31,7 +31,13 @@ const homeSlice = createSlice({
 		},
 		setData(state, action: PayloadAction<HomeData>) {
 			state.data = action.payload;
-		}
+		},
+		saveFreePatterns(state, action: PayloadAction<Pattern[]>) {
+			state.data.freePatterns = action.payload;
+		},
+		saveProducts(state, action: PayloadAction<Product[]>) {
+			state.data.products = action.payload;
+		},
 	},
 })
 

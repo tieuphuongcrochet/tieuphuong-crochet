@@ -9,4 +9,5 @@ export default {
 	'menu_nav.detail': 'Detail',
 	'menu_nav.create': 'Create',
 	'menu_nav.menu_noExist': 'No exist',
+	'tab.all': 'Tất cả',
 };
