@@ -123,12 +123,12 @@ const CRUProduct = () => {
                 </Item>
 
                 <Item
-                    name='files'
+                    name='images'
                     label='Image:'>
                     <UploadFiles
-                        files={product.files || []}
+                        files={product.images || []}
                         onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ files: files });
+                            form.setFieldsValue({ images: files });
                         }}
                     />
                 </Item>

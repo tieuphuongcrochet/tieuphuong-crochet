@@ -8,7 +8,7 @@ export interface Product {
 	name: string,
 	price?: number,
 	description?: string,
-	files?: FileUpload[];
+	images?: FileUpload[];
 	src?: string;
 	author?: string;
 	currency_code?: string;

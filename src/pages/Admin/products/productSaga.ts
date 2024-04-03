@@ -17,8 +17,8 @@ function* fetchProducts({ payload }: any) {
 			key: item.id,
 			name: item.name,
 			description: item.description,
-			files: item.files?.map(f => ({...f, url: f?.fileContent})),
-			src: item.files?.[0]?.fileContent,
+			images: item.images?.map(f => ({...f, url: f?.fileContent})),
+			src: item.images?.[0]?.fileContent,
 		}));
 		yield all([
 			put(productAction.saveData({ data: newData, total: res.totalElements })),
@@ -55,8 +55,8 @@ function* handleGetProductById({ payload }: PayloadAction<string>) {
 		
 		const newData: Product = {
 			...data,
-			src: data.files?.[0]?.fileContent,
-			files: data.files?.map(f => ({...f, url: f?.fileContent}))
+			src: data.images?.[0]?.fileContent,
+			images: data.images?.map(f => ({...f, url: f?.fileContent}))
 		};
 
 		console.log('get product by id, data: ', data, newData);
