@@ -8,6 +8,8 @@ import patternService from 'api/pattern';
 
 
 function* fetchPatterns({ payload }: any) {
+	console.log('fetchPatterns', payload);
+	
 	try {
 		yield put(patternAction.loadingRequest());
 		const res: ListResponse<Pattern> = yield call(patternService.getAll, payload);

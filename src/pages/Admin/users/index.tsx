@@ -2,14 +2,14 @@ import { SearchProps } from 'antd/es/input';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, initialUserListParams } from 'models';
+import { DataType, initialListParams } from 'models';
 import { selectLoading, selectUsers, userAction } from './userSlice';
 import { useEffect, useState } from 'react';
 const UsersList = () => {
     const originData: DataType[] = useAppSelector(selectUsers);
     const loading = useAppSelector(selectLoading);
     const dispatch = useAppDispatch();
-    const [params, setParams] = useState(initialUserListParams)
+    const [params, setParams] = useState(initialListParams)
 
     useEffect(() => {
         dispatch(userAction.fetchData(params));
@@ -26,7 +26,7 @@ const UsersList = () => {
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
         console.log(info?.source, value);
         const newParams = {
-            ...initialUserListParams,
+            ...initialListParams,
             searchText: value
         };
         setParams(newParams);

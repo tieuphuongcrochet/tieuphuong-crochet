@@ -60,7 +60,7 @@ const FreePatterns = () => {
 		console.log('key tab', key);
 		const newParams: ListParams = {
 			...initialListParams,
-			categoryIds: [key === ALL_ITEM.key ? '' : key]
+			categoryId: key === ALL_ITEM.key ? '' : key
 		};
 
 		setParams(newParams)
