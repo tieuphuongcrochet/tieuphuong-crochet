@@ -16,6 +16,7 @@ function* fetchProducts({ payload }: any) {
 			...item,
 			key: item.id,
 			name: item.name,
+			author: item.author,
 			description: item.description,
 			images: item.images?.map(f => ({...f, url: f?.fileContent})),
 			src: item.images?.[0]?.fileContent,

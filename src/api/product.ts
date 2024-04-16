@@ -5,8 +5,8 @@ import axiosJWT from './axiosJWT';
 
 const productService = {
 	getAll(params: ListParams): Promise<DataType> {
-		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText, filters} = params;
-		const url = `${API_URL.PRODUCT}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}`;
+		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText, filters, categoryId} = params;
+		const url = `${API_URL.PRODUCT}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}&categoryId=${categoryId}`;
 		return axiosClient.post(url, filters);
 	},
     add(data: Product): Promise<DataType> {

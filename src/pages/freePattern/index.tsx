@@ -32,10 +32,10 @@ const FreePatterns = () => {
 	}, []);
 
 	useEffect(() => {
-		if(categories.length <= 0) {
-				dispatch(categoryAction.fetchData(''));
+		if (categories.length <= 0) {
+			dispatch(categoryAction.fetchData(''));
 		}
-}, []);
+	}, []);
 
 	const onSearchPatterns = (value: string) => {
 		const newParams = {
@@ -59,7 +59,7 @@ const FreePatterns = () => {
 			categoryId: key === ALL_ITEM.key ? '' : key
 		};
 
-		setParams(newParams)
+		setParams(newParams);
 		dispatch(patternAction.fetchData(newParams));
 	}
 
