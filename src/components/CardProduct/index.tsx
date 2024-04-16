@@ -11,6 +11,7 @@ interface CardProductProps {
 	title: string;
 	author?: string;
 	price: number;
+	currency?: string;
 	onPreview?: Function;
 	onShopping?: Function;
 	onReadDetail?: Function
@@ -22,27 +23,28 @@ const CardProduct = (
 		src,
 		title,
 		price,
+		currency,
 		onPreview,
 		onReadDetail,
 		onShopping
-	}: CardProductProps ) => {
+	}: CardProductProps) => {
 	const { Meta } = Card;
 
 	const descriptionNode = <>
-		{price && <div>{price} VND</div>}
+		{price && <div>{price} {currency}</div>}
 	</>;
 
-const onClickBtn = () => {
-	if(onReadDetail instanceof Function){
-		onReadDetail();
+	const onClickBtn = () => {
+		if (onReadDetail instanceof Function) {
+			onReadDetail();
+		}
+		if (onPreview instanceof Function) {
+			onPreview();
+		}
+		if (onShopping instanceof Function) {
+			onShopping();
+		}
 	}
-	if(onPreview instanceof Function){
-		onPreview();
-	}
-	if(onShopping instanceof Function){
-		onShopping();
-	}
-}
 
 	return (
 		<Card
