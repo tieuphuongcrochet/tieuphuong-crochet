@@ -1,4 +1,4 @@
-import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select } from "antd";
+import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select, Switch } from "antd";
 import { useEffect, useState } from "react";
 import { CURRENCY, ROUTE_PATH } from "utils";
 import { useAppDispatch, useAppSelector } from "app/hooks";
@@ -22,7 +22,7 @@ const CRUProduct = () => {
     const product: Product = useAppSelector(selectProduct);
 
     useEffect(() => {
-        if(!categories || categories.length <= 0) {
+        if (!categories || categories.length <= 0) {
             dispatch(categoryAction.fetchData(''));
             console.log('test');
         }
@@ -74,7 +74,7 @@ const CRUProduct = () => {
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
-                initialValues={{currency_code: CURRENCY[0].value }}
+                initialValues={{ currency_code: CURRENCY[0].value }}
             >
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
@@ -108,13 +108,34 @@ const CRUProduct = () => {
                         <Item
                             name="currency_code"
                             label='Currency'
-                            >
+                        >
                             <Select
                                 options={CURRENCY}
                             />
                         </Item>
                     </Col>
                 </Row>
+
+                <Row gutter={48}>
+                    <Col span={12}>
+                        <Item
+                            name="link"
+                            label="Link"
+                        >
+                            <Input placeholder="Link mua hang" />
+                        </Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Item
+                            name="is_home"
+                            label="Show on home page"
+                        >
+                            <Switch />
+                        </Item>
+                    </Col>
+                </Row>
+
                 <Item
                     name="description"
                     label="Description:"

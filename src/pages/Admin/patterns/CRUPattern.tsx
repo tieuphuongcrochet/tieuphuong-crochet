@@ -1,4 +1,4 @@
-import { Form, Input, TreeSelect, Button, Row, Col, Flex } from "antd";
+import { Form, Input, TreeSelect, Button, Row, Col, Flex, Switch } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import UploadFiles from "components/Upload";
 import { FileUpload, Pattern } from "models";
@@ -109,6 +109,27 @@ const CRUPattern = () => {
                         </Row>
                     </Col>
                 </Row>
+
+                <Row gutter={48}>
+                    <Col span={12}>
+                        <Item
+                            name="link"
+                            label="Link"
+                        >
+                            <Input placeholder="Link mua hang" />
+                        </Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Item
+                            name="is_home"
+                            label="Show on home page"
+                        >
+                            <Switch />
+                        </Item>
+                    </Col>
+                </Row>
+                
                 <Item
                     name="description"
                     label="Description:"
