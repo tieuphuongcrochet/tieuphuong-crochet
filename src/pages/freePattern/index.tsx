@@ -18,14 +18,12 @@ const FreePatterns = () => {
 	const [params, setParams] = useState(initialListParams);
 
 	const onChange = (current: number, pageSize: number) => {
-		console.log('parent node', current, pageSize);
 		const newParams = {
 			...params,
 			_pageNo: current - 1,
 			_pageSize: pageSize,
 		}
 		setParams(newParams)
-		console.log('newParams', newParams);
 		dispatch(patternAction.fetchData(newParams));
 	}
 
@@ -40,24 +38,22 @@ const FreePatterns = () => {
 }, []);
 
 	const onSearchPatterns = (value: string) => {
-		console.log('onsearch', value);
 		const newParams = {
 			...initialListParams,
-			text: value
+			categoryId: params.categoryId,
+			searchText: value
 		};
-		setParams(newParams)
+		setParams(newParams);
 		dispatch(patternAction.fetchData(newParams));
 
 	}
 
 	const onViewPattern = (id: React.Key) => {
-		console.log('onview pattern', id);
 		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
 
 	};
 
 	const onChangeTab = (key: string) => {
-		console.log('key tab', key);
 		const newParams: ListParams = {
 			...initialListParams,
 			categoryId: key === ALL_ITEM.key ? '' : key
