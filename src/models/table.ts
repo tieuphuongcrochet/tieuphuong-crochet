@@ -15,6 +15,8 @@ export interface DataType {
   children?: any[];
   icon?: React.ReactNode;
   images?: FileUpload[];
+  currency_code?: string;
+  link?: string;
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

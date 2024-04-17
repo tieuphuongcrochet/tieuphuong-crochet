@@ -35,6 +35,16 @@ export const initialListParams: ListParams = {
 	categoryId: ''
 };
 
+export const initialViewTableParams: ListParams = {
+	_pageNo: 0,
+	_pageSize: 12,
+	_sortBy: 'id',
+	_sortDir: 'asc',
+	searchText: '',
+	filters: [],
+	categoryId: ''
+};
+
 export interface ListTablePayload<T> {
 	data: T[];
 	total: number;

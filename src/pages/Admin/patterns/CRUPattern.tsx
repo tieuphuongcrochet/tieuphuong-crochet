@@ -25,7 +25,7 @@ const CRUPattern = () => {
         if (id) {
             dispatch(patternAction.fetchPattern(id));
         }
-        if(categories.length <= 0) {
+        if (categories.length <= 0) {
             dispatch(categoryAction.fetchData(''));
         }
     }, []);
@@ -74,7 +74,7 @@ const CRUPattern = () => {
                 className="form-wrap"
             >
                 <Row gutter={48}>
-                    <Col xs={20} md={12}>
+                    <Col xs={24} md={12}>
                         <Item
                             name="name"
                             label="Pattern name:"
@@ -83,43 +83,30 @@ const CRUPattern = () => {
                             <Input placeholder="Pattern name" />
                         </Item>
                     </Col>
-                    <Col xs={20} md={12}>
-                        <Row gutter={24}>
-                            <Col span={12}>
-                                <Item
-                                    name="author"
-                                    label="Author:"
-                                    rules={[{ required: true, message: 'Please enter the author' }]}
-                                >
-                                    <Input placeholder="Author" />
-                                </Item>
-                            </Col>
-                            <Col span={12}>
-                                <Item
-                                    name='category_id'
-                                    label='Category'
-                                >
-                                    <TreeSelect
-                                        treeData={categories}
-                                    />
-                                </Item>
-                            </Col>
-
-                        </Row>
+                    <Col md={12} xs={24}>
+                        <Item
+                            name="author"
+                            label="Author:"
+                            rules={[{ required: true, message: 'Please enter the author' }]}
+                        >
+                            <Input placeholder="Author" />
+                        </Item>
                     </Col>
                 </Row>
 
                 <Row gutter={48}>
-                    <Col span={12}>
+                    <Col md={12} xs={24}>
                         <Item
-                            name="link"
-                            label="Link"
+                            name='category_id'
+                            label='Category'
                         >
-                            <Input placeholder="Link mua hang" />
+                            <TreeSelect
+                                treeData={categories}
+                            />
                         </Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col md={12} xs={24}>
                         <Item
                             name="is_home"
                             label="Show on home page"
@@ -128,12 +115,17 @@ const CRUPattern = () => {
                         </Item>
                     </Col>
                 </Row>
-                
+                <Item
+                    name="link"
+                    label="Link"
+                >
+                    <Input placeholder="Link mua hang" />
+                </Item>
                 <Item
                     name="description"
                     label="Description:"
                 >
-                    <TextArea placeholder="Description" />
+                    <TextArea rows={4} placeholder="Description" />
                 </Item>
 
                 <Item

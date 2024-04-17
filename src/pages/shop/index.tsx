@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ALL_ITEM, ROUTE_PATH } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { DataType, ListParams, initialListParams } from 'models';
+import { DataType, ListParams, initialViewTableParams } from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'pages/Admin/products/productSlice';
 import { categoryAction } from 'pages/Admin/categories/categorySlice';
 import ViewTable from 'components/ViewTable';
@@ -15,7 +15,7 @@ const ShopPage = () => {
 	const loading = useAppSelector(selectLoading);
 	const categories = useAppSelector(state => state.category.data);
 
-	const [params, setParams] = useState(initialListParams);
+	const [params, setParams] = useState(initialViewTableParams);
 
 	const onChange = (current: number, pageSize: number) => {
 		const newParams = {
@@ -24,12 +24,11 @@ const ShopPage = () => {
 			_pageSize: pageSize,
 		}
 		setParams(newParams)
-		dispatch(productAction.fetchData(newParams));
 	}
 
 	useEffect(() => {
 		dispatch(productAction.fetchData(params));
-	}, [dispatch, params]);
+	}, [params]);
 
 	useEffect(() => {
 		if (categories.length <= 0) {
@@ -38,14 +37,12 @@ const ShopPage = () => {
 	}, [categories.length, dispatch]);
 
 	const onSearchProducts = (value: string) => {
-		console.log('search products', params.categoryId, value);
 		const newParams = {
-			...initialListParams,
+			...initialViewTableParams,
 			categoryId: params.categoryId,
 			searchText: value
 		};
 		setParams(newParams);
-		dispatch(productAction.fetchData(newParams));
 	}
 
 	const onViewProduct = (id: React.Key) => {
@@ -54,12 +51,10 @@ const ShopPage = () => {
 
 	const onChangeTab = (key: string) => {
 		const newParams: ListParams = {
-			...initialListParams,
+			...initialViewTableParams,
 			categoryId: key === ALL_ITEM.key ? '' : key
 		};
-
 		setParams(newParams);
-		dispatch(productAction.fetchData(newParams));
 	}
 
 	return (

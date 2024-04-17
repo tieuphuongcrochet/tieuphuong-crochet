@@ -12,7 +12,8 @@ export interface Pattern {
 	src?: string;
 	images?: FileUpload[];
 	category?: Category;
-	imagesPreview?: { src: string, alt: string }[]
+	imagesPreview?: { src: string, alt: string }[];
+	link?: string;
 }
 
 export interface PayloadFile {

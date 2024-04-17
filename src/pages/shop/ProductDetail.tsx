@@ -23,7 +23,7 @@ const ProductDetail = () => {
     }, [dispatch, id]);
 
     return (
-        <Space direction="vertical" size={60} className="product-detail mt-content">
+        <Space direction="vertical" size={60}  style={{width: '100%'}} className="product-detail mt-content">
             {/* Introducing the product */}
             <IntroductionCard data={product} />
             <Divider />
@@ -33,7 +33,7 @@ const ProductDetail = () => {
                 content={['小方', 'Tiểu Phương Crochet']}
             >
                 <div className="product-detail-content">
-                    <h1 className="flex justify-center">Chart chi tiết</h1>
+                    <h1 className="flex justify-center">Hình ảnh sản phẩm</h1>
                     <Image.PreviewGroup
                         fallback={logo}
                     >

@@ -13,7 +13,8 @@ export interface Product {
 	author?: string;
 	currency_code?: string;
 	category: Category;
-	imagesPreview?: { src: string, alt: string }[]
+	imagesPreview?: { src: string, alt: string }[];
+	link?: string;
 }
 
 export interface ProductPayloadFile {

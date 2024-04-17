@@ -1,140 +1,152 @@
 @import './../../utils//variables.scss';
 
 .layout-wrap {
-	color: $textPrimaryColor;
-	background-color: $backgroundColor;
-	overflow: hidden;
+  color: $textPrimaryColor;
+  background-color: $backgroundColor;
+  overflow: hidden;
 
-	.author,
-	.description {
-		color: $textSecondColor;
-	}
+  .author,
+  .description {
+    color: $textSecondColor;
+  }
 
-	.card-title {
-		color: $textPrimaryColor;
-	}
+  .card-title {
+    color: $textPrimaryColor;
+  }
 
-	>*,
-	.ant-card,
-	.ant-row .ant-flex,
-	.ant-breadcrumb,
-	.ant-menu {
-		font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
-	}
+  > *,
+  .ant-card,
+  .ant-row .ant-flex,
+  .ant-breadcrumb,
+  .ant-menu {
+    font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
+  }
 
-	.introduce {
-		width: 100%;
+  .introduce {
+    width: 100%;
 
-		&-product,
-		&-pattern,
-		&-banner {
+    &-product,
+    &-pattern,
+    &-banner {
+      &-bg {
+        background-size: cover;
+        background-position: center center;
+      }
+    }
 
-			&-bg {
-				background-size: cover;
-				background-position: center center;
-			}
-		}
+    &-banner {
+      padding: 0 40px;
 
-		&-banner {
-			padding: 0 40px;
+      &-bg {
+        padding-top: 50%;
+      }
+    }
+  }
 
-			&-bg {
-				padding-top: 50%;
-			}
-		}
-	}
+  .price-wrap {
+    font-size: $fontSize_large;
+    font-weight: $fontWeight_medium;
+    color: $textPrimaryColor;
+  }
 }
 
 // button
-:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-	color: $colorPrimary;
-	border-color: $colorPrimary;
+:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  color: $colorPrimary;
+  border-color: $colorPrimary;
 }
 
 .content-wrap {
-	padding: 40px 0;
-
+  padding: 40px 0;
 }
 
 .actions-links {
-	text-align: center;
-	background: #fff;
-	box-shadow: 1px 1px 1px #0000001a;
-	padding: 10px 0;
-	border-radius: 3px;
-	transition: all .7s ease 0s;
-	-webkit-transition: all .7s ease 0s;
+  text-align: center;
+  background: #fff;
+  box-shadow: 1px 1px 1px #0000001a;
+  padding: 10px 0;
+  border-radius: 3px;
+  transition: all 0.7s ease 0s;
+  -webkit-transition: all 0.7s ease 0s;
 }
 
 .card-title {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .ant-card {
+  .ant-card-cover {
+    &:hover {
+      .ant-image {
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
 
-	.ant-card-cover {
-		&:hover {
-			.ant-image {
-				img {
-					transform: scale(1.1);
-				}
-			}
-		}
+    .ant-image {
+      overflow: hidden;
 
-		.ant-image {
-			overflow: hidden;
-
-			img {
-				transform: scale(1);
-				transition: all .7s ease 0s;
-				-webkit-transition: all .7s ease 0s;
-			}
-		}
-	}
+      img {
+        transform: scale(1);
+        transition: all 0.7s ease 0s;
+        -webkit-transition: all 0.7s ease 0s;
+      }
+    }
+  }
 }
 
 .container {
-	padding: 30px;
+  padding: 30px;
 }
 
 // responsive
 @media screen and (min-width: $xxl) {
-	.container {
-		width: 1440px;
-		margin: 0 auto;
-	}
+  .container {
+    width: 1440px;
+    margin: 0 auto;
+  }
 
-	.tabs-menu {
-		.ant-menu-item {
-			font-size: $fontSize_large;
-		}
-	}
+  .tabs-menu {
+    .ant-menu-item {
+      font-size: $fontSize_large;
+    }
+  }
 }
 
 @media screen and (min-width: $md) {
-	.container {
-		padding: 50px;
-	}
+  .container {
+    padding: 50px;
+  }
 
-	.tabs-menu {
-		.ant-menu-item {
-			font-size: $fontSize_middle;
-		}
-	}
+  .tabs-menu {
+    .ant-menu-item {
+      font-size: $fontSize_middle;
+    }
+  }
 }
 
 @media screen and (min-width: $xl) {
-	.container {
-		padding: 80px 100px;
-	}
+  .container {
+    padding: 80px 100px;
+  }
 }
 
 .transition-transform {
-	transition-property: transform;
-	transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-	transition-duration: .15s;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 
 .rote-180 {
-	transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.ant-input-search {
+  .ant-input-affix-wrapper,
+  .ant-input-group-addon .ant-input-search-button {
+    height: 44px;
+  }
 }

@@ -1,6 +1,6 @@
 import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select, Switch } from "antd";
 import { useEffect, useState } from "react";
-import { CURRENCY, ROUTE_PATH } from "utils";
+import { CURRENCY_LIST, ROUTE_PATH } from "utils";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { productAction, selectProduct } from "./productSlice";
@@ -70,7 +70,7 @@ const CRUProduct = () => {
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
-                initialValues={{ currency_code: CURRENCY[0].value }}
+                initialValues={{ currency_code: CURRENCY_LIST[0].value }}
             >
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
@@ -106,7 +106,7 @@ const CRUProduct = () => {
                             label='Currency'
                         >
                             <Select
-                                options={CURRENCY}
+                                options={CURRENCY_LIST}
                             />
                         </Item>
                     </Col>

@@ -44,8 +44,8 @@ const PatternsList = () => {
             dataIndex: 'description',
         },
         {
-            title: 'Price',
-            dataIndex: 'price',
+            title: 'Author',
+            dataIndex: 'author',
             width: '25%',
         },
     ]

@@ -1,0 +1,13 @@
+@import 'utils/variables.scss';
+
+.list-card-item {
+  display: flex;
+  border: 1px solid $borderColor;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 20px;
+
+  .item-infor {
+    height: 100%;
+  }
+}

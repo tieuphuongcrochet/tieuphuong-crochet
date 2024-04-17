@@ -91,13 +91,13 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 
 	return (
 		<>
-			<ImgCrop
+			{/* <ImgCrop
 				rotationSlider
 				cropShape='rect'
 				showGrid
 				aspectSlider
 				showReset
-			>
+			> */}
 				<Upload
 					accept="image/png,image/jpeg,image/jpg,.pdf,.doc,.docx"
 					customRequest={onUploadImage}
@@ -110,7 +110,7 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 				>
 					{fileList.length < 20 && '+ Upload'}
 				</Upload>
-			</ImgCrop>
+			{/* </ImgCrop> */}
 			<Modal
 				open={previewOpen}
 				title={previewTitle}

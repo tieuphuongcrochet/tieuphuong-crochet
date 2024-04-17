@@ -1,6 +1,6 @@
 import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import _get from 'lodash/get';
-import { Category, DataType, Paging } from 'models';
+import { Category, Paging } from 'models';
 import moment from 'moment';
 
 export function hasResponseError(response: any) {
@@ -56,7 +56,7 @@ export const getFileNameAndExt = (name: string) => {
 
 export const genBlobName = (originFileName: string, rootBlobFolder: string, uid: string) => {
   const currentDate = getCurrentDate(new Date())
-  const { fileName, ext } = getFileNameAndExt(originFileName);
+  const { ext } = getFileNameAndExt(originFileName);
   const blobName = `image/${currentDate}/${rootBlobFolder}/${uid}.${ext}`;
   return blobName;
 };
