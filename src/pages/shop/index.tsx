@@ -49,7 +49,6 @@ const ShopPage = () => {
 	}
 
 	const onViewProduct = (id: React.Key) => {
-		console.log('onview product', id);
 		navigate(`${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/${id}`);
 	};
 
@@ -67,7 +66,6 @@ const ShopPage = () => {
 		<div className='shop-page'>
 			<ViewTable onReadDetail={(id) => onViewProduct(id)}
 				dataSource={productList}
-				isFreePatterns={false}
 				total={totalRecords}
 				loading={loading}
 				isShowTabs

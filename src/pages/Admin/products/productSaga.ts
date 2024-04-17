@@ -7,11 +7,9 @@ import productService from 'api/product';
 
 
 function* fetchProducts({ payload }: any) {
-	console.log('api product', payload);
 	try {
 		yield put(productAction.loadingRequest());
 		const res: ListResponse<Product> = yield call(productService.getAll, payload);
-		console.log('Product data', res);
 		const newData = map(res.contents, item => ({
 			...item,
 			key: item.id,
@@ -32,13 +30,11 @@ function* fetchProducts({ payload }: any) {
 }
 
 function* handleCreateUpdate({ payload }: PayloadAction<ProductPayload>) {
-	console.log('create', payload);
 	const { params, callback } = payload;
 
 	try {
 		yield put(productAction.loadingRequest());
-		const data: DataType[] = yield call(productService.add, params);
-		console.log('Product data', data);
+		yield call(productService.add, params);
 		yield put(productAction.loadingSuccess());
 		callback instanceof Function && callback();
 
@@ -51,16 +47,13 @@ function* handleCreateUpdate({ payload }: PayloadAction<ProductPayload>) {
 function* handleGetProductById({ payload }: PayloadAction<string>) {
 	try {
 		yield put(productAction.loadingRequest());
-		const data: Product = yield call(productService.getById, payload);
-		console.log('data');
-		
+		const data: Product = yield call(productService.getById, payload);		
 		const newData: Product = {
 			...data,
 			src: data.images?.[0]?.fileContent,
 			images: data.images?.map(f => ({...f, url: f?.fileContent}))
 		};
 
-		console.log('get product by id, data: ', data, newData);
 		yield put(productAction.saveProduct(newData));
 	} catch (error) {
 		console.log('Failed to CU Product', error);

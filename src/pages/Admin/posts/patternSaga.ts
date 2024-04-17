@@ -7,11 +7,9 @@ import { patternAction } from './patternSlice';
 
 
 function* fetchCategories(payload: any) {
-    console.log('api category', payload);
 	try {
 		yield put(patternAction.loadingRequest());
 		const data: Pattern[] = yield call(category.getAll);
-		console.log('Category data', data);
 		const newData = map(data, item => ({
 			key: item.id,
 			// name: item.categoryName
@@ -27,11 +25,9 @@ function* fetchCategories(payload: any) {
 }
 
 function *handleCreateUpdate({payload}: PayloadAction<DataType>){
-    console.log('create', payload);
 	try {
 		yield put(patternAction.loadingRequest());
-		const data: DataType[] = yield call(category.add, payload);
-		console.log('Category data', data);
+		yield call(category.add, payload);
 		yield call(fetchCategories, '');
 		yield put(patternAction.loadingSuccess());
 

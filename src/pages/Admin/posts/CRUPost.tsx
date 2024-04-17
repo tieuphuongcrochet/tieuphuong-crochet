@@ -29,7 +29,6 @@ const CRUPost = () => {
     const handleCancel = () => setPreviewOpen(false);
 
     const handlePreview = async (file: UploadFile) => {
-        console.log('file', file);
 
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj as File);

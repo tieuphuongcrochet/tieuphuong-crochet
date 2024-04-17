@@ -46,16 +46,13 @@ const ViewTable = (
 	const { Search } = Input;
 	const [currentTab, setCurrentNav] = useState('all');
 
-	console.log('itemsTabs', itemsTabs);
 	const onSearchBtn = (value: string) => {
-		console.log('search value', value);
 		if (onSeach instanceof Function) {
 			onSeach(value);
 		}
 	};
 
 	const onChangePage = (page: number, pageSize: number) => {
-		console.log('child node, page', page, 'pagesize', pageSize);
 		if (onChange instanceof Function) {
 			onChange(page, pageSize);
 		}
@@ -92,7 +89,6 @@ const ViewTable = (
 	}
 
 	const onClickTabs = (e: any) => {
-		console.log('click ', e);
 		setCurrentNav(e.key);
 		onChangeTab instanceof Function && onChangeTab(e.key);
 	};
@@ -154,7 +150,12 @@ const ViewTable = (
 										pattern={item}
 										onReadDetail={() => onReadDetail(item.key)}
 									/> :
-									<CardProduct title={item.name || 'N/A'} price={item.price || 0} src={item.src} />
+									<CardProduct
+										title={item.name || 'N/A'}
+										price={item.price || 0}
+										src={item.src}
+										onReadDetail={() => onReadDetail(item.key)}
+									/>
 							}
 						</Col>
 					)

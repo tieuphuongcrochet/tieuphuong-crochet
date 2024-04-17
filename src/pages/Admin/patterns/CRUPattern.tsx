@@ -42,7 +42,6 @@ const CRUPattern = () => {
     }, [pattern, id]);
 
     const onSubmitForm = (values: Pattern) => {
-        console.log('values', values);
         let sendData = { ...values }
         if (id) {
             sendData = {

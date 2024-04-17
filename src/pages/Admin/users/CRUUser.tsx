@@ -45,7 +45,6 @@ const CRUUser = () => {
     }, [form, user, id]);
 
     const onSubmitForm = (values: User) => {
-        console.log('values', values);
         let sendData = { ...values }
         if (id) {
             sendData = {

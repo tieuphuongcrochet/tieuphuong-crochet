@@ -8,7 +8,6 @@ import patternService from 'api/pattern';
 
 
 function* fetchPatterns({ payload }: any) {
-	console.log('fetchPatterns', payload);
 	
 	try {
 		yield put(patternAction.loadingRequest());
@@ -33,12 +32,10 @@ function* fetchPatterns({ payload }: any) {
 }
 
 function* handleCreateUpdate({ payload }: PayloadAction<PatternPayload>) {
-	console.log('create', payload);
 	const { params, callback } = payload;
 	try {
 		yield put(patternAction.loadingRequest());
-		const data: DataType[] = yield call(patternService.add, params);
-		console.log('Pattern data', data);
+		yield call(patternService.add, params);
 		callback instanceof Function && callback();
 		yield put(patternAction.loadingSuccess());
 	} catch (err) {
@@ -53,7 +50,6 @@ function* uploadPatterns({ payload }: PayloadAction<PayloadFile>) {
 		const formData = new FormData();
 		formData.append('file ', file);
 		const urlImg: string = yield call(uploadFile.upload, formData);
-		console.log('urlImg', urlImg);
 
 		if (resolve) {
 			resolve(urlImg)
@@ -74,7 +70,6 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 			images: data.images ? map(data.images, f => ({...f, url: f?.fileContent})) : [],
 		};
 
-		console.log('get pattern by id, data: ', data, newData);
 		yield put(patternAction.savePattern(newData));
 	} catch (error) {
 		console.log('Failed to CU Pattern', error);

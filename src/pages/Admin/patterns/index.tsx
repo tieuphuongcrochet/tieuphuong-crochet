@@ -15,7 +15,6 @@ const PatternsList = () => {
     const totalRecords = useAppSelector(selectTotalRecords);
     const loading = useAppSelector(selectLoading);
 
-    console.log('originData patterns', originData);
     const [params, setParams] = useState(initialListParams)
 
     useEffect(() => {
@@ -27,12 +26,10 @@ const PatternsList = () => {
     }
 
     const onDeleteRecord = (rd: React.Key) => {
-        console.log('delete rd', rd);
         dispatch(patternAction.delete(rd));
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        console.log(info?.source, value);
         const newParams = {
             ...initialListParams,
             searchText: value
@@ -65,7 +62,6 @@ const PatternsList = () => {
             _pageSize: pageSize,
         }
         setParams(newParams)
-        console.log('page', pagination, 'newParams', newParams);
         dispatch(patternAction.fetchData(newParams));
 
     }

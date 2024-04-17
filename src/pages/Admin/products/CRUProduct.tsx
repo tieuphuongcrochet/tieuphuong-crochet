@@ -24,7 +24,6 @@ const CRUProduct = () => {
     useEffect(() => {
         if (!categories || categories.length <= 0) {
             dispatch(categoryAction.fetchData(''));
-            console.log('test');
         }
         if (id) {
             dispatch(productAction.fetchProduct(id));
@@ -44,7 +43,6 @@ const CRUProduct = () => {
     }, [product, id]);
 
     const onSubmitForm = (values: any) => {
-        console.log('values', values);
         let sendData = { ...values }
         if (id) {
             sendData = {
@@ -56,8 +54,6 @@ const CRUProduct = () => {
             form.resetFields();
             navigate(ROUTE_PATH.AMIN_PRODUCTS);
         };
-        console.log('sendData', sendData);
-
         dispatch(productAction.cUProduct({ params: sendData, callback }));
     }
 

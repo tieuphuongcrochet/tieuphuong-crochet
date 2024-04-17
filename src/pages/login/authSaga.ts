@@ -36,7 +36,6 @@ function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 }
 
 function* handleLogout() {
-	console.log('handle logout');
 	localStorage.removeItem(LOCAL_STORAGE_NAMES.ACCESS_TOKEN);
 	// redirect to login page
 	yield put(redirect(ROUTE_PATH.LOGIN));
@@ -70,7 +69,6 @@ function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
 }
 
 export default function* authSaga() {
-	console.log('auth saga');
 	// yield fork(watchLoginFlow);
 	yield takeLatest(authActions.login.type, handleLogin);
 	yield takeLatest(authActions.resigter.type, handleRegister);

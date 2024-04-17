@@ -23,6 +23,7 @@ import CRUProduct from 'pages/Admin/products/CRUProduct';
 import CRUPost from 'pages/Admin/posts/CRUPost';
 import PatternDetail from 'pages/freePattern/PatternDetail';
 import { NotFound } from 'components/Common/NotFound';
+import ProductDetail from 'pages/shop/ProductDetail';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: `${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/:id`,
         element: <PatternDetail />
+      },
+      {
+        path: `${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <ProductDetail />
       },
       {
         path: ROUTE_PATH.BLOG,

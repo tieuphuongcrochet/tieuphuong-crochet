@@ -13,7 +13,6 @@ const PatternDetail = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const pattern: Pattern = useAppSelector(selectPattern);
-	console.log('pattern', pattern);
 
 	useEffect(() => {
 		if (id) {
@@ -49,7 +48,6 @@ const PatternDetail = () => {
 									)
 								}
 							</Row>
-
 						</Flex>
 					</Image.PreviewGroup>
 				</div>

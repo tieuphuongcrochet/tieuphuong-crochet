@@ -8,7 +8,6 @@ import productSaga from "pages/Admin/products/productSaga";
 import userSaga from "pages/Admin/users/userSaga";
 
 export default function* rootSaga() {
-	console.log('root sagaa');
 	yield all([
 		authSaga(),
 		homeSaga(),

@@ -26,7 +26,6 @@ const FreePatternsNode = () => {
 			/>
 			<Row gutter={[30, 50]}>
 				{
-
 					map(patterns, (pattern, index) =>
 						<Col key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
 							<CardFreePattern onReadDetail={() => onViewPattern(pattern.id || '')} pattern={pattern} />

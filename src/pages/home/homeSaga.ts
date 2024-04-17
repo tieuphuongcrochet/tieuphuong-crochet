@@ -13,7 +13,6 @@ function* fetchDataHome() {
 	try {
 		yield put(homeActions.loadingRequest());
 		const data: HomeData = yield call(homeApi.getAll);
-		console.log('home data', data);
 
 		const freePatterns: Pattern[] = map(data.freePatterns, pt => ({
 			id: pt.id,
