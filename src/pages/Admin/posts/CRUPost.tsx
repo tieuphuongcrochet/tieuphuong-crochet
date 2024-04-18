@@ -1,4 +1,4 @@
-import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col } from "antd";
+import { Form, Input, UploadFile, UploadProps, Upload, Modal, Button } from "antd";
 import { useState } from "react";
 import ImgCrop from 'antd-img-crop';
 
@@ -45,30 +45,30 @@ const CRUPost = () => {
     }
 
     return (<>
-        <div className="crupattern-page">
+        <div className="cupost-page">
             <Form layout="vertical"
-                name='CUCategoryForm'
+                name='CUPostForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
             >
                 <Item
-                    name="name"
-                    label="Pattern name:"
-                    rules={[{ required: true, message: 'Please enter pattern name' }]}
+                    name="title"
+                    label="Post title:"
+                    rules={[{ required: true, message: 'Please enter post title' }]}
                 >
-                    <Input placeholder="Category name" />
+                    <Input placeholder="Post title" />
                 </Item>
                 <Item
-                    name="description"
-                    label="Description:"
+                    name="content"
+                    label="Content:"
                 >
-                    <TextArea placeholder="Description" />
+                    <TextArea placeholder="Content" />
                 </Item>
 
                 <Item
-                    name='pattern'
-                    label='Pattern'>
+                    name='post'
+                    label='Post'>
                     <ImgCrop
                         rotationSlider
                         cropShape='rect'

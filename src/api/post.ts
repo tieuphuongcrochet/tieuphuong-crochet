@@ -1,17 +1,19 @@
-import { DataType } from 'models';
+import { DataType, ListParams } from 'models';
 import axiosClient from "./axiosClient";
 import { API_URL } from 'utils';
 import axiosJWT from './axiosJWT';
+import { Post } from 'models/post';
 
-const post = {
-	getAll(): Promise<DataType> {
-		const url = `${API_URL.FREE_PATTERN}`;
+const postService = {
+	getAll(params: ListParams): Promise<DataType> {
+		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText} = params;
+		const url = `${API_URL.BLOG}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}`;
 		return axiosClient.get(url);
 	},
-  //   add(data: DataType): Promise<DataType> {
-  //       const url = `${API_URL.CATEGORY}/${API_URL.CREATE}`
-	// 	return axiosJWT.post(url, data);
-	// },
+	add(data: Post): Promise<DataType> {
+        const url = `${API_URL.BLOG}/${API_URL.CREATE}`
+		return axiosJWT.post(url, data);
+	},
 
 	// update(data: DataType): Promise<DataType> {
   //       const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
@@ -29,4 +31,4 @@ const post = {
 	// }
 }
 
-export default post;
+export default postService;

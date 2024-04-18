@@ -6,6 +6,7 @@ import authSaga from "pages/login/authSaga";
 import patternSaga from "saga/pattern/patternSaga";
 import productSaga from "pages/Admin/products/productSaga";
 import userSaga from "pages/Admin/users/userSaga";
+import postSaga from "pages/Admin/posts/postSaga";
 
 export default function* rootSaga() {
 	yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
 		patternSaga(),
 		productSaga(),
 		userSaga(),
+		postSaga()
 	])
 };
