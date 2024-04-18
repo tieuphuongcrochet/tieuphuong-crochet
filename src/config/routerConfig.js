@@ -129,8 +129,10 @@ const router = createBrowserRouter([
         path: `${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.CREATE}`,
         element: < CRUPost />,
       },
-
-
+      {
+        path: `${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.DETAIL}/:id`,
+        element: < CRUPost />,
+      },
     ],
   },
   {

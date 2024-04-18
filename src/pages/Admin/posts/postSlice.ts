@@ -28,6 +28,9 @@ const postSlice = createSlice({
             state.post = payload;
             state.loading = false;
         },
+        resetPost(state) {
+            state.post = { title: '', content: '' };
+        },
         fetchData(_, { payload }: PayloadAction<ListParams>) { },
         cUPost(_, { payload }: PayloadAction<PostPayload>) { },
         delete(_, { payload }: PayloadAction<React.Key>) { },

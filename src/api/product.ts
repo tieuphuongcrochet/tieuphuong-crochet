@@ -14,11 +14,6 @@ const productService = {
 		return axiosJWT.post(url, data);
 	},
 
-	// update(data: DataType): Promise<DataType> {
-  //       const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
-	// 	return axiosJWT.post(url, { data });
-	// },
-
 	getById(id: string): Promise<DataType> {
 		const url = `${API_URL.PRODUCT}/${API_URL.DETAIL}?id=${id}`;
 		return axiosClient.get(url);

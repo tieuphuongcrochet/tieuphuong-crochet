@@ -5,8 +5,11 @@ import { DataType, initialListParams } from 'models';
 import { useEffect, useState } from 'react';
 import { postAction, selectLoading, selectPosts, selectTotalRecords } from './postSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from 'utils';
 
 const PostsList = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectLoading);
     const totalRecords = useAppSelector(selectTotalRecords);
@@ -20,14 +23,21 @@ const PostsList = () => {
 
     const onEditRecord = (rd: React.Key) => {
         console.log('edit rd', rd);
+        navigate(`${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.DETAIL}/${rd}`)
     }
 
     const onDeleteRecord = (rd: React.Key) => {
         console.log('delete rd', rd);
+        dispatch(postAction.delete(rd));
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
         console.log(info?.source, value);
+        const newParams = {
+            ...params,
+            searchText: value,
+        }
+        setParams(newParams);
     }
 
     const onPageChange = (pagination: any, filters: any, sorter: any) => {
@@ -52,7 +62,10 @@ const PostsList = () => {
         }
     ];
 
-    const onAddNew = () => { }
+    const onAddNew = () => { 
+        navigate(`${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.CREATE}`)
+    }
+
     return (
         <>
             <div className='posts-admin'>

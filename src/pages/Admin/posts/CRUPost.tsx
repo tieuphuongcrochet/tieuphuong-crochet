@@ -1,47 +1,52 @@
-import { Form, Input, UploadFile, UploadProps, Upload, Modal, Button } from "antd";
-import { useState } from "react";
-import ImgCrop from 'antd-img-crop';
+import { Form, Input, Button, Space } from "antd";
+import { useEffect } from "react";
+import { postAction, selectPost } from "./postSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { Post } from "models/post";
+import { ROUTE_PATH } from "utils";
 
 const CRUPost = () => {
     const [form] = Form.useForm();
     const { TextArea } = Input;
     const { Item } = Form;
-    // type FileType = Parameters<UploadProps, 'beforeUpload'>[0];
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const post: Post = useAppSelector(selectPost);
+    const { id } = useParams();
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([]);
-
-    const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-    };
-
-    const getBase64 = (file: File): Promise<string> =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
-        });
-
-
-    const handleCancel = () => setPreviewOpen(false);
-
-    const handlePreview = async (file: UploadFile) => {
-
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj as File);
+    useEffect(() => {
+        if (id) {
+            dispatch(postAction.fetchPost(id));
         }
+    }, [id]);
 
-        setPreviewImage(file.url || (file.preview as string));
-        setPreviewOpen(true);
-        setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-    };
+    useEffect(() => {
+        if (post.title) {
+            console.log('post', post);
+            form.setFieldsValue(post);
+        }
+    }, [post]);
 
     const onSubmitForm = (values: any) => {
-        console.log('values', values);
-        console.log('fileList', fileList);
+        let sendData = { ...values }
+        if (id) {
+            sendData = {
+                ...sendData,
+                id: id
+            }
+        }
+        const callback = () => {
+            form.resetFields();
+            navigate(ROUTE_PATH.ADMIN_POSTS);
+        };
+        dispatch(postAction.cUPost({ params: sendData, callback }));
+    }
+
+    const onCancel = () => {
+        form.resetFields();
+        dispatch(postAction.resetPost());
+        navigate(-1);
     }
 
     return (<>
@@ -63,46 +68,26 @@ const CRUPost = () => {
                     name="content"
                     label="Content:"
                 >
-                    <TextArea placeholder="Content" />
+                    <TextArea rows={10} placeholder="Content" />
                 </Item>
 
                 <Item
                     name='post'
                     label='Post'>
-                    <ImgCrop
-                        rotationSlider
-                        cropShape='rect'
-                        showGrid
-                        aspectSlider
-                        showReset
-                    >
-                        <Upload
-                            // action={file => uploadFile(file)}
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChange}
-                            onPreview={handlePreview}
-                        >
-                            {fileList.length < 20 && '+ Upload'}
-                        </Upload>
-                    </ImgCrop>
+            
                 </Item>
-                <Item wrapperCol={{ offset: 12, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                <Item wrapperCol={{ span: 12, offset: 10 }}>
+                    <Space>
+                        <Button className="btn-form" type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                        <Button className="btn-form" onClick={onCancel}>Cancel</Button>
+                    </Space>
                 </Item>
             </Form>
 
         </div>
-        <Modal
-            open={previewOpen}
-            title={previewTitle}
-            footer={null}
-            onCancel={handleCancel}
-        >
-            <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
+    
     </>)
 }
 

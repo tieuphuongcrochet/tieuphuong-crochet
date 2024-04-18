@@ -64,9 +64,9 @@ const CRUProduct = () => {
     }
 
     return (<>
-        <div className="crupattern-page">
+        <div className="cruproduct-page">
             <Form layout="vertical"
-                name='CUCategoryForm'
+                name='CUProductForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"

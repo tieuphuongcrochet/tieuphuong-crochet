@@ -15,20 +15,15 @@ const postService = {
 		return axiosJWT.post(url, data);
 	},
 
-	// update(data: DataType): Promise<DataType> {
-  //       const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
-	// 	return axiosJWT.post(url, { data });
-	// },
+	getById(id: string): Promise<DataType> {
+		const url = `${API_URL.BLOG}/${API_URL.DETAIL}?id=${id}`;
+		return axiosClient.get(url);
+	},
 
-	// getById(id: string): Promise<DataType> {
-	// 	const url = `${API_URL.PRODUCT}/detail/${id}`;
-	// 	return axiosClient.get(url);
-	// },
-
-	// remove(id: string): Promise<any> {
-	// 	const url = `${API_URL.PRODUCT}/${id}`;
-	// 	return axiosClient.delete(url);
-	// }
+	remove(id: React.Key): Promise<any> {
+		const url = `${API_URL.BLOG}/${API_URL.DELETE}?id=${id}`;
+		return axiosJWT.delete(url);
+	}
 }
 
 export default postService;
