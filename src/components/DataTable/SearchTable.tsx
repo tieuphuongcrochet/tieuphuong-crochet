@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Flex, Input, Radio, RadioChangeEvent, Row, TreeSelect } from 'antd';
+import { Button, Col, Flex, Input, Radio, RadioChangeEvent, Row, Tooltip, TreeSelect } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Filter, SearchTableProps } from 'models';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction } from 'pages/Admin/categories/categorySlice';
 import { OPERATOR } from 'utils';
+import { ReloadOutlined } from '@ant-design/icons';
 
 const initialFilter: Filter[] = [
     {
@@ -69,7 +70,9 @@ const SearchTable = ({ onAddNew, onSearch, onFilter, onChangeCategory, textAddNe
                                 </Radio.Group>
                             </Col>
                             <Col>
-                                <Button >Reset</Button>
+                                <Button style={{ textAlign: 'center', width: '100%' }} danger shape="default" icon={<ReloadOutlined />}>
+                                    {'Reset'}
+                                </Button>
                             </Col>
                         </>
                     )
