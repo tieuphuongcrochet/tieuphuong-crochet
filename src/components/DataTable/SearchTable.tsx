@@ -36,13 +36,6 @@ const SearchTable = ({ onAddNew, onSearch, onFilter, onChangeCategory, textAddNe
         onFilter instanceof Function && onFilter(newFilter);
     };
 
-    // const onChangeCategory = (value: string) => {
-    //     const newFilter: Filter[] = [...filters]
-    //     newFilter[1].value = value || '';
-    //     setFilters(newFilter)
-    //     onFilter instanceof Function && onFilter(newFilter);
-    // }
-
     return (
         <Flex className='search-table' justify='space-between'>
             <Row style={{ width: '100%' }} gutter={12} className='search'>
@@ -56,25 +49,17 @@ const SearchTable = ({ onAddNew, onSearch, onFilter, onChangeCategory, textAddNe
                         enterButton
                     />
                 </Col>
-                <Col span={6}>
-                    <TreeSelect
-                        allowClear
-                        placeholder='Categories'
-                        treeData={categories}
-                        onChange={onChangeCategory}
-                    />
-                </Col>
                 {
                     isShowFilter && (
                         <>
-                            {/* <Col span={6}>
+                            <Col span={6}>
                                 <TreeSelect
                                     allowClear
                                     placeholder='Categories'
                                     treeData={categories}
                                     onChange={onChangeCategory}
                                 />
-                            </Col> */}
+                            </Col>
                             <Col span={4}>
                                 <label>Show on home: </label>
                                 <Radio.Group onChange={onchangeRadio} value={filters[0].value}>
