@@ -82,10 +82,13 @@ const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFile
 		}
 	};
 
-	const onDelete = (file: UploadFile) => {
+	const onDelete = async (file: UploadFile) => {
+		console.log('file', file);
 		const newFileList = filter(fileList, f => f.uid !== file.uid);
 		setFileList(newFileList);
 		onChangeFile(map(newFileList, nf => nf.url));
+		const res = await uploadFile.delete([file?.fileName as string]);
+		console.log('res delete files', res);
 	}
 
 	const beforeUpload = (file: File) => {
