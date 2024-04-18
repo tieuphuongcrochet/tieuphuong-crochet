@@ -31,102 +31,102 @@ const ProductsNode = () => {
     navigate(`${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/${id}`);
   };
 
-  //   return (
-  //     <div className="products">
-  //       <HeaderPart title="Products" />
-  //       <Flex gap={48} vertical className="products-data">
-  //         {/* <Row gutter={[24, 24]} className="row-data">
-  // 					<Col className="product-bigbox" xs={24} md={12} >
-  // 						<CardProduct src={productbig2} title='Hoa hồng vàng' price={200000}/>
-  // 					</Col>
-  // 					<Col xs={24} md={12}>
-  // 						<Row gutter={[24, 48]}>
-  // 						<Col xs={24} md={12}>
-  // 								<CardProduct title='Hoa đầu thú' price={60000} />
-  // 							</Col>
-  // 							<Col xs={24} md={12}>
-  // 								<CardProduct src={product2} title='Hoa đầu thú' price={60000} />
-  // 							</Col>
-  // 							<Col xs={24} md={12}>
-  // 								<CardProduct src={product3} title='Hoa đầu thú' price={60000} />
-  // 							</Col>
-  // 							<Col xs={24} md={12}>
-  // 								<CardProduct src={product4} title='Hoa sắc màu' price={80000} />
-  // 							</Col>
-  // 						</Row>
-  // 					</Col>
-  // 				</Row> */}
-  //         <Row gutter={[24, 24]}>
-  //           <Col className="product-bigbox" xs={20} md={12}>
-  //             <CardProduct src={productbig2} title="Hoa hồng vàng" price={200000} />
-  //           </Col>
-  //           <Col xs={24} md={12}>
-  //             <Row gutter={[24, 48]}>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product2} title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product3} title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product4} title="Hoa sắc màu" price={80000} />
-  //               </Col>
-  //             </Row>
-  //           </Col>
-  //         </Row>
-  //         <Row gutter={[24, 24]}>
-  //           <Col xs={24} md={12}>
-  //             <Row gutter={[24, 48]}>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product2} title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product3} title="Hoa đầu thú" price={60000} />
-  //               </Col>
-  //               <Col xs={20} md={12}>
-  //                 <CardProduct src={product4} title="Hoa sắc màu" price={80000} />
-  //               </Col>
-  //             </Row>
-  //           </Col>
-  //           <Col className="product-bigbox" xs={20} md={12}>
-  //             <CardProduct src={productbig2} title="Hoa hồng vàng" price={200000} />
-  //           </Col>
-  //         </Row>
-  //         <div className="read-more">
-  //           <ReadMoreBtn path={ROUTE_PATH.SHOP} />
-  //         </div>
-  //       </Flex>
-  //     </div>
-  //   );
-  // };
-
-  return (
-    <div className="products">
-      <HeaderPart title="Products" />
-      <Flex gap={48} vertical className="products-data">
-        <Row gutter={[24, 24]}>
-          {products.map((product, index) => (
-            <Col className="product-bigbox" xs={20} md={12} key={index}>
-              <CardProduct
-                src={product.src}
-                title={product.name}
-                price={product.price}
-                currency={product.currency_code}
-                onReadDetail={() => onViewProduct(product.id || '')}
-              />
+    return (
+      <div className="products">
+        <HeaderPart title="Products" />
+        <Flex gap={48} vertical className="products-data">
+          {/* <Row gutter={[24, 24]} className="row-data">
+  					<Col className="product-bigbox" xs={24} md={12} >
+  						<CardProduct src={productbig2} title='Hoa hồng vàng' price={200000}/>
+  					</Col>
+  					<Col xs={24} md={12}>
+  						<Row gutter={[24, 48]}>
+  						<Col xs={24} md={12}>
+  								<CardProduct title='Hoa đầu thú' price={60000} />
+  							</Col>
+  							<Col xs={24} md={12}>
+  								<CardProduct src={product2} title='Hoa đầu thú' price={60000} />
+  							</Col>
+  							<Col xs={24} md={12}>
+  								<CardProduct src={product3} title='Hoa đầu thú' price={60000} />
+  							</Col>
+  							<Col xs={24} md={12}>
+  								<CardProduct src={product4} title='Hoa sắc màu' price={80000} />
+  							</Col>
+  						</Row>
+  					</Col>
+  				</Row> */}
+          <Row gutter={[24, 24]}>
+            <Col className="product-bigbox" xs={20} md={12}>
+              <CardProduct src={productbig2} title="Hoa hồng vàng" price={200000} />
             </Col>
-          ))}
-        </Row>
-      </Flex>
-			<div className='read-more'><ReadMoreBtn path={ROUTE_PATH.SHOP} /></div>
-    </div>
-  );
-};
+            <Col xs={24} md={12}>
+              <Row gutter={[24, 48]}>
+                <Col xs={20} md={12}>
+                  <CardProduct title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product2} title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product3} title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product4} title="Hoa sắc màu" price={80000} />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          <Row gutter={[24, 24]}>
+            <Col xs={24} md={12}>
+              <Row gutter={[24, 48]}>
+                <Col xs={20} md={12}>
+                  <CardProduct title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product2} title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product3} title="Hoa đầu thú" price={60000} />
+                </Col>
+                <Col xs={20} md={12}>
+                  <CardProduct src={product4} title="Hoa sắc màu" price={80000} />
+                </Col>
+              </Row>
+            </Col>
+            <Col className="product-bigbox" xs={20} md={12}>
+              <CardProduct src={productbig2} title="Hoa hồng vàng" price={200000} />
+            </Col>
+          </Row>
+          <div className="read-more">
+            <ReadMoreBtn path={ROUTE_PATH.SHOP} />
+          </div>
+        </Flex>
+      </div>
+    );
+  };
+
+//   return (
+//     <div className="products">
+//       <HeaderPart title="Products" />
+//       <Flex gap={48} vertical className="products-data">
+//         <Row gutter={[24, 24]}>
+//           {products.map((product, index) => (
+//             <Col className="product-bigbox" xs={20} md={12} key={index}>
+//               <CardProduct
+//                 src={product.src}
+//                 title={product.name}
+//                 price={product.price}
+//                 currency={product.currency_code}
+//                 onReadDetail={() => onViewProduct(product.id || '')}
+//               />
+//             </Col>
+//           ))}
+//         </Row>
+//       </Flex>
+// 			<div className='read-more'><ReadMoreBtn path={ROUTE_PATH.SHOP} /></div>
+//     </div>
+//   );
+// };
 
 export default ProductsNode;

@@ -1,7 +1,7 @@
 import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, initialListParams } from 'models';
+import { DataType, Filter, initialListParams } from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from './productSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -18,7 +18,7 @@ const ProductsList = () => {
 
     useEffect(() => {
         dispatch(productAction.fetchData(params));
-    }, []);
+    }, [params]);
 
     const onDeleteRecord = (rd: React.Key) => {
         console.log('delete rd', rd);
@@ -28,11 +28,10 @@ const ProductsList = () => {
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
         console.log(info?.source, value);
         const newParams = {
-            ...initialListParams,
+            ...params,
             searchText: value,
         }
         setParams(newParams);
-        dispatch(productAction.fetchData(newParams));
     }
 
     const onPageChange = (pagination: any, filters: any, sorter: any) => {
@@ -44,7 +43,6 @@ const ProductsList = () => {
         }
         setParams(newParams)
         console.log('page', pagination, 'newParams', newParams);
-        dispatch(productAction.fetchData(newParams));
     }
 
     const columns = [
@@ -62,10 +60,24 @@ const ProductsList = () => {
         navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
+    const onFilter = (filters: Filter[]) => {
+        console.log('filter', filters);
+        const newParams = {
+            ...params,
+            filters: filters
+        }
+        setParams(newParams)
+    }
+
     return (
         <>
             <div className='product-admin'>
-                <SearchTable onAddNew={onAddNew} onSearch={onSearch} />
+                <SearchTable
+                    isShowFilter
+                    onAddNew={onAddNew}
+                    onSearch={onSearch}
+                    onFilter={(filters) => { onFilter(filters) }}
+                />
                 <div className='admin-table'>
                     <DataTable
                         loading={loading}

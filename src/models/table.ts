@@ -1,7 +1,7 @@
 import { TableProps } from "antd";
 import { SearchProps } from "antd/es/input";
 import { ColumnsType } from "antd/es/table";
-import { FileUpload } from "./common";
+import { FileUpload, Filter } from "./common";
 
 export interface DataType {
   key: string;
@@ -46,8 +46,11 @@ export interface DataTableProps extends TableProps<DataType> {
 export interface SearchTableProps {
   onAddNew: () => void;
   onSearch: SearchProps['onSearch'];
+  onFilter?: (filters: Filter[]) => void;
+  onChangeCategory?: (key: string) => void;
   textAddNew?: string;
   loading?: boolean;
+  isShowFilter?: boolean;
 }
 
 export interface Paging {

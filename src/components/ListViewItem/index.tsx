@@ -38,7 +38,7 @@ const ListViewItem = (
 	}
 
 	return (<>
-		<Row gutter={[24, 24]} className='list-card-item'>
+		<Row gutter={36} className='list-card-item'>
 			<Col xs={24} md={8}>
 				<Image
 					alt={name}
@@ -48,10 +48,10 @@ const ListViewItem = (
 			</Col>
 
 			<Col xs={24} md={16} >
-				<Flex gap={16} className='item-infor' vertical justify='space-between'>
+				<Flex className='item-infor' vertical justify='space-between'>
 					<div className='information'>
 						<h2>{name}</h2>
-						<p><i>Tac gia: {author}</i></p>
+						<p className='author'>Tac gia: {author}</p>
 						<p>{description}</p>
 					</div>
 					<Flex align='center' justify='space-between' className='shopping'>

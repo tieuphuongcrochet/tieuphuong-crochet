@@ -68,7 +68,7 @@ const ViewTable = (
 		};
 	});
 
-	const mapTabsData = (data: DataType[]): ItemType[] => {
+	const mapTabsData = (data: DataType[]): any[] => {
 		const result = map(data, c => {
 			const { children, name, key, icon } = c;
 			let newTab: ItemType = {
@@ -89,10 +89,19 @@ const ViewTable = (
 		return result;
 	}
 
-	const onClickTabs = (e: any) => {
+	const onClickMenu = (e: any) => {
 		setCurrentNav(e.key);
 		onChangeTab instanceof Function && onChangeTab(e.key);
 	};
+
+	const items =
+		[
+			{
+				label: <FormattedMessage id={ALL_ITEM.label} />,
+				key: ALL_ITEM.key
+			},
+			...mapTabsData(itemsTabs)
+		];
 
 	return (
 		<div className='data-list'>
@@ -106,18 +115,18 @@ const ViewTable = (
 					onSearch={onSearchBtn}
 				/>
 				{/* direction icon */}
-				<div className='direction-icon'>
+				<Flex align='center' className='direction-icon'>
 					<Tooltip color='#fd9b9b' title="Grid">
 						<Button type="text" onClick={() => setDirection('horizontal')}>
-							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fd9b9b' : '#707070', fontSize: '30px' }} />
+							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fd9b9b' : '#707070', fontSize: '24px' }} />
 						</Button>
 					</Tooltip>
 					<Tooltip color='#fd9b9b' title="List">
 						<Button type="text" onClick={() => setDirection('vertical')}>
-							<MenuOutlined style={{ color: direction === 'vertical' ? '#fd9b9b' : '#707070', fontSize: '30px' }} />
+							<MenuOutlined style={{ color: direction === 'vertical' ? '#fd9b9b' : '#707070', fontSize: '24px' }} />
 						</Button>
 					</Tooltip>
-				</div>
+				</Flex>
 			</Flex>
 
 			{/* Tabs categories */}
@@ -127,23 +136,40 @@ const ViewTable = (
 					className='tabs-menu'
 					selectedKeys={[currentTab]}
 					mode="horizontal"
-					onClick={onClickTabs}
-					items={
-						[
-							{
-								label: <FormattedMessage id={ALL_ITEM.label} />,
-								key: ALL_ITEM.key
-							},
-							...mapTabsData(itemsTabs)
-						]}
+					onClick={onClickMenu}
 					{...tabsProps}
-				/>
+				>
+					{
+						items.map(item => {
+							const { label, key, children, icon } = item;
+							if (children && children.length > 0) {
+								return <Menu.SubMenu onTitleClick={onClickMenu} key={key} title={label}>
+									{
+										children.map((c: any) => {
+											const { label, key, icon } = c;
+											return (
+												<Menu.Item key={key} icon={icon}>
+													{label}
+												</Menu.Item>
+											)
+										})
+									}
+								</Menu.SubMenu>
+							}
+							return (
+								<Menu.Item key={key} icon={icon}>
+									{label}
+								</Menu.Item>
+							)
+						})
+					}
+				</Menu>
 			}
 
 			{/* Data source */}
 			{
 				direction === 'vertical' ?
-					<Flex vertical gap={24} className='list-view' >
+					<Flex vertical className='list-view' >
 						{
 							dataSource && dataSource.map((item, index) =>
 								<div className='list-view-item' key={`list-view-item-${index}`}>

@@ -2,12 +2,20 @@
 
 .list-card-item {
   display: flex;
-  border: 1px solid $borderColor;
-  border-radius: 0.5rem;
+  border-bottom: 1px solid $borderColor;
   width: 100%;
-  padding: 20px;
+  padding: 30px 0;
 
   .item-infor {
     height: 100%;
+    .action {
+      button {
+        padding:0 30px;
+        height: 44px;
+      }
+    }
+  }
+  .ant-col {
+    padding-left: 0 !important;
   }
 }

@@ -2,11 +2,11 @@ import { SearchProps } from 'antd/es/input';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, initialListParams } from 'models';
+import { DataType, Filter, ListParams, initialListParams, initialViewTableParams } from 'models';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
-import { ROUTE_PATH } from 'utils';
+import { ALL_ITEM, ROUTE_PATH } from 'utils';
 
 const PatternsList = () => {
     const navigate = useNavigate();
@@ -19,10 +19,12 @@ const PatternsList = () => {
 
     useEffect(() => {
         dispatch(patternAction.fetchData(params));
-    }, []);
+    }, [params]);
 
-    const onEditRecord = (id: React.Key) => {        
-       navigate(`${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
+    console.log('originData', originData);
+
+    const onEditRecord = (id: React.Key) => {
+        navigate(`${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
     const onDeleteRecord = (rd: React.Key) => {
@@ -35,7 +37,6 @@ const PatternsList = () => {
             searchText: value
         };
         setParams(newParams)
-        dispatch(patternAction.fetchData(newParams));
     }
 
     const columns = [
@@ -62,14 +63,36 @@ const PatternsList = () => {
             _pageSize: pageSize,
         }
         setParams(newParams)
-        dispatch(patternAction.fetchData(newParams));
+    }
 
+    const onFilter = (filters: Filter[]) => {
+        console.log('filter', filters);
+        const newParams = {
+            ...params,
+            filters: filters
+        }
+        setParams(newParams)
+    }
+
+    const onChangeCategory = (key: string) => {
+        const newParams: ListParams = {
+            ...initialViewTableParams,
+            categoryId: key === ALL_ITEM.key ? '' : key
+        };
+        setParams(newParams);
     }
 
     return (
         <>
             <div className='patterns-admin'>
-                <SearchTable onAddNew={onAddNew} onSearch={onSearch} loading={loading}/>
+                <SearchTable
+                    isShowFilter
+                    onAddNew={onAddNew}
+                    onSearch={onSearch}
+                    onFilter={(filters) => { onFilter(filters) }}
+                    onChangeCategory={onChangeCategory}
+                    loading={loading}
+                />
                 <div className='admin-table'>
                     <DataTable
                         loading={loading}

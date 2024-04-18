@@ -21,7 +21,7 @@ const PatternDetail = () => {
 	}, []);
 
 	return (
-		<Space direction="vertical" size={60} style={{width: '100%'}} className="pattern-detail mt-content">
+		<Space direction="vertical" size={60} style={{width: '100%'}} className="pattern-detail">
 			{/* Introducing the pattern */}
 			<IntroductionCard isShowThumbnail data={pattern} />
 			<Divider />

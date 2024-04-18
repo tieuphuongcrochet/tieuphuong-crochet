@@ -5,9 +5,12 @@
   background-color: $backgroundColor;
   overflow: hidden;
 
-  .author,
   .description {
     color: $textSecondColor;
+  }
+  .author{
+    color: $textSecondColor;
+    font-size: $fontSize_middle;
   }
 
   .card-title {
