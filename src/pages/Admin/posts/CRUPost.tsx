@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Post } from "models/post";
 import { ROUTE_PATH } from "utils";
+import UploadFiles from "components/Upload";
+import { FileUpload } from "models";
 
 const CRUPost = () => {
     const [form] = Form.useForm();
@@ -70,11 +72,15 @@ const CRUPost = () => {
                 >
                     <TextArea rows={10} placeholder="Content" />
                 </Item>
-
                 <Item
-                    name='post'
-                    label='Post'>
-            
+                    name='images'
+                    label='Image:'>
+                    <UploadFiles
+                        files={post.files || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ images: files });
+                        }}
+                    />
                 </Item>
                 <Item wrapperCol={{ span: 12, offset: 10 }}>
                     <Space>
@@ -87,7 +93,7 @@ const CRUPost = () => {
             </Form>
 
         </div>
-    
+
     </>)
 }
 
