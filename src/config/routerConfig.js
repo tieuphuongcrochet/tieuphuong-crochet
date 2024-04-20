@@ -24,6 +24,7 @@ import CRUPost from 'pages/Admin/posts/CRUPost';
 import PatternDetail from 'pages/freePattern/PatternDetail';
 import { NotFound } from 'components/Common/NotFound';
 import ProductDetail from 'pages/shop/ProductDetail';
+import Setting from 'pages/Admin/Setting';
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
         path: ROUTE_PATH.ADMIN_USERS,
         element: <UsersList />,
       },
+      {
+        path: `${ROUTE_PATH.ADMIN_USERS}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <UsersList />
+      },
       // product
       {
         path: ROUTE_PATH.AMIN_PRODUCTS,
@@ -115,7 +120,7 @@ const router = createBrowserRouter([
         path: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`,
         element: <CRUProduct />,
       },
-      
+  
       {
         path: `${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/:id`,
         element: <CRUProduct />,
@@ -132,6 +137,10 @@ const router = createBrowserRouter([
       {
         path: `${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.DETAIL}/:id`,
         element: < CRUPost />,
+      },
+      {
+        path: ROUTE_PATH.ADMIN_SETTING,
+        element: <Setting />,
       },
     ],
   },

@@ -25,7 +25,6 @@ const CRUPost = () => {
 
     useEffect(() => {
         if (post.title) {
-            console.log('post', post);
             form.setFieldsValue(post);
         }
     }, [post]);
@@ -60,6 +59,16 @@ const CRUPost = () => {
                 className="form-wrap"
             >
                 <Item
+                    name='images'
+                    label='Image:'>
+                    <UploadFiles
+                        files={post.files || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ images: files });
+                        }}
+                    />
+                </Item>
+                <Item
                     name="title"
                     label="Post title:"
                     rules={[{ required: true, message: 'Please enter post title' }]}
@@ -71,16 +80,6 @@ const CRUPost = () => {
                     label="Content:"
                 >
                     <TextArea rows={10} placeholder="Content" />
-                </Item>
-                <Item
-                    name='images'
-                    label='Image:'>
-                    <UploadFiles
-                        files={post.files || []}
-                        onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ images: files });
-                        }}
-                    />
                 </Item>
                 <Item wrapperCol={{ span: 12, offset: 10 }}>
                     <Space>

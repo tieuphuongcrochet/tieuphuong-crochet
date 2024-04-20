@@ -66,6 +66,7 @@ export const ROUTE_PATH = {
   ADMIN_PATTERNS: '/admin/patterns',
   AMIN_PRODUCTS: '/admin/products',
   ADMIN_USERS: '/admin/users',
+  ADMIN_SETTING: '/admin/setting',
   ADMIN_POSTS: '/admin/blog',
   ADMIN_CATEGORY: '/admin/category',
   CREATE: 'create',

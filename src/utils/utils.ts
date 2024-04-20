@@ -2,6 +2,7 @@ import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import _get from 'lodash/get';
 import { Category, Paging } from 'models';
 import moment from 'moment';
+import { map } from 'lodash';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -120,3 +121,13 @@ export const DragScroll = (name: string) => {
     slider.scrollLeft = scrollLeft - walk;
   });
 }
+
+export const mapDataToSelectOption = (data: any[]) => {
+  return map(data, (item: any) => {
+    return {
+      label: item.name,
+      value: item.id,
+      
+    };
+  });
+};
