@@ -10,7 +10,8 @@ import {
     ShoppingCartOutlined,
     AppstoreOutlined,
     FileOutlined,
-    UnorderedListOutlined
+    UnorderedListOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { ROUTE_PATH } from 'utils';
 import logo from 'assets/logo.png';
@@ -77,6 +78,11 @@ const items = [
         key: ROUTE_PATH.ADMIN_USERS,
         icon: <TeamOutlined />,
         label: 'Users',
+    },
+    {
+        key: ROUTE_PATH.ADMIN_SETTING,
+        icon: <SettingOutlined />,
+        label: 'Setting',
     },
 ]
 

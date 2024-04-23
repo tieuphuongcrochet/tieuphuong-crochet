@@ -25,7 +25,6 @@ const HeaderPage = () => {
 	}, []);
 
 	const onClickNav = (e: any) => {
-		console.log('click ', e);
 		setCurrentNav(e.key);
 	};
 
@@ -38,7 +37,6 @@ const HeaderPage = () => {
 	}
 
 	const onSelectLanguage: MenuProps['onClick'] = (e) => {
-		console.log('click', e);
 		context.setLocale(e.key);
 	};
 
@@ -48,7 +46,6 @@ const HeaderPage = () => {
 	}
 
 	const onOpenChange = (open: boolean) => {
-		console.log('open', open, 'isOpenLang', isOpenLang);
 		setIsOpenLang(open);
 	};
 

@@ -94,7 +94,6 @@ const ModalCUCategory = ({ isModalOpen, setIsModalOpen, categorySelected, setCat
   };
 
   const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
-    console.log('onCheckAllChange', e.target.checked);
     setCheckedList(e.target.checked ? categories.map(category => category.value) : []);
   };
 

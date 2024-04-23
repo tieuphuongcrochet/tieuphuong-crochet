@@ -1,4 +1,4 @@
-import { Col, Divider, Flex, Image, Row, Space, Watermark } from "antd";
+import { Col, Divider, Empty, Flex, Image, Row, Space, Watermark } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import DownloadImage from "components/DownloadImage";
 import IntroductionCard from "components/IntroductionCard";
@@ -13,7 +13,6 @@ const PatternDetail = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const pattern: Pattern = useAppSelector(selectPattern);
-	console.log('pattern', pattern);
 
 	useEffect(() => {
 		if (id) {
@@ -22,9 +21,9 @@ const PatternDetail = () => {
 	}, []);
 
 	return (
-		<Space direction="vertical" size={60} className="pattern-detail mt-content">
+		<Space direction="vertical" size={60} style={{width: '100%'}} className="pattern-detail">
 			{/* Introducing the pattern */}
-			<IntroductionCard data={pattern} />
+			<IntroductionCard isShowThumbnail data={pattern} />
 			<Divider />
 
 			{/* Chart detail */}
@@ -33,25 +32,32 @@ const PatternDetail = () => {
 			>
 				<div className="pattern-detail-content">
 					<h1 className="flex justify-center">Chart chi tiết</h1>
-					<Image.PreviewGroup
-						fallback={logo}
-					>
-						<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
-							<Row gutter={12}>
-								{
-									pattern.files && map(pattern.files, (image, index) => (
-										<Col md={12} >
-											<DownloadImage
-												key={`pattern_${index}`}
-												src={image.fileContent} />
-										</Col>
-									)
-									)
-								}
-							</Row>
-
-						</Flex>
-					</Image.PreviewGroup>
+					{
+						pattern.files && pattern.files.length > 0 ? (
+							<Image.PreviewGroup
+								fallback={logo}
+							>
+								<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
+									<Row gutter={[24,24]}>
+										{
+											pattern.files && map(pattern.files, (image, index) => (
+												<Col key={`pt_${index}`} md={12} >
+													<DownloadImage
+														key={`pattern_${index}`}
+														src={image.fileContent} />
+												</Col>
+											)
+											)
+										}
+									</Row>
+								</Flex>
+							</Image.PreviewGroup>
+						) :
+							<Empty
+								imageStyle={{ height: 80 }}
+								image={Empty.PRESENTED_IMAGE_SIMPLE}
+							/>
+					}
 				</div>
 			</Watermark>
 		</Space>

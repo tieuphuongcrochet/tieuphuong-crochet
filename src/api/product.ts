@@ -5,19 +5,14 @@ import axiosJWT from './axiosJWT';
 
 const productService = {
 	getAll(params: ListParams): Promise<DataType> {
-		const {_pageNo, _pageSize, _sortBy, _sortDir, text} = params;
-		const url = `${API_URL.PRODUCT}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&text=${text}`;
-		return axiosClient.get(url);
+		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText, filters, categoryId} = params;
+		const url = `${API_URL.PRODUCT}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}&categoryId=${categoryId}`;
+		return axiosClient.post(url, filters);
 	},
     add(data: Product): Promise<DataType> {
         const url = `${API_URL.PRODUCT}/${API_URL.CREATE}`
 		return axiosJWT.post(url, data);
 	},
-
-	// update(data: DataType): Promise<DataType> {
-  //       const url = `${API_URL.PRODUCT_CATEGORY}/${API_URL.CREATE}`
-	// 	return axiosJWT.post(url, { data });
-	// },
 
 	getById(id: string): Promise<DataType> {
 		const url = `${API_URL.PRODUCT}/${API_URL.DETAIL}?id=${id}`;

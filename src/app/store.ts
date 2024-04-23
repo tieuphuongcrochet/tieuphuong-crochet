@@ -8,6 +8,8 @@ import { history } from 'utils';
 import categoryReducer from 'pages/Admin/categories/categorySlice';
 import productReducer from 'pages/Admin/products/productSlice';
 import patternReducer from 'saga/pattern/patternSlice';
+import userReducer from 'pages/Admin/users/userSlice';
+import postReducer from 'pages/Admin/posts/postSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,7 +17,9 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
   category: categoryReducer,
   pattern: patternReducer,
-  product: productReducer
+  product: productReducer,
+  user: userReducer,
+  post: postReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

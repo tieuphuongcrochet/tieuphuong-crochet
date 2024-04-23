@@ -1,7 +1,8 @@
 import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import _get from 'lodash/get';
-import { Category, DataType, Paging } from 'models';
+import { Category, Paging } from 'models';
 import moment from 'moment';
+import { map } from 'lodash';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -56,7 +57,7 @@ export const getFileNameAndExt = (name: string) => {
 
 export const genBlobName = (originFileName: string, rootBlobFolder: string, uid: string) => {
   const currentDate = getCurrentDate(new Date())
-  const { fileName, ext } = getFileNameAndExt(originFileName);
+  const { ext } = getFileNameAndExt(originFileName);
   const blobName = `image/${currentDate}/${rootBlobFolder}/${uid}.${ext}`;
   return blobName;
 };
@@ -118,6 +119,15 @@ export const DragScroll = (name: string) => {
     const x = e.pageX - slider.offsetLeft;
     const walk = (x - startX) * 3; //scroll-fast
     slider.scrollLeft = scrollLeft - walk;
-    console.log(walk);
   });
 }
+
+export const mapDataToSelectOption = (data: any[]) => {
+  return map(data, (item: any) => {
+    return {
+      label: item.name,
+      value: item.id,
+      
+    };
+  });
+};

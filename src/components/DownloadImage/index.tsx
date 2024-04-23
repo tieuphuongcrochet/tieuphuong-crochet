@@ -10,6 +10,7 @@ import {
 import { Image, ImageProps, Space } from 'antd';
 
 import logo from 'assets/logo.png';
+import { IMAGE_FALLBACK } from 'utils';
 
 interface DownloadImageProps extends ImageProps {
 	src?: string;
@@ -41,7 +42,7 @@ const DownloadImage = ({ src, width, ...restProps }: DownloadImageProps) => {
 
 			width={width}
 			src={src}
-			fallback={logo}
+			fallback={IMAGE_FALLBACK}
 			preview={{
 				toolbarRender: (
 					_,

@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 
 interface UploadFilesProps {
 	onChangeFile: Function;
-	files: FileUpload[]
+	files: FileUpload[];
+	directory?: boolean;
+	isCropImage?: boolean;
 };
 
-const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
+const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFilesProps) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
@@ -45,18 +47,21 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 	};
 
 	const onUploadImage = async ({ file, onSuccess, onError }: any) => {
+		console.log('file', file);
+
 		const isLimit5Mb = file?.size / 1024 / 1024 < 5;
 		if (!isLimit5Mb) {
 			onError('fail');
 			// onChangeFile("");
-			notification.error({message: 'Error', description: 'Allowed maxium size is 5Mb'});
+			notification.error({ message: 'Error', description: 'Allowed maxium size is 5Mb' });
 			return;
 		}
 
 		const formData = new FormData();
 		formData.append('files', file);
 		const res: FileUpload[] = await uploadFile.upload(formData);
-		if (res[0]) {
+
+		if (res.length > 0) {
 			const newFileList = [
 				...fileList,
 				{
@@ -65,20 +70,25 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 					url: res[0].fileContent
 				}
 			]
+			console.log('newFileList', newFileList);
+
 			setFileList(newFileList);
 			onChangeFile(newFileList);
 			onSuccess('ok');
-			notification.success({message: 'Successful', description: 'Upload file successfully!'});
+			notification.success({ message: 'Successful!', description: 'Upload file successfully!' });
 		} else {
 			onError('fail');
-			notification.error({message: 'Error', description: 'Allowed maxium size is 5Mb'});
+			notification.error({ message: '!Error', description: 'Allowed maxium size is 5Mb' });
 		}
 	};
 
-	const onDelete = (file: UploadFile) => {
+	const onDelete = async (file: UploadFile) => {
+		console.log('file', file);
 		const newFileList = filter(fileList, f => f.uid !== file.uid);
 		setFileList(newFileList);
 		onChangeFile(map(newFileList, nf => nf.url));
+		const res = await uploadFile.delete([file?.fileName as string]);
+		console.log('res delete files', res);
 	}
 
 	const beforeUpload = (file: File) => {
@@ -89,9 +99,24 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 		return isLt2M;
 	}
 
+	const uploadNode = (
+		<Upload
+			accept="image/png,image/jpeg,image/jpg,.pdf,.doc,.docx"
+			customRequest={onUploadImage}
+			listType="picture-card"
+			onPreview={handlePreview}
+			onRemove={onDelete}
+			beforeUpload={beforeUpload}
+			directory={directory}
+			fileList={fileList}
+		>
+			{fileList.length < 20 && '+ Upload'}
+		</Upload>
+	);
+
 	return (
-		<>
-			<ImgCrop
+		<>{
+			isCropImage ? <ImgCrop
 				rotationSlider
 				cropShape='rect'
 				showGrid
@@ -110,7 +135,8 @@ const UploadFiles = ({ onChangeFile, files }: UploadFilesProps) => {
 				>
 					{fileList.length < 20 && '+ Upload'}
 				</Upload>
-			</ImgCrop>
+			</ImgCrop> : uploadNode
+		}
 			<Modal
 				open={previewOpen}
 				title={previewTitle}

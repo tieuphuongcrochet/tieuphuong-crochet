@@ -3,6 +3,7 @@ import { Card, Image, Skeleton } from 'antd';
 
 import './index.scss';
 import { Pattern, Product } from 'models';
+import { IMAGE_FALLBACK } from 'utils';
 
 interface CardPatternProps {
 	width?: string | number;
@@ -22,7 +23,6 @@ const CardFreePattern = (
 	const { Meta } = Card;
 	const { name, src, author, imagesPreview } = pattern;
 
-
 	return (
 		<Card
 			loading={loading}
@@ -34,16 +34,17 @@ const CardFreePattern = (
 			}}
 			cover={
 				<>
-					{src ?
+					{src && loading ?
+						<Skeleton.Image active /> :
 						<Image.PreviewGroup
 							items={imagesPreview}
 						>
 							<Image
 								alt={name}
-								src={src} />
+								src={src}
+								fallback={IMAGE_FALLBACK}
+							/>
 						</Image.PreviewGroup>
-						:
-						<Skeleton.Image active />
 					}
 				</>
 			}

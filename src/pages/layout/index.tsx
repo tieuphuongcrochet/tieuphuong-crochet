@@ -12,7 +12,6 @@ import { useAppSelector } from 'app/hooks';
 const LayoutPage = () => {
 	const { Content } = Layout;
 	const location = useLocation();
-	console.log('location', location);
 	const currentUser = useAppSelector((state) => state.auth.currentUser);
 	return (
 		<>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ViewTable from 'components/ViewTable';
-import { DataType, ListParams, initialListParams } from 'models';
+import { DataType, ListParams, initialListParams, initialViewTableParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
 import { useNavigate } from 'react-router-dom';
@@ -15,56 +15,46 @@ const FreePatterns = () => {
 	const loading = useAppSelector(selectLoading);
 	const categories = useAppSelector(state => state.category.data);
 
-	const [params, setParams] = useState(initialListParams);
+	const [params, setParams] = useState(initialViewTableParams);
 
 	const onChange = (current: number, pageSize: number) => {
-		console.log('parent node', current, pageSize);
 		const newParams = {
 			...params,
 			_pageNo: current - 1,
 			_pageSize: pageSize,
 		}
-		setParams(newParams)
-		console.log('newParams', newParams);
-		dispatch(patternAction.fetchData(newParams));
+		setParams(newParams);
 	}
 
 	useEffect(() => {
 		dispatch(patternAction.fetchData(params));
-	}, []);
+	}, [params]);
 
 	useEffect(() => {
-		if(categories.length <= 0) {
-				dispatch(categoryAction.fetchData(''));
+		if (categories.length <= 0) {
+			dispatch(categoryAction.fetchData(''));
 		}
-}, []);
+	}, []);
 
 	const onSearchPatterns = (value: string) => {
-		console.log('onsearch', value);
 		const newParams = {
 			...initialListParams,
-			text: value
+			categoryId: params.categoryId,
+			searchText: value
 		};
-		setParams(newParams)
-		dispatch(patternAction.fetchData(newParams));
-
+		setParams(newParams);
 	}
 
 	const onViewPattern = (id: React.Key) => {
-		console.log('onview pattern', id);
 		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
-
 	};
 
 	const onChangeTab = (key: string) => {
-		console.log('key tab', key);
 		const newParams: ListParams = {
-			...initialListParams,
-			categoryIds: [key === ALL_ITEM.key ? '' : key]
+			...initialViewTableParams,
+			categoryId: key === ALL_ITEM.key ? '' : key
 		};
-
-		setParams(newParams)
-		dispatch(patternAction.fetchData(newParams));
+		setParams(newParams);
 	}
 
 	return (

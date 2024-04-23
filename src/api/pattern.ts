@@ -5,11 +5,12 @@ import axiosJWT from './axiosJWT';
 import { Pattern } from "models";
 
 const patternService = {
-	getAll(params: ListParams): Promise<DataType> {		
-		const {_pageNo, _pageSize, _sortBy, _sortDir, text, categoryIds} = params;
-		const url = `${API_URL.FREE_PATTERN}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&text=${text}&categoryIds=${categoryIds}`;
-		return axiosClient.get(url);
+	getAll(params: ListParams): Promise<DataType> {
+		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText, filters, categoryId} = params;
+		const url = `${API_URL.FREE_PATTERN}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}&categoryId=${categoryId}`;
+		return axiosClient.post(url, filters);
 	},
+
     add(data: Pattern): Promise<DataType> {
         const url = `${API_URL.FREE_PATTERN}/${API_URL.CREATE}`
 		return axiosJWT.post(url, data);
@@ -20,15 +21,10 @@ const patternService = {
 		return axiosClient.get(url);
 	},
 
-	// getById(id: string): Promise<DataType> {
-	// 	const url = `${API_URL.PRODUCT}/detail/${id}`;
-	// 	return axiosClient.get(url);
-	// },
-
-	// remove(id: string): Promise<any> {
-	// 	const url = `${API_URL.PRODUCT}/${id}`;
-	// 	return axiosClient.delete(url);
-	// }
+	remove(id: React.Key): Promise<any> {
+		const url = `${API_URL.FREE_PATTERN}/${API_URL.DELETE}?id=${id}`;
+		return axiosJWT.delete(url);
+	}
 }
 
 export default patternService;

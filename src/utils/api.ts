@@ -5,6 +5,7 @@ export const API_URL = {
 	PATTERN: '/pattern',
 	FREE_PATTERN: '/free-pattern',
 	BLOG: '/blog',
+	USER: '/users',
 
 	// Category
 	CATEGORY: '/category',
@@ -27,5 +28,6 @@ export const API_URL = {
 	LOGOUT: 'auth/login',
 	RESET_PASSWORD: 'auth/login',
 	REFRESH_TOKEN: 'auth/refresh-token',
-	UPLOAD_FILE: 'firebase-storage/upload-file'
+	UPLOAD_FILE: 'firebase-storage/upload-file',
+	DELETE_MULTIPLE_FILES: 'firebase-storage/delete-multiple-files'
 }

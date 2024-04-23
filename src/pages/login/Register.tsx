@@ -34,7 +34,6 @@ const RegisterPage = () => {
 				password: values.password,
 				role: values.email === 'thamphuong.crochet@gmail.com'? 'ADMIN' : 'USER'
 			};
-			console.log('params', params);
 			dispatch(authActions.resigter({ params, callback }));
 		}
 	}

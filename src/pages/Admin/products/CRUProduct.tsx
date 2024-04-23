@@ -1,6 +1,6 @@
-import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select } from "antd";
+import { Form, Input, TreeSelect, UploadFile, UploadProps, Upload, Modal, Button, Row, Col, InputNumber, Space, Select, Switch } from "antd";
 import { useEffect, useState } from "react";
-import { CURRENCY, ROUTE_PATH } from "utils";
+import { CURRENCY_LIST, ROUTE_PATH } from "utils";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { productAction, selectProduct } from "./productSlice";
@@ -22,9 +22,8 @@ const CRUProduct = () => {
     const product: Product = useAppSelector(selectProduct);
 
     useEffect(() => {
-        if(!categories || categories.length <= 0) {
+        if (!categories || categories.length <= 0) {
             dispatch(categoryAction.fetchData(''));
-            console.log('test');
         }
         if (id) {
             dispatch(productAction.fetchProduct(id));
@@ -44,7 +43,6 @@ const CRUProduct = () => {
     }, [product, id]);
 
     const onSubmitForm = (values: any) => {
-        console.log('values', values);
         let sendData = { ...values }
         if (id) {
             sendData = {
@@ -56,8 +54,6 @@ const CRUProduct = () => {
             form.resetFields();
             navigate(ROUTE_PATH.AMIN_PRODUCTS);
         };
-        console.log('sendData', sendData);
-
         dispatch(productAction.cUProduct({ params: sendData, callback }));
     }
 
@@ -68,13 +64,13 @@ const CRUProduct = () => {
     }
 
     return (<>
-        <div className="crupattern-page">
+        <div className="cruproduct-page">
             <Form layout="vertical"
-                name='CUCategoryForm'
+                name='CUProductForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
-                initialValues={{currency_code: CURRENCY[0].value }}
+                initialValues={{ currency_code: CURRENCY_LIST[0].value }}
             >
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
@@ -108,13 +104,34 @@ const CRUProduct = () => {
                         <Item
                             name="currency_code"
                             label='Currency'
-                            >
+                        >
                             <Select
-                                options={CURRENCY}
+                                options={CURRENCY_LIST}
                             />
                         </Item>
                     </Col>
                 </Row>
+
+                <Row gutter={48}>
+                    <Col span={12}>
+                        <Item
+                            name="link"
+                            label="Link"
+                        >
+                            <Input placeholder="Link mua hang" />
+                        </Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Item
+                            name="is_home"
+                            label="Show on home page"
+                        >
+                            <Switch />
+                        </Item>
+                    </Col>
+                </Row>
+
                 <Item
                     name="description"
                     label="Description:"
@@ -123,12 +140,12 @@ const CRUProduct = () => {
                 </Item>
 
                 <Item
-                    name='files'
+                    name='images'
                     label='Image:'>
                     <UploadFiles
-                        files={product.files || []}
+                        files={product.images || []}
                         onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ files: files });
+                            form.setFieldsValue({ images: files });
                         }}
                     />
                 </Item>

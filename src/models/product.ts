@@ -8,13 +8,13 @@ export interface Product {
 	name: string,
 	price?: number,
 	description?: string,
-	files?: FileUpload[];
+	images?: FileUpload[];
 	src?: string;
 	author?: string;
 	currency_code?: string;
 	category: Category;
-	images?: FileUpload[];
-	imagesPreview?: { src: string, alt: string }[]
+	imagesPreview?: { src: string, alt: string }[];
+	link?: string;
 }
 
 export interface ProductPayloadFile {

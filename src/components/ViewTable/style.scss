@@ -1,10 +1,6 @@
 @import 'utils//variables.scss';
 
 .data-list {
-	.col-data {
-		padding-top: 60px;
-		padding-left: 24px;
-	}
 
 	.direction-icon {
 		.ant-btn {
@@ -44,13 +40,14 @@
 	}
 
 	.tabs-menu {
-		padding: 15px 0;
-		margin-bottom: -30px;
+		padding: 30px 0;
 		border: none;
 
+		.ant-menu-submenu,
 		.ant-menu-item {
 			opacity: .9 !important;
-			letter-spacing: .5;
+			letter-spacing: 0.5px;
+			font-size: $fontSize_large;
 
 			&.ant-menu-item-selected {
 				opacity: 1 !important;

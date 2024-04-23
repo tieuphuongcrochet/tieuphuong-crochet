@@ -20,8 +20,9 @@ export interface ListParams {
 	_pageSize: number;
 	_sortBy?: string;
 	_sortDir?: 'asc' | 'desc';
+	filters?: Filter[];
 	[key: string]: any;
-	categoryIds?: string[]
+	categoryId?: string
 };
 
 export const initialListParams: ListParams = {
@@ -29,8 +30,19 @@ export const initialListParams: ListParams = {
 	_pageSize: 10,
 	_sortBy: 'id',
 	_sortDir: 'asc',
-	text: '',
-	categoryIds: []
+	searchText: '',
+	filters: [],
+	categoryId: ''
+};
+
+export const initialViewTableParams: ListParams = {
+	_pageNo: 0,
+	_pageSize: 12,
+	_sortBy: 'id',
+	_sortDir: 'asc',
+	searchText: '',
+	filters: [],
+	categoryId: ''
 };
 
 export interface ListTablePayload<T> {
@@ -43,3 +55,10 @@ export interface FileUpload {
 	fileName: string;
 	url: string;
 };
+
+export interface Filter {
+	field?: string;
+	operator?: string;
+	value?: string;
+	values?: string[];
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Flex, Image } from 'antd';
 import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
-import demo from 'assets/products/pd2.jpg'
+import { CURRENCY, IMAGE_FALLBACK } from 'utils';
 import './index.scss';
 
 interface CardProductProps {
@@ -11,9 +11,10 @@ interface CardProductProps {
 	title: string;
 	author?: string;
 	price: number;
+	currency_code?: string;
 	onPreview?: Function;
 	onShopping?: Function;
-	onReadDetail?: Function
+	onReadDetail?: Function;
 };
 
 const CardProduct = (
@@ -22,29 +23,32 @@ const CardProduct = (
 		src,
 		title,
 		price,
+		currency_code,
 		onPreview,
 		onReadDetail,
-		onShopping
-	}: CardProductProps ) => {
+		onShopping,
+	}: CardProductProps) => {
 	const { Meta } = Card;
 
-	const descriptionNode = <>
-		{price && <div>{price} VND</div>}
-	</>;
+	const descriptionNode = <div className='price-wrap'>
+		{currency_code === CURRENCY.USD && <span>$</span>}
+		<span>{price}</span>
+		{currency_code === CURRENCY.VND && <span> VND</span>}
+	</div>;
 
-const onClickBtn = () => {
-	if(onReadDetail instanceof Function){
-		onReadDetail();
+	const onClickBtn = () => {
+		if (onReadDetail instanceof Function) {
+			onReadDetail();
+		}
+		if (onPreview instanceof Function) {
+			onPreview();
+		}
+		if (onShopping instanceof Function) {
+			onShopping();
+		}
 	}
-	if(onPreview instanceof Function){
-		onPreview();
-	}
-	if(onShopping instanceof Function){
-		onShopping();
-	}
-}
 
-	return (
+	return (<>
 		<Card
 			className={title ? 'card-product' : 'card-product not-title'}
 			// hoverable
@@ -58,7 +62,9 @@ const onClickBtn = () => {
 					<Image
 						preview={false}
 						alt={title}
-						src={src || demo} />
+						src={src}
+						fallback={IMAGE_FALLBACK}
+					/>
 					<div className='mask'>
 					</div>
 					<Flex justify='center' className='card-actions actions-links'>
@@ -76,6 +82,7 @@ const onClickBtn = () => {
 				/>
 			}
 		</Card>
+	</>
 	)
 
 }

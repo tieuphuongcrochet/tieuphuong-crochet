@@ -3,7 +3,7 @@ import { authActions, selectIsLoggedIn } from "./authSlice";
 import { all, call, fork, put, select, take, takeLatest } from "redux-saga/effects";
 import { redirect } from "react-router-dom";
 import { COOKIE_NAMES, LOCAL_STORAGE_NAMES, ROUTE_PATH } from "utils/constant";
-import userApi from "api/userApi";
+import userService from "api/userApi";
 import { AuthPayload, ErrorData, LoginRes } from "models";
 import { setCookie } from "utils";
 
@@ -16,7 +16,7 @@ function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 	try {
 		yield put(authActions.loadingRequest());
 		const { params, callback } = payload;
-		const data: LoginRes = yield call(userApi.login, params)
+		const data: LoginRes = yield call(userService.login, params)
 		if (data?.accessToken) {
 			saveToken({ accessToken: data.accessToken, refreshToken: data.refreshToken });
 		}
@@ -36,7 +36,6 @@ function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 }
 
 function* handleLogout() {
-	console.log('handle logout');
 	localStorage.removeItem(LOCAL_STORAGE_NAMES.ACCESS_TOKEN);
 	// redirect to login page
 	yield put(redirect(ROUTE_PATH.LOGIN));
@@ -60,7 +59,7 @@ function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
 	try {
 		yield put(authActions.loadingRequest());
 		const { params, callback } = payload;
-		yield call(userApi.registerAccount, params)
+		yield call(userService.registerAccount, params)
 		yield put(authActions.loadingSuccess());
 		callback instanceof Function && callback();
 	} catch (error: unknown) {
@@ -70,7 +69,6 @@ function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
 }
 
 export default function* authSaga() {
-	console.log('auth saga');
 	// yield fork(watchLoginFlow);
 	yield takeLatest(authActions.login.type, handleLogin);
 	yield takeLatest(authActions.resigter.type, handleRegister);

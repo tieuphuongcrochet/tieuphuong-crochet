@@ -1,9 +1,13 @@
+import { DataType } from "./table";
+
 export interface User {
 	id?: number | string;
 	name?: string;
 	email: string;
 	role?: string;
 	password?: string;
+	createdDate?: string;
+	lastModifiedDate?: string;
 }
 
 export interface AuthPayload {
@@ -29,4 +33,11 @@ export interface ErrorData {
 	statusCode: string;
 	code?: string;
 	error?: string;
+}
+
+export interface UserState {
+	loading: boolean;
+	data: DataType[];
+	totalRecord: number;
+	user: User;
 }

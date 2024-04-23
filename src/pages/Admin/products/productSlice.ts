@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
-import { ListTablePayload, Product, ProductPayload, ProductPayloadFile, ProductState } from "models";
+import { ListParams, ListTablePayload, Product, ProductPayload, ProductPayloadFile, ProductState } from "models";
 
 const initialState: ProductState = {
     loading: false,
@@ -30,7 +30,7 @@ const productSlice = createSlice({
         resetProduct(state) {
             state.product = { name: '', category: { name: '' } };
         },
-        fetchData(_, { payload }) { },
+        fetchData(_, { payload }: PayloadAction<ListParams>) { },
         cUProduct(_, { payload }: PayloadAction<ProductPayload>) { },
         delete(_, { payload }: PayloadAction<React.Key>) { },
         uploadFiles(_, { payload }: PayloadAction<ProductPayloadFile>) { },

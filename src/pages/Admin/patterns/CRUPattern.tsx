@@ -1,15 +1,22 @@
-import { Form, Input, TreeSelect, Button, Row, Col, Flex } from "antd";
+import { Form, Input, TreeSelect, Button, Row, Col, Flex, Switch, Radio } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import UploadFiles from "components/Upload";
 import { FileUpload, Pattern } from "models";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTE_PATH } from "utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
 import { categoryAction } from "../categories/categorySlice";
 
+type UploadMode = 'directory' | 'crop' | 'normal';
+const UPLOAD_MODES = ['crop', 'normal'];
+// const UPLOAD_MODES = ['directory', 'crop', 'normal'];
+
 const CRUPattern = () => {
+    const [imageMode, setImageMode] = useState<UploadMode>('normal');
+    const [fileMode, setFileMode] = useState<UploadMode>('normal');
+
     const [form] = Form.useForm();
     const { TextArea } = Input;
     const { Item } = Form;
@@ -19,13 +26,11 @@ const CRUPattern = () => {
     const pattern: Pattern = useAppSelector(selectPattern);
     const categories = useAppSelector(state => state.category.data);
 
-    console.log('pattern detail', pattern);
-
     useEffect(() => {
         if (id) {
             dispatch(patternAction.fetchPattern(id));
         }
-        if(categories.length <= 0) {
+        if (categories.length <= 0) {
             dispatch(categoryAction.fetchData(''));
         }
     }, []);
@@ -42,7 +47,6 @@ const CRUPattern = () => {
     }, [pattern, id]);
 
     const onSubmitForm = (values: Pattern) => {
-        console.log('values', values);
         let sendData = { ...values }
         if (id) {
             sendData = {
@@ -50,6 +54,8 @@ const CRUPattern = () => {
                 id: id
             }
         }
+        console.log('sendData', sendData);
+
         const callback = () => {
             form.resetFields();
             navigate(ROUTE_PATH.ADMIN_PATTERNS);
@@ -63,6 +69,12 @@ const CRUPattern = () => {
         navigate(-1);
     }
 
+    const radioItems = UPLOAD_MODES.map((type) => (
+        <Radio key={type} value={type}>
+            <span style={{ textTransform: 'capitalize' }}>{type}</span>
+        </Radio>
+    ));
+
     return (<>
         <div className="crupattern-page">
             <Flex justify="center">
@@ -75,7 +87,7 @@ const CRUPattern = () => {
                 className="form-wrap"
             >
                 <Row gutter={48}>
-                    <Col xs={20} md={12}>
+                    <Col xs={24} md={12}>
                         <Item
                             name="name"
                             label="Pattern name:"
@@ -84,42 +96,62 @@ const CRUPattern = () => {
                             <Input placeholder="Pattern name" />
                         </Item>
                     </Col>
-                    <Col xs={20} md={12}>
-                        <Row gutter={24}>
-                            <Col span={12}>
-                                <Item
-                                    name="author"
-                                    label="Author:"
-                                    rules={[{ required: true, message: 'Please enter the author' }]}
-                                >
-                                    <Input placeholder="Author" />
-                                </Item>
-                            </Col>
-                            <Col span={12}>
-                                <Item
-                                    name='category_id'
-                                    label='Category'
-                                >
-                                    <TreeSelect
-                                        treeData={categories}
-                                    />
-                                </Item>
-                            </Col>
-
-                        </Row>
+                    <Col md={12} xs={24}>
+                        <Item
+                            name="author"
+                            label="Author:"
+                            rules={[{ required: true, message: 'Please enter the author' }]}
+                        >
+                            <Input placeholder="Author" />
+                        </Item>
                     </Col>
                 </Row>
+
+                <Row gutter={48}>
+                    <Col md={12} xs={24}>
+                        <Item
+                            name='category_id'
+                            label='Category'
+                        >
+                            <TreeSelect
+                                treeData={categories}
+                            />
+                        </Item>
+                    </Col>
+
+                    <Col md={12} xs={24}>
+                        <Item
+                            name="is_home"
+                            label="Show on home page"
+                        >
+                            <Switch />
+                        </Item>
+                    </Col>
+                </Row>
+                <Item
+                    name="link"
+                    label="Link"
+                >
+                    <Input placeholder="Link mua hang" />
+                </Item>
                 <Item
                     name="description"
                     label="Description:"
                 >
-                    <TextArea placeholder="Description" />
+                    <TextArea rows={4} placeholder="Description" />
                 </Item>
 
                 <Item
                     name='images'
                     label='Photos'>
+                    <div style={{ paddingBottom: '10px' }}>
+                        <Radio.Group value={imageMode} onChange={(e) => setImageMode(e.target.value)}>
+                            {radioItems}
+                        </Radio.Group>
+                    </div>
                     <UploadFiles
+                        directory={imageMode === 'directory'}
+                        isCropImage={imageMode === 'crop'}
                         files={pattern.images || []}
                         onChangeFile={(files: FileUpload[]) => {
                             form.setFieldsValue({ images: files });
@@ -129,7 +161,14 @@ const CRUPattern = () => {
                 <Item
                     name='files'
                     label='Pattern'>
+                    <div style={{ paddingBottom: '10px' }}>
+                        <Radio.Group value={fileMode} onChange={(e) => setFileMode(e.target.value)}>
+                            {radioItems}
+                        </Radio.Group>
+                    </div>
                     <UploadFiles
+                        directory={fileMode === 'directory'}
+                        isCropImage={fileMode === 'crop'}
                         files={pattern.files || []}
                         onChangeFile={(files: FileUpload[]) => {
                             form.setFieldsValue({ files: files });
