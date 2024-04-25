@@ -46,11 +46,16 @@ export interface DataTableProps extends TableProps<DataType> {
   onTableChange?: (pagination: any, filters: any, sorter: any, extra: any) => void;
 }
 
+export interface SearchParams {
+  searchText: string;
+  categoryId: string;
+  filters: Filter[];
+};
+
 export interface SearchTableProps {
   onAddNew: () => void;
-  onSearch: SearchProps['onSearch'];
-  onFilter?: (filters: Filter[]) => void;
-  onChangeCategory?: (key: string) => void;
+  onSearch?: SearchProps['onSearch'];
+  onSearchChange?: (searchParams: SearchParams) => void;
   textAddNew?: string;
   loading?: boolean;
   isShowFilter?: boolean;

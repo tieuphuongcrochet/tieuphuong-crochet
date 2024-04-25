@@ -134,14 +134,24 @@
 .drawer-menu {
 	.ant-drawer-header {
 		border-bottom: none;
-		padding: 25px 10px 0;
+		padding: 24px 35px;
+		background-color: $borderColor;
 
-		.ant-drawer-header-title {
-			justify-content: flex-end;
+		.ant-drawer-header {
+			&-title {
 
-			.ant-drawer-close {
-				color: $textPrimaryColor;
-				font-size: 18px;
+				.ant-drawer-close {
+					color: $secondColor;
+					font-size: 18px;
+				}
+			}
+		}
+
+		.drawer-menu-header__logo {
+			.logo-text {
+				color: $secondColor	;
+				margin-left: 5px;
+				font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
 			}
 		}
 	}

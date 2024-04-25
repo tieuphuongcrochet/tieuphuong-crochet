@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Dropdown, Menu, MenuProps, Space, Layout, Drawer } from 'antd';
+import { Button, Dropdown, Menu, MenuProps, Space, Layout, Drawer, Image } from 'antd';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { CaretDownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
@@ -115,6 +115,15 @@ const HeaderPage = () => {
 				placement='left'
 				open={isOpenSidebar}
 				onClose={() => setIsOpenSidebar(false)}
+				extra={
+					<Link
+						onClick={() => { isOpenSidebar && setIsOpenSidebar(false) }}
+						to={`${ROUTE_PATH.HOME}`} className='drawer-menu-header__logo'
+					>
+						<Image preview={false} width={50} src={logo} alt='Tiểu Phương crochet' />
+						<span className='logo-text'>Tiểu Phương crochet</span>
+					</Link>
+				}
 			>
 				{getMenu('inline')}
 			</Drawer>

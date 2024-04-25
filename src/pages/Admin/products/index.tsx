@@ -1,7 +1,7 @@
 import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, Filter, initialListParams } from 'models';
+import { DataType, SearchParams, initialListParams } from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from './productSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -23,15 +23,6 @@ const ProductsList = () => {
     const onDeleteRecord = (rd: React.Key) => {
         console.log('delete rd', rd);
         dispatch(productAction.delete(rd));
-    }
-
-    const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        console.log(info?.source, value);
-        const newParams = {
-            ...params,
-            searchText: value,
-        }
-        setParams(newParams);
     }
 
     const onPageChange = (pagination: any, filters: any, sorter: any) => {
@@ -60,11 +51,12 @@ const ProductsList = () => {
         navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
-    const onFilter = (filters: Filter[]) => {
-        console.log('filter', filters);
+   
+    const onSearchChange = (searchParams: SearchParams) => {
+        console.log('searchParams', searchParams);
         const newParams = {
             ...params,
-            filters: filters
+            ...searchParams
         }
         setParams(newParams)
     }
@@ -75,8 +67,7 @@ const ProductsList = () => {
                 <SearchTable
                     isShowFilter
                     onAddNew={onAddNew}
-                    onSearch={onSearch}
-                    onFilter={(filters) => { onFilter(filters) }}
+                    onSearchChange={onSearchChange}
                 />
                 <div className='admin-table'>
                     <DataTable

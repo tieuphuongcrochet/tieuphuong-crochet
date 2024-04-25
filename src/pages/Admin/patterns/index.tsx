@@ -1,12 +1,11 @@
-import { SearchProps } from 'antd/es/input';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from 'utils';
+import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, Filter, ListParams, initialListParams, initialViewTableParams } from 'models';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
-import { ALL_ITEM, ROUTE_PATH } from 'utils';
+import { DataType, SearchParams, initialListParams } from 'models';
 
 const PatternsList = () => {
     const navigate = useNavigate();
@@ -21,22 +20,12 @@ const PatternsList = () => {
         dispatch(patternAction.fetchData(params));
     }, [params]);
 
-    console.log('originData', originData);
-
     const onEditRecord = (id: React.Key) => {
         navigate(`${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
     const onDeleteRecord = (rd: React.Key) => {
         dispatch(patternAction.delete(rd));
-    }
-
-    const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        const newParams = {
-            ...initialListParams,
-            searchText: value
-        };
-        setParams(newParams)
     }
 
     const columns = [
@@ -65,21 +54,12 @@ const PatternsList = () => {
         setParams(newParams)
     }
 
-    const onFilter = (filters: Filter[]) => {
-        console.log('filter', filters);
+    const onSearchChange = (searchParams: SearchParams) => {
         const newParams = {
             ...params,
-            filters: filters
+            ...searchParams
         }
         setParams(newParams)
-    }
-
-    const onChangeCategory = (key: string) => {
-        const newParams: ListParams = {
-            ...initialViewTableParams,
-            categoryId: key === ALL_ITEM.key ? '' : key
-        };
-        setParams(newParams);
     }
 
     return (
@@ -88,10 +68,9 @@ const PatternsList = () => {
                 <SearchTable
                     isShowFilter
                     onAddNew={onAddNew}
-                    onSearch={onSearch}
-                    onFilter={(filters) => { onFilter(filters) }}
-                    onChangeCategory={onChangeCategory}
+                    onSearchChange={onSearchChange}
                     loading={loading}
+
                 />
                 <div className='admin-table'>
                     <DataTable

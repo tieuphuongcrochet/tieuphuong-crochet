@@ -52,14 +52,16 @@ const ShopPage = () => {
 	const onChangeTab = (key: string) => {
 		const newParams: ListParams = {
 			...initialViewTableParams,
+			searchText: params.searchText || '',
 			categoryId: key === ALL_ITEM.key ? '' : key
-		};
+		};	
 		setParams(newParams);
 	}
 
 	return (
 		<div className='shop-page'>
-			<ViewTable onReadDetail={(id) => onViewProduct(id)}
+			<ViewTable
+				onReadDetail={(id) => onViewProduct(id)}
 				dataSource={productList}
 				total={totalRecords}
 				loading={loading}
