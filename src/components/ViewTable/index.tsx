@@ -116,14 +116,14 @@ const ViewTable = (
 				/>
 				{/* direction icon */}
 				<Flex align='center' className='direction-icon'>
-					<Tooltip color='#fd9b9b' title="Grid">
+					<Tooltip color='#fc8282' title="Grid">
 						<Button type="text" onClick={() => setDirection('horizontal')}>
-							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fd9b9b' : '#707070', fontSize: '24px' }} />
+							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fc8282' : '#707070', fontSize: '24px' }} />
 						</Button>
 					</Tooltip>
-					<Tooltip color='#fd9b9b' title="List">
+					<Tooltip color='#fc8282' title="List">
 						<Button type="text" onClick={() => setDirection('vertical')}>
-							<MenuOutlined style={{ color: direction === 'vertical' ? '#fd9b9b' : '#707070', fontSize: '24px' }} />
+							<MenuOutlined style={{ color: direction === 'vertical' ? '#fc8282' : '#707070', fontSize: '24px' }} />
 						</Button>
 					</Tooltip>
 				</Flex>
@@ -173,7 +173,10 @@ const ViewTable = (
 						{
 							dataSource && dataSource.map((item, index) =>
 								<div className='list-view-item' key={`list-view-item-${index}`}>
-									<ListViewItem data={item} />
+									<ListViewItem
+										data={item}
+										onReadDetail={() => onReadDetail(item.key)}
+									/>
 								</div>
 							)
 						}
@@ -191,10 +194,7 @@ const ViewTable = (
 												onReadDetail={() => onReadDetail(item.key)}
 											/> :
 											<CardProduct
-												title={item.name || 'N/A'}
-												price={item.price || 0}
-												src={item.src}
-												currency_code={item.currency_code}
+												product={item}
 												onReadDetail={() => onReadDetail(item.key)}
 											/>
 									}

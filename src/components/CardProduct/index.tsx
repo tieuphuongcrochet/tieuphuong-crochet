@@ -1,40 +1,33 @@
 import React from 'react';
-import { Button, Card, Flex, Image } from 'antd';
-import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import {  Card, Image, Tooltip } from 'antd';
+import { EditOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-import { CURRENCY, IMAGE_FALLBACK } from 'utils';
+import { IMAGE_FALLBACK, ROUTE_PATH, SOCIAL_LINKS } from 'utils';
+import { Product } from 'models';
+import FormattedCurrency from 'components/FormattedCurrency';
 import './index.scss';
 
 interface CardProductProps {
 	width?: string | number;
-	src?: string;
-	title: string;
-	author?: string;
-	price: number;
-	currency_code?: string;
+	product: Product;
 	onPreview?: Function;
 	onShopping?: Function;
 	onReadDetail?: Function;
+	parentLink?: string;
 };
 
 const CardProduct = (
 	{
 		width,
-		src,
-		title,
-		price,
-		currency_code,
+		product,
 		onPreview,
 		onReadDetail,
 		onShopping,
+		parentLink = `${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}`
 	}: CardProductProps) => {
 	const { Meta } = Card;
-
-	const descriptionNode = <div className='price-wrap'>
-		{currency_code === CURRENCY.USD && <span>$</span>}
-		<span>{price}</span>
-		{currency_code === CURRENCY.VND && <span> VND</span>}
-	</div>;
+	const { currency_code, price, name, src, link, id } = product;
 
 	const onClickBtn = () => {
 		if (onReadDetail instanceof Function) {
@@ -50,8 +43,8 @@ const CardProduct = (
 
 	return (<>
 		<Card
-			className={title ? 'card-product' : 'card-product not-title'}
-			// hoverable
+			className={name ? 'card-product' : 'card-product not-title'}
+			hoverable
 			bordered={false}
 			style={{ width: width || '100%' }}
 			bodyStyle={{
@@ -60,25 +53,29 @@ const CardProduct = (
 			cover={
 				<>
 					<Image
-						preview={false}
-						alt={title}
+						alt={name}
 						src={src}
 						fallback={IMAGE_FALLBACK}
 					/>
-					<div className='mask'>
-					</div>
-					<Flex justify='center' className='card-actions actions-links'>
-						<Button onClick={onClickBtn} className='preview' icon={<FullscreenOutlined />} />
-						<Button onClick={onClickBtn} className='read' icon={<EyeOutlined />} />
-						<Button onClick={onClickBtn} className='cart' icon={<ShoppingCartOutlined />} />
-					</Flex>
 				</>
 			}
+			actions={[
+				<Tooltip color='#fc8282' title="Shop now">
+					<Link key='shopping' target='_blank' to={link || SOCIAL_LINKS.FACEBOOK}>
+						<ShoppingCartOutlined style={{ fontSize: 18 }} />
+					</Link>
+				</Tooltip>,
+				<Tooltip color='#fc8282' title="View detail">
+					<Link key="edit" to={`${parentLink}/${id}`} >
+						<EditOutlined style={{ fontSize: 18 }} />
+					</Link>
+				</Tooltip>
+			]}
 		>
-			{title &&
+			{name &&
 				<Meta
-					title={<span tabIndex={1} className='card-title' onClick={onClickBtn}>{title}</span>}
-					description={descriptionNode}
+					title={<span tabIndex={1} className='card-title' onClick={onClickBtn}>{name}</span>}
+					description={<FormattedCurrency currency_code={currency_code} price={price} />}
 				/>
 			}
 		</Card>

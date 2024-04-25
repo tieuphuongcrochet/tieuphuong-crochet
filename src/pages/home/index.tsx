@@ -21,12 +21,16 @@ const HomePage = () => {
 		<div className='home-page'>
 			{/* Product list */}
 			<ProductsNode />
+
 			{/* Free patterns list */}
-			<FreePatternsNode  />
+			<FreePatternsNode />
 
 			{/* Social network */}
 			<div className='social'>
-				<HeaderPart title='Follow me on Social' description='Fanpage và kênh bán hàng của mình' />
+				<HeaderPart
+					isShowDivider
+					title='Follow me on Social'
+					description='Fanpage và kênh bán hàng của mình' />
 				<Row gutter={[48, 48]}>
 					{(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>
 						<Col key={`social_${index}`} xs={12} md={6}>

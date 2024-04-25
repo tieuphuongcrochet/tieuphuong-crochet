@@ -8,7 +8,8 @@
   .description {
     color: $textSecondColor;
   }
-  .author{
+
+  .author {
     color: $textSecondColor;
     font-size: $fontSize_middle;
   }
@@ -17,11 +18,13 @@
     color: $textPrimaryColor;
   }
 
-  > *,
+  >*,
   .ant-card,
   .ant-row .ant-flex,
   .ant-breadcrumb,
-  .ant-menu {
+  .ant-btn-link,
+  .ant-menu,
+  button {
     font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
   }
 
@@ -51,12 +54,17 @@
     font-weight: $fontWeight_medium;
     color: $textPrimaryColor;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", serif;
+  }
 }
 
 // button
-:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(
-    .ant-btn-disabled
-  ):hover {
+:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
   color: $colorPrimary;
   border-color: $colorPrimary;
 }
@@ -91,6 +99,8 @@
 
     .ant-image {
       overflow: hidden;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
 
       img {
         transform: scale(1);
@@ -119,6 +129,57 @@
   }
 }
 
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.rote-180 {
+  transform: rotate(180deg);
+}
+
+.ant-input-search {
+
+  .ant-input-affix-wrapper,
+  .ant-input-group-addon .ant-input-search-button {
+    height: 44px;
+  }
+}
+
+.banner-wrap {
+  .banner-item {
+    position: relative;
+    height: calc(100vh - 204px);
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    &__infor {
+      position: absolute;
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+      text-align: center;
+
+      .text {
+        font-size: 3rem;
+        color: #fff;
+      }
+
+      button {
+        height: 44px;
+        border-radius: 0;
+        padding: 0 30px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: $md) {
   .container {
     padding: 50px;
@@ -134,22 +195,5 @@
 @media screen and (min-width: $xl) {
   .container {
     padding: 80px 100px;
-  }
-}
-
-.transition-transform {
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
-}
-
-.rote-180 {
-  transform: rotate(180deg);
-}
-
-.ant-input-search {
-  .ant-input-affix-wrapper,
-  .ant-input-group-addon .ant-input-search-button {
-    height: 44px;
   }
 }

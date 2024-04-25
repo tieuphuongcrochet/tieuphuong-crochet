@@ -3,10 +3,21 @@
 
 .card-product {
 	&.ant-card {
-		box-shadow: none;
+		padding: 15px 15px 0;
+		border: 1px solid $borderColor;
 
 		.ant-card-body {
 			padding: 20px 0 0;
+
+			.card-title {
+				font-size: $fontSize_large;
+				margin-bottom: 20px;
+			}
+
+			.price-wrap {
+				padding: 20px 0 10px;
+				font-size: $fontSize_middle;
+			}
 		}
 	}
 
@@ -32,6 +43,7 @@
 
 		.ant-image {
 			overflow: hidden;
+
 			img {
 				transform: scale(1);
 				transition: all .7s ease 0s;

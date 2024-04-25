@@ -77,7 +77,7 @@ export const MENU_NAV = [
   { path: ROUTE_PATH.HOME, name: 'menu_nav.home' },
   { path: ROUTE_PATH.SHOP, name: 'menu_nav.shop' },
   { path: ROUTE_PATH.FREEPATTERNS, name: 'menu_nav.freePattern' },
-  { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
+  // { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
   { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
   { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
 ];
@@ -173,20 +173,27 @@ export const MOCK_FREE_PATTERNS = [
   },
 ];
 
+export const SOCIAL_LINKS = {
+  FACEBOOK: 'https://www.facebook.com/tieuconuong.tiemlen/',
+  SOPEE: 'https://shopee.vn/littlegirl.crochet',
+  INSTAGRAM: 'https://www.instagram.com/little_girl.crochet/',
+  TIKTOK: 'https://www.tiktok.com/@tiemlentieuconuong'
+};
+
 export const SOCIALS = [
   {
     social: 'Shopee',
     src: shopee,
-    url: 'https://shopee.vn/littlegirl.crochet',
+    url: SOCIAL_LINKS.SOPEE,
     textColor: '#fa5330',
   },
   { social: 'Facebook', textColor: '#0866ff' },
   {
     social: 'Instagram',
     textColor: '#e42a81',
-    url: 'https://www.instagram.com/little_girl.crochet/',
+    url: SOCIAL_LINKS.INSTAGRAM,
   },
-  { social: 'Tiktok', url: 'https://www.tiktok.com/@tiemlentieuconuong' },
+  { social: 'Tiktok', url:  SOCIAL_LINKS.TIKTOK},
 ];
 
 export const FOOTER_LINK = [

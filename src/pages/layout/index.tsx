@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FloatButton, Layout } from 'antd';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import FooterPage from '../../components/footer';
-import HeaderPage from '../../components/header';
-import './index.scss';
+
+import FooterPage from 'components/footer';
+import HeaderPage from 'components/header';
 import { ROLES, ROUTE_PATH } from 'utils';
-import HeaderHomePage from './components/HeaderHomePage';
+import Banner from './components/Banner';
 import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
+import './index.scss';
 
 const LayoutPage = () => {
 	const { Content } = Layout;
@@ -22,7 +23,7 @@ const LayoutPage = () => {
 					<HeaderPage />
 					{
 						location?.pathname === ROUTE_PATH.HOME ?
-							<HeaderHomePage /> :
+							<Banner /> :
 							<BreadCrumbs pathname={location?.pathname} />
 					}
 					<Content className='content-wrap container'>

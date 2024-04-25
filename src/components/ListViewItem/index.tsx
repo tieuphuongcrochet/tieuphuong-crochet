@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Card, Col, Flex, Image, Row } from 'antd';
-import { EyeOutlined, FullscreenOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-
-import { CURRENCY, IMAGE_FALLBACK } from 'utils';
-import './index.scss';
-import { DataType, Pattern, Product } from 'models';
 import { Link } from 'react-router-dom';
+import { Button, Col, Divider, Flex, Image, Row } from 'antd';
+
+import { IMAGE_FALLBACK, SOCIAL_LINKS } from 'utils';
+import { DataType } from 'models';
+import FormattedCurrency from 'components/FormattedCurrency';
+import './index.scss';
 
 interface ListViewItemProps {
 	data: DataType;
@@ -38,8 +38,8 @@ const ListViewItem = (
 	}
 
 	return (<>
-		<Row gutter={36} className='list-card-item'>
-			<Col xs={24} md={8}>
+		<Row className='list-card-item'>
+			<Col xs={24} md={8} lg={6} className='image'>
 				<Image
 					alt={name}
 					src={src || ''}
@@ -47,27 +47,28 @@ const ListViewItem = (
 				/>
 			</Col>
 
-			<Col xs={24} md={16} >
-				<Flex className='item-infor' vertical justify='space-between'>
+			<Col xs={24} md={16} lg={18}>
+				<div className='item-infor'>
+					{/* describle */}
 					<div className='information'>
-						<h2>{name}</h2>
-						<p className='author'>Tac gia: {author}</p>
+						<Button className='title' type='link' onClick={onClickBtn}>{name}</Button>
+						{author && <p className='author'>Tac gia: {author}</p>}
 						<p>{description}</p>
 					</div>
-					<Flex align='center' justify='space-between' className='shopping'>
-						<div className='price-wrap'>
-							{currency_code === CURRENCY.USD && <span>$</span>}
-							<span>{price}</span>
-							{currency_code === CURRENCY.VND && <span>VND</span>}
-						</div>
-						{
-							link && <div className='action'>
-								<Link target='_blank' to={link || '#'}>
+
+					{/* selling */}
+					{price && <>
+						<Divider />
+						<Flex align='center' justify='space-between' className='shopping'>
+							<FormattedCurrency price={price} currency_code={currency_code} />
+							<div className='action'>
+								<Link target='_blank' to={link || SOCIAL_LINKS.FACEBOOK}>
 									<Button type='primary'>Mua hang</Button>
 								</Link>
-							</div>}
-					</Flex>
-				</Flex>
+							</div>
+						</Flex>
+					</>}
+				</div>
 			</Col>
 		</Row>
 	</>

@@ -2,125 +2,29 @@
 
 .home-page {
 
-	.slick-list {
-		height: 190px;
-	}
-
 	.read-more {
 		display: flex;
 		justify-content: center;
 		padding-top: 50px;
 	}
 
-	.products-data {}
 
 	.blogs {
-		padding: 0 30px 30px;
+		padding: 40px 30px 30px;
 		background-color: #fff5f5;
+		border-top: 1px solid $borderColor;
+		margin-top: 100px;
+
+		@media screen and (min-width: $md) {
+			padding: 40px 50px 50px;
+		}
+
+		@media screen and (min-width: $xl) {
+			padding: 40px 100px 100px;
+		}
 	}
 
 	.ant-row {
 		justify-content: center;
 	}
-
-	@media screen and (min-width: $md) {
-		.products {
-			.ant-image {
-				height: 149px;
-			}
-
-			.product-bigbox {
-				.ant-image {
-					height: 413px;
-					width: 100%;
-				}
-			}
-		}
-
-		.blogs {
-			padding: 0 50px 50px;
-		}
-	}
-
-	@media screen and (min-width: $lg) {
-		.slick-list {
-			height: 248px;
-		}
-
-	}
-
-	@media screen and (min-width: $screen_1024) {
-		.products {
-			.ant-image {
-				height: 213px;
-			}
-
-			.product-bigbox {
-				.ant-image {
-					height: 541px;
-				}
-			}
-		}
-
-
-		.slick-list {
-			height: 257px;
-		}
-	}
-
-	@media screen and (min-width: $xl) {
-		.products {
-			.ant-image {
-				height: 232px;
-			}
-
-			.product-bigbox {
-				.ant-image {
-					height: 579px;
-				}
-			}
-		}
-
-		.blogs {
-			padding: 0 100px 100px;
-		}
-
-		.slick-list {
-			height: 277px;
-		}
-	}
-
-	@media screen and (min-width: $xxl) {
-		.products {
-			.ant-image {
-				height: 292px;
-			}
-
-			.product-bigbox {
-				.ant-image {
-					height: 700px;
-				}
-			}
-		}
-
-		.slick-list {
-			height: 344px;
-		}
-	}
 }
-
-// @media screen and (max-width: 1440px) {
-
-// 	.introduce-product-bg,
-// 	.introduce-banner-bg {
-// 		height: 250px;
-// 	}
-// }
-
-// @media screen and (min-width: 1441px) {
-
-// 	.introduce-product-bg,
-// 	.introduce-banner-bg {
-// 		height: 400px;
-// 	}
-// }

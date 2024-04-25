@@ -106,7 +106,7 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 			</Col>
 			<Col xs={24} md={12}>
 				<span className="card-title mt-0">{name}</span><br />
-				<span className="author">Tác giả: <i>{author}</i></span>
+				{author && <span className="author">Tác giả: <i>{author}</i></span>}
 				<Divider />
 				<p className="description">{description}</p>
 				{link && <Link to={link || '#'} target="_blank"> <Button type="primary">Mua ngay</Button></Link>}

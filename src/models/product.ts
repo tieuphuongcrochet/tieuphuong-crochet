@@ -12,7 +12,7 @@ export interface Product {
 	src?: string;
 	author?: string;
 	currency_code?: string;
-	category: Category;
+	category?: Category;
 	imagesPreview?: { src: string, alt: string }[];
 	link?: string;
 }

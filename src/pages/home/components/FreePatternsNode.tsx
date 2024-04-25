@@ -21,7 +21,9 @@ const FreePatternsNode = () => {
 
 	return (
 		<div className='patterns'>
-			<HeaderPart title='Free Patterns'
+			<HeaderPart
+				title='Free Patterns'
+				isShowDivider
 				description='Đây là những chart miễn phí mình sưu tầm. Nếu mình nhỡ đăng phải chart bản quyền, xin nhắc mình gỡ xuống nhé.'
 			/>
 			<Row gutter={[30, 50]}>

@@ -12,6 +12,7 @@
       height: 75px;
     }
   }
+
   .ant-menu {
     border: 0;
   }
@@ -26,38 +27,43 @@
   height: 44px;
 }
 
-.ant-form-item{
+.ant-form-item {
 
   .ant-form-item-control {
+
     input.ant-input,
     .ant-select {
       height: 44px;
     }
-  
+
     .ant-switch {
       height: 44px;
       width: 90px;
+
       .ant-switch-handle {
         top: 5px;
         height: 34px;
         width: 34px;
+
         &::before {
           border-radius: 50%;
         }
       }
-  
+
       &.ant-switch-checked {
         .ant-switch-handle {
           inset-inline-start: calc(100% - 36px);
         }
       }
     }
+
     .ant-input-number {
       height: 44px;
       width: 100%;
     }
   }
-  .ant-form-item-label{
+
+  .ant-form-item-label {
     label {
       font-size: 16px;
       color: $textPrimaryColor;

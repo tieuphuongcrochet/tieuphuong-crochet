@@ -8,14 +8,28 @@
 
   .item-infor {
     height: 100%;
+
     .action {
       button {
-        padding:0 30px;
+        padding: 0 30px;
         height: 44px;
+        border-radius: 0;
+      }
+    }
+
+    .title {
+      font-size: $fontSize_large;
+      font-weight: $fontWeight_medium;
+      color: $textPrimaryColor;
+      padding: 0;
+
+      &:hover {
+        color: $colorPrimary;
       }
     }
   }
-  .ant-col {
-    padding-left: 0 !important;
+
+  .image{
+    padding-right: 32px;
   }
 }
