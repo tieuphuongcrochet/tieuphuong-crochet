@@ -6,7 +6,7 @@ import { Post } from "models/post";
 import { ROUTE_PATH, mapDataToSelectOption } from "utils";
 import UploadFiles from "components/Upload";
 import { initialListParams } from "models";
-import { productAction, selectProducts } from "../products/productSlice";
+import { productAction, selectProducts } from "../../../saga/product/productSlice";
 
 interface SelectOption {
     label: string;

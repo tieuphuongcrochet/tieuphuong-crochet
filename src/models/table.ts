@@ -59,6 +59,8 @@ export interface SearchTableProps {
   textAddNew?: string;
   loading?: boolean;
   isShowFilter?: boolean;
+  isShowSearch?: boolean;
+  isShowAddNew?: boolean;
 }
 
 export interface Paging {

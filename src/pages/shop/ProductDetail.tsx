@@ -4,7 +4,7 @@ import DownloadImage from 'components/DownloadImage';
 import IntroductionCard from 'components/IntroductionCard';
 import { map } from 'lodash';
 import { Product } from 'models';
-import { productAction, selectProduct } from 'pages/Admin/products/productSlice';
+import { productAction, selectProduct } from 'saga/product/productSlice';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import { DataType, ListResponse, Product, ProductPayload, initialListParams } from 'models';
+import { ListResponse, Product, ProductPayload, initialListParams } from 'models';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';

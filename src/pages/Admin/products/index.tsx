@@ -2,7 +2,7 @@ import { SearchProps } from 'antd/es/input';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType, SearchParams, initialListParams } from 'models';
-import { productAction, selectLoading, selectProducts, selectTotalRecords } from './productSlice';
+import { productAction, selectLoading, selectProducts, selectTotalRecords } from '../../../saga/product/productSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';

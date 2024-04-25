@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { CURRENCY_LIST, ROUTE_PATH } from "utils";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { productAction, selectProduct } from "./productSlice";
+import { productAction, selectProduct } from "../../../saga/product/productSlice";
 import UploadFiles from "components/Upload";
 import { FileUpload, Product } from "models";
-import { categoryAction } from "../categories/categorySlice";
+import { categoryAction } from "../../../saga/category/categorySlice";
 import { cloneDeep } from "lodash";
 
 const CRUProduct = () => {
@@ -23,7 +23,7 @@ const CRUProduct = () => {
 
     useEffect(() => {
         if (!categories || categories.length <= 0) {
-            dispatch(categoryAction.fetchData(''));
+            dispatch(categoryAction.fetchData());
         }
         if (id) {
             dispatch(productAction.fetchProduct(id));

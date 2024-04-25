@@ -3,8 +3,8 @@ import { ALL_ITEM, ROUTE_PATH } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { DataType, ListParams, initialViewTableParams } from 'models';
-import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'pages/Admin/products/productSlice';
-import { categoryAction } from 'pages/Admin/categories/categorySlice';
+import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'saga/product/productSlice';
+import { categoryAction } from 'saga/category/categorySlice';
 import ViewTable from 'components/ViewTable';
 
 const ShopPage = () => {
@@ -17,7 +17,7 @@ const ShopPage = () => {
 
 	const [params, setParams] = useState(initialViewTableParams);
 
-	const onChange = (current: number, pageSize: number) => {
+	const onPageChange = (current: number, pageSize: number) => {
 		const newParams = {
 			...params,
 			_pageNo: current - 1,
@@ -32,7 +32,7 @@ const ShopPage = () => {
 
 	useEffect(() => {
 		if (categories.length <= 0) {
-			dispatch(categoryAction.fetchData(''));
+			dispatch(categoryAction.fetchData());
 		}
 	}, [categories.length, dispatch]);
 
@@ -49,7 +49,7 @@ const ShopPage = () => {
 		navigate(`${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/${id}`);
 	};
 
-	const onChangeTab = (key: string) => {
+	const onTabChange = (key: React.Key) => {
 		const newParams: ListParams = {
 			...initialViewTableParams,
 			searchText: params.searchText || '',
@@ -69,9 +69,9 @@ const ShopPage = () => {
 				itemsTabs={categories}
 				pageIndex={params._pageNo}
 				pageSize={params._pageSize}
-				onChange={onChange}
+				onPageChange={onPageChange}
 				onSeach={onSearchProducts}
-				onChangeTab={onChangeTab}
+				onTabChange={onTabChange}
 			/>
 		</div>
 	)

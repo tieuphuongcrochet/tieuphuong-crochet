@@ -17,7 +17,7 @@ export interface ViewTableProps {
 	isFreePatterns?: boolean;
 	total?: number;
 	pageSize?: number;
-	onChange?: Function;
+	onPageChange: Function;
 	onSeach?: Function;
 	pageIndex?: number;
 	loading?: boolean;
@@ -25,7 +25,7 @@ export interface ViewTableProps {
 	isShowTabs?: boolean;
 	itemsTabs?: DataType[];
 	tabsProps?: MenuProps;
-	onChangeTab?: Function
+	onTabChange?: (key: React.Key) => void;
 }
 
 const ViewTable = (
@@ -33,13 +33,13 @@ const ViewTable = (
 		isFreePatterns = false,
 		total = 0,
 		pageSize = 12,
-		onChange,
+		onPageChange,
 		onSeach,
 		pageIndex = 0,
 		itemsTabs = [],
 		tabsProps,
 		isShowTabs,
-		onChangeTab,
+		onTabChange,
 		onReadDetail,
 	}: ViewTableProps) => {
 
@@ -53,9 +53,9 @@ const ViewTable = (
 		}
 	};
 
-	const onChangePage = (page: number, pageSize: number) => {
+	const onChange = (page: number, pageSize: number) => {
 		if (onChange instanceof Function) {
-			onChange(page, pageSize);
+			onPageChange(page, pageSize);
 		}
 	};
 
@@ -91,7 +91,7 @@ const ViewTable = (
 
 	const onClickMenu = (e: any) => {
 		setCurrentNav(e.key);
-		onChangeTab instanceof Function && onChangeTab(e.key);
+		onTabChange instanceof Function && onTabChange(e.key);
 	};
 
 	const items =
@@ -218,7 +218,7 @@ const ViewTable = (
 					showSizeChanger
 					showQuickJumper
 					showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-					onChange={onChangePage}
+					onChange={onChange}
 				/>
 				:
 				<Empty

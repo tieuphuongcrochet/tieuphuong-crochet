@@ -1,4 +1,4 @@
-import { Category, initialListParams } from 'models';
+import { Category } from 'models';
 import { categoryAction } from './categorySlice';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import category from 'api/category';
@@ -6,7 +6,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { mapTreeData } from 'utils';
 
 
-function* fetchCategories(payload: any) {
+function* fetchCategories() {
 	try {
 		yield put(categoryAction.loadingRequest());
 		const data: Category[] = yield call(category.getAll);
@@ -26,7 +26,7 @@ function* handleCreate({ payload }: PayloadAction<Category>) {
 		yield put(categoryAction.loadingRequest());
 		const data: Category[] = yield call(category.add, payload);
 		
-		yield call(fetchCategories, initialListParams);
+		yield call(fetchCategories);
 		yield put(categoryAction.loadingSuccess());
 
 	} catch (err) {
@@ -40,7 +40,7 @@ function* handleUpdate({ payload }: PayloadAction<Category>) {
 		yield put(categoryAction.loadingRequest());
 		yield call(category.update, payload);
 		
-		yield call(fetchCategories, initialListParams);
+		yield call(fetchCategories);
 		yield put(categoryAction.loadingSuccess());
 
 	} catch (err) {
@@ -54,7 +54,7 @@ function* handleDeleteById({ payload }: PayloadAction<React.Key>) {
 		yield put(categoryAction.loadingRequest());
 		yield call(category.remove, payload);
 
-		yield call(fetchCategories, initialListParams);
+		yield call(fetchCategories);
 		yield put(categoryAction.loadingSuccess());
 
 	} catch (err) {

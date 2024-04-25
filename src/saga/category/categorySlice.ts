@@ -21,7 +21,7 @@ const categorySlice = createSlice({
         saveData(state, { payload }) {
             state.data = payload;
         },
-        fetchData(_, { payload }) { },
+        fetchData() { },
         create(_, { payload }: PayloadAction<Category>) { },
         update(_, { payload }: PayloadAction<Category>) { },
         delete(_, { payload }: PayloadAction<React.Key>) { },

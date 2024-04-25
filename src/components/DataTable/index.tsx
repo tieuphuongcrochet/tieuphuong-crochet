@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Popconfirm, Table, TableColumnsType } from 'antd';
+import { Button, Image, Popconfirm, Table } from 'antd';
 import { DataTableProps, DataType } from 'models';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { filter } from 'lodash';

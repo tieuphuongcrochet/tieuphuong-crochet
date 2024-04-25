@@ -7,7 +7,7 @@ import { ROUTE_PATH } from "utils";
 import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
-import { categoryAction } from "../categories/categorySlice";
+import { categoryAction } from "../../../saga/category/categorySlice";
 
 type UploadMode = 'directory' | 'crop' | 'normal';
 const UPLOAD_MODES = ['crop', 'normal'];
@@ -31,7 +31,7 @@ const CRUPattern = () => {
             dispatch(patternAction.fetchPattern(id));
         }
         if (categories.length <= 0) {
-            dispatch(categoryAction.fetchData(''));
+            dispatch(categoryAction.fetchData());
         }
     }, []);
 

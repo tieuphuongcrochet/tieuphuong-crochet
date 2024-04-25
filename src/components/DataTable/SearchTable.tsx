@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Filter, SearchParams, SearchTableProps } from 'models';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { categoryAction } from 'pages/Admin/categories/categorySlice';
+import { categoryAction } from 'saga/category/categorySlice';
 import { ALL_ITEM, OPERATOR } from 'utils';
 import { ReloadOutlined } from '@ant-design/icons';
 import { SearchProps } from 'antd/es/input';
@@ -24,7 +24,14 @@ const initialSearchParams: SearchParams = {
     filters: initialFilter
 };
 
-const SearchTable = ({ onAddNew, onSearch, onSearchChange, textAddNew, loading, isShowFilter }: SearchTableProps) => {
+const SearchTable = ({
+    onAddNew,
+    onSearch,
+    onSearchChange,
+    textAddNew,
+    loading,
+    isShowFilter,
+    isShowSearch = true }: SearchTableProps) => {
     const { Search } = Input;
     const [form] = Form.useForm();
     const categories = useAppSelector(state => state.category.data);
@@ -33,7 +40,7 @@ const SearchTable = ({ onAddNew, onSearch, onSearchChange, textAddNew, loading, 
 
     useEffect(() => {
         if (categories.length <= 0) {
-            dispatch(categoryAction.fetchData(''));
+            dispatch(categoryAction.fetchData());
         }
     }, []);
 
@@ -83,75 +90,78 @@ const SearchTable = ({ onAddNew, onSearch, onSearchChange, textAddNew, loading, 
 
     return (
         <Flex gap="small" className='search-table' justify='space-between'>
-            <Form
-                layout="vertical"
-                name='search-form'
-                form={form}
-                initialValues={{
-                    isHome: ALL_ITEM.key,
-                }}
-                style={{ flex: 'min-content' }}
-            >
-                <Row style={{ width: '100%' }} gutter={12} className='search'>
-                    <Col xs={24} md={15} lg={8}>
-                        <Form.Item name='searchText'>
-                            <Search
-                                allowClear
-                                size='large'
-                                placeholder='Search'
-                                onSearch={onSearchText}
-                                loading={loading}
-                                enterButton
-                                className='input-search'
-                            />
-                        </Form.Item>
-                    </Col>
-                    {
-                        isShowFilter && (
-                            <>
-                                <Col xs={24} md={9} lg={6}>
-                                    <Form.Item name='categoryId'>
-                                        <TreeSelect
-                                            allowClear
-                                            placeholder='Categories'
-                                            treeData={categories}
-                                            onChange={onChangeCategory}
-                                        />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} md={15} lg={6}>
-                                    <Form.Item
-                                        name='isHome'
-                                        label='Show on home:'
-                                    >
-                                        <Radio.Group
-                                            onChange={onchangeRadio}
+            {
+                isShowSearch &&
+                <Form
+                    layout="vertical"
+                    name='search-form'
+                    form={form}
+                    initialValues={{
+                        isHome: ALL_ITEM.key,
+                    }}
+                    style={{ flex: 'min-content' }}
+                >
+                    <Row style={{ width: '100%' }} gutter={12} className='search'>
+                        <Col xs={24} md={15} lg={8}>
+                            <Form.Item name='searchText'>
+                                <Search
+                                    allowClear
+                                    size='large'
+                                    placeholder='Search'
+                                    onSearch={onSearchText}
+                                    loading={loading}
+                                    enterButton
+                                    className='input-search'
+                                />
+                            </Form.Item>
+                        </Col>
+                        {
+                            isShowFilter && (
+                                <>
+                                    <Col xs={24} md={9} lg={6}>
+                                        <Form.Item name='categoryId'>
+                                            <TreeSelect
+                                                allowClear
+                                                placeholder='Categories'
+                                                treeData={categories}
+                                                onChange={onChangeCategory}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} md={15} lg={6}>
+                                        <Form.Item
+                                            name='isHome'
+                                            label='Show on home:'
                                         >
-                                            <Radio value=''>All</Radio>
-                                            <Radio value={true}>Yes</Radio>
-                                            <Radio value={false}>No</Radio>
-                                        </Radio.Group>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={16} md={9} lg={4}>
-                                    <span>
-                                        <Button
-                                            style={{ textAlign: 'center', width: '120px' }}
-                                            danger shape="default"
-                                            icon={<ReloadOutlined />}
-                                            htmlType="reset"
-                                            onClick={onReset}
-                                        >
-                                            Reset
-                                        </Button>
-                                    </span>
-                                </Col>
-                            </>
-                        )
-                    }
+                                            <Radio.Group
+                                                onChange={onchangeRadio}
+                                            >
+                                                <Radio value=''>All</Radio>
+                                                <Radio value={true}>Yes</Radio>
+                                                <Radio value={false}>No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={16} md={9} lg={4}>
+                                        <span>
+                                            <Button
+                                                style={{ textAlign: 'center', width: '120px' }}
+                                                danger shape="default"
+                                                icon={<ReloadOutlined />}
+                                                htmlType="reset"
+                                                onClick={onReset}
+                                            >
+                                                Reset
+                                            </Button>
+                                        </span>
+                                    </Col>
+                                </>
+                            )
+                        }
 
-                </Row>
-            </Form>
+                    </Row>
+                </Form>
+            }
             <Button type="primary" onClick={onAddNew} icon={<PlusOutlined />}>
                 {textAddNew || 'Add new'}
             </Button>

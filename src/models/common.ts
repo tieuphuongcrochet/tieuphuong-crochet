@@ -21,8 +21,9 @@ export interface ListParams {
 	_sortBy?: string;
 	_sortDir?: 'asc' | 'desc';
 	filters?: Filter[];
+	searchText?: string;
+	categoryId?: React.Key;
 	[key: string]: any;
-	categoryId?: string
 };
 
 export const initialListParams: ListParams = {
@@ -41,7 +42,6 @@ export const initialViewTableParams: ListParams = {
 	_sortBy: 'id',
 	_sortDir: 'asc',
 	searchText: '',
-	filters: [],
 	categoryId: ''
 };
 
