@@ -1,7 +1,7 @@
 import { find } from 'lodash';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { Button, Dropdown, Menu, MenuProps, Space, Layout, Drawer, Image } from 'antd';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { CaretDownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -13,24 +13,23 @@ import './index.scss';
 
 type MenuType = 'vertical' | 'horizontal' | 'inline';
 
-const HeaderPage = () => {
-	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
+interface HeaderProps {
+	currentNav: string;
+	setCurrentNav: (value: string) => void;
+}
+
+const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 	const [isOpenLang, setIsOpenLang] = useState(false);
 	const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-
+	
 	const { Header } = Layout;
-	const location = useLocation();
 	const context = useContext(Context);
-
-	useEffect(() => {
-		setCurrentNav(location?.pathname);
-	}, []);
 
 	const onClickNav = (e: any) => {
 		setCurrentNav(e.key);
 		isOpenSidebar && setIsOpenSidebar(false);
 	};
-
+	
 	const onHome = () => {
 		setCurrentNav(ROUTE_PATH.HOME);
 	}
@@ -131,4 +130,4 @@ const HeaderPage = () => {
 	)
 }
 
-export default HeaderPage;
+export default memo(HeaderPage);
