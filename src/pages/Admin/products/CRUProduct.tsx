@@ -72,6 +72,16 @@ const CRUProduct = () => {
                 className="form-wrap"
                 initialValues={{ currency_code: CURRENCY_LIST[0].value }}
             >
+                <Item
+                    name='images'
+                    label='Images:'>
+                    <UploadFiles
+                        files={product.images || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ images: files });
+                        }}
+                    />
+                </Item>
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
                         <Item
@@ -86,6 +96,7 @@ const CRUProduct = () => {
                         <Item
                             name='category_id'
                             label='Category:'
+                            rules={[{ required: true, message: 'Please select the category' }]}
                         >
                             <TreeSelect
                                 treeData={categories}
@@ -95,7 +106,7 @@ const CRUProduct = () => {
                     <Col xs={20} md={12}>
                         <Item
                             name="price"
-                            label='Price'
+                            label='Price:'
                         >
                             <InputNumber width={'100%'} min={1} max={100000000} />
                         </Item>
@@ -103,7 +114,7 @@ const CRUProduct = () => {
                     <Col xs={20} md={12}>
                         <Item
                             name="currency_code"
-                            label='Currency'
+                            label='Currency:'
                         >
                             <Select
                                 options={CURRENCY_LIST}
@@ -116,7 +127,7 @@ const CRUProduct = () => {
                     <Col span={12}>
                         <Item
                             name="link"
-                            label="Link"
+                            label="Link:"
                         >
                             <Input placeholder="Link mua hang" />
                         </Item>
@@ -125,7 +136,7 @@ const CRUProduct = () => {
                     <Col span={12}>
                         <Item
                             name="is_home"
-                            label="Show on home page"
+                            label="Show on home page:"
                         >
                             <Switch />
                         </Item>
@@ -136,18 +147,7 @@ const CRUProduct = () => {
                     name="description"
                     label="Description:"
                 >
-                    <TextArea placeholder="Description" />
-                </Item>
-
-                <Item
-                    name='images'
-                    label='Image:'>
-                    <UploadFiles
-                        files={product.images || []}
-                        onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ images: files });
-                        }}
-                    />
+                    <TextArea rows={4} placeholder="Description" />
                 </Item>
                 <Item wrapperCol={{ span: 12, offset: 10 }}>
                     <Space>

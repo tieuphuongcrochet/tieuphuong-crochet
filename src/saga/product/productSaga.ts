@@ -1,9 +1,10 @@
-import { ListResponse, Product, ProductPayload, initialListParams } from 'models';
+import { FileUpload, ListResponse, Product, ProductPayload, initialListParams } from 'models';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
 import { productAction } from './productSlice';
 import productService from 'api/product';
+import { getAvatar } from 'utils';
 
 
 function* fetchProducts({ payload }: any) {
@@ -17,7 +18,7 @@ function* fetchProducts({ payload }: any) {
 			author: item.author,
 			description: item.description,
 			images: item.images?.map(f => ({...f, url: f?.fileContent})),
-			src: item.images?.[0]?.fileContent,
+			src: getAvatar(item.images as FileUpload[])
 		}));
 		yield all([
 			put(productAction.saveData({ data: newData, total: res.totalElements })),
@@ -50,7 +51,7 @@ function* handleGetProductById({ payload }: PayloadAction<string>) {
 		const data: Product = yield call(productService.getById, payload);		
 		const newData: Product = {
 			...data,
-			src: data.images?.[0]?.fileContent,
+			src: getAvatar(data.images as FileUpload[]),
 			images: data.images?.map(f => ({...f, url: f?.fileContent}))
 		};
 

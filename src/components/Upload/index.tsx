@@ -1,22 +1,23 @@
-import { Modal, Upload, UploadFile, notification } from "antd"
-import ImgCrop from "antd-img-crop"
-import uploadFile from "api/uploadFile";
-import { filter, map } from "lodash";
-import { FileUpload } from "models";
 import { useEffect, useState } from "react";
+import ImgCrop from "antd-img-crop"
+import { filter, map } from "lodash";
+
+import { Modal, Radio, Upload, UploadFile, notification } from "antd"
+import uploadFile from "api/uploadFile";
+import { FileUpload, UPLOAD_MODES, UploadMode } from "models";
 
 interface UploadFilesProps {
 	onChangeFile: Function;
 	files: FileUpload[];
-	directory?: boolean;
-	isCropImage?: boolean;
+	imgsNumber?: number;
 };
 
-const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFilesProps) => {
+const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
 	const [fileList, setFileList] = useState<any[]>([]);
+	const [imageMode, setImageMode] = useState<UploadMode>('normal');
 
 	useEffect(() => {
 		if (files && files.length > 0) {
@@ -47,7 +48,6 @@ const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFile
 	};
 
 	const onUploadImage = async ({ file, onSuccess, onError }: any) => {
-		console.log('file', file);
 
 		const isLimit5Mb = file?.size / 1024 / 1024 < 5;
 		if (!isLimit5Mb) {
@@ -70,7 +70,6 @@ const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFile
 					url: res[0].fileContent
 				}
 			]
-			console.log('newFileList', newFileList);
 
 			setFileList(newFileList);
 			onChangeFile(newFileList);
@@ -83,7 +82,6 @@ const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFile
 	};
 
 	const onDelete = async (file: UploadFile) => {
-		console.log('file', file);
 		const newFileList = filter(fileList, f => f.uid !== file.uid);
 		setFileList(newFileList);
 		onChangeFile(map(newFileList, nf => nf.url));
@@ -107,36 +105,48 @@ const UploadFiles = ({ onChangeFile, files, directory, isCropImage }: UploadFile
 			onPreview={handlePreview}
 			onRemove={onDelete}
 			beforeUpload={beforeUpload}
-			directory={directory}
+			directory={imageMode === UPLOAD_MODES.DIRECTORY}
 			fileList={fileList}
 		>
 			{fileList.length < 20 && '+ Upload'}
 		</Upload>
 	);
 
+	const radioItems = map([UPLOAD_MODES.CROP, UPLOAD_MODES.NORMAL], type => (
+		<Radio key={type} value={type}>
+			<span style={{ textTransform: 'capitalize' }}>{type}</span>
+		</Radio>
+	));
+
 	return (
-		<>{
-			isCropImage ? <ImgCrop
-				rotationSlider
-				cropShape='rect'
-				showGrid
-				aspectSlider
-				showReset
-			>
-				<Upload
-					accept="image/png,image/jpeg,image/jpg,.pdf,.doc,.docx"
-					customRequest={onUploadImage}
-					listType="picture-card"
-					onPreview={handlePreview}
-					onRemove={onDelete}
-					beforeUpload={beforeUpload}
-					multiple
-					fileList={fileList}
+		<>
+			<div style={{ paddingBottom: '10px' }}>
+				<Radio.Group value={imageMode} onChange={(e) => setImageMode(e.target.value)}>
+					{radioItems}
+				</Radio.Group>
+			</div>
+			{
+				imageMode === UPLOAD_MODES.CROP ? <ImgCrop
+					rotationSlider
+					cropShape='rect'
+					showGrid
+					aspectSlider
+					showReset
 				>
-					{fileList.length < 20 && '+ Upload'}
-				</Upload>
-			</ImgCrop> : uploadNode
-		}
+					<Upload
+						accept="image/png,image/jpeg,image/jpg,.pdf,.doc,.docx"
+						customRequest={onUploadImage}
+						listType="picture-card"
+						onPreview={handlePreview}
+						onRemove={onDelete}
+						beforeUpload={beforeUpload}
+						multiple
+						fileList={fileList}
+					>
+						{fileList.length < imgsNumber && '+ Upload'}
+					</Upload>
+				</ImgCrop> : uploadNode
+			}
 			<Modal
 				open={previewOpen}
 				title={previewTitle}

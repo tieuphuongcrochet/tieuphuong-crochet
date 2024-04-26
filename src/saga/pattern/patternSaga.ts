@@ -1,10 +1,11 @@
-import { DataType, ListResponse, Pattern, PatternPayload, PayloadFile, initialListParams } from 'models';
+import { FileUpload, ListResponse, Pattern, PatternPayload, PayloadFile, initialListParams } from 'models';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
 import { patternAction } from './patternSlice';
 import uploadFile from 'api/uploadFile';
 import patternService from 'api/pattern';
+import { getAvatar } from 'utils';
 
 
 function* fetchPatterns({ payload }: any) {
@@ -19,8 +20,9 @@ function* fetchPatterns({ payload }: any) {
 			author: item.author,
 			description: item.description,
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
-			src: item.images?.[0]?.fileContent
+			src: getAvatar(item.images as FileUpload[])
 		}));
+
 		yield all([
 			put(patternAction.saveData({ data: newData, total: res.totalElements })),
 			put(patternAction.loadingSuccess())
@@ -65,7 +67,7 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 		const data: Pattern = yield call(patternService.getById, payload);
 		const newData: Pattern = {
 			...data,
-			src: data.images?.[0]?.fileContent,
+			src: getAvatar(data.images as FileUpload[]),
 			files: data.files ? map(data.files, f => ({...f, url: f?.fileContent})) : [],
 			images: data.images ? map(data.images, f => ({...f, url: f?.fileContent})) : [],
 		};

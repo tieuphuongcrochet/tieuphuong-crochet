@@ -62,3 +62,12 @@ export interface Filter {
 	value?: string;
 	values?: string[];
 }
+
+export type UploadMode = 'directory' | 'crop' | 'normal';
+
+export const UPLOAD_MODES = {
+	DIRECTORY: 'directory',
+	CROP: 'crop',
+	NORMAL: 'normal'
+};
+

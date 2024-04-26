@@ -1,35 +1,48 @@
 import { Button, Col, Divider, Flex, Row } from "antd"
-import { map } from "lodash";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { findIndex, map } from "lodash";
+import { memo, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import DownloadImage from "components/DownloadImage"
-import { Pattern, Product } from "models";
-import './style.scss';
-import { useEffect, useRef, useState } from "react";
+import { FileUpload, Pattern, Product } from "models";
 import { DragScroll, getElement } from "utils";
-import { Link } from "react-router-dom";
+import './style.scss';
 
 interface IntroductionCardProps {
 	data: Pattern | Product,
 	isShowThumbnail?: boolean
 };
 
+const IMAGE_MARGIN = 10;
+const IMAGE_AMOUNT = 4;
+
 const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 	const { src, name, author, description, images, link } = data;
 	const [activeThumbnail, setActiveThumbnail] = useState({ index: 0, src });
+	console.log('introduc card', data);
 
 	const sliderRef = useRef(null);
-	const IMAGE_MARGIN = 10;
-	const IMAGE_AMOUNT = 4;
 
 	const onClickThumbnail = (index: number, url: string) => {
-		setActiveThumbnail({ index: index, src: url });
+		setActiveThumbnail({ index, src: url });
 	}
 
 	useEffect(() => {
+		console.log('Component did mount (it runs only once)');
+		return () => {
+			console.log('Component did un mount (it runs only once)');
+			setActiveThumbnail({ src: '', index: -1 });
+		};
+	}, []);
+
+	useEffect(() => {
+		if (src) {
+			const index = findIndex(images, (img: FileUpload) => img.fileContent === src);
+			index !== -1 && setActiveThumbnail({ index, src });
+		}
 		if (images && images?.length > 1) {
 			DragScroll('.images-outer');
-
 			const widthThumbnail = getElement('.images').offsetWidth;
 			const thumbnailItems = document.querySelectorAll('.thumbnail-item');
 			for (let i = 0; i < thumbnailItems.length; i++) {
@@ -43,7 +56,7 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 				getElement('.thumbnail-photos').classList.add('show-prev-next');
 			}
 		}
-	}, [images]);
+	}, [data.name]);
 
 	const getImageWidth = () => {
 		return (getElement('.thumbnail-item').offsetWidth + IMAGE_MARGIN) * IMAGE_AMOUNT;
@@ -115,5 +128,5 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 	)
 }
 
-export default IntroductionCard;
+export default memo(IntroductionCard);
 

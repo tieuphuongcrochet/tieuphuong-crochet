@@ -1,11 +1,12 @@
-import { SearchProps } from 'antd/es/input';
+import { FormattedNumber } from 'react-intl';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType, SearchParams, initialListParams } from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from '../../../saga/product/productSlice';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from 'utils';
 
 const ProductsList = () => {
@@ -21,7 +22,6 @@ const ProductsList = () => {
     }, [params]);
 
     const onDeleteRecord = (rd: React.Key) => {
-        console.log('delete rd', rd);
         dispatch(productAction.delete(rd));
     }
 
@@ -33,16 +33,31 @@ const ProductsList = () => {
             _pageSize: pageSize,
         }
         setParams(newParams)
-        console.log('page', pagination, 'newParams', newParams);
     }
 
     const columns = [
         {
+            title: 'Category',
+            dataIndex: 'category',
+            render: (category: any) => (
+                <span>{category?.name}</span>
+            )
+        },
+        {
             title: 'Price',
             dataIndex: 'price',
             width: '100px',
+            render: (value: any) => (
+                <span><FormattedNumber value={value} /></span>
+            )
         },
-    ]
+        {
+            title: 'Currency',
+            dataIndex: 'currency_code',
+            width: '100px',
+        },
+    ];
+
     const onAddNew = () => {
         navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.CREATE}`)
     }
@@ -51,9 +66,7 @@ const ProductsList = () => {
         navigate(`${ROUTE_PATH.AMIN_PRODUCTS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
-   
     const onSearchChange = (searchParams: SearchParams) => {
-        console.log('searchParams', searchParams);
         const newParams = {
             ...params,
             ...searchParams
