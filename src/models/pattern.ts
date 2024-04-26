@@ -14,6 +14,7 @@ export interface Pattern {
 	category?: Category;
 	imagesPreview?: { src: string, alt: string }[];
 	link?: string;
+	currency_code?: string;
 }
 
 export interface PayloadFile {

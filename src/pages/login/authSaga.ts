@@ -5,7 +5,7 @@ import { redirect } from "react-router-dom";
 import { COOKIE_NAMES, LOCAL_STORAGE_NAMES, ROUTE_PATH } from "utils/constant";
 import userService from "api/userApi";
 import { AuthPayload, ErrorData, LoginRes } from "models";
-import { setCookie } from "utils";
+import { message, setCookie } from "utils";
 
 const saveToken = ({ accessToken, refreshToken }: LoginRes) => {
 	accessToken && setCookie(COOKIE_NAMES.ACCESS_TOKEN, accessToken, 1);
@@ -20,7 +20,7 @@ function* handleLogin({ payload }: PayloadAction<AuthPayload>) {
 		if (data?.accessToken) {
 			saveToken({ accessToken: data.accessToken, refreshToken: data.refreshToken });
 		}
-
+		message.success('login success!');
 		yield all([
 			put(authActions.loadingSuccess()),
 			put(authActions.saveCurrentUser(data))

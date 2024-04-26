@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Image, Popconfirm, Table } from 'antd';
+import { Button, Image, Popconfirm, Space, Table } from 'antd';
 import { DataTableProps, DataType } from 'models';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { filter } from 'lodash';
-import { IMAGE_FALLBACK, computePaging } from 'utils';
+import { IMAGE_FALLBACK, computePaging, modal, showConfirmDelete } from 'utils';
 
 const DataTable = ({
   dataSource,
@@ -30,11 +30,6 @@ const DataTable = ({
   };
 
   const defaultColumns = [
-    // {
-    //   title: 'ID',
-    //   dataIndex: 'key',
-    //   width: '150px',
-    // },
     colNumberIndex,
     {
       title: 'Name',
@@ -54,14 +49,11 @@ const DataTable = ({
               icon={<EditOutlined />}
               onClick={() => onEditRecord(record.key, record)}
             />
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => onDeleteRecord(record.key)}>
-              <Button
-                shape='circle'
-                icon={<DeleteOutlined />}
-              />
-            </Popconfirm>
+            <Button
+              shape='circle'
+              icon={<DeleteOutlined />}
+              onClick={() => showConfirmDelete(record.key, onDeleteRecord)}
+            />
 
           </> : null
     },
@@ -70,11 +62,6 @@ const DataTable = ({
   const newColumns: any =
     customColumns ?
       [
-        // {
-        //   title: 'ID',
-        //   dataIndex: 'key',
-        //   width: '150px',
-        // },
         colNumberIndex,
         (isShowImage ?
 
@@ -98,26 +85,21 @@ const DataTable = ({
           title: 'Action',
           dataIndex: 'action',
           key: 'x',
-          width: '110px',
+          width: '120px',
           render: (_: any, record: DataType) =>
             dataSource && dataSource.length > 0 ?
-              <>
+              <Space className='justify-center' size='small' wrap style={{ width: '100%' }}>
                 <Button
-                  style={{ marginRight: '10px' }}
                   shape='circle'
                   icon={<EditOutlined />}
                   onClick={() => onEditRecord(record.key)}
                 />
-                <Popconfirm
-                  title="Sure to delete?"
-                  onConfirm={() => onDeleteRecord(record.key)}>
-                  <Button
-                    shape='circle'
-                    icon={<DeleteOutlined />}
-                  />
-                </Popconfirm>
-
-              </> : null
+                <Button
+                  shape='circle'
+                  icon={<DeleteOutlined />}
+                  onClick={() => showConfirmDelete(record.key, onDeleteRecord)}
+                />
+              </Space> : null
         }] : [...defaultColumns];
 
   const paginationProps = visiblePagination ? {

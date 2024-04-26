@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Flex, Row } from "antd"
+import { Button, Col, Divider, Flex, Row, Space } from "antd"
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { findIndex, map } from "lodash";
 import { memo, useEffect, useRef, useState } from "react";
@@ -8,17 +8,19 @@ import DownloadImage from "components/DownloadImage"
 import { FileUpload, Pattern, Product } from "models";
 import { DragScroll, getElement } from "utils";
 import './style.scss';
+import FormattedCurrency from "components/FormattedCurrency";
 
 interface IntroductionCardProps {
 	data: Pattern | Product,
-	isShowThumbnail?: boolean
+	isShowThumbnail?: boolean,
+	isPreviewAvatar?: boolean,
 };
 
 const IMAGE_MARGIN = 10;
 const IMAGE_AMOUNT = 4;
 
-const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
-	const { src, name, author, description, images, link } = data;
+const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: IntroductionCardProps) => {
+	const { src, name, author, description, images, link, price, currency_code } = data;
 	const [activeThumbnail, setActiveThumbnail] = useState({ index: 0, src });
 	console.log('introduc card', data);
 
@@ -29,9 +31,7 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 	}
 
 	useEffect(() => {
-		console.log('Component did mount (it runs only once)');
 		return () => {
-			console.log('Component did un mount (it runs only once)');
 			setActiveThumbnail({ src: '', index: -1 });
 		};
 	}, []);
@@ -41,7 +41,7 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 			const index = findIndex(images, (img: FileUpload) => img.fileContent === src);
 			index !== -1 && setActiveThumbnail({ index, src });
 		}
-		if (images && images?.length > 1) {
+		if (isShowThumbnail && images && images?.length > 1) {
 			DragScroll('.images-outer');
 			const widthThumbnail = getElement('.images').offsetWidth;
 			const thumbnailItems = document.querySelectorAll('.thumbnail-item');
@@ -89,9 +89,13 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 	}
 
 	return (
-		<Row className="introduction-card" gutter={30}>
+		<Row className="introduction-card" gutter={[30, 30]}>
 			<Col xs={24} md={12}>
-				<DownloadImage width='100%' src={activeThumbnail.src} />
+				<DownloadImage
+					width='100%'
+					src={activeThumbnail.src}
+					preview={isPreviewAvatar}
+				/>
 				{
 					(images && images?.length > 1 && isShowThumbnail) &&
 					<div className="thumbnail-photos">
@@ -102,9 +106,10 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 										<DownloadImage
 											onClick={() => onClickThumbnail(index, image.url)}
 											className={`${activeThumbnail.index === index ? 'active-thumbnail thumbnail-item' : 'thumbnail-item'}`}
-											preview={false}
 											key={`intro_img_${index}`}
-											src={image.fileContent} />)
+											src={image.fileContent}
+											preview={false}
+										/>)
 									)
 								}
 							</Flex>
@@ -120,9 +125,14 @@ const IntroductionCard = ({ data, isShowThumbnail }: IntroductionCardProps) => {
 			<Col xs={24} md={12}>
 				<span className="card-title mt-0">{name}</span><br />
 				{author && <span className="author">Tác giả: <i>{author}</i></span>}
-				<Divider />
 				<p className="description">{description}</p>
-				{link && <Link to={link || '#'} target="_blank"> <Button type="primary">Mua ngay</Button></Link>}
+				<Divider />
+				<Space direction="vertical" size='middle'>
+					{price && <FormattedCurrency price={price} currency_code={currency_code} />}
+					{link && <Link to={link || '#'} target="_blank">
+						<Button className="btn-border" type="primary">Mua ngay</Button>
+					</Link>}
+				</Space>
 			</Col>
 		</Row>
 	)

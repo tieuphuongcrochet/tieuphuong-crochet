@@ -1,12 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import axiosClient from "./axiosClient";
-import { API_URL, COOKIE_NAMES, getCookie } from "utils";
 import { jwtDecode } from "jwt-decode";
-import { useAppDispatch, useAppSelector } from "app/hooks";
-import { authActions } from "pages/login/authSlice";
-import { ErrorData, LoginRes, RefreshTokenRes } from "models";
-import { notification } from "antd";
+import axiosClient from "./axiosClient";
+import { API_URL, COOKIE_NAMES, getCookie, notification } from "utils";
+import { ErrorData, RefreshTokenRes } from "models";
 
 const refreshToken = async () => {
     console.log('refreshe token', getCookie(COOKIE_NAMES.REFRESHER_TOKEN));

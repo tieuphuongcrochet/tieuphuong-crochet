@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { ErrorData } from "models";
+import { notification } from "utils";
 
 const axiosClient = axios.create({
 	baseURL: 'http://localhost:8080',
@@ -25,6 +27,9 @@ axiosClient.interceptors.response.use(function (response: AxiosResponse) {
 }, function (error: AxiosError) {
 	// Any status codes that falls outside the range of 2xx cause this function to trigger
 	// Do something with response error	
+	const { response } = error
+	const message = (response?.data as ErrorData).message;
+	notification.error({message: 'Failed', description: message})
 	return Promise.reject(error.response?.data);
 });
 

@@ -25,11 +25,11 @@ export const CURRENCY = {
 export const CURRENCY_LIST = [
   {
       value: CURRENCY.VND,
-      label: 'VND',
+      label: CURRENCY.VND,
   },
   {
       value: CURRENCY.USD,
-      label: '$',
+      label: CURRENCY.USD
   },
 ]
 

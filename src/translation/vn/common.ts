@@ -10,4 +10,6 @@ export default {
 	'menu_nav.create': 'Thêm mới',
 	'menu_nav.menu_noExist': 'Không tồn tại',
 	'tab.all': 'All',
+	'product_detail.header': 'Hình ảnh sản phẩm'
+
 }

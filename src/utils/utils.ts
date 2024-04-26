@@ -3,6 +3,8 @@ import _get from 'lodash/get';
 import { Category, FileUpload, Paging } from 'models';
 import moment from 'moment';
 import { filter, isEmpty, map } from 'lodash';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { modal } from './notify';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -127,9 +129,21 @@ export const mapDataToSelectOption = (data: any[]) => {
     return {
       label: item.name,
       value: item.id,
-      
+
     };
   });
 };
 
 export const getAvatar = (images: FileUpload[]) => filter(images, img => !isEmpty(img.fileContent))?.[0].fileContent || '';
+
+
+export const showConfirmDelete = (data: any, onDelete: Function) => {
+  modal.confirm({
+    title: 'Do you want to delete this item?',
+    okText: 'Yes',
+    cancelText: 'No',
+    async onOk() {
+      await onDelete(data);
+    },
+  });
+}

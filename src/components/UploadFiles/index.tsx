@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import ImgCrop from "antd-img-crop"
 import { filter, map } from "lodash";
+import { UploadOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 
-import { Modal, Radio, Upload, UploadFile, notification } from "antd"
+import { Modal, Radio, Upload, UploadFile, UploadProps, message } from "antd"
 import uploadFile from "api/uploadFile";
 import { FileUpload, UPLOAD_MODES, UploadMode } from "models";
+import { getBase64, modal, notification, showConfirmDelete } from "utils";
 
-interface UploadFilesProps {
+interface UploadFilesProps extends UploadProps {
 	onChangeFile: Function;
 	files: FileUpload[];
 	imgsNumber?: number;
 };
 
-const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps) => {
+const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, ...restProps }: UploadFilesProps) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
@@ -21,19 +23,9 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 
 	useEffect(() => {
 		if (files && files.length > 0) {
-			const tempFiles = map(files, file => ({ url: file.fileContent }));
-			setFileList(tempFiles);
+			setFileList(files);
 		}
 	}, [files])
-
-	const getBase64 = (file: File): Promise<string> =>
-		new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => resolve(reader.result as string);
-			reader.onerror = (error) => reject(error);
-		});
-
 
 	const handleCancel = () => setPreviewOpen(false);
 
@@ -61,6 +53,7 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 		formData.append('files', file);
 		const res: FileUpload[] = await uploadFile.upload(formData);
 
+
 		if (res.length > 0) {
 			const newFileList = [
 				...fileList,
@@ -70,6 +63,7 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 					url: res[0].fileContent
 				}
 			]
+			console.log('add new - newfile list', notification);
 
 			setFileList(newFileList);
 			onChangeFile(newFileList);
@@ -82,17 +76,25 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 	};
 
 	const onDelete = async (file: UploadFile) => {
-		const newFileList = filter(fileList, f => f.uid !== file.uid);
+		const res: string[] = await uploadFile.delete([file?.fileName as string]);
+		if (res.length > 0) {
+			notification.error({message: 'Error!', description: 'Delete file failed!'});
+			return;
+		}
+		notification.success({message: 'Successfully!', description: 'Delete successfully!'});
+
+		const newFileList = filter(fileList, f => f.url !== file.url);
+		console.log('delete - newfile list', newFileList);
+
 		setFileList(newFileList);
-		onChangeFile(map(newFileList, nf => nf.url));
-		const res = await uploadFile.delete([file?.fileName as string]);
-		console.log('res delete files', res);
+		onChangeFile(newFileList);
 	}
+
 
 	const beforeUpload = (file: File) => {
 		const isLt2M = file.size / 1024 / 1024 < 5;
 		if (!isLt2M) {
-			// message.error('Image must smaller than 5Mb!');
+			message.error('Image must smaller than 5Mb!');
 		}
 		return isLt2M;
 	}
@@ -103,12 +105,13 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 			customRequest={onUploadImage}
 			listType="picture-card"
 			onPreview={handlePreview}
-			onRemove={onDelete}
+			onRemove={file => showConfirmDelete(file, onDelete)}
 			beforeUpload={beforeUpload}
 			directory={imageMode === UPLOAD_MODES.DIRECTORY}
 			fileList={fileList}
+			multiple
 		>
-			{fileList.length < 20 && '+ Upload'}
+			{fileList.length < imgsNumber && <span><UploadOutlined /> Upload</span>}
 		</Upload>
 	);
 
@@ -140,10 +143,9 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20 }: UploadFilesProps)
 						onPreview={handlePreview}
 						onRemove={onDelete}
 						beforeUpload={beforeUpload}
-						multiple
 						fileList={fileList}
 					>
-						{fileList.length < imgsNumber && '+ Upload'}
+						{fileList.length < imgsNumber && <span><UploadOutlined /> Upload</span>}
 					</Upload>
 				</ImgCrop> : uploadNode
 			}

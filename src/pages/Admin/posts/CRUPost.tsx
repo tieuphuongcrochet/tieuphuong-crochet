@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Post } from "models/post";
 import { ROUTE_PATH } from "utils";
-import UploadFiles from "components/Upload";
+import UploadFiles from "components/UploadFiles";
 import { FileUpload } from "models";
 
 const CRUPost = () => {

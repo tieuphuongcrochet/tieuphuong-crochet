@@ -1,6 +1,6 @@
 import React from 'react';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, Flex, Form, Input, Row } from 'antd';
+import { Button, Checkbox, Col, Flex, Form, Input, Row, Space } from 'antd';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { authActions } from './authSlice';
@@ -31,7 +31,7 @@ const Login = () => {
 	};
 
 	return (
-		<div className='container auth-page'>
+		<div className='auth-page'>
 			<Flex justify='center' className='logo'>
 				<Link to={ROUTE_PATH.HOME} >
 					<img src={logo} alt='Tiệm len Tiểu Phương' />
@@ -96,16 +96,18 @@ const Login = () => {
 								Forgot password
 							</Link>
 						</Form.Item>
-						<Form.Item>
-							<Button
-								type="primary"
-								htmlType="submit"
-								className="login-form-button"
-								disabled={loading}
-							>
-								Log in
-							</Button>
-							Or <Link to={ROUTE_PATH.REGISTER}>register now!</Link>
+						<Form.Item name='actions' className='actions'>
+							<Space size='small'>
+								<Button
+									type="primary"
+									htmlType="submit"
+									className="login-form-button btn-border"
+									disabled={loading}
+								>
+									Log in
+								</Button>
+								Or <Link to={ROUTE_PATH.REGISTER}>Register now!</Link>
+							</Space>
 						</Form.Item>
 					</Form>
 				</Col>

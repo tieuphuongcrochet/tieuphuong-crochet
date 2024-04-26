@@ -21,7 +21,7 @@ const BannerItem = ({ src, link, text }: BannerItemProps) => {
 				<h1 className='text'>
 					{text || 'Well come to my Website'}
 				</h1>
-				<Button type='primary'>View Detail</Button>
+				<Button className='btn-border' type='primary'>View Detail</Button>
 			</div>
 		</div>
 	)
@@ -32,8 +32,8 @@ const Banner = () => {
 		<div className='banner-wrap'>
 			<Carousel autoplay>
 				{
-					map([breadcrumb_backgroud, banner2, banner3, banner4], b => 
-						<BannerItem src={b} />
+					map([breadcrumb_backgroud, banner2, banner3, banner4], (b, index) => 
+						<BannerItem key={`banner_${index}`} src={b} />
 					)
 				}
 			</Carousel>

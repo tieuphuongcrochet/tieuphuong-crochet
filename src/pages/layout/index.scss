@@ -115,20 +115,6 @@
   padding: 30px;
 }
 
-// responsive
-@media screen and (min-width: $xxl) {
-  .container {
-    width: 1440px;
-    margin: 0 auto;
-  }
-
-  .tabs-menu {
-    .ant-menu-item {
-      font-size: $fontSize_large;
-    }
-  }
-}
-
 .transition-transform {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -170,12 +156,11 @@
         color: #fff;
       }
 
-      button {
-        height: 44px;
-        border-radius: 0;
-        padding: 0 30px;
-        text-transform: uppercase;
-      }
+      // button {
+      //   height: 44px;
+      //   padding: 0 30px;
+      //   text-transform: uppercase;
+      // }
     }
   }
 }
@@ -195,5 +180,19 @@
 @media screen and (min-width: $xl) {
   .container {
     padding: 80px 100px;
+  }
+}
+
+// responsive
+@media screen and (min-width: $xxl) {
+  .container {
+    width: 1440px;
+    margin: 0 auto;
+  }
+
+  .tabs-menu {
+    .ant-menu-item {
+      font-size: $fontSize_large;
+    }
   }
 }

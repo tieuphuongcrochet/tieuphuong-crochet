@@ -5,9 +5,10 @@ import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import router from './config/routerConfig';
-import './index.scss';
-import { ConfigProvider } from 'antd';
+import { App, ConfigProvider } from 'antd';
 import LanguageProvider from 'components/LanguageProvider';
+import './index.scss';
+import Notify from 'utils/notify';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -23,7 +24,10 @@ root.render(
             },
           }}
         >
-          <RouterProvider router={router} />
+          <App notification={{placement: 'topRight'}}>
+            <Notify />
+            <RouterProvider router={router} />
+          </App>
         </ConfigProvider>
       </Provider>
     </LanguageProvider>

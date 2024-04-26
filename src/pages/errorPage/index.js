@@ -11,7 +11,7 @@ export default function ErrorPage() {
       status="500"
       title="500"
       subTitle="Sorry, something went wrong."
-      extra={<Button type="primary"><Link to={ROUTE_PATH.HOME}>Back Home</Link></Button>}
+      extra={<Button className='btn-border' type="primary"><Link to={ROUTE_PATH.HOME}>Back Home</Link></Button>}
     />
   );
 }

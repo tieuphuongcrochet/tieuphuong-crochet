@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 import { Image, ImageProps, Space } from 'antd';
 
-import logo from 'assets/logo.png';
 import { IMAGE_FALLBACK } from 'utils';
 
 interface DownloadImageProps extends ImageProps {

@@ -151,10 +151,10 @@ const RegisterPage = () => {
 							</div>
 						</div>
 						<div>
-							<Button type="primary" htmlType="submit" style={{ width: '100%', marginBottom: 8 }} disabled={isDisable}>
+							<Button  className='btn-border' type="primary" htmlType="submit" style={{ width: '100%', marginBottom: 8 }} disabled={isDisable}>
 								Submit
 							</Button>
-							<Button type="default" style={{ width: '100%' }} onClick={() => onCancel()} disabled={isDisable}>
+							<Button className='btn-border' type="default" style={{ width: '100%' }} onClick={() => onCancel()} disabled={isDisable}>
 								Cancel
 							</Button>
 						</div>

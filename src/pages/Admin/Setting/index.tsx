@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Post } from "models/post";
 import { ROUTE_PATH, mapDataToSelectOption } from "utils";
-import UploadFiles from "components/Upload";
+import UploadFiles from "components/UploadFiles";
 import { initialListParams } from "models";
 import { productAction, selectProducts } from "../../../saga/product/productSlice";
 

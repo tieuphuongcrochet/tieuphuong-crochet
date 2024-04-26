@@ -4,7 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
 import { productAction } from './productSlice';
 import productService from 'api/product';
-import { getAvatar } from 'utils';
+import { getAvatar, message, notification } from 'utils';
 
 
 function* fetchProducts({ payload }: any) {
@@ -20,6 +20,8 @@ function* fetchProducts({ payload }: any) {
 			images: item.images?.map(f => ({...f, url: f?.fileContent})),
 			src: getAvatar(item.images as FileUpload[])
 		}));
+		message.success('load products success!');
+
 		yield all([
 			put(productAction.saveData({ data: newData, total: res.totalElements })),
 			put(productAction.loadingSuccess())
@@ -37,6 +39,7 @@ function* handleCreateUpdate({ payload }: PayloadAction<ProductPayload>) {
 		yield put(productAction.loadingRequest());
 		yield call(productService.add, params);
 		yield put(productAction.loadingSuccess());
+		notification.success({message: 'Successfully!', description: params.id ? 'Updated successfully!': 'Created successfully!'})
 		callback instanceof Function && callback();
 
 	} catch (err) {
@@ -54,6 +57,7 @@ function* handleGetProductById({ payload }: PayloadAction<string>) {
 			src: getAvatar(data.images as FileUpload[]),
 			images: data.images?.map(f => ({...f, url: f?.fileContent}))
 		};
+		message.success('load the product success!');
 
 		yield put(productAction.saveProduct(newData));
 	} catch (error) {
@@ -67,8 +71,10 @@ function* handleDeleteById({ payload }: PayloadAction<React.Key>) {
 		yield put(productAction.loadingRequest());
 		yield call(productService.remove, payload);
 
+		notification.success({message: 'Successfully!', description: 'Deleted successfully!'})
 		yield call(fetchProducts, {payload: initialListParams});
 		yield put(productAction.loadingSuccess());
+
 	} catch (err) {
 		console.log('Failed to CU product', err);
 		yield put(productAction.loadingSuccess());

@@ -85,7 +85,13 @@ const SearchTable = ({
     }
 
     const onReset = () => {
-        onHandleSearch(initialSearchParams);
+        const newFilters = initialFilter;
+        form.resetFields();
+        newFilters[0].value = '';
+        onHandleSearch({
+            ...initialSearchParams,
+            filters: newFilters
+        });
     }
 
     return (
@@ -97,7 +103,7 @@ const SearchTable = ({
                     name='search-form'
                     form={form}
                     initialValues={{
-                        isHome: ALL_ITEM.key,
+                        isHome: '',
                     }}
                     style={{ flex: 'min-content' }}
                 >

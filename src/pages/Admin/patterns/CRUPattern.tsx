@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { cloneDeep } from "lodash";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { ROUTE_PATH } from "utils";
-import UploadFiles from "components/Upload";
+import UploadFiles from "components/UploadFiles";
 import { FileUpload, Pattern } from "models";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
 import { categoryAction } from "saga/category/categorySlice";
@@ -151,7 +151,7 @@ const CRUPattern = () => {
                         }}
                     />
                 </Item>
-                <Flex justify='center' gap={24}>
+                <Flex justify="center" gap={10} wrap="wrap">
                     <Button className="btn-form" type="primary" htmlType="submit">
                         Submit
                     </Button>
@@ -164,11 +164,3 @@ const CRUPattern = () => {
 }
 
 export default CRUPattern;
-// "id": "string",
-// "name": "string",
-// "description": "string",
-// "price": 0,
-// "currencyCode": "USD",
-// "files": [
-//   "string"
-// ]

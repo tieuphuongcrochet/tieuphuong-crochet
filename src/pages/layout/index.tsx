@@ -10,12 +10,12 @@ import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
 import './index.scss';
 
-const LayoutPage = () => {
+const LayoutPage = () => {	
 	const { Content } = Layout;
 	const location = useLocation();
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
 
-	useEffect(()=>{
+	useEffect(() => {
 		const nav = location.pathname.split('/')[1];
 		setCurrentNav(`/${nav}`);
 	}, [location.pathname]);
@@ -28,7 +28,7 @@ const LayoutPage = () => {
 				<Navigate to={ROUTE_PATH.ADMIN} replace={true} />
 				:
 				<Layout className='layout-wrap'>
-					<HeaderPage currentNav={currentNav} setCurrentNav={setCurrentNav}/>
+					<HeaderPage currentNav={currentNav} setCurrentNav={setCurrentNav} />
 					{
 						location?.pathname === ROUTE_PATH.HOME ?
 							<Banner /> :

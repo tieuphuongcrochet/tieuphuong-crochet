@@ -36,4 +36,13 @@
       color: $textSecondColor;
     }
   }
+
+  a {
+    color: $secondColor;
+    font-size: $fontSize_middle;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

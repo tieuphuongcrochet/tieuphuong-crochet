@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import { patternAction } from './patternSlice';
 import uploadFile from 'api/uploadFile';
 import patternService from 'api/pattern';
-import { getAvatar } from 'utils';
+import { getAvatar, message, notification } from 'utils';
 
 
 function* fetchPatterns({ payload }: any) {
@@ -22,6 +22,7 @@ function* fetchPatterns({ payload }: any) {
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
 			src: getAvatar(item.images as FileUpload[])
 		}));
+		message.success('load patterns success!');
 
 		yield all([
 			put(patternAction.saveData({ data: newData, total: res.totalElements })),
@@ -38,6 +39,8 @@ function* handleCreateUpdate({ payload }: PayloadAction<PatternPayload>) {
 	try {
 		yield put(patternAction.loadingRequest());
 		yield call(patternService.add, params);
+		notification.success({message: 'Successfully!', description: params.id ? 'Updated successfully!': 'Created successfully!'})
+
 		callback instanceof Function && callback();
 		yield put(patternAction.loadingSuccess());
 	} catch (err) {
@@ -71,6 +74,7 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 			files: data.files ? map(data.files, f => ({...f, url: f?.fileContent})) : [],
 			images: data.images ? map(data.images, f => ({...f, url: f?.fileContent})) : [],
 		};
+		message.success('load the pattern success!');
 
 		yield put(patternAction.savePattern(newData));
 	} catch (error) {
@@ -89,6 +93,8 @@ function* handleDeleteById({ payload }: PayloadAction<React.Key>) {
 		yield call(patternService.remove, payload);
 
 		yield call(fetchPatterns, {payload: initialListParams})
+		notification.success({message: 'Successfully!', description: 'Deleted successfully!'})
+
 		yield put(patternAction.loadingSuccess());
 	} catch (err) {
 		console.log('Failed to CU pattern', err);
