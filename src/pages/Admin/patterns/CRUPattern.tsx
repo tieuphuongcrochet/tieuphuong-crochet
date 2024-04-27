@@ -75,6 +75,16 @@ const CRUPattern = () => {
                 onFinish={onSubmitForm}
                 className="form-wrap"
             >
+                <Item
+                    name='images'
+                    label='Photos'>
+                    <UploadFiles
+                        files={pattern.images || []}
+                        onChangeFile={(files: FileUpload[]) => {
+                            form.setFieldsValue({ images: files });
+                        }}
+                    />
+                </Item>
                 <Row gutter={48}>
                     <Col xs={24} md={12}>
                         <Item
@@ -129,17 +139,6 @@ const CRUPattern = () => {
                     label="Description:"
                 >
                     <TextArea rows={4} placeholder="Description" />
-                </Item>
-
-                <Item
-                    name='images'
-                    label='Photos'>
-                    <UploadFiles
-                        files={pattern.images || []}
-                        onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ images: files });
-                        }}
-                    />
                 </Item>
                 <Item
                     name='files'

@@ -5,7 +5,7 @@ const uploadFile = {
 	
 	upload(formData: FormData) :Promise<any> {
 		const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-		const url = `${API_URL.UPLOAD_FILE}`
+		const url = `${API_URL.UPLOAD_FILE}`;
 		return axiosJWT.post(url, formData,config);
 	},
 	delete(fileNames: string[]) :Promise<any> {

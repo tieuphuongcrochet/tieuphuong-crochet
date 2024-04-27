@@ -38,7 +38,6 @@ const DownloadImage = ({ src, width, ...restProps }: DownloadImageProps) => {
 
 	return (
 		<Image
-
 			width={width}
 			src={src}
 			fallback={IMAGE_FALLBACK}

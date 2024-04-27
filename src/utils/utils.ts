@@ -3,7 +3,6 @@ import _get from 'lodash/get';
 import { Category, FileUpload, Paging } from 'models';
 import moment from 'moment';
 import { filter, isEmpty, map } from 'lodash';
-import { ExclamationCircleFilled } from '@ant-design/icons';
 import { modal } from './notify';
 
 export function hasResponseError(response: any) {
