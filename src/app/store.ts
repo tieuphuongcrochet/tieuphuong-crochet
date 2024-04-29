@@ -10,6 +10,7 @@ import productReducer from 'saga/product/productSlice';
 import patternReducer from 'saga/pattern/patternSlice';
 import userReducer from 'pages/Admin/users/userSlice';
 import postReducer from 'pages/Admin/posts/postSlice';
+import settingReducer from 'pages/Admin/SettingPage/SettingSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   pattern: patternReducer,
   product: productReducer,
   user: userReducer,
-  post: postReducer
+  post: postReducer,
+  setting: settingReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

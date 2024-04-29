@@ -7,13 +7,15 @@ interface HeaderPartProps {
 	isShowDivider?: boolean;
 };
 
-const HeaderPart = ({ title, description, isShowDivider  }: HeaderPartProps) => {
+const HeaderPart = ({ title, description, isShowDivider }: HeaderPartProps) => {
 	return (
 		<div className="header-part">
 			{isShowDivider && <Divider className="header-divider" />}
 			{title && <div className="header-title">
 				<Flex justify='center' ><h2 className="title">{title}</h2></Flex>
-				<Flex justify='center' className="description">{description || 'Đây là những sản phẩm do mình làm.'}</Flex>
+				<Flex justify='center' className="description">
+					{description || 'Đây là những sản phẩm do mình làm.'}
+				</Flex>
 			</div>}
 		</div>
 	)

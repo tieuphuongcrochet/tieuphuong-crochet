@@ -20,7 +20,6 @@ function* fetchProducts({ payload }: any) {
 			images: item.images?.map(f => ({...f, url: f?.fileContent})),
 			src: getAvatar(item.images as FileUpload[])
 		}));
-		message.success('load products success!');
 
 		yield all([
 			put(productAction.saveData({ data: newData, total: res.totalElements })),
@@ -57,7 +56,6 @@ function* handleGetProductById({ payload }: PayloadAction<string>) {
 			src: getAvatar(data.images as FileUpload[]),
 			images: data.images?.map(f => ({...f, url: f?.fileContent}))
 		};
-		message.success('load the product success!');
 
 		yield put(productAction.saveProduct(newData));
 	} catch (error) {

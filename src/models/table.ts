@@ -4,7 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { FileUpload, Filter } from "./common";
 
 export interface DataType {
-  key: string;
+  key: React.Key;
   name: string;
   price?: number;
   author?: string;

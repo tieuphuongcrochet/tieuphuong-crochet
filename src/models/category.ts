@@ -1,7 +1,7 @@
 import { DataType } from "./table";
 
 export interface Category {
-    id?: string;
+    id?: React.Key;
     name: string;
     children?: any[];
     parentIds?: any[];

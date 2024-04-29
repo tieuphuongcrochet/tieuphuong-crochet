@@ -15,7 +15,7 @@ const FreePatternsNode = () => {
 	const patterns = useAppSelector(selectHomeFreePatterns);
 	const navigate = useNavigate();
 
-	const onViewPattern = (id: string) => {
+	const onViewPattern = (id: React.Key) => {
 		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
 	}
 

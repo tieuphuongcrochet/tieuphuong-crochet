@@ -36,6 +36,7 @@ function* fetchDataHome() {
 			// put(homeActions.setData(data)),
 			put(homeActions.saveProducts(products)),
 			put(homeActions.saveFreePatterns(freePatterns)),
+			put(homeActions.saveBanners(data.banners)),
 			put(homeActions.loadingSuccess())
 		])
 	} catch (err) {

@@ -155,11 +155,11 @@ const CRUProduct = () => {
                     <TextArea rows={4} placeholder="Description" />
                 </Item>
                 <Flex justify="center" gap={10} wrap="wrap">
-                    <Button 
-                    className="btn-form" 
-                    type="primary" 
-                    htmlType="submit"
-                    loading={loading}
+                    <Button
+                        className="btn-form"
+                        type="primary"
+                        htmlType="submit"
+                        loading={loading}
                     >
                         Submit
                     </Button>
@@ -173,11 +173,3 @@ const CRUProduct = () => {
 }
 
 export default CRUProduct;
-// "id": "string",
-// "name": "string",
-// "description": "string",
-// "price": 0,
-// "currencyCode": "USD",
-// "files": [
-//   "string"
-// ]

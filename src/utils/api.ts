@@ -29,5 +29,12 @@ export const API_URL = {
 	RESET_PASSWORD: 'auth/login',
 	REFRESH_TOKEN: 'auth/refresh-token',
 	UPLOAD_FILE: 'firebase-storage/upload-file',
-	DELETE_MULTIPLE_FILES: 'firebase-storage/delete-multiple-files'
+	DELETE_MULTIPLE_FILES: 'firebase-storage/delete-multiple-files',
+
+	//Setting
+	CU_BANNER_TYPE : 'bannerType/createOrUpdate',
+	D_BANNER_TYPE : 'bannerType/delete',
+	BANNER_TYPE : 'bannerType/getAll',
+	CU_BANNER: 'banner/batchInsertOrUpdate',
+	GETT_ALL_BANNER: 'banner/getAll',
 }

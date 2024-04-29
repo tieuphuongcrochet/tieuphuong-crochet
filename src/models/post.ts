@@ -2,7 +2,7 @@ import { FileUpload } from "./common";
 import { DataType } from "./table";
 
 export interface Post {
-    id?: string,
+    id?: React.Key,
     title: string,
     content?: string,
     createdDate?: string,

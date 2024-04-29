@@ -1,16 +1,9 @@
-import pattern1 from '../assets/patterns/v1.jpg';
-import pattern2 from '../assets/patterns/v2.jpg';
-import pattern3 from '../assets/patterns/v3.jpg';
-import pattern4 from '../assets/patterns/v4.jpg';
-import pattern5 from '../assets/patterns/v5.jpg';
-import pattern6 from '../assets/patterns/pt6.jpg';
-import pattern7 from '../assets/patterns/v6.jpg';
-import pattern8 from '../assets/patterns/v7.jpg';
 import shopee from '../assets/socials/shope.jpg';
 
 import banner2 from '../assets/bn4.jpg';
 import banner3 from '../assets/bn3.jpg';
 import banner4 from '../assets/banner2.jpg';
+import { TBannerType } from 'models/setting';
 
 export const LANGUAGES = {
   VN: 'vi-VN',
@@ -24,18 +17,18 @@ export const CURRENCY = {
 
 export const CURRENCY_LIST = [
   {
-      value: CURRENCY.VND,
-      label: CURRENCY.VND,
+    value: CURRENCY.VND,
+    label: CURRENCY.VND,
   },
   {
-      value: CURRENCY.USD,
-      label: CURRENCY.USD
+    value: CURRENCY.USD,
+    label: CURRENCY.USD
   },
 ]
 
 export const LANGUAGES_LIST = [
-  {    key: LANGUAGES.VN, label: 'VN'  },
-  {    key: LANGUAGES.EN, label: 'EN'  },
+  { key: LANGUAGES.VN, label: 'VN' },
+  { key: LANGUAGES.EN, label: 'EN' },
 ];
 
 export const ROLES = {
@@ -82,16 +75,21 @@ export const MENU_NAV = [
   { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
 ];
 
-export const BREADCRUMB = [
-  { path: ROUTE_PATH.HOME, name: 'menu_nav.home' },
-  { path: ROUTE_PATH.SHOP, name: 'menu_nav.shop' },
-  { path: ROUTE_PATH.FREEPATTERNS, name: 'menu_nav.freePattern' },
-  { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog' },
-  { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about' },
-  { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact' },
-  { path: ROUTE_PATH.DETAIL, name: 'menu_nav.detail' },
-  { path: ROUTE_PATH.CREATE, name: 'menu_nav.create' },
+// set the breadcrumb key follow BannerType
+export const BREADCRUMB: { path: string, name: string, key: TBannerType }[] = [
+  { path: ROUTE_PATH.HOME, name: 'menu_nav.home', key: 'Home' },
+  { path: ROUTE_PATH.SHOP, name: 'menu_nav.shop', key: 'Shop' },
+  { path: ROUTE_PATH.FREEPATTERNS, name: 'menu_nav.freePattern', key: 'Free pattern' },
+  { path: ROUTE_PATH.BLOG, name: 'menu_nav.blog', key: 'Blog' },
+  { path: ROUTE_PATH.ABOUT, name: 'menu_nav.about', key: 'About' },
+  { path: ROUTE_PATH.CONTACT, name: 'menu_nav.contact', key: 'Contact' },
+  { path: ROUTE_PATH.DETAIL, name: 'menu_nav.detail', key: '' },
+  { path: ROUTE_PATH.CREATE, name: 'menu_nav.create', key: '' },
 ];
+
+export const BANNER_TYPES_DEFAULT: TBannerType[] = [
+  'About', "Advertisement", "Blog", "Contact", "Free pattern", "Home", "Pattern", "Product", "Shop", ''
+]
 
 export const REGEX = {
   PHONE_NUMBER: /^(0|\+?84)\d{9}$/,
@@ -122,57 +120,6 @@ export const ALL_ITEM = {
   key: 'all'
 };
 
-export const MOCK_FREE_PATTERNS = [
-  {
-    id: '1',
-    src: pattern1,
-    author: 'Tiểu Phương',
-    name: 'Mặt trời ú',
-  },
-  {
-    id: '1',
-    src: pattern2,
-    author: 'Susan family',
-    name: 'Gối hoa',
-  },
-  {
-    id: '1',
-    src: pattern3,
-    author: 'Vô danh',
-    name: 'Túi gấu nhỏ',
-  },
-  {
-    id: '1',
-    src: pattern4,
-    author: 'Tiểu Vũ',
-    name: 'Búp bê',
-  },
-  {
-    id: '1',
-    src: pattern5,
-    author: 'Vô sắc',
-    name: 'Cây thông noel',
-  },
-  {
-    id: '1',
-    src: pattern6,
-    author: 'Sưu tầm',
-    name: 'Đầu cừu',
-  },
-  {
-    id: '1',
-    src: pattern7,
-    author: 'Sưu tầm',
-    name: 'Thú nhỏ',
-  },
-  {
-    id: '1',
-    src: pattern8,
-    author: 'Sưu tầm',
-    name: 'Kẹo hồ lô',
-  },
-];
-
 export const SOCIAL_LINKS = {
   FACEBOOK: 'https://www.facebook.com/tieuconuong.tiemlen/',
   SOPEE: 'https://shopee.vn/littlegirl.crochet',
@@ -193,7 +140,7 @@ export const SOCIALS = [
     textColor: '#e42a81',
     url: SOCIAL_LINKS.INSTAGRAM,
   },
-  { social: 'Tiktok', url:  SOCIAL_LINKS.TIKTOK},
+  { social: 'Tiktok', url: SOCIAL_LINKS.TIKTOK },
 ];
 
 export const FOOTER_LINK = [
@@ -225,12 +172,11 @@ export const MOCK_BLOGS = [
   },
 ];
 
-
 export const OPERATOR = {
   GREATER_THAN: 'GREATER_THAN',
-    LESS_THAN: 'LESS_THAN',
-    EQUALS: 'EQUALS',
-    LIKE: 'LIKE',
-    NOT_EQUALS: 'NOT_EQUALS',
-    IN: 'IN',
+  LESS_THAN: 'LESS_THAN',
+  EQUALS: 'EQUALS',
+  LIKE: 'LIKE',
+  NOT_EQUALS: 'NOT_EQUALS',
+  IN: 'IN',
 }

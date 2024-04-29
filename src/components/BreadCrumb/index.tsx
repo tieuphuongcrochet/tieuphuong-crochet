@@ -3,16 +3,26 @@ import { Breadcrumb } from "antd";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-import { BREADCRUMB, ROUTE_PATH } from "utils";
+import { BREADCRUMB, ROUTE_PATH, getBannersByType } from "utils";
 import { BreadCrumbItem, BreadcrumbProp } from "models";
 import breadcrumb_backgroud from 'assets/breadcrumbs/1.jpg';
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { homeActions, selectBanners } from "pages/home/homeSlice";
 import './style.scss';
 
 const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 	const initialCrumbs: BreadCrumbItem[] = [];
 	const [crumbs, setCrumbs] = useState(initialCrumbs);
 
-	useEffect(() => {		
+	const banners = useAppSelector(selectBanners);
+
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		if(!banners || banners.length < 1){
+			dispatch(homeActions.fetchData());
+		}
+
 		const temp: BreadCrumbItem[] = pathname?.split('/')
 			.map(crumb => {
 				if (crumb === '') {
@@ -30,7 +40,7 @@ const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 				}
 			})
 			.filter(f => f.title !== '');
-			
+
 		setCrumbs(temp);
 	}, [pathname])
 
@@ -42,9 +52,21 @@ const BreadCrumbs = ({ background, pathname = '' }: BreadcrumbProp) => {
 	};
 
 	const titlePage = crumbs[crumbs.length - 1]?.title as string || 'menu_nav.home';
+
+	const getBannerType = () => {
+		const navs = pathname.split('/');
+		const nav = BREADCRUMB.find(br => br.path.includes(navs[1]));		
+		return nav?.key || '';
+	}
+
+	const backgroudImage = () => {
+		const bcrBanners = getBannersByType(banners, getBannerType());		
+		return bcrBanners.length > 0 ? bcrBanners[0].fileContent : '';
+	}
+
 	return (
 		<div className="bread-crumbs-wrap"
-			style={{ backgroundImage: `url(${background || breadcrumb_backgroud})` }}
+			style={{ backgroundImage: `url(${backgroudImage() || breadcrumb_backgroud})` }}
 		>
 			<div className="container">
 				<div className="bread-crumbs-title">

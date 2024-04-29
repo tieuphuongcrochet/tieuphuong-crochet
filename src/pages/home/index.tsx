@@ -15,7 +15,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		dispatch(homeActions.fetchData());
-	}, [dispatch])
+	}, [])
 
 	return (
 		<div className='home-page'>

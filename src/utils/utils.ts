@@ -4,6 +4,7 @@ import { Category, FileUpload, Paging } from 'models';
 import moment from 'moment';
 import { filter, isEmpty, map } from 'lodash';
 import { modal } from './notify';
+import { Banner, TBannerType } from 'models/setting';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -31,6 +32,15 @@ export const getCookie = (cookieName: string) => {
   if (match) return match[2];
   return '';
 }
+export const deleteAllCookies = () => {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i += 1) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+  }
+};
 
 export const getBase64 = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -74,7 +84,7 @@ export const mapTreeData = (data: Category[]): DefaultOptionType[] => {
       name: rest.name,
       key: rest.id,
       title: rest.name,
-      value: rest.id,
+      value: rest.id as string | number,
     }
     if (children && children.length > 0) {
       newItem = {
@@ -135,7 +145,6 @@ export const mapDataToSelectOption = (data: any[]) => {
 
 export const getAvatar = (images: FileUpload[]) => filter(images, img => !isEmpty(img.fileContent))?.[0].fileContent || '';
 
-
 export const showConfirmDelete = (data: any, onDelete: Function) => {
   modal.confirm({
     title: 'Do you want to delete this item?',
@@ -145,4 +154,11 @@ export const showConfirmDelete = (data: any, onDelete: Function) => {
       await onDelete(data);
     },
   });
+}
+
+export const getBannersByType = (banners: Banner[], type: TBannerType) => {
+  console.log('banners', banners);
+  console.log('type', type);
+  
+  return filter((banners), b => (b.bannerType?.name) === type) || [];
 }

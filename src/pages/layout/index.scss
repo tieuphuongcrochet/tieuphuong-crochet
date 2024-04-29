@@ -135,32 +135,16 @@
 
 .banner-wrap {
   .banner-item {
-    position: relative;
     height: calc(100vh - 204px);
 
-    img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-
     &__infor {
-      position: absolute;
-      top: 50%;
-      right: 10%;
-      transform: translateY(-50%);
-      text-align: center;
 
-      .text {
+      .title {
         font-size: 3rem;
-        color: #fff;
       }
-
-      // button {
-      //   height: 44px;
-      //   padding: 0 30px;
-      //   text-transform: uppercase;
-      // }
+      .content {
+        font-size: 2rem;
+      }
     }
   }
 }

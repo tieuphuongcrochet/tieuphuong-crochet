@@ -24,7 +24,7 @@ import CRUPost from 'pages/Admin/posts/CRUPost';
 import PatternDetail from 'pages/freePattern/PatternDetail';
 import { NotFound } from 'components/Common/NotFound';
 import ProductDetail from 'pages/shop/ProductDetail';
-import Setting from 'pages/Admin/Setting';
+import SettingPage from 'pages/Admin/SettingPage';
 
 const router = createBrowserRouter([
   {
@@ -140,7 +140,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE_PATH.ADMIN_SETTING,
-        element: <Setting />,
+        element: <SettingPage />,
       },
     ],
   },

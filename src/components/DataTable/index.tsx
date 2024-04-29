@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Image, Popconfirm, Space, Table } from 'antd';
+import { Button, Image, Space, Table } from 'antd';
 import { DataTableProps, DataType } from 'models';
-import { EditOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { filter } from 'lodash';
-import { IMAGE_FALLBACK, computePaging, modal, showConfirmDelete } from 'utils';
+import { FormattedDate } from 'react-intl';
+import { IMAGE_FALLBACK, computePaging, showConfirmDelete } from 'utils';
 
 const DataTable = ({
   dataSource,
@@ -34,6 +35,13 @@ const DataTable = ({
     {
       title: 'Name',
       dataIndex: 'name',
+    },
+    {
+      title: 'Created Date',
+      dataIndex: 'createdDate',
+      render: ((value: any) => (
+        value ? <FormattedDate value={value} /> : null
+      ))
     },
     {
       title: 'Action',

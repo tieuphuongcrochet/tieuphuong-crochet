@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 import {  HomeData, Pattern, Product } from "models";
+import { Banner } from "models/setting";
 
 export interface HomeState {
 	loading: boolean,
@@ -12,7 +13,8 @@ const initialState: HomeState = {
 	data: {
 		products: [],
 		patterns: [],
-		freePatterns: []
+		freePatterns: [],
+		banners: []
 	}
 };
 
@@ -38,6 +40,9 @@ const homeSlice = createSlice({
 		saveProducts(state, action: PayloadAction<Product[]>) {
 			state.data.products = action.payload;
 		},
+		saveBanners(state, action: PayloadAction<Banner[]>) {
+			state.data.banners = action.payload;
+		},
 	},
 })
 
@@ -49,6 +54,7 @@ export const selectHomeLoading = (state: RootState) => state.home.loading;
 export const selectHomeProducts = (state: RootState) => state.home.data.products;
 export const selectHomePatterns = (state: RootState) => state.home.data.patterns;
 export const selectHomeFreePatterns = (state: RootState) => state.home.data.freePatterns;
+export const selectBanners = (state: RootState) => state.home.data.banners;
 
 //Reducer
 const homeReducer = homeSlice.reducer;

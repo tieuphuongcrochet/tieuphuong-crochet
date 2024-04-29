@@ -1,10 +1,11 @@
 import { Category } from "./category";
 import { FileUpload } from "./common";
 import { Pattern } from "./pattern";
+import { Banner } from "./setting";
 import { DataType } from "./table";
 
 export interface Product {
-	id?: string,
+	id?: React.Key,
 	name: string,
 	price?: number,
 	description?: string,
@@ -25,7 +26,8 @@ export interface ProductPayloadFile {
 export interface HomeData {
 	products: Product[],
 	patterns: Pattern[],
-	freePatterns: Pattern[]
+	freePatterns: Pattern[],
+	banners: Banner[]
 };
 
 export interface ProductState {

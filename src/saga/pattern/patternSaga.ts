@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import { patternAction } from './patternSlice';
 import uploadFile from 'api/uploadFile';
 import patternService from 'api/pattern';
-import { getAvatar, message, notification } from 'utils';
+import { getAvatar, notification } from 'utils';
 
 
 function* fetchPatterns({ payload }: any) {
@@ -22,7 +22,6 @@ function* fetchPatterns({ payload }: any) {
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
 			src: getAvatar(item.images as FileUpload[])
 		}));
-		message.success('load patterns success!');
 
 		yield all([
 			put(patternAction.saveData({ data: newData, total: res.totalElements })),
@@ -74,7 +73,6 @@ function* handleGetPatternById({ payload }: PayloadAction<string>) {
 			files: data.files ? map(data.files, f => ({...f, url: f?.fileContent})) : [],
 			images: data.images ? map(data.images, f => ({...f, url: f?.fileContent})) : [],
 		};
-		message.success('load the pattern success!');
 
 		yield put(patternAction.savePattern(newData));
 	} catch (error) {

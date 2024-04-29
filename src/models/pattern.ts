@@ -3,7 +3,7 @@ import { FileUpload } from "./common";
 import { DataType } from "./table";
 
 export interface Pattern {
-	id?: string;
+	id?: React.Key;
 	name: string;
 	price?: number;
 	description?: string;

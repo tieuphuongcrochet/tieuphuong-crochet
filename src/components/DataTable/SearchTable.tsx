@@ -99,8 +99,9 @@ const SearchTable = ({
             {
                 isShowSearch &&
                 <Form
-                    layout="vertical"
                     name='search-form'
+                    layout="vertical"
+                    labelWrap
                     form={form}
                     initialValues={{
                         isHome: '',

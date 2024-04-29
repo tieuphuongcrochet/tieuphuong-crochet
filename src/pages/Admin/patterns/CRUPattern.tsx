@@ -2,14 +2,13 @@ import { Form, Input, TreeSelect, Button, Row, Col, Flex, Switch } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { cloneDeep } from "lodash";
+
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { ROUTE_PATH } from "utils";
 import UploadFiles from "components/UploadFiles";
 import { FileUpload, Pattern } from "models";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
 import { categoryAction } from "saga/category/categorySlice";
-
-// const UPLOAD_MODES = ['directory', 'crop', 'normal'];
 
 const CRUPattern = () => {
     const [form] = Form.useForm();
