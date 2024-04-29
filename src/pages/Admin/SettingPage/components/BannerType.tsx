@@ -74,7 +74,7 @@ const CUTypeModal = ({ openCUModal, setOpenCUModal }: TypeBannerModalProps) => {
 										<span key={`btype_${index}`}>{b} <Divider type="vertical" /></span>
 									</>
 								}
-								return <span>{b}</span>
+								return <span key={`btype_${index}`}>{b}</span>
 							})}
 						</Space>}
 				/>
