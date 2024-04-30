@@ -54,20 +54,20 @@ const BannerForm = ({
 				bannerTypeId: banner.bannerTypeId,
 				bannerImage: image,
 				active: banner.active,
+				textColor: banner.textColor
 			})
 		}
 	}, [edittingBanner.banner]);
 
 	const onAddBanner = (values: any) => {
-		console.log('values');
-
-		const { title, content, url, bannerImage, bannerTypeId, active } = values;
+		const { title, content, url, bannerImage, bannerTypeId, active, textColor } = values;
 		const banner: Banner = {
 			title,
 			content,
 			url,
 			bannerTypeId,
 			active,
+			textColor,
 			fileContent: bannerImage[0].fileContent || '',
 			fileName: bannerImage[0].fileName || '',
 		}
@@ -83,7 +83,6 @@ const BannerForm = ({
 				banner
 			]
 		}
-		console.log('tempBanners', tempBanners);
 		setIsUpdatedBList(true);
 		SetBannersList(tempBanners);
 		form.resetFields();
@@ -113,12 +112,12 @@ const BannerForm = ({
 					>
 						<UploadFiles
 							files={edittingBanner.image}
-							multiple={false}
+							isMultiple={false}
 							imgsNumber={1}
 							onChangeFile={(files: FileUpload[]) => {
-
 								form.setFieldsValue({ bannerImage: files });
 							}}
+							isShowDirectory={false}
 						/>
 					</Item>
 				</Col>
@@ -128,7 +127,7 @@ const BannerForm = ({
 					</Item>
 				</Col>
 				<Col xs={24} md={7}>
-					<Item name='color' label='Pick a color for title & content:' >
+					<Item name='textColor' label='Pick a color for title & content:' >
 						<ColorPicker defaultValue="#FFFFFF" showText />
 					</Item>
 				</Col>

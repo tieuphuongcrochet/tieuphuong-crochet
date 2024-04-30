@@ -9,6 +9,7 @@ import UploadFiles from "components/UploadFiles";
 import { FileUpload, Pattern } from "models";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
 import { categoryAction } from "saga/category/categorySlice";
+import EditorComponent from "components/Editor";
 
 const CRUPattern = () => {
     const [form] = Form.useForm();
@@ -148,6 +149,14 @@ const CRUPattern = () => {
                             form.setFieldsValue({ files: files });
                         }}
                     />
+                </Item>
+                <Item
+                    name='content'
+                    label='Pattern text'
+                >
+                    <EditorComponent onBlur={(_, editor) => {
+                        form.setFieldsValue({ content: editor.getData() })
+                    }} />
                 </Item>
                 <Flex justify="center" gap={10} wrap="wrap">
                     <Button className="btn-form" type="primary" htmlType="submit">

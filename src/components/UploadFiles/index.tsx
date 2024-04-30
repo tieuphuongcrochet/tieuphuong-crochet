@@ -12,10 +12,11 @@ interface UploadFilesProps extends UploadProps {
 	onChangeFile: Function;
 	files?: FileUpload[];
 	imgsNumber?: number;
-	multiple?: boolean;
+	isMultiple?: boolean;
+	isShowDirectory?: boolean;
 };
 
-const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: UploadFilesProps) => {
+const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, isShowDirectory= true }: UploadFilesProps) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
@@ -24,7 +25,7 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (files && files.length > 0) {			
+		if (files && files.length > 0) {
 			setFileList(files);
 		}
 	}, [files])
@@ -45,8 +46,6 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 		let newFilesList = [] as FileUpload[];
 
 		setFileList((prevState) => {
-			console.log();
-
 			if (prevState.length > 0) {
 				newFilesList = [...prevState];
 			}
@@ -57,19 +56,21 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 		});
 	};
 
-	const customUploadFiles = async ({ file, onSuccess, onError }: any) => {		
+	const customUploadFiles = async ({ file, onSuccess, onError }: any) => {
+		console.log('file', file);
+
 		const isLimit5Mb = file?.size / 1024 / 1024 < 5;
 		if (!isLimit5Mb) {
 			onError('fail');
-			// onChangeFile("");
 			notification.error({ message: 'Error', description: 'Allowed maxium size is 5Mb' });
 			return;
 		}
 
 		const formData = new FormData();
-		formData.append('files', file);
 		setLoading(true);
+		formData.append('files', file);
 		const res: FileUpload[] = await uploadFile.upload(formData);
+		res && setLoading(false);
 
 		if (res.length > 0) {
 			const newFiles = {
@@ -79,7 +80,6 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 			};
 
 			updateImages(newFiles);
-			setLoading(false);
 			onSuccess('ok');
 			notification.success({ message: 'Successful!', description: 'Upload file successfully!' });
 		} else {
@@ -119,9 +119,9 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 			onPreview={handlePreview}
 			onRemove={file => showConfirmDelete(file, onDelete)}
 			beforeUpload={beforeUpload}
-			directory={imageMode === UPLOAD_MODES.DIRECTORY}
 			fileList={fileList}
-			multiple={multiple}
+			directory={imageMode === UPLOAD_MODES.DIRECTORY}
+			multiple={imageMode === UPLOAD_MODES.DIRECTORY ? false : isMultiple}
 		>
 			{fileList.length < imgsNumber &&
 				<Spin spinning={loading}><UploadOutlined /> Upload</Spin>
@@ -129,7 +129,10 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, multiple = true }: 
 		</Upload>
 	);
 
-	const radioItems = map([UPLOAD_MODES.CROP, UPLOAD_MODES.NORMAL, UPLOAD_MODES.DIRECTORY], type => (
+	const uploadModes = isShowDirectory ?
+		[UPLOAD_MODES.CROP, UPLOAD_MODES.NORMAL, UPLOAD_MODES.DIRECTORY] :
+		[UPLOAD_MODES.CROP, UPLOAD_MODES.NORMAL]
+	const radioItems = map(uploadModes, type => (
 		<Radio key={type} value={type}>
 			<span style={{ textTransform: 'capitalize' }}>{type}</span>
 		</Radio>

@@ -14,7 +14,6 @@ const refreshToken = async () => {
 
     try {
         refreshData = await axiosClient.post(`${API_URL.REFRESH_TOKEN}?refreshToken=${getCookie(COOKIE_NAMES.REFRESHER_TOKEN)}`);
-        console.log('resfresh api', refreshData);
         return refreshData;
     } catch (err) {
         console.log(err);
@@ -33,17 +32,14 @@ const axiosJWT = axios.create({
 axiosJWT.interceptors.request.use(async function (config: InternalAxiosRequestConfig) {
     // Do something before request is sent
     const accessToken = getCookie(COOKIE_NAMES.ACCESS_TOKEN);
-    console.log('accessToken', accessToken);
-
     if (accessToken) {
         const tokenInfo = jwtDecode(accessToken);        let date = new Date();
         if (tokenInfo.exp && tokenInfo.exp < date.getTime() / 1000) {
-            console.log('run refresh');
-
             const data = await refreshToken();
             // config.headers.Authorization = `Bearer ${data.jwtToken}`;
             setCookie(COOKIE_NAMES.ACCESS_TOKEN,data.jwtToken, 1 );
             setCookie(COOKIE_NAMES.REFRESHER_TOKEN, data.refreshToken, 1);
+            config.headers.Authorization = `Bearer ${data.jwtToken}`;
             return config;
         }
         config.headers.Authorization = `Bearer ${getCookie(COOKIE_NAMES.ACCESS_TOKEN)}`;

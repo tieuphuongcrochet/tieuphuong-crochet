@@ -21,7 +21,7 @@ const PatternDetail = () => {
 	}, []);
 
 	return (
-		<Space direction="vertical" size={60} style={{width: '100%'}} className="pattern-detail">
+		<Space direction="vertical" size={60} style={{ width: '100%' }} className="pattern-detail">
 			{/* Introducing the pattern */}
 			<IntroductionCard isShowThumbnail data={pattern} />
 			<Divider />
@@ -32,32 +32,33 @@ const PatternDetail = () => {
 			>
 				<div className="pattern-detail-content">
 					<h1 className="flex justify-center">Chart chi tiết</h1>
-					{
-						pattern.files && pattern.files.length > 0 ? (
-							<Image.PreviewGroup
-								fallback={logo}
-							>
-								<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
-									<Row gutter={[24,24]}>
-										{
-											pattern.files && map(pattern.files, (image, index) => (
-												<Col key={`pt_${index}`} md={12} >
-													<DownloadImage
-														key={`pattern_${index}`}
-														src={image.fileContent} />
-												</Col>
-											)
-											)
-										}
-									</Row>
-								</Flex>
-							</Image.PreviewGroup>
-						) :
-							<Empty
-								imageStyle={{ height: 80 }}
-								image={Empty.PRESENTED_IMAGE_SIMPLE}
-							/>
+					{(!pattern.content || pattern?.files) &&
+						<Empty
+							imageStyle={{ height: 80 }}
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+						/>
 					}
+					<Image.PreviewGroup
+						fallback={logo}
+					>
+						<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
+							<Row gutter={[24, 24]}>
+								{
+									pattern.files && map(pattern.files, (image, index) => (
+										<Col key={`pt_${index}`} md={12} >
+											<DownloadImage
+												key={`pattern_${index}`}
+												src={image.fileContent} />
+										</Col>
+									)
+									)
+								}
+							</Row>
+						</Flex>
+					</Image.PreviewGroup>
+
+					{/* convert editor string to html */}
+					<div dangerouslySetInnerHTML={{ __html: pattern.content || '' }} />
 				</div>
 			</Watermark>
 		</Space>

@@ -10,6 +10,7 @@ export interface Banner {
 	active?: boolean;
 	id?: string;
 	bannerType?: IBannerType;
+	textColor?: string;
 };
 
 export type TBannerType = 'Shop' | 'About' | 'Pattern' | 'Product' | 'Free pattern' | 'Contact' | 'Home' | 'Blog' | 'Advertisement' | '';
