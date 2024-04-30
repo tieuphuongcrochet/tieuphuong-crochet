@@ -14,10 +14,10 @@ const BannerItem = ({ banner, classNames }: BannerItemProps) => {
 		<div className={`banner-item ${classNames ? classNames : ''}`}>
 			{fileContent && <Image preview={false} src={fileContent} alt='Banner 1' />}
 			<div className='banner-item__infor'>
-				<h4 className='title'>
+				<h4 style={{color: banner.textColor}} className='title'>
 					{title}
 				</h4>
-				<h5 className='content'>{content}</h5>
+				<h5 style={{color: banner.textColor}}  className='content'>{content}</h5>
 				<Link to={url as string} ><Button className='btn-border' type='primary'>View Detail</Button></Link>
 			</div>
 		</div>

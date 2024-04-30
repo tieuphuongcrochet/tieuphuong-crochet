@@ -30,8 +30,9 @@ const PatternsList = () => {
 
     const columns = [
         {
-            title: 'Description',
-            dataIndex: 'description',
+            title: 'Show on home',
+            dataIndex: 'is_home',
+            render: (value: boolean) => value ? 'Yes' : 'No'
         },
         {
             title: 'Author',

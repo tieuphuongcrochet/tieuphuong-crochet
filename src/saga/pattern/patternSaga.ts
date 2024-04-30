@@ -15,10 +15,8 @@ function* fetchPatterns({ payload }: any) {
 		const res: ListResponse<Pattern> = yield call(patternService.getAll, payload);
 
 		const newData = map(res.contents, item => ({
+			...item,
 			key: item.id,
-			name: item.name,
-			author: item.author,
-			description: item.description,
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
 			src: getAvatar(item.images as FileUpload[])
 		}));
