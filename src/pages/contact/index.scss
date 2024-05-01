@@ -1,18 +1,17 @@
+@import 'utils/variables.scss';
+
 .contact-page {
-    padding: 20px;
-    background-color: #fff5f5;
-    color: #333;
-    font-family: sans-serif;
-    text-align: center;
+
+  .form-contact {
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 10px 10px 0px $colorPrimary;
+    border-radius: 3px;
+
+    input,
+    textarea {
+      border-radius: 0;
+      border-color: $borderColor;
+    }
   }
-  
-  .contact-title {
-    font-size: 2.5em;
-    color: #a76767;
-  }
-  
-  .contact-text {
-      font-size: 1.4em;
-      color: #666;
-  }
-  
+}

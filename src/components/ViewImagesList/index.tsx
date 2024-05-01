@@ -38,7 +38,7 @@ const ViewImagesList = ({ images, titleId, name, content = '' }: ViewImagesProps
 						fallback={IMAGE_FALLBACK}
 					>
 						<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
-							<Row gutter={[12, 12]} className='justify-center'>
+							<Row gutter={[30, 30]} className='justify-center'>
 								{
 									images && (images?.length > 1 ?
 										map(images, (image, index) => (
@@ -48,7 +48,7 @@ const ViewImagesList = ({ images, titleId, name, content = '' }: ViewImagesProps
 													src={image.fileContent} />
 											</Col>
 										)) :
-										<Col md={20} >
+										<Col md={22} >
 											<DownloadImage
 												key={`${name}_only`}
 												src={images[0].fileContent} />
