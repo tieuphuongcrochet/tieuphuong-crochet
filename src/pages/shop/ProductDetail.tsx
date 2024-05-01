@@ -12,7 +12,6 @@ const ProductDetail = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
     const product: Product = useAppSelector(selectProduct);
-    console.log('product', product);
 
     useEffect(() => {
         if (id) {

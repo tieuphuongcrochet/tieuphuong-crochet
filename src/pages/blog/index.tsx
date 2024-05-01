@@ -47,7 +47,6 @@ const BlogsPage = () => {
 			<ViewTable
 				mode='Blog'
 				onReadDetail={(id) => onViewBlog(id)}
-				isFreePatterns
 				pageIndex={params._pageNo}
 				pageSize={params._pageSize}
 				dataSource={blogs}

@@ -49,8 +49,6 @@ const CRUPattern = () => {
                 id: id
             }
         }
-        console.log('sendData', sendData);
-
         const callback = () => {
             form.resetFields();
             navigate(ROUTE_PATH.ADMIN_PATTERNS);

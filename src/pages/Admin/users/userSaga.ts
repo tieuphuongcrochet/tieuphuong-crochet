@@ -5,9 +5,7 @@ import { ListResponse, User } from 'models';
 import { map } from 'lodash';
 
 
-function* fetchUsers({payload}: any) {
-    console.log('fetchUsers', payload);
-    
+function* fetchUsers({payload}: any) {  
     try {
         yield put(userAction.loadingRequest());
         const res: ListResponse<User> = yield call(userService.getAllUser, payload);

@@ -11,8 +11,6 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ item }: BlogCardProps) => {
-	console.log('item', item);
-
 	const { Meta } = Card;
 	const { createdDate, title, src, id } = item;
 	const detailPath = `${ROUTE_PATH.BLOG}/${ROUTE_PATH.DETAIL}/${id}`;

@@ -54,7 +54,6 @@ function* handleGetPostById({ payload }: PayloadAction<string>) {
 			src: getAvatar(res.files || []),
 			files: res.files ? map(res.files, f => ({...f, url: f?.fileContent})) : [],
 		};
-		console.log('newData', newData);
 		yield put(postAction.savePost(newData));
 	} catch (err) {
 		console.log('Failed to fetch blog post by id', err);
@@ -63,7 +62,6 @@ function* handleGetPostById({ payload }: PayloadAction<string>) {
 }
 
 function* handleRemovePostById({ payload }: PayloadAction<React.Key>) {
-	console.log('payload', payload);
 	try {
 		yield put(postAction.loadingRequest());
 		yield call(postService.remove, payload);

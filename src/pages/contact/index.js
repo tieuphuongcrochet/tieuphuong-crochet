@@ -1,13 +1,8 @@
-import { useAppSelector } from 'app/hooks';
 import React from 'react';
 import './index.scss';
 
 const Contact = () => {
-  const userRole = useAppSelector((state) => state.auth.currentUser);
-
-  console.log('userRole', userRole);
-
-  return (
+ return (
     <div className="contact-page">
       <h1 className="contact-title">Liên lạc với tôi</h1>
       <p className="contact-text">

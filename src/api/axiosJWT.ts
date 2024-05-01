@@ -6,7 +6,6 @@ import { API_URL, COOKIE_NAMES, getCookie, notification, setCookie } from "utils
 import { ErrorData, RefreshTokenRes } from "models";
 
 const refreshToken = async () => {
-    console.log('refreshe token', getCookie(COOKIE_NAMES.REFRESHER_TOKEN));
     let refreshData: RefreshTokenRes = {
         jwtToken: '',
         refreshToken: ''
@@ -16,7 +15,6 @@ const refreshToken = async () => {
         refreshData = await axiosClient.post(`${API_URL.REFRESH_TOKEN}?refreshToken=${getCookie(COOKIE_NAMES.REFRESHER_TOKEN)}`);
         return refreshData;
     } catch (err) {
-        console.log(err);
         return refreshData
     }
 };

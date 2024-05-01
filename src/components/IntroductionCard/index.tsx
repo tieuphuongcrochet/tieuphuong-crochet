@@ -22,7 +22,6 @@ const IMAGE_AMOUNT = 4;
 const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: IntroductionCardProps) => {
 	const { src, name, author, description, images, link, price, currency_code } = data;
 	const [activeThumbnail, setActiveThumbnail] = useState({ index: 0, src });
-	console.log('introduc card', data);
 
 	const sliderRef = useRef(null);
 

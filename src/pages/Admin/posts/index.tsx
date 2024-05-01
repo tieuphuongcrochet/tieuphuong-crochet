@@ -31,7 +31,6 @@ const PostsList = () => {
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        console.log(info?.source, value);
         const newParams = {
             ...params,
             searchText: value,

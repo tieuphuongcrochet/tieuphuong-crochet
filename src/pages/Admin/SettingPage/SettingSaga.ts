@@ -31,8 +31,6 @@ function* fetchBannerTypes() {
 
 function* handleCUBType({ payload }: PayloadAction<IBannerType>) {
 	try {
-		console.log('create banner');
-
 		yield put(settingAction.loadingRequest('bannerType'));
 		yield call(setting.cUBannerType, payload);
 
@@ -70,8 +68,6 @@ function* fetchBanners() {
 
 function* handleCUBanner({ payload }: PayloadAction<Banner[]>) {
 	try {
-		console.log('create banner');
-
 		yield put(settingAction.loadingRequest('banner'));
 		yield call(setting.cUBanners, payload);
 
@@ -89,8 +85,6 @@ function* handleCUBanner({ payload }: PayloadAction<Banner[]>) {
 
 function* handleDelBannerType({ payload: id }: PayloadAction<React.Key>) {
 	try {
-		console.log('create banner');
-
 		yield put(settingAction.loadingRequest('banner'));
 		yield call(setting.removeBType, id);
 

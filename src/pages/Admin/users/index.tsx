@@ -16,15 +16,12 @@ const UsersList = () => {
     }, []);
     
     const onEditRecord = (rd: React.Key) => {
-        console.log('edit rd', rd);
     }
 
     const onDeleteRecord = (rd: React.Key) => {
-        console.log('delete rd', rd);
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        console.log(info?.source, value);
         const newParams = {
             ...initialListParams,
             searchText: value

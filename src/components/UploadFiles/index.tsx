@@ -57,8 +57,6 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 	};
 
 	const customUploadFiles = async ({ file, onSuccess, onError }: any) => {
-		console.log('file', file);
-
 		const isLimit5Mb = file?.size / 1024 / 1024 < 5;
 		if (!isLimit5Mb) {
 			onError('fail');

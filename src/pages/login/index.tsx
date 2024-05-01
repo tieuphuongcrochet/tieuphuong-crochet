@@ -15,7 +15,6 @@ const Login = () => {
 	const { loading } = useAppSelector((state) => state.auth);
 
 	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values);
 		const callback = () => {
 			navigate(ROUTE_PATH.HOME);
 			form.resetFields();
