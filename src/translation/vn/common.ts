@@ -10,6 +10,13 @@ export default {
 	'menu_nav.create': 'Thêm mới',
 	'menu_nav.menu_noExist': 'Không tồn tại',
 	'tab.all': 'All',
-	'product_detail.header': 'Hình ảnh sản phẩm'
-
+	'product_detail.header': 'Hình ảnh sản phẩm',
+	'home_product_title': 'Sản phẩm',
+	'home_product_description': 'Đây là những sản phẩm mình bán nhé. Ngoài ra mình cũng có nhận làm theo yêu cầu!!',
+	'home_freepattern_title': 'Chart miễn phí',
+	'home_freepattern_description': 'Đây là những chart mình sưu tập, và một số chart mình viết. Nếu mình lỡ có đăng phải chart bản quyền thì nhắc mình xóa nhé!!',
+	'home_blog_title': 'Blogs',
+	'home_blog_description': 'Đây là những bài viết của mình chia sẻ về móc len, và cuộc sống.',
+	'home_social_title':'Theo dõi mình trên mạng xã hội nhé!',
+	'home_social_description':'Fanpage và những kênh bán hàng của mình ạ!',
 }

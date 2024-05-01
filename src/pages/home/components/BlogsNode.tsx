@@ -14,8 +14,8 @@ const BlogsNode = () => {
 
 	return (
 		<div className='blogs'>
-			<HeaderPart title='Blog'
-				description='Đây là những bài viết của mình chia sẻ về móc len, và cuộc sống.'
+			<HeaderPart titleId='home_blog_title'
+				descriptionId='home_blog_description'
 			/>
 			<Row gutter={[{ xs: 12, md: 16, xl: 32 }, 24]}>
 				{map(blogs, (item, index) =>
@@ -34,6 +34,7 @@ const BlogsNode = () => {
 					<Empty
 						imageStyle={{ height: 80 }}
 						image={Empty.PRESENTED_IMAGE_SIMPLE}
+						
 					/>
 			}
 		</div>

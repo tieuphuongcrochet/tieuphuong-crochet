@@ -22,7 +22,10 @@ const ProductsNode = () => {
 
   return (
     <div className="products">
-      <HeaderPart title="Products" />
+      <HeaderPart
+        titleId="home_product_title"
+        descriptionId='home_product_description'
+      />
       <Flex gap={48} vertical className="products-data">
         <Row gutter={[30, 50]}>
           {
