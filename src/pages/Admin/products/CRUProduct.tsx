@@ -8,6 +8,7 @@ import UploadFiles from "components/UploadFiles";
 import { FileUpload, Product } from "models";
 import { categoryAction } from "saga/category/categorySlice";
 import { cloneDeep } from "lodash";
+import EditorComponent from "components/Editor";
 
 const CRUProduct = () => {
     const [form] = Form.useForm();
@@ -154,6 +155,14 @@ const CRUProduct = () => {
                 >
                     <TextArea rows={4} placeholder="Description" />
                 </Item>
+                <Item
+                    name='content'
+                    label='Pattern text'
+                >
+                    <EditorComponent onBlur={(_, editor) => {
+                        form.setFieldsValue({ content: editor.getData() })
+                    }} />
+                </Item>                
                 <Flex justify="center" gap={10} wrap="wrap">
                     <Button
                         className="btn-form"

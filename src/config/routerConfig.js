@@ -25,6 +25,7 @@ import PatternDetail from 'pages/freePattern/PatternDetail';
 import { NotFound } from 'components/Common/NotFound';
 import ProductDetail from 'pages/shop/ProductDetail';
 import SettingPage from 'pages/Admin/SettingPage';
+import PostDetail from 'pages/blog/BlogDetail';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATH.BLOG,
         element: <Blog />,
+      },
+      {
+        path: `${ROUTE_PATH.BLOG}/${ROUTE_PATH.DETAIL}/:id`,
+        element: <PostDetail />
       },
       {
         path: ROUTE_PATH.CONTACT,

@@ -37,6 +37,11 @@ const ProductsList = () => {
 
     const columns = [
         {
+            title: 'Show on home',
+            dataIndex: 'is_home',
+            render: (value: boolean) => value ? 'Yes' : 'No'
+        },
+        {
             title: 'Category',
             dataIndex: 'category',
             render: (category: any) => (

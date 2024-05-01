@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "antd";
+import { Col, Empty, Row } from "antd";
 import { map } from "lodash";
 
 import ReadMoreBtn from "components/ReadMoreBtn";
@@ -35,8 +35,16 @@ const FreePatternsNode = () => {
 					)
 				}
 			</Row>
-			<div className='read-more'><ReadMoreBtn path={ROUTE_PATH.FREEPATTERNS} /></div>
-		</div>
+			{patterns?.length > 0 ?
+				< div className='read-more'>
+					<ReadMoreBtn path={ROUTE_PATH.FREEPATTERNS} />
+				</div> :
+				<Empty
+					imageStyle={{ height: 80 }}
+					image={Empty.PRESENTED_IMAGE_SIMPLE}
+				/>
+			}
+		</div >
 	)
 }
 

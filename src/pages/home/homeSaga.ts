@@ -1,11 +1,14 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { filter, isEmpty, map } from "lodash";
+
 import { FileUpload, HomeData, Pattern, Product } from "models";
 import homeApi from "api/homeApi";
 import { homeActions } from "./homeSlice";
-import { filter, isEmpty, map } from "lodash";
+import { Post } from "models/post";
+import { getAvatar } from "utils";
 
-function mapImagesPreview (images: FileUpload[]) {
-const list = map(images, img => ({src: img.fileContent, alt: img.fileName}));
+function mapImagesPreview(images: FileUpload[]) {
+	const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
 	return filter(list, l => !isEmpty(l.src));
 }
 
@@ -32,11 +35,18 @@ function* fetchDataHome() {
 			category: prod.category
 		}));
 
+		const blogs: Post[] = map(data.blogs, bl => ({
+			...bl,
+			src: getAvatar(bl.files || [])
+		}));
+
 		yield all([
-			// put(homeActions.setData(data)),
-			put(homeActions.saveProducts(products)),
-			put(homeActions.saveFreePatterns(freePatterns)),
-			put(homeActions.saveBanners(data.banners)),
+			put(homeActions.setData({
+				banners: data.banners,
+				products: products,
+				freePatterns,
+				blogs
+			})),
 			put(homeActions.loadingSuccess())
 		])
 	} catch (err) {

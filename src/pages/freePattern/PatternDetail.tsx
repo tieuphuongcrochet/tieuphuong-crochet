@@ -1,13 +1,12 @@
-import { Col, Divider, Empty, Flex, Image, Row, Space, Watermark } from "antd";
-import { useAppDispatch, useAppSelector } from "app/hooks";
-import DownloadImage from "components/DownloadImage";
-import IntroductionCard from "components/IntroductionCard";
-import { map } from "lodash";
-import { Pattern } from "models";
+import { Divider,  Space } from "antd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import { Pattern } from "models";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import IntroductionCard from "components/IntroductionCard";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
-import logo from 'assets/logo.png';
+import ViewImagesList from "components/ViewImagesList";
 
 const PatternDetail = () => {
 	const dispatch = useAppDispatch();
@@ -27,40 +26,12 @@ const PatternDetail = () => {
 			<Divider />
 
 			{/* Chart detail */}
-			<Watermark
-				content={['小方', 'Tiểu Phương Crochet']}
-			>
-				<div className="pattern-detail-content">
-					<h1 className="flex justify-center">Chart chi tiết</h1>
-					{(!pattern.content || pattern?.files) &&
-						<Empty
-							imageStyle={{ height: 80 }}
-							image={Empty.PRESENTED_IMAGE_SIMPLE}
-						/>
-					}
-					<Image.PreviewGroup
-						fallback={logo}
-					>
-						<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
-							<Row gutter={[24, 24]}>
-								{
-									pattern.files && map(pattern.files, (image, index) => (
-										<Col key={`pt_${index}`} md={12} >
-											<DownloadImage
-												key={`pattern_${index}`}
-												src={image.fileContent} />
-										</Col>
-									)
-									)
-								}
-							</Row>
-						</Flex>
-					</Image.PreviewGroup>
-
-					{/* convert editor string to html */}
-					<div dangerouslySetInnerHTML={{ __html: pattern.content || '' }} />
-				</div>
-			</Watermark>
+			<ViewImagesList
+				name='pattern'
+				titleId='product_detail.header'
+				content={pattern.content}
+				images={pattern.files}
+			/>
 		</Space>
 	)
 }

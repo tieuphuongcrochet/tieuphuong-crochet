@@ -9,7 +9,7 @@ import categoryReducer from 'saga/category/categorySlice';
 import productReducer from 'saga/product/productSlice';
 import patternReducer from 'saga/pattern/patternSlice';
 import userReducer from 'pages/Admin/users/userSlice';
-import postReducer from 'pages/Admin/posts/postSlice';
+import postReducer from 'saga/post/postSlice';
 import settingReducer from 'pages/Admin/SettingPage/SettingSlice';
 
 const rootReducer = combineReducers({

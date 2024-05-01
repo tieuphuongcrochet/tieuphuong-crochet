@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 import { ListParams, ListTablePayload } from "models";
-import { Post, PostPayload, PostPayloadFile, PostState } from "models/post";
+import { Post, PostPayload, PostState } from "models/post";
 
 const initialState: PostState = {
     loading: false,
     data: [],
     totalRecord: 0,
-    post: { title: '', content: '' }
+    post: {} as Post
 };
 
 const postSlice = createSlice({
@@ -29,12 +29,11 @@ const postSlice = createSlice({
             state.loading = false;
         },
         resetPost(state) {
-            state.post = { title: '', content: '' };
+            state.post = {} as Post;
         },
         fetchData(_, { payload }: PayloadAction<ListParams>) { },
         cUPost(_, { payload }: PayloadAction<PostPayload>) { },
         delete(_, { payload }: PayloadAction<React.Key>) { },
-        uploadFiles(_, { payload }: PayloadAction<PostPayloadFile>) { },
         fetchPost(_, { payload }: PayloadAction<string>) { }
     }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Flex, Row } from 'antd';
+import { Col, Empty, Flex, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { map } from 'lodash';
 
@@ -37,7 +37,16 @@ const ProductsNode = () => {
           }
         </Row>
       </Flex>
-      <div className='read-more'><ReadMoreBtn path={ROUTE_PATH.SHOP} /></div>
+      {
+        products?.length > 0 ?
+          <div className='read-more'>
+            <ReadMoreBtn path={ROUTE_PATH.SHOP} />
+          </div> :
+          <Empty
+            imageStyle={{ height: 80 }}
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+      }
     </div>
   );
 };

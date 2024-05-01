@@ -1,16 +1,17 @@
-import { Form, Input, Button, Space } from "antd";
+import { Form, Input, Button, Flex, Row, Col, Switch } from "antd";
 import { useEffect } from "react";
-import { postAction, selectPost } from "./postSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
+
+import { postAction, selectPost } from "saga/post/postSlice";
 import { Post } from "models/post";
 import { ROUTE_PATH } from "utils";
 import UploadFiles from "components/UploadFiles";
 import { FileUpload } from "models";
+import EditorComponent from "components/Editor";
 
 const CRUPost = () => {
     const [form] = Form.useForm();
-    const { TextArea } = Input;
     const { Item } = Form;
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -30,6 +31,8 @@ const CRUPost = () => {
     }, [post]);
 
     const onSubmitForm = (values: any) => {
+        console.log('values', values);
+
         let sendData = { ...values }
         if (id) {
             sendData = {
@@ -58,16 +61,30 @@ const CRUPost = () => {
                 onFinish={onSubmitForm}
                 className="form-wrap"
             >
-                <Item
-                    name='images'
-                    label='Image:'>
-                    <UploadFiles
-                        files={post.files || []}
-                        onChangeFile={(files: FileUpload[]) => {
-                            form.setFieldsValue({ images: files });
-                        }}
-                    />
-                </Item>
+                <Row>
+                    <Col xs={24} md={12}>
+                        <Item
+                            name='files'
+                            label='Image:'>
+                            <UploadFiles
+                                isShowDirectory={false}
+                                isMultiple={false}
+                                files={post.files || []}
+                                imgsNumber={1}
+                                onChangeFile={(files: FileUpload[]) => {
+                                    form.setFieldsValue({ files: files });
+                                }}
+                            />
+                        </Item>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <Item
+                            name='is_home'
+                            label='Show on home'>
+                            <Switch />
+                        </Item>
+                    </Col>
+                </Row>
                 <Item
                     name="title"
                     label="Post title:"
@@ -76,19 +93,24 @@ const CRUPost = () => {
                     <Input placeholder="Post title" />
                 </Item>
                 <Item
-                    name="content"
-                    label="Content:"
+                    name='content'
+                    label='Pattern text'
                 >
-                    <TextArea rows={10} placeholder="Content" />
+                    <EditorComponent onBlur={(_, editor) => {
+                        form.setFieldsValue({ content: editor.getData() })
+                    }} />
                 </Item>
-                <Item wrapperCol={{ span: 12, offset: 10 }}>
-                    <Space>
-                        <Button className="btn-form" type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                        <Button className="btn-form" onClick={onCancel}>Cancel</Button>
-                    </Space>
-                </Item>
+                <Flex justify="center" gap={10} wrap="wrap">
+                    <Button
+                        className="btn-form"
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        Submit
+                    </Button>
+                    {/* <Button className="btn-form" htmlType="reset">reset</Button> */}
+                    <Button className="btn-form" onClick={onCancel}>Cancel</Button>
+                </Flex>
             </Form>
 
         </div>

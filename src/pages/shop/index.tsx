@@ -61,6 +61,7 @@ const ShopPage = () => {
 	return (
 		<div className='shop-page'>
 			<ViewTable
+			  mode='Product'
 				onReadDetail={(id) => onViewProduct(id)}
 				dataSource={productList}
 				total={totalRecords}

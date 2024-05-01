@@ -4,6 +4,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { postAction } from './postSlice';
 import postService from 'api/post';
 import { Post, PostPayload } from 'models/post';
+import { getAvatar } from 'utils';
+import { map } from 'lodash';
 
 
 function* fetchPosts({ payload }: any) {
@@ -17,7 +19,6 @@ function* fetchPosts({ payload }: any) {
 			content: item.content,
 			createdDate: item.createdDate,
 			src: item.files?.[0]?.fileContent,
-			imagesPreview: item.files?.map(f => ({ src: f?.fileContent, alt: f?.fileName }))
 		}));
 		yield all([
 			put(postAction.saveData({ data: newData, total: res.totalElements })),
@@ -50,8 +51,8 @@ function* handleGetPostById({ payload }: PayloadAction<string>) {
 		const res: Post = yield call(postService.getById, payload);
 		const newData = {
 			...res,
-			src: res.files?.[0]?.fileContent,
-			imagesPreview: res.files?.map(f => ({ src: f?.fileContent, alt: f?.fileName }))
+			src: getAvatar(res.files || []),
+			files: res.files ? map(res.files, f => ({...f, url: f?.fileContent})) : [],
 		};
 		console.log('newData', newData);
 		yield put(postAction.savePost(newData));

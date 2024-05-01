@@ -10,6 +10,7 @@ const postService = {
 		const url = `${API_URL.BLOG}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}`;
 		return axiosClient.get(url);
 	},
+
 	add(data: Post): Promise<DataType> {
         const url = `${API_URL.BLOG}/${API_URL.CREATE}`
 		return axiosJWT.post(url, data);

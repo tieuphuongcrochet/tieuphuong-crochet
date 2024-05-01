@@ -1,6 +1,7 @@
 import { Category } from "./category";
 import { FileUpload } from "./common";
 import { Pattern } from "./pattern";
+import { Post } from "./post";
 import { Banner } from "./setting";
 import { DataType } from "./table";
 
@@ -16,6 +17,7 @@ export interface Product {
 	category?: Category;
 	imagesPreview?: { src: string, alt: string }[];
 	link?: string;
+	content?: string;
 }
 
 export interface ProductPayloadFile {
@@ -25,9 +27,10 @@ export interface ProductPayloadFile {
 
 export interface HomeData {
 	products: Product[],
-	patterns: Pattern[],
+	// patterns: Pattern[],
 	freePatterns: Pattern[],
-	banners: Banner[]
+	banners: Banner[],
+	blogs: Post[]
 };
 
 export interface ProductState {

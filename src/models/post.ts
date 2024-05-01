@@ -4,11 +4,11 @@ import { DataType } from "./table";
 export interface Post {
     id?: React.Key,
     title: string,
-    content?: string,
-    createdDate?: string,
+    content: string,
+    createdDate: string,
     files?: FileUpload[],
     src?: string,
-    imagesPreview?: { src: string, alt: string }[],
+    is_home?:boolean
 }
 
 export interface PostPayloadFile {

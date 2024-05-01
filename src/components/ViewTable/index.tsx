@@ -9,12 +9,14 @@ import { DataType } from 'models';
 import CardFreePattern from 'components/CardPattern';
 import CardProduct from 'components/CardProduct';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
-import './style.scss';
 import ListViewItem from 'components/ListViewItem';
+import CardBlog from 'components/CardBlog';
+import { Post } from 'models/post';
+import './style.scss';
 
 export interface ViewTableProps {
 	dataSource: DataType[];
-	isFreePatterns?: boolean;
+	mode: 'Pattern' | 'Product' | 'Blog';
 	total?: number;
 	pageSize?: number;
 	onPageChange: Function;
@@ -30,7 +32,6 @@ export interface ViewTableProps {
 
 const ViewTable = (
 	{ dataSource,
-		isFreePatterns = false,
 		total = 0,
 		pageSize = 12,
 		onPageChange,
@@ -39,6 +40,7 @@ const ViewTable = (
 		itemsTabs = [],
 		tabsProps,
 		isShowTabs,
+		mode,
 		onTabChange,
 		onReadDetail,
 	}: ViewTableProps) => {
@@ -102,6 +104,21 @@ const ViewTable = (
 			},
 			...mapTabsData(itemsTabs)
 		];
+
+	const getCardItem = (item: DataType) => {
+		if (mode === 'Product') {
+			return <CardProduct
+				product={item}
+				onReadDetail={() => onReadDetail(item.key)}
+			/>
+		} else if (mode === 'Pattern') {
+			return <CardFreePattern
+				pattern={item}
+				onReadDetail={() => onReadDetail(item.key)}
+			/>
+		}
+		return <CardBlog item={{ ...item } as Post} />
+	}
 
 	return (
 		<div className='data-list'>
@@ -187,17 +204,7 @@ const ViewTable = (
 							dataSource && dataSource.map((item, index) =>
 
 								<Col className='col-data' key={`freepattern_${index}`} xs={24} sm={12} md={8} lg={6} >
-									{
-										isFreePatterns ?
-											<CardFreePattern
-												pattern={item}
-												onReadDetail={() => onReadDetail(item.key)}
-											/> :
-											<CardProduct
-												product={item}
-												onReadDetail={() => onReadDetail(item.key)}
-											/>
-									}
+									{getCardItem(item)}
 								</Col>
 							)
 						}

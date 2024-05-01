@@ -157,8 +157,16 @@ export const showConfirmDelete = (data: any, onDelete: Function) => {
 }
 
 export const getBannersByType = (banners: Banner[], type: TBannerType) => {
-  console.log('banners', banners);
-  console.log('type', type);
-  
   return filter((banners), b => (b.bannerType?.name) === type) || [];
+}
+
+export const getDateFormatted = (dateString: any, locale: 'en' | 'vi' = 'en') => {
+  const date = new Date(dateString)
+  let year = new Intl.DateTimeFormat(locale, { year: 'numeric' }).format(date);
+  const month = new Intl.DateTimeFormat(locale, { month: 'short' }).format(date);
+  const day = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(date);
+  const hour = new Intl.DateTimeFormat(locale, { hour: '2-digit' }).format(date);
+  const minute = new Intl.DateTimeFormat(locale, { minute: '2-digit' }).format(date);
+
+  return `${day}/ ${month}/ ${year}  ${hour}:${minute}`
 }

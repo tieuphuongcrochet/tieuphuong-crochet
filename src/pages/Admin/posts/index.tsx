@@ -1,11 +1,12 @@
 import { SearchProps } from 'antd/es/input';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useNavigate } from 'react-router-dom';
+
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType, initialListParams } from 'models';
-import { useEffect, useState } from 'react';
-import { postAction, selectLoading, selectPosts, selectTotalRecords } from './postSlice';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { useNavigate } from 'react-router-dom';
+import { postAction, selectLoading, selectPosts, selectTotalRecords } from 'saga/post/postSlice';
 import { ROUTE_PATH } from 'utils';
 
 const PostsList = () => {
@@ -22,12 +23,10 @@ const PostsList = () => {
 
 
     const onEditRecord = (rd: React.Key) => {
-        console.log('edit rd', rd);
         navigate(`${ROUTE_PATH.ADMIN_POSTS}/${ROUTE_PATH.DETAIL}/${rd}`)
     }
 
     const onDeleteRecord = (rd: React.Key) => {
-        console.log('delete rd', rd);
         dispatch(postAction.delete(rd));
     }
 
@@ -48,13 +47,13 @@ const PostsList = () => {
             _pageSize: pageSize,
         }
         setParams(newParams)
-        console.log('page', pagination, 'newParams', newParams);
     }
 
     const customColumns = [
         {
-            title: 'Content',
-            dataIndex: 'content',
+            title: 'Show on home',
+            dataIndex: 'is_home',
+            render: (value: boolean) => value ? 'Yes' : 'No'
         },
         {
             title: 'Created Date',

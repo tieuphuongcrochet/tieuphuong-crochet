@@ -15,11 +15,7 @@ const ProductDetail = () => {
     console.log('product', product);
 
     useEffect(() => {
-        console.log('id', id);
-        
         if (id) {
-            console.log('run get product by id');
-            
             dispatch(productAction.fetchProduct(id));
         }
     }, [dispatch, id]);
@@ -29,7 +25,12 @@ const ProductDetail = () => {
             {/* Introducing the product */}
             <IntroductionCard isPreviewAvatar={false} data={product} />
             <Divider />
-            <ViewImagesList images={product.images} name='product' titleId='product_detail.header'/>
+            <ViewImagesList
+                images={product.images}
+                name='product'
+                titleId='product_detail.header'
+                content={product.content}
+            />
         </Space>
     )
 }

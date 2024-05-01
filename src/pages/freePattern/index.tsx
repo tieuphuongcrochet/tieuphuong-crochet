@@ -62,8 +62,8 @@ const FreePatterns = () => {
 	return (
 		<div className='free-patterns-page'>
 			<ViewTable
+				mode='Pattern'
 				onReadDetail={(id) => onViewPattern(id)}
-				isFreePatterns
 				pageIndex={params._pageNo}
 				pageSize={params._pageSize}
 				dataSource={paternsList}
