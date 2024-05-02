@@ -43,7 +43,7 @@ const Contact = () => {
                   message: <FormattedMessage id='error_msg_incorrect_email'/>
                 },
               ]}>
-              <Input placeholder='enter the email' />
+              <Input placeholder='Email' />
             </Form.Item>
             <Form.Item name='title'
               rules={[
@@ -52,7 +52,7 @@ const Contact = () => {
                   message: <FormattedMessage id='placeholder_input_title'/>
                 }]}
             >
-              <Input placeholder='enter  the title' />
+              <Input placeholder='Title' />
             </Form.Item>
             <Form.Item name='content'
               rules={[
@@ -60,7 +60,7 @@ const Contact = () => {
                   required: true,
                   message: <FormattedMessage id='placeholder_input_content'/>
                 }]}>
-              <Input.TextArea rows={4} placeholder='Enter the content' />
+              <Input.TextArea rows={4} placeholder='Messages' />
             </Form.Item>
             <div className='align-center'>
               <Button className='btn-border' type='primary' htmlType='submit'>

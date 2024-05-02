@@ -37,7 +37,7 @@ const LayoutPage = () => {
 					<Content className='content-wrap container'>
 						<Outlet />
 					</Content>
-					<FooterPage />
+					<FooterPage currentNav={currentNav}/>
 					<FloatButton.BackTop visibilityHeight={0} />
 				</Layout>
 			}

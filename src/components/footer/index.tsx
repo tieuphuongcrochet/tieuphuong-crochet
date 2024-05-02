@@ -5,8 +5,11 @@ import { FOOTER_LINK } from '../../utils/constant';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import { FormattedMessage } from 'react-intl';
-
-const FooterPage = () => {
+import { includes } from 'lodash';
+interface FooterProps {
+	currentNav: string
+}
+const FooterPage = ({ currentNav }: FooterProps) => {
 	return (
 		<>
 			<footer className='footer-wrap container'>
@@ -14,7 +17,7 @@ const FooterPage = () => {
 					<Image preview={false} className='footer-logo' src={logo} />
 					<Row gutter={[48, 12]}>
 						{FOOTER_LINK.map(({ name, path }, index) =>
-							<Col key={`${name}_${index}`} md={8} xs={12}>
+							<Col className={`${includes(path, currentNav) && 'actived'}`} key={`${name}_${index}`} md={8} xs={12}>
 								<Link className='footer-link' to={path}><FormattedMessage id={name} /></Link>
 							</Col>
 						)}

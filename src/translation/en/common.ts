@@ -32,7 +32,7 @@ export default {
 	'btn_send': 'Send',
 	'about_us_title': 'Well comte to my website!',
 	'about_us_content':'Thank you for visiting my website. Hope you will find good things here. I love crocheting and creating beautiful and unique patterns. Hope you will like the products I make. On my website, there are many beautiful crochet patterns that I have collected. In the future, I will update many more beautiful crochet patterns and patterns that I have created myself. Please refer and choose a model that suits you. In addition to crochet patterns, I also sell pre-crocheted products. For pre-order products, you can also ask me to crochet according to the pattern you want by sending a request via email or via message on my Facebook page. I will try my best to bring you the best products. Thank you for supporting me!',
-	'contact_title': 'Contact me',
+	'contact_title': 'Get in touch with me',
 	'contact_content': 'Are you having problems placing an order or requesting crochet in the pattern you want? Please contact me via email or message on my facebook page. I will try my best to help you!',
 	'contact_form_title': 'Send email for me',
 	'contact_via': 'Or contact me via',

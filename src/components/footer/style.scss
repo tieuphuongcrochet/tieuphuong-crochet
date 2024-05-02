@@ -1,7 +1,8 @@
-@import './../../utils//variables.scss';
+@import 'utils//variables.scss';
 
 .footer-wrap {
 	padding-top: 60px;
+
 	.footer-link {
 		color: $textSecondColor;
 		font-size: 16px;
@@ -12,7 +13,18 @@
 		}
 	}
 
-	.footer-logo{
+	.actived {
+		.footer-link {
+			color: $colorPrimary;
+			text-decoration: underline;
+
+			&:hover {
+				color: $colorPrimary;
+			}
+		}
+	}
+
+	.footer-logo {
 		max-width: 300px;
 		margin-bottom: 80px;
 	}
