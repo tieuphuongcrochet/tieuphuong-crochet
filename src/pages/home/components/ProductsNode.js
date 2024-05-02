@@ -5,7 +5,7 @@ import { map } from 'lodash';
 
 import CardProduct from 'components/CardProduct';
 import ReadMoreBtn from 'components/ReadMoreBtn';
-import HeaderPart from './HeaderPart';
+import HeaderPart from '../../../components/HeaderPart';
 
 import { ROUTE_PATH } from 'utils/constant';
 import { selectHomeProducts } from '../homeSlice';
@@ -27,10 +27,10 @@ const ProductsNode = () => {
         descriptionId='home_product_description'
       />
       <Flex gap={48} vertical className="products-data">
-        <Row gutter={[30, 50]}>
+        <Row gutter={[24, 24]}>
           {
             map(products, (product, index) =>
-              <Col key={`product_${index}`} xs={12} sm={8} lg={6} >
+              <Col key={`product_${index}`} xs={24} sm={12} md={8} lg={6} >
                 <CardProduct
                   product={product}
                   onReadDetail={() => onViewProduct(product.id || '')}

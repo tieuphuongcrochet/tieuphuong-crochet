@@ -27,7 +27,7 @@ const ProductDetail = () => {
             <ViewImagesList
                 images={product.images}
                 name='product'
-                titleId='product_detail.header'
+                detailId='product_detail.detail'
                 content={product.content}
             />
         </Space>

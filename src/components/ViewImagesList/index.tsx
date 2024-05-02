@@ -7,12 +7,13 @@ import { IMAGE_FALLBACK } from "utils"
 
 interface ViewImagesProps {
 	images?: FileUpload[];
-	titleId: string;
 	name: string;
 	content?: string
+	detailId: string;
+	contentId?: string;
 }
 
-const ViewImagesList = ({ images, titleId, name, content = '' }: ViewImagesProps) => {
+const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: ViewImagesProps) => {
 	return (
 		<div>
 			< Watermark
@@ -26,7 +27,7 @@ const ViewImagesList = ({ images, titleId, name, content = '' }: ViewImagesProps
 					className={`${name}-detail-content`}
 				>
 					<h1 className="align-center mt-0">
-						<FormattedMessage id={titleId} defaultMessage='Chi tiết' />
+						<FormattedMessage id={detailId} defaultMessage='Chi tiết' />
 					</h1>
 					{(!content && !images) &&
 						<Empty
@@ -57,9 +58,16 @@ const ViewImagesList = ({ images, titleId, name, content = '' }: ViewImagesProps
 							</Row>
 						</Flex>
 					</Image.PreviewGroup>
-					<h1 className="flex justify-center">Chart dịch/ translate chart</h1>
-					{/* convert editor string to html */}
-					<div dangerouslySetInnerHTML={{ __html: content || '' }} />
+					{content &&
+						<>
+							{
+								contentId && <h1 className="flex justify-center">
+									<FormattedMessage id={contentId} />
+								</h1>
+							}
+							<div className='disable-select' dangerouslySetInnerHTML={{ __html: content || '' }} />
+						</>
+					}
 				</Space>
 			</Watermark >
 		</div>

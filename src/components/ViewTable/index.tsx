@@ -127,18 +127,18 @@ const ViewTable = (
 				{/* Search */}
 				<Search
 					allowClear
-					placeholder="input search text"
+					placeholder="Input search text"
 					style={{ width: 304 }}
 					onSearch={onSearchBtn}
 				/>
 				{/* direction icon */}
 				<Flex align='center' className='direction-icon'>
-					<Tooltip color='#fc8282' title="Grid">
+					<Tooltip color='#fc8282' title={<FormattedMessage id='btn_grid'/>}>
 						<Button type="text" onClick={() => setDirection('horizontal')}>
 							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fc8282' : '#707070', fontSize: '24px' }} />
 						</Button>
 					</Tooltip>
-					<Tooltip color='#fc8282' title="List">
+					<Tooltip color='#fc8282' title={<FormattedMessage id='btn_list'/>}>
 						<Button type="text" onClick={() => setDirection('vertical')}>
 							<MenuOutlined style={{ color: direction === 'vertical' ? '#fc8282' : '#707070', fontSize: '24px' }} />
 						</Button>

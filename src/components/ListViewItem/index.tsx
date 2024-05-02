@@ -6,6 +6,7 @@ import { IMAGE_FALLBACK, SOCIAL_LINKS } from 'utils';
 import { DataType } from 'models';
 import FormattedCurrency from 'components/FormattedCurrency';
 import './index.scss';
+import { FormattedMessage } from 'react-intl';
 
 interface ListViewItemProps {
 	data: DataType;
@@ -63,7 +64,7 @@ const ListViewItem = (
 							<FormattedCurrency price={price} currency_code={currency_code} />
 							<div className='action'>
 								<Link target='_blank' to={link || SOCIAL_LINKS.FACEBOOK}>
-									<Button type='primary'>Mua hang</Button>
+									<Button type='primary'><FormattedMessage id='btn_buy' /></Button>
 								</Link>
 							</div>
 						</Flex>

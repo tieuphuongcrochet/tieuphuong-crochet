@@ -6,6 +6,7 @@ import { DataType, initialViewTableParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ROUTE_PATH } from 'utils';
 import { postAction, selectPosts, selectTotalRecords, selectLoading } from 'saga/post/postSlice';
+import HeaderPart from 'components/HeaderPart';
 
 const BlogsPage = () => {
 	const dispatch = useAppDispatch();
@@ -43,7 +44,8 @@ const BlogsPage = () => {
 
 
 	return (
-		<div className='free-patterns-page'>
+		<div className='blog-page'>
+			<HeaderPart titleId='blog_title' descriptionId='blog_description' />
 			<ViewTable
 				mode='Blog'
 				onReadDetail={(id) => onViewBlog(id)}

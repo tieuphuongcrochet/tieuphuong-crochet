@@ -3,7 +3,7 @@ import { Col, Empty, Row } from "antd";
 import { map } from "lodash";
 
 import ReadMoreBtn from "components/ReadMoreBtn";
-import HeaderPart from "./HeaderPart";
+import HeaderPart from "../../../components/HeaderPart";
 
 import { ROUTE_PATH } from "utils/constant";
 import CardFreePattern from "components/CardPattern";
@@ -26,10 +26,10 @@ const FreePatternsNode = () => {
 				descriptionId='home_freepattern_description'
 				isShowDivider
 			/>
-			<Row gutter={[30, 50]}>
+			<Row gutter={[24, 24]}>
 				{
 					map(patterns, (pattern, index) =>
-						<Col key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
+						<Col key={`freepattern_${index}`} xs={24} sm={12} md={8} lg={6} >
 							<CardFreePattern onReadDetail={() => onViewPattern(pattern.id || '')} pattern={pattern} />
 						</Col>
 					)

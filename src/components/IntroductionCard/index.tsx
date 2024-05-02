@@ -9,6 +9,7 @@ import { FileUpload, Pattern, Product } from "models";
 import { DragScroll, getElement } from "utils";
 import './style.scss';
 import FormattedCurrency from "components/FormattedCurrency";
+import { FormattedMessage } from "react-intl";
 
 interface IntroductionCardProps {
 	data: Pattern | Product,
@@ -123,13 +124,15 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 			</Col>
 			<Col xs={24} md={12}>
 				<span className="card-title mt-0">{name}</span><br />
-				{author && <span className="author">Tác giả: <i>{author}</i></span>}
+				{author && <span className="author"><FormattedMessage id='intro_author'/><i> {author}</i></span>}
 				<p className="description">{description}</p>
 				<Divider />
 				<Space direction="vertical" size='middle'>
 					{price && <FormattedCurrency price={price} currency_code={currency_code} />}
 					{link && <Link to={link || '#'} target="_blank">
-						<Button className="btn-border" type="primary">Mua ngay</Button>
+						<Button className="btn-border" type="primary">
+							<FormattedMessage id='btn_buy' />
+						</Button>
 					</Link>}
 				</Space>
 			</Col>

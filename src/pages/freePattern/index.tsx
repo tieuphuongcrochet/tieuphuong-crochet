@@ -6,6 +6,7 @@ import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from
 import { useNavigate } from 'react-router-dom';
 import { ALL_ITEM, ROUTE_PATH } from 'utils';
 import { categoryAction } from 'saga/category/categorySlice';
+import HeaderPart from 'components/HeaderPart';
 
 const FreePatterns = () => {
 	const dispatch = useAppDispatch();
@@ -61,6 +62,7 @@ const FreePatterns = () => {
 
 	return (
 		<div className='free-patterns-page'>
+			<HeaderPart titleId='free_pattern_title' descriptionId='free_pattern_description' />
 			<ViewTable
 				mode='Pattern'
 				onReadDetail={(id) => onViewPattern(id)}

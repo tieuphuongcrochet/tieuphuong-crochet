@@ -4,16 +4,19 @@
 	position: relative;
 
 	img {
-		height: 100%;
-		width: 100%;
+		// position: absolute;
+    // top: 0;
+    // left: 0;
+    height: 100%;
+    width: 100%;
 		object-fit: cover;
 	}
 
 	&__infor {
 		position: absolute;
-		top: 50%;
+		top: 40%;
 		right: 10%;
-		transform: translateY(-50%);
+		transform: translate(0, -50%);
 		text-align: center;
 
 		.title {
@@ -27,6 +30,9 @@
 			font-weight: $fontWeight_normal;
 			margin: 5px auto;
 			max-width: 55%;
+		}
+		.btn-border {
+			padding: 0 10px;
 		}
 	}
 }

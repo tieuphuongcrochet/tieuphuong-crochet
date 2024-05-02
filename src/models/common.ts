@@ -38,7 +38,7 @@ export const initialListParams: ListParams = {
 
 export const initialViewTableParams: ListParams = {
 	_pageNo: 0,
-	_pageSize: 12,
+	_pageSize: 24,
 	_sortBy: 'id',
 	_sortDir: 'asc',
 	searchText: '',

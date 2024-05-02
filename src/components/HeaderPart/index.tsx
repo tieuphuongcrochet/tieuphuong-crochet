@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, Flex } from "antd";
-import './style.scss';
 import { FormattedMessage } from "react-intl";
+import './style.scss';
 
 interface HeaderPartProps {
 	titleId: string;
@@ -11,7 +11,7 @@ interface HeaderPartProps {
 
 const HeaderPart = ({ titleId, descriptionId, isShowDivider }: HeaderPartProps) => {
 	return (
-		<div className="header-part">
+		<div className="header-part responsive">
 			{isShowDivider && <Divider className="header-divider" />}
 			{titleId && <div className="header-title">
 				<Flex justify='center' >

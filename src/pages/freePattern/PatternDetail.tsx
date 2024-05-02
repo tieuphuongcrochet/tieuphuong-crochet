@@ -1,4 +1,4 @@
-import { Divider,  Space } from "antd";
+import { Divider, Space } from "antd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -28,9 +28,10 @@ const PatternDetail = () => {
 			{/* Chart detail */}
 			<ViewImagesList
 				name='pattern'
-				titleId='product_detail.header'
 				content={pattern.content}
 				images={pattern.files}
+				detailId='free_pattern_detail.detail'
+				contentId="free_pattern_detail.content"
 			/>
 		</Space>
 	)

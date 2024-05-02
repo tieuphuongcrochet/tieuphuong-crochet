@@ -7,6 +7,7 @@ import { IMAGE_FALLBACK, ROUTE_PATH, SOCIAL_LINKS } from 'utils';
 import { Product } from 'models';
 import FormattedCurrency from 'components/FormattedCurrency';
 import './index.scss';
+import { FormattedMessage } from 'react-intl';
 
 interface CardProductProps {
 	width?: string | number;
@@ -60,12 +61,12 @@ const CardProduct = (
 				</>
 			}
 			actions={[
-				<Tooltip color='#fc8282' title="Shop now">
+				<Tooltip color='#fc8282' title={<FormattedMessage id='btn_buy'/>}>
 					<Link key='shopping' target='_blank' to={link || SOCIAL_LINKS.FACEBOOK}>
 						<ShoppingCartOutlined style={{ fontSize: 18 }} />
 					</Link>
 				</Tooltip>,
-				<Tooltip color='#fc8282' title="View detail">
+				<Tooltip color='#fc8282' title={<FormattedMessage id='btn_view_detail'/>}>
 					<Link key="edit" to={`${parentLink}/${id}`} >
 						<EditOutlined style={{ fontSize: 18 }} />
 					</Link>

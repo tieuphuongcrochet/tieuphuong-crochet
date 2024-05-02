@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { SOCIALS } from 'utils/constant';
-import HeaderPart from './components/HeaderPart';
+import HeaderPart from '../../components/HeaderPart';
 import SocialBox from 'components/Social';
 import ProductsNode from './components/ProductsNode';
 import BlogsNode from './components/BlogsNode';
@@ -31,9 +31,9 @@ const HomePage = () => {
 					isShowDivider
 					titleId='Follow me on Social'
 					descriptionId='home_social_description' />
-				<Row gutter={[48, 48]}>
+				<Row gutter={[36, 36]}>
 					{(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>
-						<Col key={`social_${index}`} xs={12} md={6}>
+						<Col key={`home_social_${index}`} xs={24} sm={12} lg={6}>
 							<SocialBox social={social} src={src} url={url} {...rest} />
 						</Col>
 					)}

@@ -4,6 +4,7 @@ import { Col, Flex, Image, Row } from 'antd';
 import { FOOTER_LINK } from '../../utils/constant';
 import { Link } from 'react-router-dom';
 import './style.scss';
+import { FormattedMessage } from 'react-intl';
 
 const FooterPage = () => {
 	return (
@@ -14,7 +15,7 @@ const FooterPage = () => {
 					<Row gutter={[48, 12]}>
 						{FOOTER_LINK.map(({ name, path }, index) =>
 							<Col key={`${name}_${index}`} md={8} xs={12}>
-								<Link className='footer-link' to={path}>{name}</Link>
+								<Link className='footer-link' to={path}><FormattedMessage id={name} /></Link>
 							</Col>
 						)}
 					</Row>

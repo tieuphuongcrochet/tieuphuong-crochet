@@ -6,6 +6,7 @@ import { DataType, ListParams, initialViewTableParams } from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'saga/product/productSlice';
 import { categoryAction } from 'saga/category/categorySlice';
 import ViewTable from 'components/ViewTable';
+import HeaderPart from 'components/HeaderPart';
 
 const ShopPage = () => {
 	const navigate = useNavigate();
@@ -54,14 +55,15 @@ const ShopPage = () => {
 			...initialViewTableParams,
 			searchText: params.searchText || '',
 			categoryId: key === ALL_ITEM.key ? '' : key
-		};	
+		};
 		setParams(newParams);
 	}
 
 	return (
 		<div className='shop-page'>
+			<HeaderPart titleId='shop_title' descriptionId='shop_description' />
 			<ViewTable
-			  mode='Product'
+				mode='Product'
 				onReadDetail={(id) => onViewProduct(id)}
 				dataSource={productList}
 				total={totalRecords}

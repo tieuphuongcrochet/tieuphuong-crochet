@@ -1,9 +1,10 @@
-@import './../../utils//variables.scss';
+@import 'utils//variables.scss';
 
 .layout-wrap {
   color: $textPrimaryColor;
   background-color: $backgroundColor;
   overflow: hidden;
+  white-space: pre-line;
 
   .description {
     color: $textSecondColor;
@@ -60,6 +61,21 @@
   h3,
   h4 {
     font-family: "Playfair Display", serif;
+  }
+
+  .banner-wrap {
+    .banner-item {
+      &__infor {
+
+        .title {
+          font-size: 1rem;
+        }
+
+        .content {
+          font-size: .75rem;
+        }
+      }
+    }
   }
 }
 
@@ -133,20 +149,9 @@
   }
 }
 
-.banner-wrap {
-  .banner-item {
-    height: calc(100vh - 204px);
-
-    &__infor {
-
-      .title {
-        font-size: 3rem;
-      }
-
-      .content {
-        font-size: 2rem;
-      }
-    }
+.blog-page {
+  .search-wrap {
+    margin-bottom: 30px;
   }
 }
 
@@ -174,6 +179,35 @@
     .about-page {
       padding: 30px;
     }
+
+    .banner-wrap {
+      .banner-item {
+
+        &__infor {
+          .title {
+            font-size: 1.5rem;
+          }
+
+          .content {
+            font-size: 1rem;
+          }
+
+          .btn-border {
+            padding: 0 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .header-part {
+    &.responsive {
+      padding-bottom: 40px;
+
+      .header-divider {
+        margin: 70px 0;
+      }
+    }
   }
 }
 
@@ -198,6 +232,30 @@
         font-size: 2.5em;
       }
     }
+
+    .banner-wrap {
+      .banner-item {
+        &__infor {
+
+          .title {
+            font-size: 2rem;
+          }
+
+          .content {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .header-part {
+    &.responsive {
+
+      .header-divider {
+        margin: 80px 0;
+      }
+    }
   }
 }
 
@@ -215,6 +273,15 @@
   }
 }
 
+@media screen and (min-width: $screen_1024) {
+  .layout-wrap {
+    .banner-wrap {
+      .banner-item {
+        height: calc(100vh - 194px);
+      }
+    }
+  }
+}
 @media screen and (min-width: $xl) {
   .container {
     padding: 80px 100px;
@@ -225,6 +292,31 @@
     .contact-page,
     .about-page {
       padding: 50px;
+    }
+
+    .banner-wrap {
+      .banner-item {
+
+        &__infor {
+
+          .title {
+            font-size: 3rem;
+          }
+
+          .content {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+
+  .header-part {
+    &.responsive {
+
+      .header-divider {
+        margin: 100px 0;
+      }
     }
   }
 }
@@ -241,4 +333,13 @@
       font-size: $fontSize_large;
     }
   }
+}
+
+.disable-select {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

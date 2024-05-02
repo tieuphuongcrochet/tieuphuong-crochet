@@ -4,7 +4,7 @@ import { Col, Empty, Row } from "antd";
 import CardBlog from "components/CardBlog";
 import ReadMoreBtn from "components/ReadMoreBtn";
 import { ROUTE_PATH } from "utils/constant";
-import HeaderPart from "./HeaderPart";
+import HeaderPart from "../../../components/HeaderPart";
 import { useAppSelector } from "app/hooks";
 import { selectBlogs } from "../homeSlice";
 import { map } from "lodash";

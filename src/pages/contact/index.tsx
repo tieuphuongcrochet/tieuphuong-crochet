@@ -3,6 +3,7 @@ import './index.scss';
 import { Button, Col, Divider, Form, Input, Row, Space } from 'antd';
 import { REGEX, SOCIALS } from 'utils';
 import SocialBox from 'components/Social';
+import { FormattedMessage } from 'react-intl';
 
 const Contact = () => {
   const onSendEmail = (values: any) => {
@@ -14,11 +15,11 @@ const Contact = () => {
       <Row gutter={30} className="contact-page">
         <Col xs={24} md={12}>
           <div>
-            <h1 className="content-title">Liên lạc với tôi</h1>
+            <h1 className="content-title">
+              <FormattedMessage id='contact_title' />
+            </h1>
             <p className="content-text">
-              Bạn đang gặp vấn đề với đặt hàng hoặc yêu cầu móc theo mẫu bạn muốn? Hãy liên hệ với mình
-              qua email hoặc tin nhắn trên trang facebook của mình nhé. Mình sẽ cố gắng hết sức để giúp
-              bạn.
+              <FormattedMessage id='contact_content' />
             </p>
 
           </div></Col>
@@ -28,16 +29,18 @@ const Contact = () => {
             name='contactForm'
             onFinish={onSendEmail}
           >
-            <h2 className='align-center'>Send email for me</h2>
-            <Form.Item name='title'
+            <h2 className='align-center'>
+              <FormattedMessage id='contact_form_title' />
+            </h2>
+            <Form.Item name='email'
               rules={[
                 {
                   required: true,
-                  message: 'Please input your email'
+                  message: <FormattedMessage id='placeholder_input_email'/>
                 },
                 {
                   pattern: new RegExp(REGEX.EMAIL),
-                  message: 'The format email is incorected',
+                  message: <FormattedMessage id='error_msg_incorrect_email'/>
                 },
               ]}>
               <Input placeholder='enter the email' />
@@ -46,7 +49,7 @@ const Contact = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input title'
+                  message: <FormattedMessage id='placeholder_input_title'/>
                 }]}
             >
               <Input placeholder='enter  the title' />
@@ -55,22 +58,25 @@ const Contact = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input the messageses'
+                  message: <FormattedMessage id='placeholder_input_content'/>
                 }]}>
               <Input.TextArea rows={4} placeholder='Enter the content' />
             </Form.Item>
             <div className='align-center'>
               <Button className='btn-border' type='primary' htmlType='submit'>
-                Send
+                <FormattedMessage id='btn_send' />
               </Button>
             </div>
           </Form>
         </Col>
       </Row>
-      <Divider children={<h1 className='align-center'>Or contact me via</h1>} />
-      <Row gutter={[50, 50]}>
+      <Divider children={
+        <h1 className='align-center'>
+          <FormattedMessage id='contact_via' />
+        </h1>} />
+      <Row gutter={[36, 36]}>
         {(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>
-          <Col key={`social_${index}`} xs={12} md={6}>
+          <Col key={`social_${index}`} xs={24} sm={12} lg={6}>
             <SocialBox social={social} src={src} url={url} {...rest} />
           </Col>
         )}

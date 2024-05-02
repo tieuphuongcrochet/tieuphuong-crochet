@@ -1,11 +1,10 @@
 @import 'utils/variables.scss';
 
 .header-part {
-	padding-bottom: 80px;
+	padding-bottom: 30px;
 	
 	.header-divider {
-		margin-top: 100px;
-		margin-bottom: 40px;
+		margin: 50px 0;
 		border-color: $borderColor;
 	}
 }
@@ -24,5 +23,6 @@
 		font-family: 'Rubik','HelveticaNeue','Helvetica Neue',sans-serif;
 		line-height: 36px;
 		font-weight: 300;
+		font-size: $fontSize_middle;
 	}
 }
