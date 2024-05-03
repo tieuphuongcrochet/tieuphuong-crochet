@@ -29,6 +29,9 @@ const CRUProduct = () => {
         if (id) {
             dispatch(productAction.fetchProduct(id));
         }
+        return () => {
+            dispatch(productAction.resetProduct());
+        }
     }, []);
 
 
@@ -60,7 +63,6 @@ const CRUProduct = () => {
 
     const onCancel = () => {
         form.resetFields();
-        dispatch(productAction.resetProduct());
         navigate(-1);
     }
 

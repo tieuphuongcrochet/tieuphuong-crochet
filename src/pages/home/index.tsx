@@ -29,7 +29,7 @@ const HomePage = () => {
 			<div className='social'>
 				<HeaderPart
 					isShowDivider
-					titleId='Follow me on Social'
+					titleId='home_social_title'
 					descriptionId='home_social_description' />
 				<Row gutter={[36, 36]}>
 					{(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>

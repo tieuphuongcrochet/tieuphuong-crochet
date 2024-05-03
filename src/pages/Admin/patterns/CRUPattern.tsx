@@ -28,6 +28,9 @@ const CRUPattern = () => {
         if (categories.length <= 0) {
             dispatch(categoryAction.fetchData());
         }
+        return () => {
+            dispatch(patternAction.resetPattern());
+        }
     }, []);
 
     useEffect(() => {
@@ -75,7 +78,9 @@ const CRUPattern = () => {
             >
                 <Item
                     name='images'
-                    label='Photos'>
+                    label='Photos'
+                    rules={[{ required: true, message: 'Please upload image for pattern' }]}
+                >
                     <UploadFiles
                         files={pattern.images || []}
                         onChangeFile={(files: FileUpload[]) => {

@@ -176,3 +176,17 @@ export const getDateFormatted = (dateString: any, locale: 'en' | 'vi' = 'en') =>
 
   return `${day}/ ${month}/ ${year}  ${hour}:${minute}`
 }
+
+export const getBaseUrl = () => {
+  let url;
+  switch(process.env.NODE_ENV) {
+    case 'production':
+      url = 'https://tieuphuong.com';
+      break;
+    case 'development':
+    default:
+      url = 'http://localhost:8080';
+  }
+
+  return url;
+}

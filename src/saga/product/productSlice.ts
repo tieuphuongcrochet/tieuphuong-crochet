@@ -28,7 +28,7 @@ const productSlice = createSlice({
             state.loading = false;
         },
         resetProduct(state) {
-            state.product = { name: '', category: { name: '' } };
+            state.product = {} as Product;
         },
         fetchData(_, { payload }: PayloadAction<ListParams>) { },
         cUProduct(_, { payload }: PayloadAction<ProductPayload>) { },

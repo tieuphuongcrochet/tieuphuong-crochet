@@ -61,13 +61,14 @@ const BannerForm = ({
 
 	const onAddBanner = (values: any) => {
 		const { title, content, url, bannerImage, bannerTypeId, active, textColor } = values;
+		
 		const banner: Banner = {
 			title,
 			content,
 			url,
 			bannerTypeId,
 			active,
-			textColor,
+			textColor: typeof textColor === 'string' ? textColor : textColor?.toHexString(),
 			fileContent: bannerImage[0].fileContent || '',
 			fileName: bannerImage[0].fileName || '',
 		}

@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { jwtDecode } from "jwt-decode";
 import axiosClient from "./axiosClient";
-import { API_URL, COOKIE_NAMES, getCookie, notification, setCookie } from "utils";
+import { API_URL, COOKIE_NAMES, getBaseUrl, getCookie, notification, setCookie } from "utils";
 import { ErrorData, RefreshTokenRes } from "models";
 
 const refreshToken = async () => {
@@ -20,7 +20,7 @@ const refreshToken = async () => {
 };
 
 const axiosJWT = axios.create({
-    baseURL: process.env.NODE_ENV === 'production'? 'httm://tieuphuong' :'http://localhost:8080',
+    baseURL: getBaseUrl(),
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
     }
