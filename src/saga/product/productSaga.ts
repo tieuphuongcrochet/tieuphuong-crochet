@@ -4,7 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
 import { productAction } from './productSlice';
 import productService from 'api/product';
-import { getAvatar, message, notification } from 'utils';
+import { getAvatar, notification } from 'utils';
 
 
 function* fetchProducts({ payload }: any) {

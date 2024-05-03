@@ -1,8 +1,6 @@
+/* eslint-disable no-useless-escape */
 import shopee from '../assets/socials/shope.jpg';
 
-import banner2 from '../assets/bn4.jpg';
-import banner3 from '../assets/bn3.jpg';
-import banner4 from '../assets/banner2.jpg';
 import { TBannerType } from 'models/setting';
 
 export const LANGUAGES = {

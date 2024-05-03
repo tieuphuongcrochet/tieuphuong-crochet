@@ -26,9 +26,9 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 					align="center"
 					className={`${name}-detail-content`}
 				>
-					<h1 className="align-center mt-0">
+					{images && images.length > 0 && <h1 className="align-center mt-0">
 						<FormattedMessage id={detailId} defaultMessage='Chi tiết' />
-					</h1>
+					</h1>}
 					{(!content && !images) &&
 						<Empty
 							imageStyle={{ height: 80 }}

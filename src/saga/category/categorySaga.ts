@@ -24,7 +24,7 @@ function* fetchCategories() {
 function* handleCreate({ payload }: PayloadAction<Category>) {
 	try {
 		yield put(categoryAction.loadingRequest());
-		const data: Category[] = yield call(category.add, payload);
+		yield call(category.add, payload);
 		
 		yield call(fetchCategories);
 		yield put(categoryAction.loadingSuccess());

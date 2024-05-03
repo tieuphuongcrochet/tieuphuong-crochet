@@ -20,7 +20,7 @@ const refreshToken = async () => {
 };
 
 const axiosJWT = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.NODE_ENV === 'production'? 'httm://tieuphuong' :'http://localhost:8080',
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
     }

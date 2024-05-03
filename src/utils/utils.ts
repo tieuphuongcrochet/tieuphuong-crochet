@@ -143,7 +143,13 @@ export const mapDataToSelectOption = (data: any[]) => {
   });
 };
 
-export const getAvatar = (images: FileUpload[]) => filter(images, img => !isEmpty(img.fileContent))?.[0].fileContent || '';
+export const getAvatar = (images: FileUpload[]) => {
+  if (!images || images.length < 1) return '';
+  const imgObject = filter(images, img => !isEmpty(img.fileContent))?.[0];
+  if (imgObject) {
+    return imgObject.fileContent || '';
+  }
+};
 
 export const showConfirmDelete = (data: any, onDelete: Function) => {
   modal.confirm({

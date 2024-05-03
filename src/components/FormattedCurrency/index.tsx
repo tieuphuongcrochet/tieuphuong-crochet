@@ -11,6 +11,7 @@ const FormattedCurrency = ({price, currency_code}: Props) => {
 	return (
 		<div className='price-wrap'>
 			{currency_code === CURRENCY.USD &&
+				// eslint-disable-next-line react/style-prop-object
 				<FormattedNumber value={price || 0} style="currency" currency={currency_code} />
 			}
 			{currency_code === CURRENCY.VND &&

@@ -10,7 +10,7 @@ import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
 import './index.scss';
 
-const LayoutPage = () => {	
+const LayoutPage = () => {
 	const { Content } = Layout;
 	const location = useLocation();
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
@@ -28,6 +28,8 @@ const LayoutPage = () => {
 				<Navigate to={ROUTE_PATH.ADMIN} replace={true} />
 				:
 				<Layout className='layout-wrap'>
+					<small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
+					<small>You are running this application in <b>{process.env.REACT_APP_API_ENDPOINT }</b> mode.</small>
 					<HeaderPage currentNav={currentNav} setCurrentNav={setCurrentNav} />
 					{
 						location?.pathname === ROUTE_PATH.HOME ?
@@ -37,7 +39,7 @@ const LayoutPage = () => {
 					<Content className='content-wrap container'>
 						<Outlet />
 					</Content>
-					<FooterPage currentNav={currentNav}/>
+					<FooterPage currentNav={currentNav} />
 					<FloatButton.BackTop visibilityHeight={0} />
 				</Layout>
 			}

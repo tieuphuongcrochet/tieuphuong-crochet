@@ -56,7 +56,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 				getElement('.thumbnail-photos').classList.add('show-prev-next');
 			}
 		}
-	}, [data.name]);
+	}, [data.name,src,images,isShowThumbnail]);
 
 	const getImageWidth = () => {
 		return (getElement('.thumbnail-item').offsetWidth + IMAGE_MARGIN) * IMAGE_AMOUNT;

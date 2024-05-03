@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Flex, Form, Input, Radio, RadioChangeEvent, Row, Tooltip, TreeSelect } from 'antd';
+import { Button, Col, Flex, Form, Input, Radio, RadioChangeEvent, Row, TreeSelect } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Filter, SearchParams, SearchTableProps } from 'models';
 import './style.scss';

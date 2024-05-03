@@ -69,8 +69,8 @@ function* handleRegister({ payload }: PayloadAction<AuthPayload>) {
 }
 
 export default function* authSaga() {
-	// yield fork(watchLoginFlow);
-	yield takeLatest(authActions.login.type, handleLogin);
+	yield fork(watchLoginFlow);
+	// yield takeLatest(authActions.login.type, handleLogin);
 	yield takeLatest(authActions.resigter.type, handleRegister);
 }
 
