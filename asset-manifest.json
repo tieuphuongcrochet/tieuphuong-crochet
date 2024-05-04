@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.5fb058d1.css",
-    "main.js": "/static/js/main.895c8072.js",
-    "static/js/787.69124873.chunk.js": "/static/js/787.69124873.chunk.js",
-    "static/media/about.jpg": "/static/media/about.82f437385487489d1764.jpg",
-    "static/media/1.jpg": "/static/media/1.84c51d23a4beb7e6a11f.jpg",
-    "static/media/shope.jpg": "/static/media/shope.4e7555d265853eb4f5c7.jpg",
-    "static/media/logo.png": "/static/media/logo.e70822f844d8027d5611.png",
-    "index.html": "/index.html",
-    "main.5fb058d1.css.map": "/static/css/main.5fb058d1.css.map",
-    "main.895c8072.js.map": "/static/js/main.895c8072.js.map",
-    "787.69124873.chunk.js.map": "/static/js/787.69124873.chunk.js.map"
+    "main.css": "/tieuphuong-crochet/static/css/main.5fb058d1.css",
+    "main.js": "/tieuphuong-crochet/static/js/main.1366074c.js",
+    "static/js/787.69124873.chunk.js": "/tieuphuong-crochet/static/js/787.69124873.chunk.js",
+    "static/media/about.jpg": "/tieuphuong-crochet/static/media/about.82f437385487489d1764.jpg",
+    "static/media/1.jpg": "/tieuphuong-crochet/static/media/1.84c51d23a4beb7e6a11f.jpg",
+    "static/media/shope.jpg": "/tieuphuong-crochet/static/media/shope.4e7555d265853eb4f5c7.jpg",
+    "static/media/logo.png": "/tieuphuong-crochet/static/media/logo.e70822f844d8027d5611.png",
+    "index.html": "/tieuphuong-crochet/index.html",
+    "main.5fb058d1.css.map": "/tieuphuong-crochet/static/css/main.5fb058d1.css.map",
+    "main.1366074c.js.map": "/tieuphuong-crochet/static/js/main.1366074c.js.map",
+    "787.69124873.chunk.js.map": "/tieuphuong-crochet/static/js/787.69124873.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5fb058d1.css",
-    "static/js/main.895c8072.js"
+    "static/js/main.1366074c.js"
   ]
 }
