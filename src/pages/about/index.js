@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Image, Row } from 'antd';
-import coverImg from 'assets/products/34.png';
+import coverImg from 'assets/about.jpg';
+
 import { FormattedMessage } from 'react-intl';
 
 const About = () => {

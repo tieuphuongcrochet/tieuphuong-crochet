@@ -69,16 +69,16 @@ const CUTypeModal = ({ openCUModal, setOpenCUModal }: TypeBannerModalProps) => {
 					description={
 						<Space wrap>
 							{map(BANNER_TYPES_DEFAULT, (b, index) => {
-								if (index < BANNER_TYPES_DEFAULT.length - 2) {
-									return <>
-										<span key={`btype_${index}`}>{b} <Divider type="vertical" /></span>
-									</>
+								if (index === BANNER_TYPES_DEFAULT.length - 1) {
+									return <span key={`btype_${index}`}>{b}</span>
 								}
-								return <span key={`btype_${index}`}>{b}</span>
+								return <>
+									<span key={`btype_${index}`}>{b}<Divider type="vertical" /></span>
+								</>
 							})}
 						</Space>}
 				/>
-				<Form name='CUType'
+				<Form name='CUTypeForm'
 					layout="vertical"
 					form={form}
 				>
@@ -135,7 +135,7 @@ const BannerType = () => {
 					onDeleteRecord={onDeleteRecord}
 					onEditRecord={onEditRecord} />
 			</div>
-			<CUTypeModal openCUModal={openCUModal} setOpenCUModal={setOpenCUModal} />
+			{openCUModal.open && <CUTypeModal openCUModal={openCUModal} setOpenCUModal={setOpenCUModal} />}
 		</>
 	)
 }

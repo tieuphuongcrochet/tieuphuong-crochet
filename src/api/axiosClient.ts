@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { ErrorData } from "models";
-import { notification } from "utils";
+import { getBaseUrl, notification } from "utils";
 
 const axiosClient = axios.create({
-	baseURL: 'http://localhost:8080',
+    baseURL: getBaseUrl(),
 	headers: {
 		'Content-Type': 'application/json;charset=UTF-8'
 	}

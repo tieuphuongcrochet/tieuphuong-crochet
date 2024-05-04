@@ -71,7 +71,7 @@ const CRUUser = () => {
                 <h1>{id ? 'Update the user' : 'Create a new user'}</h1>
             </Flex>
             <Form layout="vertical"
-                name='CUUserForm'
+                name='CUserForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"

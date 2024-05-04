@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import DownloadImage from "components/DownloadImage"
 import { FileUpload, Pattern, Product } from "models";
-import { DragScroll, getElement } from "utils";
+import { DragScroll, SOCIAL_LINKS, getElement } from "utils";
 import './style.scss';
 import FormattedCurrency from "components/FormattedCurrency";
 import { FormattedMessage } from "react-intl";
@@ -37,6 +37,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 	}, []);
 
 	useEffect(() => {
+		
 		if (src) {
 			const index = findIndex(images, (img: FileUpload) => img.fileContent === src);
 			index !== -1 && setActiveThumbnail({ index, src });
@@ -107,7 +108,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 											onClick={() => onClickThumbnail(index, image.url)}
 											className={`${activeThumbnail.index === index ? 'active-thumbnail thumbnail-item' : 'thumbnail-item'}`}
 											key={`intro_img_${index}`}
-											src={image.fileContent}
+											src={image?.fileContent}
 											preview={false}
 										/>)
 									)
@@ -129,7 +130,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 				<Divider />
 				<Space direction="vertical" size='middle'>
 					{price && <FormattedCurrency price={price} currency_code={currency_code} />}
-					{link && <Link to={link || '#'} target="_blank">
+					{(price || link )&& <Link to={link || SOCIAL_LINKS.FACEBOOK} target="_blank">
 						<Button className="btn-border" type="primary">
 							<FormattedMessage id='btn_buy' />
 						</Button>

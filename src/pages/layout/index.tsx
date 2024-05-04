@@ -28,8 +28,6 @@ const LayoutPage = () => {
 				<Navigate to={ROUTE_PATH.ADMIN} replace={true} />
 				:
 				<Layout className='layout-wrap'>
-					<small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
-					<small>You are running this application in <b>{process.env.REACT_APP_API_ENDPOINT }</b> mode.</small>
 					<HeaderPage currentNav={currentNav} setCurrentNav={setCurrentNav} />
 					{
 						location?.pathname === ROUTE_PATH.HOME ?

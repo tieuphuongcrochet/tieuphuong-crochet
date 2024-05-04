@@ -43,5 +43,7 @@ export default {
 	'intro_author': 'Author:',
 	'free_pattern_detail.detail': 'Chart detail',
 	'free_pattern_detail.content': 'Translated chart',
+	'free_pattern_note': 'If this chart is copyrighted, please tell me so I can take it down! Thank you!',
 	'product_detail.detail': 'Product images',
+	'product_note': 'If you want to order this product according to your requirements, please contact me. I will try my best to bring you the best products. Thank you!',
 };

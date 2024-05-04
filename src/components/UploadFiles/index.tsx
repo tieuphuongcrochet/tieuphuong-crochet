@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ImgCrop from "antd-img-crop"
 import { filter, map } from "lodash";
 import { UploadOutlined } from '@ant-design/icons';
@@ -66,7 +66,10 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 
 		const formData = new FormData();
 		setLoading(true);
-		formData.append('files', file);
+
+		var blob = file.slice(0, file.size);
+		const newFile = new File([blob], `${new Date().getTime()}`, { type: `${file.type}` });
+		formData.append('files', newFile);
 		const res: FileUpload[] = await uploadFile.upload(formData);
 		res && setLoading(false);
 
@@ -167,4 +170,4 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 	)
 }
 
-export default UploadFiles;
+export default memo(UploadFiles);

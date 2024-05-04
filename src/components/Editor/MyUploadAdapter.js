@@ -1,4 +1,4 @@
-import { API_URL, COOKIE_NAMES, getCookie } from "utils";
+import { API_URL, COOKIE_NAMES, getBaseUrl, getCookie } from "utils";
 
 class MyUploadAdapter {
 	constructor( loader ) {
@@ -6,7 +6,7 @@ class MyUploadAdapter {
 			this.loader = loader;
 			
 			// URL where to send files.
-			this.url = `http://localhost:8080/${API_URL.UPLOAD_FILE}`;
+			this.url = `${getBaseUrl()}${API_URL.UPLOAD_FILE}`;
 	}
 
 	// Starts the upload process.

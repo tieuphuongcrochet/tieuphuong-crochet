@@ -27,8 +27,8 @@ const patternSlice = createSlice({
             state.pattern = payload;
             state.loading = false;
         },
-        resetPattern(state) {        
-            state.pattern = { name: '' };
+        resetPattern(state) {
+            state.pattern = {} as Pattern;
         },
         fetchData(_, { payload }: PayloadAction<ListParams>) { },
         cUPattern(_, { payload }: PayloadAction<PatternPayload>) { },

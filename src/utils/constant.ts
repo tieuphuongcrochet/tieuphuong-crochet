@@ -86,7 +86,7 @@ export const BREADCRUMB: { path: string, name: string, key: TBannerType }[] = [
 ];
 
 export const BANNER_TYPES_DEFAULT: TBannerType[] = [
-  'About', "Advertisement", "Blog", "Contact", "Free pattern", "Home", "Pattern", "Product", "Shop", ''
+  'About', "Advertisement", "Blog", "Contact", "Free pattern", "Home", "Pattern", "Product", "Shop"
 ]
 
 export const REGEX = {

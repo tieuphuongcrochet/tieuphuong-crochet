@@ -76,13 +76,14 @@ const Login = () => {
 									required: true,
 									message: 'Please input your password'
 								},
-								// {
-								// 	pattern: new RegExp(REGEX.PASSWORD),
-								// 	message: 'Format password incorrect',
-								// },
+								{
+									pattern: new RegExp(REGEX.PASSWORD),
+									message: 'Format password incorrect',
+								},
 							]}
 						>
 							<Input.Password
+							    autoComplete="new-password"
 								prefix={<LockOutlined className="site-form-item-icon" />}
 								placeholder="Password" />
 						</Form.Item>

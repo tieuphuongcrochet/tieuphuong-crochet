@@ -107,7 +107,7 @@ const SettingPage = () => {
                     }]}
             />
             <Form layout="vertical"
-                name='CUPostForm'
+                name='CUSettingForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"

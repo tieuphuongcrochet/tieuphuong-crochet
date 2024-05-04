@@ -10,20 +10,20 @@ interface BannerItemProps {
 };
 
 const BannerItem = ({ banner, classNames }: BannerItemProps) => {
-	const { fileContent, title, content, url } = banner;
+	const { fileContent, title, content, url, textColor } = banner;
 	return (
 		<div className={`banner-item ${classNames ? classNames : ''}`}>
 			{fileContent && <Image preview={false} src={fileContent} alt='Banner 1' />}
 			<div className='banner-item__infor'>
-				<h4 style={{ color: banner.textColor }} className='title'>
+				<h4 style={{ color: textColor ? textColor : '#FFFFFF' }} className='title'>
 					{title}
 				</h4>
-				<h5 style={{ color: banner.textColor }} className='content'>{content}</h5>
-				<Link to={url as string} >
+				<h5 style={{ color: textColor ? textColor : '#FFFFFF' }} className='content'>{content}</h5>
+				{url && <Link to={url as string} >
 					<Button className='btn-border' type='primary'>
 						<FormattedMessage id='btn_view_detail' />
 					</Button>
-				</Link>
+				</Link>}
 			</div>
 		</div>
 	)

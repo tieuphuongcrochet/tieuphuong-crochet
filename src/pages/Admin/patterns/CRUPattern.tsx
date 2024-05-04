@@ -28,6 +28,9 @@ const CRUPattern = () => {
         if (categories.length <= 0) {
             dispatch(categoryAction.fetchData());
         }
+        return () => {
+            dispatch(patternAction.resetPattern());
+        }
     }, []);
 
     useEffect(() => {
@@ -68,14 +71,16 @@ const CRUPattern = () => {
                 <h1>{id ? 'Update the pattern' : 'Create a new pattern'}</h1>
             </Flex>
             <Form layout="vertical"
-                name='CUCategoryForm'
+                name='cUPatternForm'
                 form={form}
                 onFinish={onSubmitForm}
                 className="form-wrap"
             >
                 <Item
                     name='images'
-                    label='Photos'>
+                    label='Photos'
+                    rules={[{ required: true, message: 'Please upload image for pattern' }]}
+                >
                     <UploadFiles
                         files={pattern.images || []}
                         onChangeFile={(files: FileUpload[]) => {
@@ -141,20 +146,23 @@ const CRUPattern = () => {
                 <Item
                     name='files'
                     label='Pattern'>
-                    <UploadFiles
+                    {/* <UploadFiles
                         files={pattern.files || []}
                         onChangeFile={(files: FileUpload[]) => {
                             form.setFieldsValue({ files: files });
                         }}
-                    />
+                    /> */}
                 </Item>
                 <Item
                     name='content'
                     label='Pattern text'
                 >
-                    <EditorComponent onBlur={(_, editor) => {
-                        form.setFieldsValue({ content: editor.getData() })
-                    }} />
+                    <EditorComponent
+                        initialData={pattern?. content || ''}
+                        onBlur={(_, editor) => {
+                            form.setFieldsValue({ content: editor.getData() })
+                        }}
+                    />
                 </Item>
                 <Flex justify="center" gap={10} wrap="wrap">
                     <Button className="btn-form" type="primary" htmlType="submit">
