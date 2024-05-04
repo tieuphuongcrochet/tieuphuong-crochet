@@ -181,7 +181,7 @@ export const getBaseUrl = () => {
   let url;
   switch(process.env.NODE_ENV) {
     case 'production':
-      url = 'https://tieuphuong.com';
+      url = 'https://crochet-dd7757682a81.herokuapp.com/';
       break;
     case 'development':
     default:

@@ -1,6 +1,7 @@
-import { Divider, Space } from "antd";
+import { Alert, Divider, Space } from "antd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 import { Pattern } from "models";
 import { useAppDispatch, useAppSelector } from "app/hooks";
@@ -21,6 +22,7 @@ const PatternDetail = () => {
 
 	return (
 		<Space direction="vertical" size={60} style={{ width: '100%' }} className="pattern-detail">
+			<Alert showIcon type="warning" message={<FormattedMessage id="free_pattern_note" />} />
 			{/* Introducing the pattern */}
 			<IntroductionCard isShowThumbnail data={pattern} />
 			<Divider />

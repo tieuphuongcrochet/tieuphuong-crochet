@@ -43,6 +43,8 @@ export default {
 	'intro_author': 'Tác giả:',
 	'free_pattern_detail.detail': 'Chi tiết',
 	'free_pattern_detail.content': 'Chart đã dịch',
+	'free_pattern_note': 'Nếu chart này có bản quyền, xin hãy nói với mình để mình có thể gỡ xuống! Cảm ơn bạn!',
 	'product_detail.detail': 'Hình ảnh sản phẩm',
+	'product_note': 'Nếu bạn muốn đặt mua sản phẩm này theo yêu cầu của bạn, hãy liên hệ với mình nhé. Mình sẽ cố gắng hết sức để mang đến cho bạn những sản phẩm tốt nhất. Cảm ơn bạn!',
 }
  

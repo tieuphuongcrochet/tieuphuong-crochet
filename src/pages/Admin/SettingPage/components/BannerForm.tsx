@@ -101,6 +101,7 @@ const BannerForm = ({
 			layout="vertical"
 			onFinish={onAddBanner}
 			form={form}
+			initialValues={{textColor: '#FFFFFF', active: true, bannerTypeId: '', bannerImage: [], title: '', content: '', url: ''}}
 		>
 			<Row gutter={[30, 30]}>
 				<Col xs={24} md={10}>
@@ -129,7 +130,7 @@ const BannerForm = ({
 				</Col>
 				<Col xs={24} md={7}>
 					<Item name='textColor' label='Pick a color for title & content:' >
-						<ColorPicker defaultValue="#FFFFFF" showText />
+						<ColorPicker showText />
 					</Item>
 				</Col>
 			</Row>

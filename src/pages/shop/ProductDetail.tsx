@@ -1,7 +1,8 @@
-import { Divider, Space } from 'antd';
+import { Alert, Divider, Space } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { Product } from 'models';
 import IntroductionCard from 'components/IntroductionCard';
@@ -21,6 +22,8 @@ const ProductDetail = () => {
 
     return (
         <Space direction="vertical" size={40} style={{ width: '100%' }} className="product-detail">
+            <Alert showIcon type="info" message={<FormattedMessage id="product_note" />} />
+
             {/* Introducing the product */}
             <IntroductionCard isPreviewAvatar={false} data={product} />
             <Divider />

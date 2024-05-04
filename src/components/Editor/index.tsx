@@ -7,13 +7,15 @@ import type { Editor } from '@ckeditor/ckeditor5-core';
 interface EditorProps {
 	onBlur?: (event: EventInfo, editor: Editor) => void;
 	placeholder?: string;
+	initialData?: string;
 }
 
-const EditorComponent = ({ onBlur, placeholder }: EditorProps) => {
+const EditorComponent = ({ onBlur, placeholder, initialData = ''}: EditorProps) => {
 
 	return (
 		<CKEditor
 			editor={ClassicEditor}
+			data={initialData}
 			config={{
 				extraPlugins: [MyCustomUploadAdapterPlugin],
 				placeholder: placeholder || 'Enter the text'

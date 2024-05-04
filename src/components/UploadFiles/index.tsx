@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ImgCrop from "antd-img-crop"
 import { filter, map } from "lodash";
 import { UploadOutlined } from '@ant-design/icons';
@@ -170,4 +170,4 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 	)
 }
 
-export default UploadFiles;
+export default memo(UploadFiles);

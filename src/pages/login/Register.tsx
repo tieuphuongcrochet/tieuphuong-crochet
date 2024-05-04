@@ -32,7 +32,7 @@ const RegisterPage = () => {
 				name: values.name,
 				email: values.email,
 				password: values.password,
-				role: values.email === 'thamphuong.crochet@gmail.com'? 'ADMIN' : 'USER'
+				role: values.email
 			};
 			dispatch(authActions.resigter({ params, callback }));
 		}
@@ -119,7 +119,10 @@ const RegisterPage = () => {
 								},
 							]}
 						>
-							<Input.Password placeholder="Password" />
+							<Input.Password
+								placeholder="Password"
+								autoComplete="current-password"
+							/>
 						</Form.Item>
 						<Form.Item
 							name="rePassword"
@@ -139,7 +142,7 @@ const RegisterPage = () => {
 								},
 							]}
 						>
-							<Input.Password />
+							<Input.Password autoComplete="current-password" />
 						</Form.Item>
 						<div className="note">
 							<p>
@@ -151,7 +154,7 @@ const RegisterPage = () => {
 							</div>
 						</div>
 						<div>
-							<Button  className='btn-border' type="primary" htmlType="submit" style={{ width: '100%', marginBottom: 8 }} disabled={isDisable}>
+							<Button className='btn-border' type="primary" htmlType="submit" style={{ width: '100%', marginBottom: 8 }} disabled={isDisable}>
 								Submit
 							</Button>
 							<Button className='btn-border' type="default" style={{ width: '100%' }} onClick={() => onCancel()} disabled={isDisable}>
