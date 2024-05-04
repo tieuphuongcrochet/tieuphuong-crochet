@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/tieuphuongcrochet.com/static/css/main.5fb058d1.css",
+    "main.js": "/tieuphuongcrochet.com/static/js/main.6d04d73b.js",
+    "static/js/787.69124873.chunk.js": "/tieuphuongcrochet.com/static/js/787.69124873.chunk.js",
+    "static/media/about.jpg": "/tieuphuongcrochet.com/static/media/about.82f437385487489d1764.jpg",
+    "static/media/1.jpg": "/tieuphuongcrochet.com/static/media/1.84c51d23a4beb7e6a11f.jpg",
+    "static/media/shope.jpg": "/tieuphuongcrochet.com/static/media/shope.4e7555d265853eb4f5c7.jpg",
+    "static/media/logo.png": "/tieuphuongcrochet.com/static/media/logo.e70822f844d8027d5611.png",
+    "index.html": "/tieuphuongcrochet.com/index.html",
+    "main.5fb058d1.css.map": "/tieuphuongcrochet.com/static/css/main.5fb058d1.css.map",
+    "main.6d04d73b.js.map": "/tieuphuongcrochet.com/static/js/main.6d04d73b.js.map",
+    "787.69124873.chunk.js.map": "/tieuphuongcrochet.com/static/js/787.69124873.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5fb058d1.css",
+    "static/js/main.6d04d73b.js"
+  ]
+}
