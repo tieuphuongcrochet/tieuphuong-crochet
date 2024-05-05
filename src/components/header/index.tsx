@@ -1,5 +1,5 @@
 import { find } from 'lodash';
-import React, { memo, useContext, useState } from 'react';
+import { memo, useContext, useState } from 'react';
 import { Button, Dropdown, Menu, MenuProps, Space, Layout, Drawer, Image } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -8,6 +8,7 @@ import { CaretDownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons
 import { Context } from 'components/LanguageProvider';
 import logo from 'assets/logo.png';
 import { LANGUAGES_LIST, MENU_NAV, ROUTE_PATH } from 'utils/constant';
+import CopyRight from 'components/Copyright';
 
 import './index.scss';
 
@@ -123,6 +124,7 @@ const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 						<span className='logo-text'>Tiểu Phương crochet</span>
 					</Link>
 				}
+				footer={<CopyRight />}
 			>
 				{getMenu('inline')}
 			</Drawer>

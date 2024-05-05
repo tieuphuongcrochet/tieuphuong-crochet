@@ -122,7 +122,8 @@ export const SOCIAL_LINKS = {
   FACEBOOK: 'https://www.facebook.com/tieuconuong.tiemlen/',
   SOPEE: 'https://shopee.vn/littlegirl.crochet',
   INSTAGRAM: 'https://www.instagram.com/little_girl.crochet/',
-  TIKTOK: 'https://www.tiktok.com/@tiemlentieuconuong'
+  TIKTOK: 'https://www.tiktok.com/@tiemlentieuconuong',
+  YOUTUBE: 'https://www.youtube.com/@littlegirl.crochet',
 };
 
 export const SOCIALS = [
