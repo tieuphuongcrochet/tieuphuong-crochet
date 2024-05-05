@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from '../../assets/logo.png';
+import logo from 'assets/logo.png';
 import { Col, Flex, Image, Row } from 'antd';
-import { FOOTER_LINK } from '../../utils/constant';
+import { FOOTER_LINK } from 'utils/constant';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import { FormattedMessage } from 'react-intl';
 import { includes } from 'lodash';
+import CopyRight from 'components/Copyright';
 interface FooterProps {
 	currentNav: string
 }
@@ -22,7 +23,7 @@ const FooterPage = ({ currentNav }: FooterProps) => {
 							</Col>
 						)}
 					</Row>
-					<p className='copyright'>Tiểu Phương © 2023 Created by PhuongLuom</p>
+					<CopyRight />
 				</Flex>
 			</footer>
 		</>
