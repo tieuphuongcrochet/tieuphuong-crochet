@@ -25,14 +25,16 @@ const initialSearchParams: SearchParams = {
 };
 
 const SearchTable = ({
-    onAddNew,
-    onSearch,
-    onSearchChange,
-    textAddNew,
-    loading,
-    isShowFilter,
-    isShowSearch = true }: SearchTableProps) => {
-    const { Search } = Input;
+                         onAddNew,
+                         onSearch,
+                         onSearchChange,
+                         textAddNew,
+                         loading,
+                         isShowFilter,
+                         isShowSearch = true,
+                         isShowAddNew = true
+                     }: SearchTableProps) => {
+    const {Search} = Input;
     const [form] = Form.useForm();
     const categories = useAppSelector(state => state.category.data);
     const [searchParams, setSearchParams] = useState(initialSearchParams);
@@ -169,9 +171,12 @@ const SearchTable = ({
                     </Row>
                 </Form>
             }
-            <Button type="primary" onClick={onAddNew} icon={<PlusOutlined />}>
-                {textAddNew || 'Add new'}
-            </Button>
+            {
+                isShowAddNew &&
+                <Button type="primary" onClick={onAddNew} icon={<PlusOutlined/>}>
+                    {textAddNew || 'Add new'}
+                </Button>
+            }
         </Flex>
     )
 }
