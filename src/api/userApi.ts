@@ -1,4 +1,4 @@
-import { DataType, ListParams, User } from 'models';
+import {DataType, ListParams, User} from 'models';
 import { API_URL } from "utils";
 import axiosClient from "./axiosClient";
 import axiosJWT from './axiosJWT';
@@ -27,6 +27,11 @@ const userService = {
 		const url = `${API_URL.USER}/${API_URL.DELETE}?id=${id}`;
 		return axiosJWT.delete(url);
 	},
+
+	update(data: User): Promise<DataType> {
+		const url = `${API_URL.USER}/${API_URL.UPDATE}`
+		return axiosJWT.put(url, data);
+	}
 }
 
 export default userService;

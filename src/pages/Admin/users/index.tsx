@@ -1,11 +1,15 @@
-import { SearchProps } from 'antd/es/input';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import {SearchProps} from 'antd/es/input';
+import {useAppDispatch, useAppSelector} from 'app/hooks';
 import DataTable from 'components/DataTable';
-import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, initialListParams } from 'models';
-import { selectLoading, selectUsers, userAction } from './userSlice';
-import { useEffect, useState } from 'react';
+import {DataType, initialListParams} from 'models';
+import {selectLoading, selectUsers, userAction} from './userSlice';
+import {useEffect, useState} from 'react';
+import {ROUTE_PATH} from "../../../utils";
+import {useNavigate} from "react-router-dom";
+import SearchTable from "../../../components/DataTable/SearchTable";
+
 const UsersList = () => {
+    const navigate = useNavigate();
     const originData: DataType[] = useAppSelector(selectUsers);
     const loading = useAppSelector(selectLoading);
     const dispatch = useAppDispatch();
@@ -14,11 +18,13 @@ const UsersList = () => {
     useEffect(() => {
         dispatch(userAction.fetchData(params));
     }, []);
-    
-    const onEditRecord = (rd: React.Key) => {
+
+    const onEditRecord = (id: React.Key) => {
+        navigate(`${ROUTE_PATH.ADMIN_USERS}/${ROUTE_PATH.DETAIL}/${id}`)
     }
 
-    const onDeleteRecord = (rd: React.Key) => {
+    const onDeleteRecord = (id: React.Key) => {
+        dispatch(userAction.delete(id));
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
@@ -48,11 +54,11 @@ const UsersList = () => {
             dataIndex: 'lastModifiedDate',
         },
     ]
-    const onAddNew = () => { }
     return (
         <>
             <div className='users-admin'>
-                <SearchTable onAddNew={onAddNew} onSearch={onSearch} loading={loading}/>
+                <SearchTable isShowAddNew={false} onSearch={onSearch} loading={loading} onAddNew={() => {
+                }}/>
                 <div className='admin-table'>
                     <DataTable
                         loading={loading}
