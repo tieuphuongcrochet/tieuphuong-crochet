@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, CheckboxOptionType, CheckboxProps, Divider, Form, Input, List, Modal, Popconfirm, Select, TreeSelect, TreeSelectProps, Typography, } from 'antd';
-import { useAppDispatch } from 'app/hooks';
-import { categoryAction } from '../../../saga/category/categorySlice';
-import { Category, DataType } from 'models';
+import { Button, Checkbox, CheckboxOptionType, CheckboxProps, Divider, Form, Input, List, Modal, Popconfirm, Typography, } from 'antd';
 import { SaveOutlined, DeleteOutlined } from '@ant-design/icons';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
+
+import { useAppDispatch } from 'app/hooks';
+import { categoryAction } from 'saga/category/categorySlice';
+import { Category, DataType } from 'models';
 
 interface CUCategoryProps {
   categorySelected: DataType;
