@@ -1,4 +1,4 @@
-import {Category, DataType, ListParams, User} from 'models';
+import {DataType, ListParams, User} from 'models';
 import { API_URL } from "utils";
 import axiosClient from "./axiosClient";
 import axiosJWT from './axiosJWT';
