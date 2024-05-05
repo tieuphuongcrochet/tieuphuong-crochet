@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from 'assets/logo.png';
 import { Col, Flex, Image, Row } from 'antd';
-import { FOOTER_LINK } from 'utils/constant';
+import { FOOTER_LINK, ROUTE_PATH } from 'utils/constant';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import { FormattedMessage } from 'react-intl';
@@ -11,6 +11,15 @@ interface FooterProps {
 	currentNav: string
 }
 const FooterPage = ({ currentNav }: FooterProps) => {
+
+	const getActiveClass = (path: string) => {
+		if (currentNav === ROUTE_PATH.HOME) {
+			return path === currentNav ? 'actived' : '';
+		} else {
+			return includes(path, currentNav) ? 'actived' : '';
+		}
+	}
+
 	return (
 		<>
 			<footer className='footer-wrap container'>
@@ -18,7 +27,7 @@ const FooterPage = ({ currentNav }: FooterProps) => {
 					<Image preview={false} className='footer-logo' src={logo} />
 					<Row gutter={[48, 12]}>
 						{FOOTER_LINK.map(({ name, path }, index) =>
-							<Col className={`${includes(path, currentNav) && 'actived'}`} key={`${name}_${index}`} md={8} xs={12}>
+							<Col className={`${getActiveClass(path)}`} key={`${name}_${index}`} md={8} xs={12}>
 								<Link className='footer-link' to={path}><FormattedMessage id={name} /></Link>
 							</Col>
 						)}
