@@ -68,7 +68,7 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 		setLoading(true);
 
 		var blob = file.slice(0, file.size);
-		const newFile = new File([blob], `${new Date().getTime()}`, { type: `${file.type}` });
+		const newFile = new File([blob], `${file.name}_${new Date().getTime()}`, { type: `${file.type}` });
 		formData.append('files', newFile);
 		const res: FileUpload[] = await uploadFile.upload(formData);
 		res && setLoading(false);

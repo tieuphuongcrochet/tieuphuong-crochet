@@ -1,4 +1,4 @@
-import { Alert, Button, Divider, Form, Input, Modal, Space } from "antd";
+import { Alert, Button, Divider, Flex, Form, Input, Modal, Space } from "antd";
 import React, { memo, useEffect, useState } from "react";
 import { includes, map } from "lodash";
 
@@ -122,13 +122,15 @@ const BannerType = () => {
 		<>
 			<div className="banner-type-wrapper">
 				<h2 className="align-center">Banner Types</h2>
-				<Button
-					danger
-					className="banner-type__create btn-border"
-					onClick={() => setOpenCUModal({ open: true, id: '' })}
-				>
-					Create
-				</Button>
+				<Flex justify="flex-end">
+					<Button
+						danger
+						className="banner-type__create btn-border"
+						onClick={() => setOpenCUModal({ open: true, id: '' })}
+					>
+						Create
+					</Button>
+				</Flex>
 				<DataTable
 					loading={loading.bannerType}
 					dataSource={bannerTypes}

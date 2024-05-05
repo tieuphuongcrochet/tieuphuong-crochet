@@ -1,64 +1,110 @@
 import React from 'react';
-import './index.scss';
 import { Button, Col, Divider, Form, Input, Row, Space } from 'antd';
-import { REGEX, SOCIALS } from 'utils';
-import SocialBox from 'components/Social';
 import { FormattedMessage } from 'react-intl';
+import emailjs from '@emailjs/browser';
+
+import { REGEX, SOCIALS, notification } from 'utils';
+import SocialBox from 'components/Social';
+import './index.scss';
 
 const Contact = () => {
-  const onSendEmail = (values: any) => {
-    console.log('send email', values);
+  const service_ID = 'service_7v8jlqr';
+  const template_ID = 'template_usd1qy4';
+  const public_KEY = 'FUxGmh_olTTCGh57P';
+  const [form] = Form.useForm();
+
+  const onSendEmail = (value: any) => {
+    const templateParams = {
+      from_name: value.name,
+      from_email: value.email,
+      message: value.content,
+      subject: ((value.subject) as string).toUpperCase()
+    };
+
+    emailjs
+      .send(
+        service_ID,
+        template_ID,
+        templateParams,
+        public_KEY
+      )
+      .then(
+        () => {
+          notification.success({
+            message: <FormattedMessage id='notification.success' />,
+            description: <FormattedMessage id='contact_form.success' />,
+          });
+
+          // Clears the form after sending the email
+          form.resetFields();
+        },
+        (error) => {
+          console.log('error send contact mail', error);
+          notification.success({
+            message: <FormattedMessage id='notification.error' />,
+            description: <FormattedMessage id='contact_form.error' />,
+          })
+        }
+      );
   };
 
   return (
-    <Space direction='vertical' size={40}>
+    <Space direction='vertical' size={40} style={{ width: '100%' }}>
       <Row gutter={30} className="contact-page">
         <Col xs={24} md={12}>
-          <div>
-            <h1 className="content-title">
-              <FormattedMessage id='contact_title' />
-            </h1>
-            <p className="content-text">
-              <FormattedMessage id='contact_content' />
-            </p>
-
-          </div></Col>
+          <h1 className="content-title">
+            <FormattedMessage id='contact_title' />
+          </h1>
+          <p className="content-text">
+            <FormattedMessage id='contact_content' />
+          </p>
+        </Col>
         <Col xs={24} md={12}>
+          <h2 className='align-center'>
+            <FormattedMessage id='contact_form_title' />
+          </h2>
           <Form
             className='form-contact'
             name='contactForm'
+            form={form}
             onFinish={onSendEmail}
           >
-            <h2 className='align-center'>
-              <FormattedMessage id='contact_form_title' />
-            </h2>
+            <Form.Item name='name'
+              rules={[
+                {
+                  required: true,
+                  message: <FormattedMessage id='placeholder_input_name' />
+                }]}
+            >
+              <Input placeholder='Name' />
+            </Form.Item>
             <Form.Item name='email'
               rules={[
                 {
                   required: true,
-                  message: <FormattedMessage id='placeholder_input_email'/>
+                  message: <FormattedMessage id='placeholder_input_email' />
                 },
                 {
                   pattern: new RegExp(REGEX.EMAIL),
-                  message: <FormattedMessage id='error_msg_incorrect_email'/>
+                  message: <FormattedMessage id='error_msg_incorrect_email' />
                 },
               ]}>
               <Input placeholder='Email' />
             </Form.Item>
-            <Form.Item name='title'
+            <Form.Item name='subject'
               rules={[
                 {
                   required: true,
-                  message: <FormattedMessage id='placeholder_input_title'/>
+                  message: <FormattedMessage id='placeholder_input_title' />
                 }]}
             >
-              <Input placeholder='Title' />
+              <Input placeholder='Subject' />
             </Form.Item>
             <Form.Item name='content'
               rules={[
                 {
                   required: true,
-                  message: <FormattedMessage id='placeholder_input_content'/>
+                  message: <FormattedMessage id='placeholder_input_content' />
                 }]}>
               <Input.TextArea rows={4} placeholder='Messages' />
             </Form.Item>
@@ -74,9 +120,9 @@ const Contact = () => {
         <h1 className='align-center'>
           <FormattedMessage id='contact_via' />
         </h1>} />
-      <Row gutter={[36, 36]}>
+      <Row className='justify-center' gutter={[36, 36]}>
         {(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>
-          <Col key={`social_${index}`} xs={24} sm={12} lg={6}>
+          <Col key={`social_${index}`} xs={18} sm={9} lg={6}>
             <SocialBox social={social} src={src} url={url} {...rest} />
           </Col>
         )}

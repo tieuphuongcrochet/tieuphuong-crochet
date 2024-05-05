@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ViewTable from 'components/ViewTable';
 import { useNavigate } from 'react-router-dom';
+import { Alert, Flex } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 import { DataType, initialViewTableParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ROUTE_PATH } from 'utils';
 import { postAction, selectPosts, selectTotalRecords, selectLoading } from 'saga/post/postSlice';
-import HeaderPart from 'components/HeaderPart';
 
 const BlogsPage = () => {
 	const dispatch = useAppDispatch();
@@ -42,10 +43,14 @@ const BlogsPage = () => {
 		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
 	};
 
-
 	return (
-		<div className='blog-page'>
-			<HeaderPart titleId='blog_title' descriptionId='blog_description' />
+		<Flex vertical className='blog-page' gap={30}>
+			<Alert
+				type='success'
+				message={<FormattedMessage id='blog_title' />}
+				description={<FormattedMessage id='blog_description' />}
+				showIcon
+			/>
 			<ViewTable
 				mode='Blog'
 				onReadDetail={(id) => onViewBlog(id)}
@@ -57,7 +62,7 @@ const BlogsPage = () => {
 				total={totalRecords}
 				loading={loading}
 			/>
-		</div>
+		</Flex>
 	)
 }
 

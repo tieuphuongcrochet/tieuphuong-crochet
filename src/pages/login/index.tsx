@@ -83,7 +83,7 @@ const Login = () => {
 							]}
 						>
 							<Input.Password
-							    autoComplete="new-password"
+								autoComplete="new-password"
 								prefix={<LockOutlined className="site-form-item-icon" />}
 								placeholder="Password" />
 						</Form.Item>
@@ -100,6 +100,7 @@ const Login = () => {
 							<Space size='small'>
 								<Button
 									type="primary"
+									loading={loading}
 									htmlType="submit"
 									className="login-form-button btn-border"
 									disabled={loading}

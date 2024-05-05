@@ -146,12 +146,12 @@ const CRUPattern = () => {
                 <Item
                     name='files'
                     label='Pattern'>
-                    {/* <UploadFiles
+                    <UploadFiles
                         files={pattern.files || []}
                         onChangeFile={(files: FileUpload[]) => {
                             form.setFieldsValue({ files: files });
                         }}
-                    /> */}
+                    />
                 </Item>
                 <Item
                     name='content'

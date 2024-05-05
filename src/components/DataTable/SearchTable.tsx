@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Flex, Form, Input, Radio, RadioChangeEvent, Row, TreeSelect } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
+import { SearchProps } from 'antd/es/input';
+
 import { Filter, SearchParams, SearchTableProps } from 'models';
-import './style.scss';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction } from 'saga/category/categorySlice';
 import { ALL_ITEM, OPERATOR } from 'utils';
-import { ReloadOutlined } from '@ant-design/icons';
-import { SearchProps } from 'antd/es/input';
+import './style.scss';
 
 
 const initialFilter: Filter[] = [
@@ -95,7 +95,7 @@ const SearchTable = ({
     }
 
     return (
-        <Flex gap="small" className='search-table' justify='space-between'>
+        <Flex gap="small" wrap='wrap' className='search-table' justify='space-between'>
             {
                 isShowSearch &&
                 <Form

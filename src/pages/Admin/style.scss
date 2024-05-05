@@ -16,6 +16,10 @@
   .ant-menu {
     border: 0;
   }
+
+  main.ant-layout-content{
+    overflow-x: auto;
+  }
 }
 
 .form-wrap {
