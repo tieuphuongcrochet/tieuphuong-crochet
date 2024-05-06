@@ -1,12 +1,12 @@
 import { FormattedNumber } from 'react-intl';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import { DataType, SearchParams, initialListParams } from 'models';
-import { productAction, selectLoading, selectProducts, selectTotalRecords } from '../../../saga/product/productSlice';
+import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'saga/product/productSlice';
 import { ROUTE_PATH } from 'utils';
 
 const ProductsList = () => {
@@ -37,11 +37,6 @@ const ProductsList = () => {
 
     const columns = [
         {
-            title: 'Show on home',
-            dataIndex: 'is_home',
-            render: (value: boolean) => value ? 'Yes' : 'No'
-        },
-        {
             title: 'Category',
             dataIndex: 'category',
             render: (category: any) => (
@@ -60,6 +55,11 @@ const ProductsList = () => {
             title: 'Currency',
             dataIndex: 'currency_code',
             width: '100px',
+        },
+        {
+            title: 'Show on home',
+            dataIndex: 'is_home',
+            render: (value: boolean) => value ? 'Yes' : 'No'
         },
     ];
 
