@@ -107,7 +107,7 @@ const BannerForm = ({
 				<Col xs={24} md={10}>
 					<Item
 						name='bannerImage'
-						label='Banner Image:'
+						label='Banner Image (16x9):'
 						rules={[
 							{ required: true, message: 'Please upload banner image' }
 						]}

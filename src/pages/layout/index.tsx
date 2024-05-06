@@ -16,6 +16,7 @@ const LayoutPage = () => {
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		const nav = location.pathname.split('/')[1];
 		setCurrentNav(`/${nav}`);
 	}, [location.pathname]);

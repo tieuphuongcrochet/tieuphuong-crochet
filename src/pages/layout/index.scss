@@ -169,6 +169,10 @@
     font-size: 1.4em;
     font-family: "Rubik", "HelveticaNeue", "Helvetica Neue", sans-serif;
   }
+
+  .ant-image  {
+    box-shadow: 0 10px 10px 0px $colorPrimary;
+  }
 }
 
 @media screen and (min-width: $xs) {
