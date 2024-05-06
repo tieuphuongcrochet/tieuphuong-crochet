@@ -16,7 +16,7 @@ interface UploadFilesProps extends UploadProps {
 	isShowDirectory?: boolean;
 };
 
-const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, isShowDirectory= true }: UploadFilesProps) => {
+const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, isShowDirectory = true }: UploadFilesProps) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
@@ -56,6 +56,15 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 		});
 	};
 
+	const getNewFile = (file: File) => {
+		const name = file.name.split('.');
+		const ext = name[name.length - 1];
+		const newName = `${name[0]}_${new Date().getTime()}.${ext}`;
+		
+		var blob = file.slice(0, file.size);
+		return new File([blob], newName, { type: file.type });
+	}
+
 	const customUploadFiles = async ({ file, onSuccess, onError }: any) => {
 		const isLimit5Mb = file?.size / 1024 / 1024 < 5;
 		if (!isLimit5Mb) {
@@ -67,9 +76,7 @@ const UploadFiles = ({ onChangeFile, files, imgsNumber = 20, isMultiple = true, 
 		const formData = new FormData();
 		setLoading(true);
 
-		var blob = file.slice(0, file.size);
-		const newFile = new File([blob], `${file.name}_${new Date().getTime()}`, { type: `${file.type}` });
-		formData.append('files', newFile);
+		formData.append('files', getNewFile(file));
 		const res: FileUpload[] = await uploadFile.upload(formData);
 		res && setLoading(false);
 

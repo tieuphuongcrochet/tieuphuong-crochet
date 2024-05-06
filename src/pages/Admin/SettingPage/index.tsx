@@ -47,7 +47,7 @@ const SettingPage = () => {
     }
 
 
-    const onEditBanner = (banner: Banner, index: number) => {
+    const onEditBanner = (banner: Banner, index: number) => {       
         const bannerImage: FileUpload[] = [{
             fileContent: banner.fileContent,
             fileName: banner.fileName,
@@ -65,6 +65,7 @@ const SettingPage = () => {
     const onDeleteBanner = (index: number) => {
         const newBannerList = filter([...bannersList], (_, i) => i !== index);
         SetBannersList(newBannerList);
+        setIsUpdatedBList(true);
     }
 
     const validateBanners = () => {
