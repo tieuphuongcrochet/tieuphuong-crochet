@@ -26,6 +26,7 @@ import { NotFound } from 'components/Common/NotFound';
 import ProductDetail from 'pages/shop/ProductDetail';
 import SettingPage from 'pages/Admin/SettingPage';
 import PostDetail from 'pages/blog/BlogDetail';
+import CRUUser from "../pages/Admin/users/CRUUser";
 
 const router = createHashRouter([
   {
@@ -114,7 +115,7 @@ const router = createHashRouter([
       },
       {
         path: `${ROUTE_PATH.ADMIN_USERS}/${ROUTE_PATH.DETAIL}/:id`,
-        element: <UsersList />
+        element: <CRUUser />
       },
       // product
       {

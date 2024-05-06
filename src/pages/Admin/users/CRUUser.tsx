@@ -1,36 +1,26 @@
-import { Flex, Form, Row, Col, Input, Button } from 'antd';
+import {Button, Col, Flex, Form, Input, Row, TreeSelect} from 'antd';
 
-import { User } from 'models';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
-import { selectUser, userAction } from './userSlice';
-import { ROUTE_PATH } from 'utils';
-import { cloneDeep } from 'lodash';
-import UsersList from '.';
+import {User} from 'models';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from 'app/hooks';
+import {useNavigate, useParams} from 'react-router-dom';
+import {selectUser, userAction} from './userSlice';
+import {ROLES, ROUTE_PATH} from 'utils';
+import {cloneDeep} from 'lodash';
 
 const CRUUser = () => {
-
-
     const [form] = Form.useForm();
-    const { TextArea } = Input;
-    const { Item } = Form;
+    const {Item} = Form;
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { id } = useParams();
+    const {id} = useParams();
     const user: User = useAppSelector(selectUser);
 
     useEffect(() => {
         if (id) {
             dispatch(userAction.fetchUser(id));
-        }
-        if (UsersList.length <= 0) {
-            dispatch(userAction.fetchData({
-                _pageNo: 0,
-                _pageSize: 0
-            }));
         }
     }, [dispatch, id]);
 
@@ -42,10 +32,10 @@ const CRUUser = () => {
             }
             form.setFieldsValue(newUser);
         }
-    }, [form, user, id]);
+    }, [user, id]);
 
     const onSubmitForm = (values: User) => {
-        let sendData = { ...values }
+        let sendData = {...values}
         if (id) {
             sendData = {
                 ...sendData,
@@ -56,7 +46,7 @@ const CRUUser = () => {
             form.resetFields();
             navigate(ROUTE_PATH.ADMIN_USERS);
         };
-        dispatch(userAction.cUUser({ params: sendData, callback }));
+        dispatch(userAction.cUUser({params: sendData, callback}));
     }
 
     const onCancel = () => {
@@ -65,47 +55,55 @@ const CRUUser = () => {
         navigate(-1);
     }
 
+    const roleTreeData = [
+        {
+            title: 'Admin',
+            value: ROLES.ADMIN,
+        },
+        {
+            title: 'User',
+            value: ROLES.USER,
+        },
+    ];
+
     return (
         <div>
             <Flex justify="center">
                 <h1>{id ? 'Update the user' : 'Create a new user'}</h1>
             </Flex>
             <Form layout="vertical"
-                name='CUserForm'
-                form={form}
-                onFinish={onSubmitForm}
-                className="form-wrap"
+                  name='CUserForm'
+                  form={form}
+                  onFinish={onSubmitForm}
+                  className="form-wrap"
             >
                 <Row gutter={48}>
                     <Col xs={20} md={12}>
                         <Item
                             name="name"
-                            label="User name:"
-                            rules={[{ required: true, message: 'Please enter user name' }]}
+                            label="Name:"
+                            rules={[{required: true, message: 'Please enter name'}]}
                         >
-                            <Input placeholder="User name" />
+                            <Input placeholder="Enter name"/>
                         </Item>
                     </Col>
                     <Col xs={20} md={12}>
                         <Row gutter={24}>
                             <Col span={12}>
                                 <Item
-                                    name="author"
-                                    label="Author:"
-                                    rules={[{ required: true, message: 'Please enter the author' }]}
+                                    name="role"
+                                    label="Role:"
+                                    rules={[{required: true, message: 'Please enter the role'}]}
                                 >
-                                    <Input placeholder="Author" />
+                                    <TreeSelect
+                                        placeholder="Select a role"
+                                        treeData={roleTreeData}
+                                    />
                                 </Item>
                             </Col>
                         </Row>
                     </Col>
                 </Row>
-                <Item
-                    name="description"
-                    label="Description:"
-                >
-                    <TextArea placeholder="Description" />
-                </Item>
                 <Flex justify='center' gap={24}>
                     <Button className="btn-form" type="primary" htmlType="submit">
                         Submit
