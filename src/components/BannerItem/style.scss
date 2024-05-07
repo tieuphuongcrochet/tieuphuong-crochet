@@ -53,12 +53,8 @@
 
 .slick-list {
 	.slick-slide {
-		opacity: 0;
-		transform: all .4s;
 
 		&.slick-active {
-			opacity: 1;
-
 			.banner-item__infor {
 				animation: moveText 1s forwards;
 			}
