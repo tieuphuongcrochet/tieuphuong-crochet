@@ -17,7 +17,10 @@ const HomePage = () => {
 
 	useEffect(() => {
 		dispatch(homeActions.fetchData());
-		animationHome();
+		const reset = animationHome();
+		return () => {
+			reset();
+		}
 	}, [])
 
 	return (

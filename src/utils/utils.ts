@@ -228,7 +228,7 @@ export function addScrollClasses(name: string) {
   return i === items.length;
 };
 
-export const addScrollClass = (element: HTMLElement) => {
+export const addScrollClass = (element: HTMLElement) => {  
   let added = false;
   const scrollTop = _scrollTop();
   const elTop = element?.offsetTop;

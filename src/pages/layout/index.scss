@@ -290,6 +290,8 @@
 
     .banner-wrap {
       .banner-item {
+        height: calc(100vh - 194px);
+
         &__infor {
 
           .title {
@@ -331,9 +333,6 @@
 @media screen and (min-width: $screen_1024) {
   .layout-wrap {
     .banner-wrap {
-      .banner-item {
-        height: calc(100vh - 194px);
-      }
 
       .ant-carousel .slick-dots {
         &.dots-custom {
@@ -454,20 +453,6 @@
   }
 }
 
-@mixin keyframes($name, $transformFrom, $transformTo) {
-  @keyframes #{$name} {
-    from {
-      transform: $transformFrom;
-      opacity: 0;
-    }
-
-    to {
-      transform: $transformTo;
-      opacity: 1;
-    }
-  }
-}
-
 .scroll-animate {
   .animation-wrap {
 
@@ -490,7 +475,20 @@
     }
   }
 
+  .animation-alert {
+    transition: all 1s ease 0s;
+    -webkit-transition: all 1s ease 0s;
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
   &.scrolling {
+    .animation-alert {
+
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     .animation-wrap {
 
       .content-title,

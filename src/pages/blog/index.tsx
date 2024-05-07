@@ -44,9 +44,10 @@ const BlogsPage = () => {
 	};
 
 	return (
-		<Flex vertical className='blog-page' gap={30}>
+		<Flex vertical className='blog-page scroll-animate' gap={30}>
 			<Alert
 				type='success'
+				className="animation-alert"
 				message={<FormattedMessage id='blog_title' />}
 				description={<FormattedMessage id='blog_description' />}
 				showIcon

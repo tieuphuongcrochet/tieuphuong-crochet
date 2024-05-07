@@ -21,8 +21,13 @@ const PatternDetail = () => {
 	}, []);
 
 	return (
-		<Space direction="vertical" size={60} style={{ width: '100%' }} className="pattern-detail">
-			<Alert showIcon type="warning" message={<FormattedMessage id="free_pattern_note" />} />
+		<Space direction="vertical" size={60} style={{ width: '100%' }} className="pattern-detail scroll-animate">
+			<Alert
+				className="animation-alert"
+				showIcon
+				type="warning"
+				message={<FormattedMessage id="free_pattern_note" />}
+			/>
 			{/* Introducing the pattern */}
 			<IntroductionCard isShowThumbnail data={pattern} />
 			<Divider />
