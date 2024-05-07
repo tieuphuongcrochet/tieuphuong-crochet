@@ -27,7 +27,7 @@ const CardFreePattern = (
 		<Card
 			loading={loading}
 			hoverable
-			className='card-free-pattern'
+			className='card-free-pattern card-item'
 			style={{ width: width || '100%' }}
 			bodyStyle={{
 				overflow: 'hidden',

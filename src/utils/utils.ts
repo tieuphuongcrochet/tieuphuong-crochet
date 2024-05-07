@@ -2,7 +2,7 @@ import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import _get from 'lodash/get';
 import { Category, FileUpload, Paging } from 'models';
 import moment from 'moment';
-import { filter, isEmpty, map } from 'lodash';
+import { filter, forEach, isEmpty, map } from 'lodash';
 import { modal } from './notify';
 import { Banner, TBannerType } from 'models/setting';
 
@@ -179,7 +179,7 @@ export const getDateFormatted = (dateString: any, locale: 'en' | 'vi' = 'en') =>
 
 export const getBaseUrl = () => {
   let url;
-  switch(process.env.NODE_ENV) {
+  switch (process.env.NODE_ENV) {
     case 'production':
       url = 'https://crochet-dd7757682a81.herokuapp.com/';
       break;
@@ -189,4 +189,40 @@ export const getBaseUrl = () => {
   }
 
   return url;
+}
+
+/**
+ * Get the document's vertical scroll position
+ */
+var _scrollTop = function () {
+  return Math.max(
+    document.body.scrollTop,
+    document.documentElement.scrollTop
+  );
+};
+
+export function addScrollClass() {
+  const items = document.querySelectorAll('.scroll-animate');
+  if (items?.length < 1) return;
+
+  let i = 0;
+  forEach(items, (item, index) => {
+    const scrollTop = _scrollTop();
+    const triggerPosition = (item as HTMLDivElement).offsetTop + (window.innerHeight / 3);
+
+    if (scrollTop > triggerPosition) {
+      item.classList.add('scrolling');
+      i++;
+    }
+
+    if (i === items.length) {
+      window.removeEventListener("scroll", addScrollClass);
+    }
+
+  });
+};
+
+export const scrollAnimation = () => {
+  window.scroll({ behavior: 'smooth' })
+  window.addEventListener("scroll", addScrollClass);
 }

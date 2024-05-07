@@ -4,7 +4,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import FooterPage from 'components/footer';
 import HeaderPage from 'components/header';
-import { ROLES, ROUTE_PATH } from 'utils';
+import { ROLES, ROUTE_PATH, scrollAnimation } from 'utils';
 import Banner from './components/Banner';
 import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
@@ -14,6 +14,10 @@ const LayoutPage = () => {
 	const { Content } = Layout;
 	const location = useLocation();
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
+
+	useEffect(() => {
+		scrollAnimation();
+	}, []);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);

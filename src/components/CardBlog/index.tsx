@@ -21,7 +21,7 @@ const BlogCard = ({ item }: BlogCardProps) => {
 
 	return (
 		<Card
-			className='card-article'
+			className='card-article card-item'
 			bordered={false}
 			cover={
 				<div className='artice-image'>

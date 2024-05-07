@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Divider, Form, Input, Row, Space } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import emailjs from '@emailjs/browser';
 
-import { REGEX, SOCIALS, notification } from 'utils';
+import { REGEX, SOCIALS, animationHeader, notification } from 'utils';
 import SocialBox from 'components/Social';
 import './index.scss';
 
@@ -12,6 +12,8 @@ const Contact = () => {
   const template_ID = 'template_usd1qy4';
   const public_KEY = 'FUxGmh_olTTCGh57P';
   const [form] = Form.useForm();
+
+  useEffect(() => animationHeader(), []);
 
   const onSendEmail = (value: any) => {
     const templateParams = {
@@ -50,8 +52,8 @@ const Contact = () => {
 
   return (
     <Space direction='vertical' size={40} style={{ width: '100%' }}>
-      <Row gutter={30} className="contact-page">
-        <Col xs={24} md={12}>
+      <Row gutter={30} className="contact-page scroll-animate">
+        <Col xs={24} md={12} className='animation-wrap'>
           <h1 className="content-title">
             <FormattedMessage id='contact_title' />
           </h1>

@@ -13,7 +13,7 @@ const BlogsNode = () => {
 	const blogs = useAppSelector(selectBlogs);
 
 	return (
-		<div className='blogs'>
+		<div className='blogs scroll-animate'>
 			<HeaderPart titleId='home_blog_title'
 				descriptionId='home_blog_description'
 			/>

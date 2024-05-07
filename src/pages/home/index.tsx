@@ -19,8 +19,8 @@ const HomePage = () => {
 	}, [])
 
 	return (
-		<Spin spinning={loading} tip="Loading...">
-			<div className='home-page'>
+		<div className='home-page'>
+			<Spin spinning={loading} tip="Loading...">
 				{/* Product list */}
 				<ProductsNode />
 
@@ -28,7 +28,7 @@ const HomePage = () => {
 				<FreePatternsNode />
 
 				{/* Social network */}
-				<div className='social'>
+				<div className='social scroll-animate'>
 					<HeaderPart
 						isShowDivider
 						titleId='home_social_title'
@@ -42,8 +42,8 @@ const HomePage = () => {
 					</Row>
 				</div>
 				<BlogsNode />
-			</div>
-		</Spin>
+			</Spin>
+		</div>
 	)
 }
 

@@ -340,6 +340,7 @@
           li {
             height: 15px;
             width: 24px;
+
             button {
               height: 15px;
               width: 15px;
@@ -422,4 +423,89 @@
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+
+@keyframes moveText {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.slick-list {
+  .slick-slide {
+
+    .banner-item__infor {
+      transition: all .1s;
+    }
+
+    &.slick-active {
+      .banner-item__infor {
+        animation: moveText 1s forwards;
+      }
+    }
+  }
+}
+
+@mixin keyframes($name, $transformFrom, $transformTo) {
+  @keyframes #{$name} {
+    from {
+      transform: $transformFrom;
+      opacity: 0;
+    }
+
+    to {
+      transform: $transformTo;
+      opacity: 1;
+    }
+  }
+}
+
+.scroll-animate {
+  .header-title {
+
+    .title,
+    .description {
+      transition: all 1s;
+      opacity: 0;
+    }
+
+    .title {
+      transform: translateY(70px);
+    }
+
+    .description {
+      transform: translateY(100px);
+    }
+  }
+
+  &.scrolling {
+    .header-title {
+
+      .title,
+      .description {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    // .card-item {
+    //   transform: translateY(0);
+    //   opacity: 1;
+    //   // @include keyframes('cardScroll', translateY(100px), translateY(0));
+    // }
+  }
+
+  // .card-item {
+  //   transform: translateY(100px);
+  //   opacity: 0;
+  //   transition: all .5s;
+  // }
+
 }

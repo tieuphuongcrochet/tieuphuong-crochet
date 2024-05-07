@@ -13,7 +13,7 @@ const HeaderPart = ({ titleId, descriptionId, isShowDivider }: HeaderPartProps) 
 	return (
 		<div className="header-part responsive">
 			{isShowDivider && <Divider className="header-divider" />}
-			{titleId && <div className="header-title">
+			{titleId && <div className="header-title animation-wrap">
 				<Flex justify='center' >
 					<h2 className="title"><FormattedMessage id={titleId}/></h2>
 				</Flex>

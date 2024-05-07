@@ -46,7 +46,7 @@ const CardProduct = (
 
 	return (<>
 		<Card
-			className={name ? 'card-product' : 'card-product not-title'}
+			className={name ? 'card-product card-item' : 'card-product not-title card-item'}
 			hoverable
 			bordered={false}
 			style={{ width: width || '100%' }}

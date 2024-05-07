@@ -4,7 +4,7 @@ import { DataType, ListParams, initialViewTableParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
 import { useNavigate } from 'react-router-dom';
-import { ALL_ITEM, ROUTE_PATH } from 'utils';
+import { ALL_ITEM, ROUTE_PATH, animationHeader } from 'utils';
 import { categoryAction } from 'saga/category/categorySlice';
 import HeaderPart from 'components/HeaderPart';
 
@@ -26,6 +26,8 @@ const FreePatterns = () => {
 		}
 		setParams(newParams);
 	}
+
+  useEffect(() => animationHeader(), []);
 
 	useEffect(() => {
 		dispatch(patternAction.fetchData(params));
@@ -61,7 +63,7 @@ const FreePatterns = () => {
 	}
 
 	return (
-		<div className='free-patterns-page'>
+		<div className='free-patterns-page scroll-animate'>
 			<HeaderPart titleId='free_pattern_title' descriptionId='free_pattern_description' />
 			<ViewTable
 				mode='Pattern'

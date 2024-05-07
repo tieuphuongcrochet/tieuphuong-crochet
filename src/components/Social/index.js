@@ -15,6 +15,7 @@ const SocialBox = ({ textColor, src, social, url, description }) => {
 			className='card-social'
 		>
 			<Card
+				className='card-item'
 				bordered={false}
 				hoverable
 				cover={
