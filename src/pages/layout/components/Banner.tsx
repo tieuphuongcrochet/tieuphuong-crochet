@@ -12,7 +12,7 @@ const BannersList = () => {
 
 	return (
 		<div className='banner-wrap'>
-			<Carousel autoplay arrows={true} dots={{className: 'dots-custom'}}>
+			<Carousel autoplay dots={{className: 'dots-custom'}}>
 				{
 					map(getBannersByType(banners, 'Home'), (b, index) => (
 						<BannerItem key={`banner_${index}`} banner={b} />

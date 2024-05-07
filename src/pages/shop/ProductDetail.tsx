@@ -21,8 +21,13 @@ const ProductDetail = () => {
     }, [dispatch, id]);
 
     return (
-        <Space direction="vertical" size={40} style={{ width: '100%' }} className="product-detail">
-            <Alert showIcon type="info" message={<FormattedMessage id="product_note" />} />
+        <Space direction="vertical" size={40} style={{ width: '100%' }} className="product-detail scroll-animate">
+            <Alert
+                className="animation-alert"
+                showIcon
+                type="info"
+                message={<FormattedMessage id="product_note" />}
+            />
 
             {/* Introducing the product */}
             <IntroductionCard isPreviewAvatar={false} data={product} />

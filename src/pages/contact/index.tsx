@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Col, Divider, Form, Input, Row, Space } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import emailjs from '@emailjs/browser';
 
-import { REGEX, SOCIALS, animationHeader, notification } from 'utils';
+import { REGEX, SOCIALS, notification } from 'utils';
 import SocialBox from 'components/Social';
 import './index.scss';
 
@@ -12,8 +12,6 @@ const Contact = () => {
   const template_ID = 'template_usd1qy4';
   const public_KEY = 'FUxGmh_olTTCGh57P';
   const [form] = Form.useForm();
-
-  useEffect(() => animationHeader(), []);
 
   const onSendEmail = (value: any) => {
     const templateParams = {

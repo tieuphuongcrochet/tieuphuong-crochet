@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ALL_ITEM, ROUTE_PATH, animationHeader } from 'utils';
+import { ALL_ITEM, ROUTE_PATH } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { DataType, ListParams, initialViewTableParams } from 'models';
@@ -27,7 +27,6 @@ const ShopPage = () => {
 		setParams(newParams)
 	}
 
-  useEffect(() => animationHeader(), []);
 
 	useEffect(() => {
 		dispatch(productAction.fetchData(params));

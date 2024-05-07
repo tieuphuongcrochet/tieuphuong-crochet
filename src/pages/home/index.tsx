@@ -9,6 +9,7 @@ import FreePatternsNode from './components/FreePatternsNode';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { homeActions, selectHomeLoading } from './homeSlice';
 import './index.scss';
+import { animationHome } from 'utils';
 
 const HomePage = () => {
 	const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		dispatch(homeActions.fetchData());
+		animationHome();
 	}, [])
 
 	return (

@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
 import { Col, Image, Row } from 'antd';
 import coverImg from 'assets/about.jpg';
 
 import { FormattedMessage } from 'react-intl';
-import { animationHeader } from 'utils';
 
 const About = () => {
-
-  useEffect(() => animationHeader(), []);
 
   return (
     <div className="about-page scroll-animate">

@@ -1,10 +1,12 @@
 import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
+import moment from 'moment';
 import _get from 'lodash/get';
 import { Category, FileUpload, Paging } from 'models';
-import moment from 'moment';
 import { filter, forEach, isEmpty, map } from 'lodash';
 import { modal } from './notify';
 import { Banner, TBannerType } from 'models/setting';
+import { checkMobile } from './checkIsMobile';
+import { mobileAndTabletCheck } from './checkMobileOrTablet';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -185,7 +187,7 @@ export const getBaseUrl = () => {
       break;
     case 'development':
     default:
-      url = 'http://localhost:8080';
+      url = 'https://crochet-dd7757682a81.herokuapp.com/';
   }
 
   return url;
@@ -202,15 +204,22 @@ export const _scrollTop = function () {
 };
 
 export function addScrollClasses(name: string) {
+
   const items = document.querySelectorAll(name);
   if (items?.length < 1) return;
 
   let i = 0;
-  forEach(items, (item) => {
+  forEach(items, (item, index) => {
     const scrollTop = _scrollTop();
-    const triggerPosition = (item as HTMLDivElement).offsetTop + (window.innerHeight / 3);
+    const divider = getElement('.header-divider');
+    const dividerMarginT = window.getComputedStyle(divider)?.marginTop?.split('p')[0];
+    const dividerHeight = parseInt(dividerMarginT)*2;
 
-    if (scrollTop > triggerPosition) {
+    const HEGHT_ADD_CLASS = (checkMobile() || mobileAndTabletCheck()) ? -dividerHeight : dividerHeight;
+
+    const triggerPosition = (item as HTMLDivElement)?.offsetTop + HEGHT_ADD_CLASS;
+
+    if (scrollTop >= triggerPosition) {
       item.classList.add('scrolling');
       i++;
     }
@@ -219,29 +228,56 @@ export function addScrollClasses(name: string) {
   return i === items.length;
 };
 
-export const addScrollClass = (name: string) => {
+export const addScrollClass = (element: HTMLElement) => {
   let added = false;
-  const element = getElement(name);
   const scrollTop = _scrollTop();
-  const elTop = element?.offsetHeight;
+  const elTop = element?.offsetTop;
 
-  if (scrollTop > elTop / 3) {
+  if (scrollTop > elTop / 6) {
     element.classList.add('scrolling')
     added = true;
   }
-
   return added;
 }
 
 export const animationHeader = (name?: string) => {
+  const element = getElement(name || '.scroll-animate');
+
+  // <-- Mobile or tablet
+  if (checkMobile() || mobileAndTabletCheck()) {
+    setTimeout(() => {
+      element.classList.add('scrolling');
+    }, 0);
+    return () => element.classList.remove('scrolling');
+  }
+
   // <-- DOM-Window, extends DOM-EventTarget
   const win: Window = window;
-
   const onScroll: EventListener = () => {
-    const added = addScrollClass(name || '.scroll-animate');
+    const added = addScrollClass(element);
     added && win.removeEventListener("scroll", onScroll);
   };
 
   win.addEventListener("scroll", onScroll);
   return () => win.removeEventListener("scroll", onScroll);
+}
+
+
+export const animationHome = () => {
+  const items = document.querySelectorAll('.scroll-animate');
+  if (checkMobile() || mobileAndTabletCheck()) {
+    items[0].classList.add('scrolling');
+  }
+
+  // <-- DOM-Window, extends DOM-EventTarget
+  const win: Window = window;
+  const onScrollHome: EventListener = () => {
+    const added = addScrollClasses('.scroll-animate');
+    if (added) {
+      win.removeEventListener("scroll", onScrollHome);
+    }
+  };
+
+  win.addEventListener("scroll", onScrollHome);
+  return () => win.removeEventListener("scroll", onScrollHome);
 }

@@ -4,7 +4,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import FooterPage from 'components/footer';
 import HeaderPage from 'components/header';
-import { ROLES, ROUTE_PATH, addScrollClasses } from 'utils';
+import { ROLES, ROUTE_PATH, animationHeader } from 'utils';
 import Banner from './components/Banner';
 import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
@@ -16,24 +16,13 @@ const LayoutPage = () => {
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
 
 	useEffect(() => {
-		// <-- DOM-Window, extends DOM-EventTarget
-		const win: Window = window;
-		const onScroll: EventListener = () => {
-			const added = addScrollClasses('.scroll-animate');
-			if (added) {
-				win.removeEventListener("scroll", onScroll);
-			}
-		};
-
-		win.addEventListener("scroll", onScroll);
-
-		return () => win.removeEventListener("scroll", onScroll);
-	}, []);
-
-	useEffect(() => {
 		window.scrollTo(0, 0);
 		const nav = location.pathname.split('/')[1];
 		setCurrentNav(`/${nav}`);
+
+		if(location.pathname !== ROUTE_PATH.HOME) {
+			animationHeader();
+		}
 	}, [location.pathname]);
 
 	const currentUser = useAppSelector((state) => state.auth.currentUser);
