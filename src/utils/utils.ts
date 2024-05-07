@@ -187,7 +187,7 @@ export const getBaseUrl = () => {
       break;
     case 'development':
     default:
-      url = 'https://crochet-dd7757682a81.herokuapp.com/';
+      url = 'https://localhost:8080';
   }
 
   return url;
