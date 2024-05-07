@@ -8,12 +8,13 @@ import ReadMoreBtn from 'components/ReadMoreBtn';
 import HeaderPart from '../../../components/HeaderPart';
 
 import { ROUTE_PATH } from 'utils/constant';
-import { selectHomeProducts } from '../homeSlice';
+import { selectHomeLoading, selectHomeProducts } from '../homeSlice';
 import { useAppSelector } from 'app/hooks';
 
 const ProductsNode = () => {
 
   const products = useAppSelector(selectHomeProducts);
+  const loading = useAppSelector(selectHomeLoading);
   const navigate = useNavigate();
 
   const onViewProduct = (id) => {
@@ -32,6 +33,7 @@ const ProductsNode = () => {
             map(products, (product, index) =>
               <Col key={`product_${index}`} xs={24} sm={12} md={8} lg={6} >
                 <CardProduct
+                  loading={loading}
                   product={product}
                   onReadDetail={() => onViewProduct(product.id || '')}
                 />

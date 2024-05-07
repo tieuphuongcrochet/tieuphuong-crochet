@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Card, Image, Tooltip } from 'antd';
+import {  Card, Image, Skeleton, Tooltip } from 'antd';
 import { EditOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ interface CardProductProps {
 	onShopping?: Function;
 	onReadDetail?: Function;
 	parentLink?: string;
+	loading?: boolean;
 };
 
 const CardProduct = (
@@ -25,10 +26,11 @@ const CardProduct = (
 		onPreview,
 		onReadDetail,
 		onShopping,
-		parentLink = `${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}`
+		parentLink = `${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}`,
+		loading
 	}: CardProductProps) => {
 	const { Meta } = Card;
-	const { currency_code, price, name, src, link, id } = product;
+	const { currency_code, price, name, src, link, id, imagesPreview } = product;
 
 	const onClickBtn = () => {
 		if (onReadDetail instanceof Function) {
@@ -53,12 +55,19 @@ const CardProduct = (
 			}}
 			cover={
 				<>
-					<Image
-						alt={name}
-						src={src}
-						fallback={IMAGE_FALLBACK}
-					/>
-				</>
+				{src && loading ?
+					<Skeleton.Image active /> :
+					<Image.PreviewGroup
+						items={imagesPreview}
+					>
+						<Image
+							alt={name}
+							src={src}
+							fallback={IMAGE_FALLBACK}
+						/>
+					</Image.PreviewGroup>
+				}
+			</>
 			}
 			actions={[
 				<Tooltip color='#fc8282' title={<FormattedMessage id='btn_buy'/>}>

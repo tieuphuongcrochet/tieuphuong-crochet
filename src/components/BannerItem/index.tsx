@@ -20,7 +20,7 @@ const BannerItem = ({ banner, classNames }: BannerItemProps) => {
 				</h4>
 				<h5 style={{ color: textColor ? textColor : '#FFFFFF' }} className='content'>{content}</h5>
 				{url && <Link to={url as string} >
-					<Button className='btn-border' type='primary'>
+					<Button className='btn-view' type='primary'>
 						<FormattedMessage id='btn_view_detail' />
 					</Button>
 				</Link>}
