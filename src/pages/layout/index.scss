@@ -442,7 +442,8 @@
   .slick-slide {
 
     .banner-item__infor {
-      transition: all .1s;
+      transition: all .7s ease 0s;
+      -webkit-transition: all .7s ease 0s;
     }
 
     &.slick-active {
@@ -468,14 +469,18 @@
 }
 
 .scroll-animate {
-  .header-title {
+  .animation-wrap {
 
+    .img-about,
     .title,
+    .content-title,
     .description {
-      transition: all 1s;
+      transition: all .7s ease 0s;
+      -webkit-transition: all .7s ease 0s;
       opacity: 0;
     }
 
+    .content-title,
     .title {
       transform: translateY(70px);
     }
@@ -486,12 +491,17 @@
   }
 
   &.scrolling {
-    .header-title {
+    .animation-wrap {
 
+      .content-title,
       .title,
       .description {
         transform: translateY(0);
         opacity: 1;
+      }
+
+      .img-about {
+        animation: moveText 1s forwards;
       }
     }
 
@@ -500,6 +510,11 @@
     //   opacity: 1;
     //   // @include keyframes('cardScroll', translateY(100px), translateY(0));
     // }
+
+    .form-contact {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   // .card-item {

@@ -194,19 +194,19 @@ export const getBaseUrl = () => {
 /**
  * Get the document's vertical scroll position
  */
-var _scrollTop = function () {
+export const _scrollTop = function () {
   return Math.max(
     document.body.scrollTop,
     document.documentElement.scrollTop
   );
 };
 
-export function addScrollClass() {
-  const items = document.querySelectorAll('.scroll-animate');
+export function addScrollClasses(name: string) {
+  const items = document.querySelectorAll(name);
   if (items?.length < 1) return;
 
   let i = 0;
-  forEach(items, (item, index) => {
+  forEach(items, (item) => {
     const scrollTop = _scrollTop();
     const triggerPosition = (item as HTMLDivElement).offsetTop + (window.innerHeight / 3);
 
@@ -214,15 +214,34 @@ export function addScrollClass() {
       item.classList.add('scrolling');
       i++;
     }
-
-    if (i === items.length) {
-      window.removeEventListener("scroll", addScrollClass);
-    }
-
   });
+
+  return i === items.length;
 };
 
-export const scrollAnimation = () => {
-  window.scroll({ behavior: 'smooth' })
-  window.addEventListener("scroll", addScrollClass);
+export const addScrollClass = (name: string) => {
+  let added = false;
+  const element = getElement(name);
+  const scrollTop = _scrollTop();
+  const elTop = element?.offsetHeight;
+
+  if (scrollTop > elTop / 3) {
+    element.classList.add('scrolling')
+    added = true;
+  }
+
+  return added;
+}
+
+export const animationHeader = (name?: string) => {
+  // <-- DOM-Window, extends DOM-EventTarget
+  const win: Window = window;
+
+  const onScroll: EventListener = () => {
+    const added = addScrollClass(name || '.scroll-animate');
+    added && win.removeEventListener("scroll", onScroll);
+  };
+
+  win.addEventListener("scroll", onScroll);
+  return () => win.removeEventListener("scroll", onScroll);
 }

@@ -22,7 +22,7 @@ const ProductsNode = () => {
   };
 
   return (
-    <div className="products">
+    <div className="products scroll-animate">
       <HeaderPart
         titleId="home_product_title"
         descriptionId='home_product_description'
