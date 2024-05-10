@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import { patternAction } from './patternSlice';
 import uploadFile from 'api/uploadFile';
 import patternService from 'api/pattern';
-import { getAvatar, notification } from 'utils';
+import { getAvatar, mapImagesPreview, notification } from 'utils';
 
 
 function* fetchPatterns({ payload }: any) {
@@ -18,7 +18,8 @@ function* fetchPatterns({ payload }: any) {
 			...item,
 			key: item.id,
 			files: item.files ? map(item.files, f => ({...f,url: f?.fileContent})) : [],
-			src: getAvatar(item.images as FileUpload[])
+			src: getAvatar(item.images as FileUpload[]),
+			imagesPreview: mapImagesPreview(item.images || [])
 		}));
 
 		yield all([

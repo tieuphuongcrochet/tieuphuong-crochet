@@ -38,9 +38,9 @@ const HomePage = () => {
 						isShowDivider
 						titleId='home_social_title'
 						descriptionId='home_social_description' />
-					<Row gutter={[36, 36]}>
+					<Row className='justify-center' gutter={[{ xs: 36, md: 16, lg: 48 }, { xs: 36, md: 16, lg: 48 }]}>
 						{(SOCIALS || []).map(({ social, src, url, ...rest }, index) =>
-							<Col key={`home_social_${index}`} xs={24} sm={12} lg={6}>
+							<Col key={`home_social_${index}`} xs={12} md={6}>
 								<SocialBox social={social} src={src} url={url} {...rest} />
 							</Col>
 						)}

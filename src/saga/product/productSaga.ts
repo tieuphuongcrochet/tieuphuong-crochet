@@ -4,7 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
 import { productAction } from './productSlice';
 import productService from 'api/product';
-import { getAvatar, notification } from 'utils';
+import { getAvatar, mapImagesPreview, notification } from 'utils';
 
 
 function* fetchProducts({ payload }: any) {
@@ -18,7 +18,9 @@ function* fetchProducts({ payload }: any) {
 			author: item.author,
 			description: item.description,
 			images: item.images?.map(f => ({...f, url: f?.fileContent})),
-			src: getAvatar(item.images as FileUpload[])
+			src: getAvatar(item.images as FileUpload[]),
+			imagesPreview: mapImagesPreview(item.images || [])
+
 		}));
 
 		yield all([

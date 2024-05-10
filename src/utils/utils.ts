@@ -281,3 +281,8 @@ export const animationHome = () => {
   win.addEventListener("scroll", onScrollHome);
   return () => win.removeEventListener("scroll", onScrollHome);
 }
+
+export function mapImagesPreview(images: FileUpload[]) {
+	const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
+	return filter(list, l => !isEmpty(l.src));
+}

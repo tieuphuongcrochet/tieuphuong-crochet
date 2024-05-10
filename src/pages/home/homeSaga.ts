@@ -1,16 +1,11 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { filter, isEmpty, map } from "lodash";
+import { map } from "lodash";
 
-import { FileUpload, HomeData, Pattern, Product } from "models";
+import { HomeData, Pattern, Product } from "models";
 import homeApi from "api/homeApi";
 import { homeActions } from "./homeSlice";
 import { Post } from "models/post";
-import { getAvatar } from "utils";
-
-function mapImagesPreview(images: FileUpload[]) {
-	const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
-	return filter(list, l => !isEmpty(l.src));
-}
+import { getAvatar, mapImagesPreview } from "utils";
 
 function* fetchDataHome() {
 	try {

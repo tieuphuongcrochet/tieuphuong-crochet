@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Image, Skeleton } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
-import './index.scss';
 import { Pattern, Product } from 'models';
 import { IMAGE_FALLBACK } from 'utils';
+import './index.scss';
 
 interface CardPatternProps {
 	width?: string | number;
@@ -53,7 +54,10 @@ const CardFreePattern = (
 				{name &&
 					<Meta
 						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
-						description={<div className='author'>Tác giả: {author}</div>}
+						description={<div className='author'>
+							<UserOutlined />
+							{author}
+						</div>}
 					/>
 				}
 			</Skeleton>

@@ -22,10 +22,10 @@ const FooterPage = ({ currentNav }: FooterProps) => {
 
 	return (
 		<>
-			<footer className='footer-wrap container'>
+			<footer className='footer-wrap'>
 				<Flex vertical align='center'>
 					<Image preview={false} className='footer-logo' src={logo} />
-					<Row gutter={[48, 12]}>
+					<Row className='footer-link-wrap' gutter={[48, 12]}>
 						{FOOTER_LINK.map(({ name, path }, index) =>
 							<Col className={`${getActiveClass(path)}`} key={`${name}_${index}`} md={8} xs={12}>
 								<Link className='footer-link' to={path}><FormattedMessage id={name} /></Link>

@@ -11,14 +11,16 @@
 
 	&__infor {
 		position: absolute;
-		bottom: 25%;
-		right: 10%;
-		transform: scale(0.5);
 		text-align: center;
+		top: 50%;
+		right: 30%;
+		transform: translate(50%, -50%);
 
 		.title {
 			color: #fff;
 			margin-bottom: 0;
+			transition: all 1s ease 0s;
+			-webkit-transition: all 1s ease 0s;
 		}
 
 		.content {
@@ -32,8 +34,7 @@
 		.btn-view {
 			font-family: "Rubik", "HelveticaNeue", "Helvetica Neue", sans-serif;
 			text-transform: uppercase;
-			padding: 0 5px;
-			height: 30px;
+			padding: 5px;
 			border-radius: 0;
 		}
 	}

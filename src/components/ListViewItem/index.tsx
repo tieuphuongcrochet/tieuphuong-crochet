@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Col, Divider, Flex, Image, Row } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { FormattedMessage } from 'react-intl';
 
 import { IMAGE_FALLBACK, SOCIAL_LINKS } from 'utils';
 import { DataType } from 'models';
 import FormattedCurrency from 'components/FormattedCurrency';
 import './index.scss';
-import { FormattedMessage } from 'react-intl';
 
 interface ListViewItemProps {
 	data: DataType;
@@ -23,7 +24,7 @@ const ListViewItem = (
 		onReadDetail,
 		onShopping,
 	}: ListViewItemProps) => {
-	const { price, name, src, author, link, description, currency_code } = data;
+	const { price, name, src, author, link, description, currency_code, imagesPreview } = data;
 
 
 	const onClickBtn = () => {
@@ -39,21 +40,26 @@ const ListViewItem = (
 	}
 
 	return (<>
-		<Row className='list-card-item'>
-			<Col xs={24} md={8} lg={6} className='image'>
-				<Image
-					alt={name}
-					src={src || ''}
-					fallback={IMAGE_FALLBACK}
-				/>
+		<Row gutter={{ md: 24, lg: 48 }} className='list-card-item'>
+			<Col xs={24} sm={8} lg={7} className='image'>
+				<Image.PreviewGroup
+					items={imagesPreview}
+				>
+					<Image
+						alt={name}
+						src={src}
+						fallback={IMAGE_FALLBACK}
+					/>
+				</Image.PreviewGroup>
 			</Col>
 
-			<Col xs={24} md={16} lg={18}>
+			<Col xs={24} sm={16} lg={17}>
 				<div className='item-infor'>
 					{/* describle */}
 					<div className='information'>
 						<Button className='title' type='link' onClick={onClickBtn}>{name}</Button>
-						{author && <p className='author'>Tac gia: {author}</p>}
+						{author && <p className='author'>
+							<UserOutlined />	Tac gia: {author}</p>}
 						<p>{description}</p>
 					</div>
 

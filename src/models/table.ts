@@ -20,6 +20,7 @@ export interface DataType {
   title?: string;
   content?: string;
   createdDate?: string;
+  imagesPreview?: { src: string, alt: string }[];
 }
 
 export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {

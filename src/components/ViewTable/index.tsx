@@ -202,13 +202,13 @@ const ViewTable = (
 						}
 					</Flex> :
 
-					<Row gutter={[24, 24]}>
+					<Row gutter={[ { xs: 8, sm: 16, xl: 24},{ xs: 12, sm: 16, xl: 24}]}>
 						{
 							dataSource && dataSource.map((item, index) =>
 
-								<Col className='col-data' key={`freepattern_${index}`} xs={24} sm={12} md={8} lg={6} >
+								<Col className='col-data' key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
 									{getCardItem(item)}
-								</Col>
+								</Col>	
 							)
 						}
 					</Row>

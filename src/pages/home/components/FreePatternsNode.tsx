@@ -26,11 +26,14 @@ const FreePatternsNode = () => {
 				descriptionId='home_freepattern_description'
 				isShowDivider
 			/>
-			<Row gutter={[24, 24]}>
+			<Row gutter={[{ xs: 8, sm: 16, xl: 24 }, { xs: 12, sm: 16, xl: 24 }]}>
 				{
 					map(patterns, (pattern, index) =>
-						<Col key={`freepattern_${index}`} xs={24} sm={12} md={8} lg={6} >
-							<CardFreePattern onReadDetail={() => onViewPattern(pattern.id || '')} pattern={pattern} />
+						<Col key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
+							<CardFreePattern
+								pattern={pattern}
+								onReadDetail={() => onViewPattern(pattern.id || '')}
+							/>
 						</Col>
 					)
 				}
