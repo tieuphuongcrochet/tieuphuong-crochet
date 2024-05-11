@@ -223,6 +223,15 @@
   }
 }
 
+.free-patterns-page,
+.shop-page {
+  .header-part {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+// Responsive
 @media screen and (min-width: $screen_425) {
   .container {
     padding: 15px;
@@ -352,6 +361,18 @@
         }
       }
     }
+
+    blockquote {
+      padding: 1.2em 30px 1.2em 75px;
+      margin-bottom: 50px;
+      margin: unset;
+      font-size: 1.2em;
+
+      &::before {
+        left: 30px;
+      }
+
+    }
   }
 
   .header-part {
@@ -364,6 +385,7 @@
   }
 }
 
+// Responsive
 @media screen and (min-width: $lg) {
   .container {
     padding: 80px 100px;
@@ -502,7 +524,7 @@
   user-select: none;
 }
 
-
+// Animation
 @keyframes moveText {
   from {
     transform: translateX(50px);
@@ -623,4 +645,37 @@
   //   transition: all .5s;
   // }
 
+}
+
+blockquote {
+  width: 100%;
+  margin: 0 2px 20px;
+  font-style: italic;
+  padding: 5px 10px 10px 20px;
+  border-left: 8px solid $colorPrimary;
+  line-height: 1.6;
+  position: relative;
+  background: #fee6e6;
+
+  &::before {
+    font-family: Arial;
+    content: "\201C";
+    color: $secondColor;
+    font-size: 4em;
+    position: absolute;
+    left: 1px;
+    top: -5px;
+  }
+
+  &::after {
+    content: '';
+  }
+
+  span {
+    display: block;
+    color: #333333;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 1em;
+  }
 }

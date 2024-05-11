@@ -130,7 +130,7 @@ const ViewTable = (
 				{/* Search */}
 				<Search
 					allowClear
-					placeholder="Input search text"
+					placeholder="Tìm kiếm/ Search"
 					style={{ width: 304 }}
 					onSearch={onSearchBtn}
 				/>

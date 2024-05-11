@@ -40,7 +40,7 @@ const ListViewItem = (
 	}
 
 	return (<>
-		<Row gutter={{ md: 24, lg: 48 }} className='list-card-item'>
+		<Row gutter={{ sm: 8, md: 24, lg: 48 }} className='list-card-item'>
 			<Col xs={24} sm={8} lg={7} className='image'>
 				<Image.PreviewGroup
 					items={imagesPreview}
