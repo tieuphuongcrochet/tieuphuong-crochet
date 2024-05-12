@@ -103,6 +103,11 @@
       }
     }
   }
+
+  .text-box {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 // button
@@ -220,14 +225,6 @@
 
   .ant-image {
     box-shadow: 0 10px 10px 0px $colorPrimary;
-  }
-}
-
-.free-patterns-page,
-.shop-page {
-  .header-part {
-    padding-left: 5px;
-    padding-right: 5px;
   }
 }
 
@@ -362,16 +359,24 @@
       }
     }
 
-    blockquote {
-      padding: 1.2em 30px 1.2em 75px;
-      margin-bottom: 50px;
-      margin: unset;
-      font-size: 1.2em;
+    .editor-view {
 
-      &::before {
-        left: 30px;
+      figure,
+      blockquote {
+        margin: 1em 40px;
       }
 
+      blockquote {
+        padding: 1.2em 30px 1.2em 75px;
+        margin-bottom: 50px;
+        margin: unset;
+        font-size: 1.2em;
+
+        &::before {
+          left: 30px;
+        }
+
+      }
     }
   }
 
@@ -401,6 +406,9 @@
     .list-card-item {
       padding-bottom: 24px;
       padding-top: 24px;
+    }
+    .blog-detail-wrap{
+      padding: 0 60px;
     }
   }
 }
@@ -456,6 +464,14 @@
         &.card-product {
           padding: 15px 15px 0;
         }
+      }
+    }
+
+    .editor-view {
+
+      figure,
+      blockquote {
+        margin: 1.5em 60px;
       }
     }
   }
@@ -647,35 +663,82 @@
 
 }
 
-blockquote {
-  width: 100%;
-  margin: 0 2px 20px;
-  font-style: italic;
-  padding: 5px 10px 10px 20px;
-  border-left: 8px solid $colorPrimary;
-  line-height: 1.6;
-  position: relative;
-  background: #fee6e6;
+// Editor view
+.editor-view {
 
-  &::before {
-    font-family: Arial;
-    content: "\201C";
+  a {
     color: $secondColor;
-    font-size: 4em;
-    position: absolute;
-    left: 1px;
-    top: -5px;
   }
 
-  &::after {
-    content: '';
+  figure,
+  blockquote {
+    margin: 1em;
+
+    figcaption {
+      font-style: italic;
+      font-weight: $fontWeight_semibold;
+    }
   }
 
-  span {
-    display: block;
-    color: #333333;
-    font-style: normal;
-    font-weight: bold;
-    margin-top: 1em;
+  blockquote {
+    margin: 0 2px 20px;
+    font-style: italic;
+    padding: 5px 10px 10px 20px;
+    border-left: 8px solid $colorPrimary;
+    line-height: 1.6;
+    position: relative;
+    background: #fee6e6;
+
+    &::before {
+      font-family: Arial;
+      content: "\201C";
+      color: $secondColor;
+      font-size: 4em;
+      position: absolute;
+      left: 1px;
+      top: -5px;
+    }
+
+    &::after {
+      content: '';
+    }
+
+    span {
+      display: block;
+      color: #333333;
+      font-style: normal;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+
+  }
+
+  // Image 
+  img {
+    width: 100%;
+    height: fit-content;
+    object-fit: contain;
+  }
+
+  table {
+
+    border-left: 1px solid $colorPrimary;
+    border-bottom: 1px solid $colorPrimary;
+    text-align: center;
+    border-spacing: 0;
+
+    tbody {
+      tr:first-child {
+        td {
+          font-weight: $fontWeight_semibold;
+        }
+      }
+
+      td {
+        border-top: 1px solid $colorPrimary;
+        border-right: 1px solid $colorPrimary;
+        padding: 5px 10px;
+      }
+    }
   }
 }

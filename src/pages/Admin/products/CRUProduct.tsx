@@ -1,6 +1,6 @@
 import { Form, Input, TreeSelect, Button, Row, Col, InputNumber, Space, Select, Switch, Flex } from "antd";
 import { useEffect } from "react";
-import { CURRENCY_LIST, ROUTE_PATH } from "utils";
+import { CURRENCY_LIST, DEFAULT_CHART_EDITOR, ROUTE_PATH } from "utils";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { productAction, selectLoading, selectProduct } from "saga/product/productSlice";
@@ -161,10 +161,12 @@ const CRUProduct = () => {
                     name='content'
                     label='Pattern text'
                 >
-                    <EditorComponent onBlur={(_, editor) => {
-                        form.setFieldsValue({ content: editor.getData() })
-                    }} />
-                </Item>                
+                    <EditorComponent
+                        initialData={product?.content}
+                        onBlur={(_, editor) => {
+                            form.setFieldsValue({ content: editor.getData() })
+                        }} />
+                </Item>
                 <Flex justify="center" gap={10} wrap="wrap">
                     <Button
                         className="btn-form"

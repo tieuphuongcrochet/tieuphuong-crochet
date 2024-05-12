@@ -4,7 +4,6 @@ import type { EventInfo } from '@ckeditor/ckeditor5-utils';
 import type { Editor } from '@ckeditor/ckeditor5-core';
 
 import { MyCustomUploadAdapterPlugin } from './MyUploadAdapter';
-import { DEFAULT_CHART_EDITOR } from 'utils';
 
 interface EditorProps {
 	onBlur?: (event: EventInfo, editor: Editor) => void;
@@ -17,10 +16,13 @@ const EditorComponent = ({ onBlur, placeholder, initialData = '' }: EditorProps)
 	return (
 		<CKEditor
 			editor={ClassicEditor}
-			data={initialData || DEFAULT_CHART_EDITOR}
+			data={initialData}
 			config={{
 				extraPlugins: [MyCustomUploadAdapterPlugin],
-				placeholder: placeholder || 'Enter the text'
+				placeholder: placeholder || 'Enter the text',
+				mediaEmbed: {
+					previewsInData: true
+			}
 			}}
 			onBlur={onBlur}
 		/>

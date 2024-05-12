@@ -18,6 +18,11 @@ const CRUPost = () => {
     const post: Post = useAppSelector(selectPost);
     const { id } = useParams();
 
+
+    useEffect(()=> {
+        return onCancelPage();
+    },[]);
+
     useEffect(() => {
         if (id) {
             dispatch(postAction.fetchPost(id));
@@ -25,7 +30,9 @@ const CRUPost = () => {
     }, [id]);
 
     useEffect(() => {
-        if (post.title) {
+        if (id && post.title) {
+            console.log('post', post);
+
             form.setFieldsValue(post);
         }
     }, [post]);
@@ -47,9 +54,15 @@ const CRUPost = () => {
         dispatch(postAction.cUPost({ params: sendData, callback }));
     }
 
-    const onCancel = () => {
+    const onCancelPage = () => {
+        console.log('onCancelPage');
+        
         form.resetFields();
         dispatch(postAction.resetPost());
+    }
+
+    const onCancel = () => {
+        onCancelPage();
         navigate(-1);
     }
 
@@ -96,9 +109,11 @@ const CRUPost = () => {
                     name='content'
                     label='Pattern text'
                 >
-                    <EditorComponent onBlur={(_, editor) => {
-                        form.setFieldsValue({ content: editor.getData() })
-                    }} />
+                    <EditorComponent
+                        initialData={post?.content}
+                        onBlur={(_, editor) => {
+                            form.setFieldsValue({ content: editor.getData() })
+                        }} />
                 </Item>
                 <Flex justify="center" gap={10} wrap="wrap">
                     <Button

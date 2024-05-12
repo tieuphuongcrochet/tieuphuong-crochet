@@ -54,7 +54,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 			}
 
 			if (images.length > 4) {
-				getElement('.thumbnail-photos').classList.add('show-prev-next');
+				getElement('.thumbnail-photos')?.classList.add('show-prev-next');
 			}
 		}
 	}, [data.name,src,images,isShowThumbnail]);

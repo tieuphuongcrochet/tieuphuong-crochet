@@ -62,7 +62,7 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 					}
 					{content &&
 						<>
-							<div className='disable-select' dangerouslySetInnerHTML={{ __html: content || '' }} />
+							<div  className='editor-view disable-select' dangerouslySetInnerHTML={{ __html: content || '' }} />
 						</>
 					}
 				</Space>

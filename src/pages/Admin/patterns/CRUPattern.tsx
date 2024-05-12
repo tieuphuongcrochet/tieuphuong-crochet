@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { cloneDeep } from "lodash";
 
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { ROUTE_PATH } from "utils";
+import { DEFAULT_CHART_EDITOR, ROUTE_PATH } from "utils";
 import UploadFiles from "components/UploadFiles";
 import { FileUpload, Pattern } from "models";
 import { patternAction, selectPattern } from "saga/pattern/patternSlice";
@@ -158,7 +158,7 @@ const CRUPattern = () => {
                     label='Pattern text'
                 >
                     <EditorComponent
-                        initialData={pattern?. content || ''}
+                        initialData={pattern?. content || DEFAULT_CHART_EDITOR}
                         onBlur={(_, editor) => {
                             form.setFieldsValue({ content: editor.getData() })
                         }}

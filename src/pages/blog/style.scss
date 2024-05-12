@@ -1,0 +1,9 @@
+@import 'utils/variables.scss';
+
+.blog-detail-wrap {
+	hr {
+		border-color: $borderColor;
+		border-style: dashed;
+		width: 60%;
+	}
+}

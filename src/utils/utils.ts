@@ -111,7 +111,7 @@ export const DragScroll = (name: string) => {
 
   slider.addEventListener('mousedown', (e: MouseEvent) => { // Type for the event
     isDown = true;
-    slider.classList.add('active');
+    slider?.classList.add('active');
     startX = e.pageX - slider.offsetLeft;
     scrollLeft = slider.scrollLeft;
   });
@@ -220,7 +220,7 @@ export function addScrollClasses(name: string) {
     const triggerPosition = (item as HTMLDivElement)?.offsetTop + HEGHT_ADD_CLASS;
 
     if (scrollTop >= triggerPosition) {
-      item.classList.add('scrolling');
+      item?.classList.add('scrolling');
       i++;
     }
   });
@@ -234,7 +234,7 @@ export const addScrollClass = (element: HTMLElement) => {
   const elTop = element?.offsetTop;
 
   if (scrollTop > elTop / 6) {
-    element.classList.add('scrolling')
+    element?.classList.add('scrolling')
     added = true;
   }
   return added;
@@ -246,9 +246,9 @@ export const animationHeader = (name?: string) => {
   // <-- Mobile or tablet
   if (checkMobile() || mobileAndTabletCheck()) {
     setTimeout(() => {
-      element.classList.add('scrolling');
+      element?.classList.add('scrolling');
     }, 0);
-    return () => element.classList.remove('scrolling');
+    return () => element?.classList.remove('scrolling');
   }
 
   // <-- DOM-Window, extends DOM-EventTarget
@@ -266,7 +266,7 @@ export const animationHeader = (name?: string) => {
 export const animationHome = () => {
   const items = document.querySelectorAll('.scroll-animate');
   if (checkMobile() || mobileAndTabletCheck()) {
-    items[0].classList.add('scrolling');
+    items[0]?.classList.add('scrolling');
   }
 
   // <-- DOM-Window, extends DOM-EventTarget

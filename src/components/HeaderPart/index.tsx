@@ -11,7 +11,7 @@ interface HeaderPartProps {
 
 const HeaderPart = ({ titleId, descriptionId, isShowDivider }: HeaderPartProps) => {
 	return (
-		<div className="header-part responsive">
+		<div className="header-part responsive text-box">
 			{isShowDivider && <Divider className="header-divider" />}
 			{titleId && <div className="header-title animation-wrap">
 				<Flex justify='center' >
