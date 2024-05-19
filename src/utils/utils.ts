@@ -187,7 +187,7 @@ export const getBaseUrl = () => {
       break;
     case 'development':
     default:
-      url = 'https://localhost:8080';
+      url = 'http://localhost:8080';
   }
 
   return url;
