@@ -105,8 +105,8 @@
   }
 
   .text-box {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -324,7 +324,10 @@
   }
 
   .layout-wrap {
-
+    .text-box {
+      padding-left: 0;
+      padding-right: 0;
+    }
     .contact-page,
     .about-page {
       padding: 30px;
@@ -678,6 +681,7 @@
     figcaption {
       font-style: italic;
       font-weight: $fontWeight_semibold;
+      text-align: center;
     }
   }
 
