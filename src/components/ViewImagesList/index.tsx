@@ -44,13 +44,12 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 									{
 										images && (images?.length > 1 ?
 											map(images, (image, index) => (
-												<Col md={12} >
+												<Col md={12} key={`${name}_${index}`}>
 													<DownloadImage
-														key={`${name}_${index}`}
 														src={image.fileContent} />
 												</Col>
 											)) :
-											<Col md={22} >
+											<Col md={22} key={`${name}`}>
 												<DownloadImage
 													key={`${name}_only`}
 													src={images[0]?.fileContent} />
@@ -62,7 +61,7 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 					}
 					{content &&
 						<>
-							<div  className='editor-view disable-select' dangerouslySetInnerHTML={{ __html: content || '' }} />
+							<div  className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: content || '' }} />
 						</>
 					}
 				</Space>

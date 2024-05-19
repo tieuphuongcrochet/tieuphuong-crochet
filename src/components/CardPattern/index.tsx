@@ -54,7 +54,7 @@ const CardFreePattern = (
 				{name &&
 					<Meta
 						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
-						description={<div className='author'>
+						description={<div className='author'> 
 							<UserOutlined />
 							{author}
 						</div>}

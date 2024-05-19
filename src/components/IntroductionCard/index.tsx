@@ -37,7 +37,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 	}, []);
 
 	useEffect(() => {
-		
+
 		if (src) {
 			const index = findIndex(images, (img: FileUpload) => img.fileContent === src);
 			index !== -1 && setActiveThumbnail({ index, src });
@@ -57,7 +57,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 				getElement('.thumbnail-photos')?.classList.add('show-prev-next');
 			}
 		}
-	}, [data.name,src,images,isShowThumbnail]);
+	}, [data.name, src, images, isShowThumbnail]);
 
 	const getImageWidth = () => {
 		return (getElement('.thumbnail-item').offsetWidth + IMAGE_MARGIN) * IMAGE_AMOUNT;
@@ -124,18 +124,20 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 				}
 			</Col>
 			<Col xs={24} md={12}>
-				<span className="card-title mt-0">{name}</span><br />
-				{author && <span className="author"><FormattedMessage id='intro_author'/><i> {author}</i></span>}
-				<p className="description">{description}</p>
-				<Divider />
-				<Space direction="vertical" size='middle'>
-					{price && <FormattedCurrency price={price} currency_code={currency_code} />}
-					{(price || link )&& <Link to={link || SOCIAL_LINKS.FACEBOOK} target="_blank">
-						<Button className="btn-border" type="primary">
-							<FormattedMessage id='btn_buy' />
-						</Button>
-					</Link>}
-				</Space>
+				<div className="text-box">
+					<span className="card-title mt-0">{name}</span><br />
+					{author && <span className="author"><FormattedMessage id='intro_author' /><i> {author}</i></span>}
+					<p className="description">{description}</p>
+					<Divider />
+					<Space direction="vertical" size='middle'>
+						{price && <FormattedCurrency price={price} currency_code={currency_code} />}
+						{(price || link) && <Link to={link || SOCIAL_LINKS.FACEBOOK} target="_blank">
+							<Button className="btn-border" type="primary">
+								<FormattedMessage id='btn_buy' />
+							</Button>
+						</Link>}
+					</Space>
+				</div>
 			</Col>
 		</Row>
 	)

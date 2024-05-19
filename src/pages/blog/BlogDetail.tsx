@@ -37,7 +37,7 @@ const PostDetail = () => {
 				<Col xs={24} sm={12}>
 					<Image preview={false} src={src} alt={title} />
 				</Col>
-				<Flex justify="center">
+				<Flex style={{width: '100%'}} justify="center">
 					<hr />
 				</Flex>
 				<Col>

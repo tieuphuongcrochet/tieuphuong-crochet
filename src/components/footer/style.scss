@@ -1,8 +1,6 @@
 @import 'utils//variables.scss';
 
 .footer-wrap {
-	padding-top: 60px;
-
 	.footer-link {
 		color: $textSecondColor;
 		font-size: 16px;
@@ -25,6 +23,8 @@
 	}
 
 	.footer-logo {
+		border-top: 1px solid $borderColor;
+		padding-top: 60px;
 		max-width: 300px;
 		margin-bottom: 80px;
 	}
