@@ -1,7 +1,7 @@
-import { Col, Flex, Image, Row } from "antd";
+import { Col, Flex, Image, Row, Spin } from "antd";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Post } from "models/post";
-import { postAction, selectPost } from "saga/post/postSlice";
+import { postAction, selectLoading, selectPost } from "saga/post/postSlice";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { LANGUAGES, getDateFormatted } from "utils";
@@ -14,6 +14,7 @@ const PostDetail = () => {
 	const { id } = useParams();
 	const post: Post = useAppSelector(selectPost);
 	const context = useContext(Context);
+	const loading = useAppSelector(selectLoading);
 
 	useEffect(() => {
 		if (id) {
@@ -25,25 +26,28 @@ const PostDetail = () => {
 
 	return (
 		<div className="blog-detail-wrap">
-			<Row gutter={[30, 30]}>
-				<Col xs={24} sm={12} className="text-box">
-					<h1>{title}</h1>
-					{createdDate &&
-						<Flex justify="flex-end">
-							{getDateFormatted(createdDate, context.locale === LANGUAGES.EN ? 'en' : 'vi')}
-						</Flex>
-					}
-				</Col>
-				<Col xs={24} sm={12}>
-					<Image preview={false} src={src} alt={title} />
-				</Col>
-				<Flex style={{width: '100%'}} justify="center">
-					<hr />
-				</Flex>
-				<Col>
-					<div className="editor-view text-box" dangerouslySetInnerHTML={{ __html: content }} />
-				</Col>
-			</Row>
+			<Spin spinning={loading} tip="Loading...">
+
+				<Row gutter={[30, 30]}>
+					<Col xs={24} sm={12} className="text-box">
+						<h1>{title}</h1>
+						{createdDate &&
+							<Flex justify="flex-end">
+								{getDateFormatted(createdDate, context.locale === LANGUAGES.EN ? 'en' : 'vi')}
+							</Flex>
+						}
+					</Col>
+					<Col xs={24} sm={12}>
+						<Image preview={false} src={src} alt={title} />
+					</Col>
+					<Flex style={{ width: '100%' }} justify="center">
+						<hr />
+					</Flex>
+					<Col>
+						<div className="editor-view text-box" dangerouslySetInnerHTML={{ __html: content }} />
+					</Col>
+				</Row>
+			</Spin>
 		</div>
 	)
 }
