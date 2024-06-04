@@ -1,4 +1,4 @@
-import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, Row } from 'antd';
+import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, Row, Spin } from 'antd';
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
 import { map } from 'lodash';
@@ -186,56 +186,58 @@ const ViewTable = (
 				</Menu>
 			}
 
-			{/* Data source */}
-			{
-				direction === 'vertical' ?
-					<Flex vertical className='list-view' >
+			<Spin spinning={loading} tip="Loading...">
+				{/* Data source */}
+				{
+					direction === 'vertical' ?
+						<Flex vertical className='list-view' >
+							{
+								dataSource && dataSource.map((item, index) =>
+									<div className='list-view-item' key={`list-view-item-${index}`}>
+										<ListViewItem
+											data={item}
+											onReadDetail={() => onReadDetail(item.key)}
+										/>
+									</div>
+								)
+							}
+						</Flex> :
+
+						<Row gutter={[{ xs: 8, sm: 16, xl: 24 }, { xs: 12, sm: 16, xl: 24 }]}>
+							{
+								dataSource && dataSource.map((item, index) =>
+
+									<Col className='col-data' key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
+										{getCardItem(item)}
+									</Col>
+								)
+							}
+						</Row>
+				}
+
+				{/* Pagination area */}
+				{dataSource?.length > 0 ?
+					<Pagination
+						className='pagination'
+						responsive
+						total={total}
+						// if not use value = -1}
 						{
-							dataSource && dataSource.map((item, index) =>
-								<div className='list-view-item' key={`list-view-item-${index}`}>
-									<ListViewItem
-										data={item}
-										onReadDetail={() => onReadDetail(item.key)}
-									/>
-								</div>
-							)
+						...(pageIndex !== - 1 ? { current: pageIndex + 1 } : {})
 						}
-					</Flex> :
-
-					<Row gutter={[ { xs: 8, sm: 16, xl: 24},{ xs: 12, sm: 16, xl: 24}]}>
-						{
-							dataSource && dataSource.map((item, index) =>
-
-								<Col className='col-data' key={`freepattern_${index}`} xs={12} sm={8} lg={6} >
-									{getCardItem(item)}
-								</Col>	
-							)
-						}
-					</Row>
-			}
-
-			{/* Pagination area */}
-			{dataSource?.length > 0 ?
-				<Pagination
-					className='pagination'
-					responsive
-					total={total}
-					// if not use value = -1}
-					{
-					...(pageIndex !== - 1 ? { current: pageIndex + 1 } : {})
-					}
-					pageSize={pageSize}
-					showSizeChanger
-					showQuickJumper
-					showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-					onChange={onChange}
-				/>
-				:
-				<Empty
-					imageStyle={{ height: 80 }}
-					image={Empty.PRESENTED_IMAGE_SIMPLE}
-				/>
-			}
+						pageSize={pageSize}
+						showSizeChanger
+						showQuickJumper
+						showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+						onChange={onChange}
+					/>
+					:
+					<Empty
+						imageStyle={{ height: 80 }}
+						image={Empty.PRESENTED_IMAGE_SIMPLE}
+					/>
+				}
+			</Spin>
 		</div>
 	)
 }
