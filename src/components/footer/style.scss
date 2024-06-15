@@ -31,6 +31,9 @@
 
 	.footer-link-wrap {
 		width: 80%;
+		@media screen and (min-width: $screen_1024) {
+			width: 50%;
+		}
 	}
 
 	.copyright-wrap {

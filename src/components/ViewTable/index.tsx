@@ -2,7 +2,7 @@ import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, 
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
 import { map } from 'lodash';
-import { ALL_ITEM } from 'utils';
+import { ALL_ITEM, onScrollBody } from 'utils';
 import { FormattedMessage } from 'react-intl';
 
 import { DataType } from 'models';
@@ -53,12 +53,14 @@ const ViewTable = (
 	const onSearchBtn = (value: string) => {
 		if (onSeach instanceof Function) {
 			onSeach(value);
+			onScrollBody('.data-list');
 		}
 	};
 
 	const onChange = (page: number, pageSize: number) => {
 		if (onChange instanceof Function) {
 			onPageChange(page, pageSize);
+			onScrollBody('.data-list');
 		}
 	};
 

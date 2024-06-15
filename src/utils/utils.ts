@@ -286,3 +286,8 @@ export function mapImagesPreview(images: FileUpload[]) {
 	const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
 	return filter(list, l => !isEmpty(l.src));
 }
+
+export const onScrollBody = (name: string) => {
+  const topHeight = getElement(name)?.offsetTop;
+  window.scrollTo(0, topHeight);
+}

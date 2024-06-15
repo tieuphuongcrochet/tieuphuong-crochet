@@ -4,7 +4,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import FooterPage from 'components/footer';
 import HeaderPage from 'components/header';
-import { ROLES, ROUTE_PATH, animationHeader } from 'utils';
+import { ROLES, ROUTE_PATH, animationHeader, onScrollBody } from 'utils';
 import Banner from './components/Banner';
 import BreadCrumbs from 'components/BreadCrumb';
 import { useAppSelector } from 'app/hooks';
@@ -16,12 +16,17 @@ const LayoutPage = () => {
 	const [currentNav, setCurrentNav] = useState(ROUTE_PATH.HOME);
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
-		const nav = location.pathname.split('/')[1];
-		setCurrentNav(`/${nav}`);
-
+		const navs = location.pathname.split('/');
+		setCurrentNav(`/${navs[1]}`);
 		if(location.pathname !== ROUTE_PATH.HOME) {
 			animationHeader();
+		}
+
+		if(navs.length <= 2) {
+			window.scrollTo(0, 0);
+		}
+		else {
+			onScrollBody('.content-wrap');
 		}
 	}, [location.pathname]);
 

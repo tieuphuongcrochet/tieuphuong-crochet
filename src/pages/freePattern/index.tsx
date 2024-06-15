@@ -27,7 +27,6 @@ const FreePatterns = () => {
 		setParams(newParams);
 	}
 
-
 	useEffect(() => {
 		dispatch(patternAction.fetchData(params));
 	}, [params]);
