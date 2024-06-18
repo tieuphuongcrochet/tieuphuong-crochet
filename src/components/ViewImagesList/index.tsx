@@ -1,9 +1,10 @@
 import { Watermark, Flex, Row, Col, Image, Space, Empty } from "antd"
 import DownloadImage from "components/DownloadImage"
+import PdfViewer from "components/ViewPdf"
 import { map } from "lodash"
 import { FileUpload } from "models"
 import { FormattedMessage } from "react-intl"
-import { IMAGE_FALLBACK } from "utils"
+import { IMAGE_FALLBACK, checkPdfFile, } from "utils"
 
 interface ViewImagesProps {
 	images?: FileUpload[];
@@ -13,7 +14,8 @@ interface ViewImagesProps {
 	contentId?: string;
 }
 
-const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: ViewImagesProps) => {
+const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProps) => {
+
 	return (
 		<div>
 			< Watermark
@@ -50,9 +52,13 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 												</Col>
 											)) :
 											<Col md={22} key={`${name}`}>
-												<DownloadImage
-													key={`${name}_only`}
-													src={images[0]?.fileContent} />
+												{
+													checkPdfFile(images[0]?.fileName) ?
+														<PdfViewer pdfFile={images[0]?.fileContent} /> :
+														<DownloadImage
+															key={`${name}_only`}
+															src={images[0]?.fileContent} />
+												}
 											</Col>)
 									}
 								</Row>
@@ -61,7 +67,7 @@ const ViewImagesList = ({ images, detailId, contentId, name, content = '' }: Vie
 					}
 					{content &&
 						<>
-							<div  className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: content || '' }} />
+							<div className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: content || '' }} />
 						</>
 					}
 				</Space>

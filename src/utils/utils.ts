@@ -213,7 +213,7 @@ export function addScrollClasses(name: string) {
     const scrollTop = _scrollTop();
     const divider = getElement('.header-divider');
     const dividerMarginT = window.getComputedStyle(divider)?.marginTop?.split('p')[0];
-    const dividerHeight = parseInt(dividerMarginT)*2;
+    const dividerHeight = parseInt(dividerMarginT) * 2;
 
     const HEGHT_ADD_CLASS = (checkMobile() || mobileAndTabletCheck()) ? -dividerHeight : dividerHeight;
 
@@ -228,7 +228,7 @@ export function addScrollClasses(name: string) {
   return i === items.length;
 };
 
-export const addScrollClass = (element: HTMLElement) => {  
+export const addScrollClass = (element: HTMLElement) => {
   let added = false;
   const scrollTop = _scrollTop();
   const elTop = element?.offsetTop;
@@ -283,11 +283,17 @@ export const animationHome = () => {
 }
 
 export function mapImagesPreview(images: FileUpload[]) {
-	const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
-	return filter(list, l => !isEmpty(l.src));
+  const list = map(images, img => ({ src: img.fileContent, alt: img.fileName }));
+  return filter(list, l => !isEmpty(l.src));
 }
 
 export const onScrollBody = (name: string) => {
   const topHeight = getElement(name)?.offsetTop;
   window.scrollTo(0, topHeight);
 }
+
+export const checkPdfFile = (fileName: string) => {
+  
+  var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+  return ext === 'pdf';
+};

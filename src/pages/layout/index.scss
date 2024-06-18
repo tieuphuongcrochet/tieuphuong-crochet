@@ -19,7 +19,7 @@
     color: $textPrimaryColor;
   }
 
-  >*,
+  > *,
   .ant-card,
   .ant-row .ant-flex,
   .ant-breadcrumb,
@@ -60,19 +60,18 @@
   h2,
   h3,
   h4 {
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
   }
 
   .banner-wrap {
     .banner-item {
       &__infor {
-
         .title {
           font-size: 1rem;
         }
 
         .content {
-          font-size: .75rem;
+          font-size: 0.75rem;
         }
       }
     }
@@ -84,9 +83,9 @@
             height: 8px;
             width: 8px;
             bottom: 0;
-            background: #FFF;
+            background: #fff;
             color: #fff;
-            opacity: .8;
+            opacity: 0.8;
           }
 
           &.slick-active {
@@ -96,7 +95,7 @@
               height: 10px;
               width: 10px;
               bottom: 4px;
-              background: $colorPrimary
+              background: $colorPrimary;
             }
           }
         }
@@ -111,7 +110,9 @@
 }
 
 // button
-:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+:where(.css-dev-only-do-not-override-1g853jt).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
   color: $colorPrimary;
   border-color: $colorPrimary;
 }
@@ -195,7 +196,6 @@
 }
 
 .ant-input-search {
-
   .ant-input-affix-wrapper,
   .ant-input-group-addon .ant-input-search-button {
     height: 44px;
@@ -212,7 +212,8 @@
 .about-page {
   padding: 20px;
   background-color: #fee6e6;
-  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12),
+    0 5px 12px 4px rgba(0, 0, 0, 0.09);
 
   .content-title {
     color: $textPrimaryColor;
@@ -220,7 +221,7 @@
 
   .content-text {
     font-size: 1.4em;
-    font-family: "Rubik", "HelveticaNeue", "Helvetica Neue", sans-serif;
+    font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
   }
 
   .ant-image {
@@ -241,7 +242,6 @@
   }
 
   .layout-wrap {
-
     .contact-page,
     .about-page {
       padding: 30px;
@@ -249,7 +249,6 @@
 
     .banner-wrap {
       .banner-item {
-
         &__infor {
           .title {
             font-size: 1.5rem;
@@ -342,7 +341,6 @@
         height: calc(100vh - 194px);
 
         &__infor {
-
           .title {
             font-size: 2rem;
           }
@@ -363,7 +361,6 @@
     }
 
     .editor-view {
-
       figure,
       blockquote {
         margin: 1em 40px;
@@ -378,14 +375,19 @@
         &::before {
           left: 30px;
         }
+      }
+    }
+    .view-pdf-wrap {
+      padding: 50px;
 
+      .react-pdf__Page:not(:last-child) {
+        margin-bottom: 20px;
       }
     }
   }
 
   .header-part {
     &.responsive {
-
       .header-divider {
         margin: 80px 0;
       }
@@ -400,7 +402,6 @@
   }
 
   .layout-wrap {
-
     .contact-page,
     .about-page {
       padding: 40px;
@@ -420,7 +421,6 @@
 @media screen and (min-width: $screen_1024) {
   .layout-wrap {
     .banner-wrap {
-
       .ant-carousel .slick-dots {
         &.dots-custom {
           li {
@@ -472,7 +472,6 @@
     }
 
     .editor-view {
-
       figure,
       blockquote {
         margin: 1.5em 60px;
@@ -487,7 +486,6 @@
   }
 
   .layout-wrap {
-
     .contact-page,
     .about-page {
       padding: 50px;
@@ -495,9 +493,7 @@
 
     .banner-wrap {
       .banner-item {
-
         &__infor {
-
           .title {
             font-size: 3rem;
           }
@@ -508,11 +504,13 @@
         }
       }
     }
+    .view-pdf-wrap {
+      padding: 100px;
+    }
   }
 
   .header-part {
     &.responsive {
-
       .header-divider {
         margin: 100px 0;
       }
@@ -532,7 +530,6 @@
       font-size: $fontSize_large;
     }
   }
-
 }
 
 .disable-select {
@@ -556,7 +553,6 @@
     opacity: 1;
   }
 }
-
 
 @keyframes moveBtn {
   from {
@@ -599,7 +595,6 @@
 
 .scroll-animate {
   .animation-wrap {
-
     .img-about,
     .title,
     .content-title,
@@ -628,13 +623,11 @@
 
   &.scrolling {
     .animation-alert {
-
       transform: translateY(0);
       opacity: 1;
     }
 
     .animation-wrap {
-
       .content-title,
       .title,
       .description {
@@ -664,12 +657,10 @@
   //   opacity: 0;
   //   transition: all .5s;
   // }
-
 }
 
 // Editor view
 .editor-view {
-
   a {
     color: $secondColor;
   }
@@ -685,7 +676,6 @@
     }
   }
 
-
   blockquote {
     margin: 0 2px 20px;
     font-style: italic;
@@ -697,7 +687,7 @@
 
     &::before {
       font-family: Arial;
-      content: "\201C";
+      content: '\201C';
       color: $secondColor;
       font-size: 4em;
       position: absolute;
@@ -716,10 +706,9 @@
       font-weight: bold;
       margin-top: 1em;
     }
-
   }
 
-  // Image 
+  // Image
   img {
     max-width: 100%;
     height: fit-content;
@@ -733,7 +722,6 @@
     }
   }
 
-
   // Table
   figure {
     &.table {
@@ -741,7 +729,6 @@
       margin: 0.9em auto;
 
       table {
-
         border-left: 1px solid $borderColor;
         border-bottom: 1px solid $borderColor;
         text-align: center;
