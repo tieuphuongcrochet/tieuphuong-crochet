@@ -19,6 +19,9 @@ const ProductDetail = () => {
         if (id) {
             dispatch(productAction.fetchProduct(id));
         }
+        return () => {
+            dispatch(productAction.resetProduct());
+        }
     }, [dispatch, id]);
 
     return (

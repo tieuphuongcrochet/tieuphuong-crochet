@@ -66,6 +66,7 @@ const Login = () => {
 							<Input
 								maxLength={100}
 								placeholder="Email"
+								autoComplete='email'
 								prefix={<MailOutlined className="site-form-item-icon" />}
 							/>
 						</Form.Item>

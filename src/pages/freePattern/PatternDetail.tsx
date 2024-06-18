@@ -19,6 +19,9 @@ const PatternDetail = () => {
 		if (id) {
 			dispatch(patternAction.fetchPattern(id));
 		}
+		return () => {			
+			dispatch(patternAction.resetPattern());
+		}
 	}, []);
 
 	return (

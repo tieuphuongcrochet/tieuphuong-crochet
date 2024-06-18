@@ -20,6 +20,9 @@ const PostDetail = () => {
 		if (id) {
 			dispatch(postAction.fetchPost(id));
 		}
+		return () => {
+            dispatch(postAction.resetPost());
+        }
 	}, []);
 
 	const { title, content, createdDate, src } = post;

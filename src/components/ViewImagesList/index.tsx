@@ -53,8 +53,8 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 											)) :
 											<Col md={22} key={`${name}`}>
 												{
-													checkPdfFile(images[0]?.fileName) ?
-														<PdfViewer pdfFile={images[0]?.fileContent} /> :
+													// checkPdfFile(images[0]?.fileName) ?
+													// 	<PdfViewer pdfFile={images[0]?.fileContent} /> :
 														<DownloadImage
 															key={`${name}_only`}
 															src={images[0]?.fileContent} />
