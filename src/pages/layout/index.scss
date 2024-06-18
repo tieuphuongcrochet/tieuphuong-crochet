@@ -162,6 +162,7 @@
     .ant-card-body {
       padding: 8px;
 
+      .ant-card-meta-title,
       .card-title {
         font-size: $fontSize_small;
         -webkit-line-clamp: 2;
@@ -452,6 +453,7 @@
         .ant-card-body {
           padding: 24px 20px;
 
+          .ant-card-meta-title,
           .card-title {
             font-size: $fontSize_middle;
           }
