@@ -183,7 +183,7 @@ export const getBaseUrl = () => {
   let url;
   switch (process.env.NODE_ENV) {
     case 'production':
-      url = 'https://crochet-dd7757682a81.herokuapp.com/';
+      url = 'https://tieuphuongcrochet-90b41ee4488a.herokuapp.com/';
       break;
     case 'development':
     default:
