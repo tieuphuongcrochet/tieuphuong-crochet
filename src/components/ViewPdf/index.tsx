@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
 
 import './style.scss';
 
@@ -12,12 +10,11 @@ const PdfViewer = ({ pdfFile }: { pdfFile: any }) => {
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
-
   }
+
   return (
     <div className='view-pdf-wrap'>
       <Document
-        options={{ workerSrc: "/pdf.worker.mjs" }}
         file={pdfFile}
         onLoadSuccess={onDocumentLoadSuccess}
       >
