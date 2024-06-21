@@ -1,4 +1,4 @@
-import { Watermark, Flex, Row, Col, Image, Space, Empty } from "antd"
+import { Watermark, Flex, Row, Col, Image, Empty } from "antd"
 import DownloadImage from "components/DownloadImage"
 import PdfViewer from "components/ViewPdf"
 import { map } from "lodash"
