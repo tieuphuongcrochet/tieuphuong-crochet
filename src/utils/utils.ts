@@ -187,7 +187,7 @@ export const getBaseUrl = () => {
       break;
     case 'development':
     default:
-      url = 'https://tieuphuongcrochet-90b41ee4488a.herokuapp.com/';
+      url = 'http://localhost:8080/';
   }
 
   return url;
