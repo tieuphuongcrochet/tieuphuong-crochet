@@ -3,11 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 
 import './style.scss';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
-
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const PdfViewer = ({ pdfFile }: { pdfFile: any }) => {
   const [numPages, setNumPages] = useState<number>();
@@ -19,7 +15,7 @@ const PdfViewer = ({ pdfFile }: { pdfFile: any }) => {
   return (
     <div className='view-pdf-wrap'>
       <Document
-        options={{ workerSrc: "/pdf.worker.js" }}
+        // options={{ workerSrc: "/pdf.worker.js" }}
         file={pdfFile}
         onLoadSuccess={onDocumentLoadSuccess}
       >
