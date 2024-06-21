@@ -21,11 +21,7 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 			< Watermark
 				content={['小方', 'Tiểu Phương Crochet']}
 			>
-				<Space
-					size={30}
-					style={{ width: '100%' }}
-					direction="vertical"
-					align="center"
+				<div
 					className={`${name}-detail-content`}
 				>
 					<h1 className="align-center mt-0">
@@ -42,7 +38,7 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 							fallback={IMAGE_FALLBACK}
 						>
 							<Flex className="image-detail" justify='center' wrap="wrap" gap={24}>
-								<Row gutter={[30, 30]} className='justify-center'>
+								<Row style={{ width: '100%' }} gutter={[30, 30]} className='justify-center'>
 									{
 										images && (images?.length > 1 ?
 											map(images, (image, index) => (
@@ -53,8 +49,8 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 											)) :
 											<Col md={22} key={`${name}`}>
 												{
-													// checkPdfFile(images[0]?.fileName) ?
-													// 	<PdfViewer pdfFile={images[0]?.fileContent} /> :
+													checkPdfFile(images[0]?.fileName) ?
+														<PdfViewer pdfFile={images[0]?.fileContent} /> :
 														<DownloadImage
 															key={`${name}_only`}
 															src={images[0]?.fileContent} />
@@ -70,7 +66,7 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 							<div className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: content || '' }} />
 						</>
 					}
-				</Space>
+				</div>
 			</Watermark >
 		</div>
 	)

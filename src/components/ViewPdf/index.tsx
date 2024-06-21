@@ -8,6 +8,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
+const options = {
+  cMapUrl: '/cmaps/',
+  standardFontDataUrl: '/standard_fonts/',
+};
+
 const PdfViewer = ({ pdfFile }: { pdfFile: any }) => {
   const [numPages, setNumPages] = useState<number>();
 
@@ -15,10 +20,11 @@ const PdfViewer = ({ pdfFile }: { pdfFile: any }) => {
     setNumPages(numPages);
 
   }
- 
+
   return (
     <div className='view-pdf-wrap'>
       <Document
+        options={options}
         file={pdfFile}
         onLoadSuccess={onDocumentLoadSuccess}
       >

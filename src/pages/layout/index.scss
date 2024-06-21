@@ -25,7 +25,9 @@
   .ant-breadcrumb,
   .ant-btn-link,
   .ant-menu,
-  button {
+  button,
+  p,
+  li {
     font-family: 'Rubik', 'HelveticaNeue', 'Helvetica Neue', sans-serif;
   }
 
@@ -365,6 +367,7 @@
       figure,
       blockquote {
         margin: 1em 40px;
+        font-size: $fontSize_middle;
       }
 
       blockquote {
@@ -377,12 +380,16 @@
           left: 30px;
         }
       }
+      
+      li,p, h4{
+        font-size: $fontSize_middle;
+      }
     }
     .view-pdf-wrap {
       padding: 50px;
 
       .react-pdf__Page:not(:last-child) {
-        margin-bottom: 20px;
+        margin-bottom: 50px;
       }
     }
   }
@@ -530,6 +537,12 @@
   .tabs-menu {
     .ant-menu-item {
       font-size: $fontSize_large;
+    }
+  }
+
+  .layout-wrap{
+    .view-pdf-wrap {
+      padding:100px 150px;
     }
   }
 }
