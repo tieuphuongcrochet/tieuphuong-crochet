@@ -126,7 +126,7 @@ const IntroductionCard = ({ data, isShowThumbnail, isPreviewAvatar }: Introducti
 			<Col xs={24} md={12}>
 				<div className="text-box">
 					<span className="card-title mt-0">{name}</span><br />
-					{author && <span className="author"><FormattedMessage id='intro_author' /><i> {author}</i></span>}
+					{author && <span className="author"><FormattedMessage id='intro_author' />&nbsp;<i>{author}</i></span>}
 					<p className="description">{description}</p>
 					<Divider />
 					<Space direction="vertical" size='middle'>

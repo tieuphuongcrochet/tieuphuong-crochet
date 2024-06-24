@@ -59,7 +59,7 @@ const ListViewItem = (
 					<div className='information'>
 						<Button className='title' type='link' onClick={onClickBtn}>{name}</Button>
 						{author && <p className='author'>
-							<UserOutlined />	Tac gia: {author}</p>}
+							<UserOutlined />&nbsp;<FormattedMessage id='intro_author' />&nbsp;{author}</p>}
 						<p>{description}</p>
 					</div>
 
