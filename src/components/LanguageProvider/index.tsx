@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IntlProvider } from "react-intl";
+import { LANGUAGES } from "utils";
 
 interface LanguageProviderProps {
 	children: React.ReactNode
@@ -15,14 +16,15 @@ const local = navigator.language;
 
 const LanguageProvider = ({ children }: LanguageProviderProps) => {
 	const [locale, setLocale] = useState(local);
+	const newLocale = locale.includes('vi') ? LANGUAGES.VN : LANGUAGES.EN;
 
-	const messages = require(`translation/${locale}.ts`).default;
+	const messages = require(`translation/${newLocale}.ts`).default;
 
 	return (
-		<Context.Provider value={{ locale, setLocale }}>
+		<Context.Provider value={{locale: newLocale, setLocale }}>
 			<IntlProvider
-				locale={locale}
-				key={locale}
+				locale={newLocale}
+				key={newLocale}
 				messages={messages}
 			>
 				{React.Children.only(children)}
