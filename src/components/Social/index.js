@@ -3,7 +3,8 @@ import Meta from 'antd/es/card/Meta';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import logo from '../../assets/logo.png';
+import { SOCIAL_LINKS } from 'utils';
+import logo from 'assets/logo.png';
 import './style.scss';
 
 const SocialBox = ({ textColor, src, social, url, description }) => {
@@ -14,6 +15,7 @@ const SocialBox = ({ textColor, src, social, url, description }) => {
 			className='card-social'
 		>
 			<Card
+				className='card-item'
 				bordered={false}
 				hoverable
 				cover={
@@ -41,7 +43,7 @@ SocialBox.propTypes = {
 SocialBox.defaultProps = {
 	textColor: '#333',
 	src: logo,
-	url: 'https://www.facebook.com/tieuconuong.tiemlen/',
+	url: SOCIAL_LINKS.FACEBOOK,
 	description: ''
 };
 

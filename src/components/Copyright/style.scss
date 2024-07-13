@@ -1,0 +1,13 @@
+@import 'utils//variables.scss';
+
+.copyright-wrap {
+  .copyright {
+    padding: 30px 0;
+    text-align: center;
+  }
+  .social-link {
+    a {
+      color: $colorPrimary;
+    }
+  }
+}

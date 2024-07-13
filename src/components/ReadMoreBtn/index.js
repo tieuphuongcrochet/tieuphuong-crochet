@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './style.scss';
+import { FormattedMessage } from "react-intl";
 
-const ReadMoreBtn = ({ path, className }) => {
+const ReadMoreBtn = ({ path, className = '' }) => {
 	const classess = className ? `readmore-btn ${className}` : 'readmore-btn';
 
 	return (
 		<div className={classess}>
-			<Link to={path} >Read more</Link>
+			<Link to={path} ><FormattedMessage id='btn_readmore' /></Link>
 		</div>
 	)
 }

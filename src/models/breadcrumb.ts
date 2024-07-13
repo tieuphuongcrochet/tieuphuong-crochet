@@ -5,7 +5,6 @@ export interface BreadCrumbItem {
 	title: string | ReactNode
 };
 
-
 export interface BreadcrumbProp {
 	background?: string;
 	pathname: string;

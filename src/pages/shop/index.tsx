@@ -1,45 +1,82 @@
-import React from 'react';
-import { Pattern, Product } from 'models';
-import DataTable from 'components/DataTable';
+import React, { useEffect, useState } from 'react';
+import { ALL_ITEM, ROUTE_PATH } from 'utils';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { DataType, ListParams, initialViewTableParams } from 'models';
+import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'saga/product/productSlice';
+import { categoryAction } from 'saga/category/categorySlice';
+import ViewTable from 'components/ViewTable';
+import HeaderPart from 'components/HeaderPart';
 
 const ShopPage = () => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const productList: DataType[] = useAppSelector(selectProducts);
+	const totalRecords = useAppSelector(selectTotalRecords);
+	const loading = useAppSelector(selectLoading);
+	const categories = useAppSelector(state => state.category.data);
 
-	const dataList: Product[] | Pattern[] = [
-		{
-			id: '1',
-			name: 'Crochet flower',
-			author: 'Bibi'
-		},
-		{
-			id: '2',
-			name: 'Crochet Dog',
-			author: 'Tiểu Phương'
-		},
-		{
-			id: '3',
-			name: 'Crochet Cat',
-			author: 'Tiểu Vũ'
-		},
-		{
-			id: '4',
-			name: 'Crochet Tree',
-			author: 'Tiểu Vũ'
-		},
-		{
-			id: '5',
-			name: 'Crochet Carrot',
-			author: 'Tiểu Vũ'
-		},
-		{
-			id: '6',
-			name: 'Crochet rabbit',
-			author: 'Tiểu Vũ'
-		},
-	];
+	const [params, setParams] = useState(initialViewTableParams);
+
+	const onPageChange = (current: number, pageSize: number) => {
+		const newParams = {
+			...params,
+			_pageNo: current - 1,
+			_pageSize: pageSize,
+		}
+		setParams(newParams)
+	}
+
+
+	useEffect(() => {
+		dispatch(productAction.fetchData(params));
+	}, [params]);
+
+	useEffect(() => {
+		if (categories.length <= 0) {
+			dispatch(categoryAction.fetchData());
+		}
+	}, [categories.length, dispatch]);
+
+	const onSearchProducts = (value: string) => {
+		const newParams = {
+			...initialViewTableParams,
+			categoryId: params.categoryId,
+			searchText: value
+		};
+		setParams(newParams);
+	}
+
+	const onViewProduct = (id: React.Key) => {
+		navigate(`${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/${id}`);
+	};
+
+	const onTabChange = (key: React.Key) => {
+		const newParams: ListParams = {
+			...initialViewTableParams,
+			searchText: params.searchText || '',
+			categoryId: key === ALL_ITEM.key ? '' : key
+		};
+		setParams(newParams);
+	}
 
 	return (
-		<div className='shop-page'>
-			<DataTable dataSource={dataList}/>
+		<div className='shop-page scroll-animate'>
+			<HeaderPart titleId='shop_title' descriptionId='shop_description' />
+			<ViewTable
+				mode='Product'
+				onReadDetail={(id) => onViewProduct(id)}
+				dataSource={productList}
+				total={totalRecords}
+				loading={loading}
+				isShowTabs
+				itemsTabs={categories}
+				pageIndex={params._pageNo}
+				pageSize={params._pageSize}
+				onPageChange={onPageChange}
+				onSeach={onSearchProducts}
+				onTabChange={onTabChange}
+			/>
 		</div>
 	)
 }

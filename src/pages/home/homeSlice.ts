@@ -11,8 +11,10 @@ const initialState: HomeState = {
 	loading: false,
 	data: {
 		products: [],
-		patterns: [],
-		freePatterns: []
+		// patterns: [],
+		freePatterns: [],
+		banners: [],
+		blogs: []
 	}
 };
 
@@ -29,9 +31,12 @@ const homeSlice = createSlice({
 		loadingSuccess(state) {
 			state.loading = false;
 		},
-		setData(state, action: PayloadAction<HomeData>) {
-			state.data = action.payload;
-		}
+		setData(state, {payload}: PayloadAction<HomeData>) {
+			state.data.banners = payload.banners;
+			state.data.products = payload.products;
+			state.data.freePatterns = payload.freePatterns;
+			state.data.blogs = payload.blogs;
+		},
 	},
 })
 
@@ -41,8 +46,10 @@ export const homeActions = homeSlice.actions;
 //Selectors
 export const selectHomeLoading = (state: RootState) => state.home.loading;
 export const selectHomeProducts = (state: RootState) => state.home.data.products;
-export const selectHomePatterns = (state: RootState) => state.home.data.patterns;
+// export const selectHomePatterns = (state: RootState) => state.home.data.patterns;
 export const selectHomeFreePatterns = (state: RootState) => state.home.data.freePatterns;
+export const selectBanners = (state: RootState) => state.home.data.banners;
+export const selectBlogs = (state: RootState) => state.home.data.blogs;
 
 //Reducer
 const homeReducer = homeSlice.reducer;

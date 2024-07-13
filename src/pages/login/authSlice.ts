@@ -1,46 +1,44 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../models/user";
-
-export interface LoginPayload {
-	username: string;
-	password: string;
-};
+import { AuthPayload, ErrorData, LoginRes } from "models/user";
 
 export interface AuthState {
+	loading?: boolean;
 	isLogggedIn: boolean;
-	logging?: boolean;
-	currentUser?: User
+	currentUser?: LoginRes;
+	error?: ErrorData;
 };
 
 const initialState: AuthState = {
+	loading: false,
 	isLogggedIn: false,
-	logging: false,
 	currentUser: undefined,
-
 }
 
 const authSlice = createSlice({
-	name: 'auth',  
+	name: 'auth',
 	initialState,
 	reducers: {
-		login(state, action: PayloadAction<LoginPayload>) {
-			state.logging = true;
+		loadingRequest(state) {
+			state.loading = true;
 		},
-
-		loginSuccess(state, action: PayloadAction<User>) {
+		loadingSuccess(state){
+			state.loading = false;
+		},		
+		saveCurrentUser(state, action: PayloadAction<LoginRes>) {
 			state.isLogggedIn = true;
-			state.logging = false;
 			state.currentUser = action.payload;
 		},
-
-		loginFailed(state, action: PayloadAction<string>) {
-			state.logging = false;
+		requestFailed(state, action: PayloadAction<ErrorData>) {
+			state.loading = false;
+			state.error = action.payload;
 		},
-
 		logout(state) {
 			state.isLogggedIn = false;
 			state.currentUser = undefined;
 		},
+		login(state, { payload }: PayloadAction<AuthPayload>) {
+		},
+		resigter(state, { payload }: PayloadAction<AuthPayload>) { },
 	}
 });
 

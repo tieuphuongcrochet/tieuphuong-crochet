@@ -1,55 +1,66 @@
 import React from 'react';
-import { Card, Image } from 'antd';
+import { Card, Image, Skeleton } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
-import demo from '../../assets/products/pd2.jpg'
+import { Pattern, Product } from 'models';
+import { IMAGE_FALLBACK } from 'utils';
 import './index.scss';
 
 interface CardPatternProps {
 	width?: string | number;
-	src?: string;
-	title: string;
-	author: string;
-	onReadDetail?: Function
+	pattern: Pattern | Product;
+	onReadDetail: Function;
+	loading?: boolean;
 };
 
 const CardFreePattern = (
 	{
+		pattern = { name: '', author: '', src: '' },
 		width,
-		src,
-		title,
-		author,
-		onReadDetail
+		onReadDetail,
+		loading,
 	}: CardPatternProps) => {
-	const { Meta } = Card;
 
-	const onDetail = () => {
-		if(onReadDetail instanceof Function){
-			onReadDetail();
-		}
-	}
+	const { Meta } = Card;
+	const { name, src, author, imagesPreview } = pattern;
 
 	return (
 		<Card
-			className='card-free-pattern'
-			bordered={false}
-			style={{ width: width || '100%'}}
+			loading={loading}
+			hoverable
+			className='card-free-pattern card-item'
+			style={{ width: width || '100%' }}
 			bodyStyle={{
 				overflow: 'hidden',
 			}}
 			cover={
 				<>
-					<Image
-						alt={title}
-						src={src || demo} />
+					{src && loading ?
+						<Skeleton.Image active /> :
+						<Image.PreviewGroup
+							items={imagesPreview}
+						>
+							<Image
+								alt={name}
+								src={src}
+								fallback={IMAGE_FALLBACK}
+							/>
+						</Image.PreviewGroup>
+					}
 				</>
 			}
 		>
-			{title &&
-				<Meta
-					title={<span tabIndex={1} className='card-title' onClick={onDetail}>{title}</span>}
-					description={<div className='author'>Tác giả: {author}</div>}
-				/>
-			}
+			<Skeleton loading={!name} active>
+				{name &&
+					<Meta
+						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
+						description={<div className='author'> 
+							<UserOutlined />&nbsp;{author}
+						</div>}
+					/>
+				}
+			</Skeleton>
+
 		</Card>
 	)
 

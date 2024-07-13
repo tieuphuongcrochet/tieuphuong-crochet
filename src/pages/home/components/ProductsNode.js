@@ -1,91 +1,59 @@
-import React from "react";
-import { Col, Flex, Row } from "antd";
+import React from 'react';
+import { Col, Empty, Flex, Row } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { map } from 'lodash';
 
-import CardProduct from "../../../components/CardProduct";
-import ReadMoreBtn from "../../../components/ReadMoreBtn";
-import HeaderPart from "./HeaderPart";
+import CardProduct from 'components/CardProduct';
+import ReadMoreBtn from 'components/ReadMoreBtn';
+import HeaderPart from '../../../components/HeaderPart';
 
-import { ROUTE_PATH } from "../../../utils/constant";
-import product2 from '../../../assets/products/pd3.jpg';
-import product3 from '../../../assets/products/pd1.jpg';
-import product4 from '../../../assets/products/pd6.jpg';
-import productbig from '../../../assets/products/pd10.jpg';
-import productbig2 from '../../../assets/products/34.png';
+import { ROUTE_PATH } from 'utils/constant';
+import { selectHomeLoading, selectHomeProducts } from '../homeSlice';
+import { useAppSelector } from 'app/hooks';
 
 const ProductsNode = () => {
-	return (
-		<div className='products'>
-			<HeaderPart title='Products' />
-			<Flex gap={48} vertical className='products-data'>
-				{/* <Row gutter={[24, 24]} className="row-data">
-					<Col className="product-bigbox" xs={24} md={12} >
-						<CardProduct src={productbig2} title='Hoa hồng vàng' price={200000}/>
-					</Col>
-					<Col xs={24} md={12}>
-						<Row gutter={[24, 48]}>
-						<Col xs={24} md={12}>
-								<CardProduct title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={24} md={12}>
-								<CardProduct src={product2} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={24} md={12}>
-								<CardProduct src={product3} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={24} md={12}>
-								<CardProduct src={product4} title='Hoa sắc màu' price={80000} />
-							</Col>
-						</Row>
-					</Col>
-				</Row> */}
-				<Row gutter={[24, 24]}>
-					<Col className="product-bigbox" xs={20} md={12} >
-						<CardProduct src={productbig2} title='Hoa hồng vàng' price={200000} />
-					</Col>
-					<Col xs={24} md={12}>
-						<Row gutter={[24, 48]}>
-							<Col xs={20} md={12}>
-								<CardProduct title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product2} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product3} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product4} title='Hoa sắc màu' price={80000} />
-							</Col>
-						</Row>
-					</Col>
-				</Row>
-				<Row gutter={[24, 24]}>
-					<Col xs={24} md={12}>
-						<Row gutter={[24, 48]}>
-							<Col xs={20} md={12}>
-								<CardProduct title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product2} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product3} title='Hoa đầu thú' price={60000} />
-							</Col>
-							<Col xs={20} md={12}>
-								<CardProduct src={product4} title='Hoa sắc màu' price={80000} />
-							</Col>
-						</Row>
-					</Col>
-					<Col className="product-bigbox" xs={20} md={12} >
-						<CardProduct src={productbig2} title='Hoa hồng vàng' price={200000} />
-					</Col>
-				</Row>
-				<div className='read-more'>
-					<ReadMoreBtn path={ROUTE_PATH.SHOP} />
-				</div>
-			</Flex>
-		</div>
-	)
-}
+
+  const products = useAppSelector(selectHomeProducts);
+  const loading = useAppSelector(selectHomeLoading);
+  const navigate = useNavigate();
+
+  const onViewProduct = (id) => {
+    navigate(`${ROUTE_PATH.SHOP}/${ROUTE_PATH.DETAIL}/${id}`);
+  };
+
+  return (
+    <div className="products scroll-animate">
+      <HeaderPart
+        titleId="home_product_title"
+        descriptionId='home_product_description'
+      />
+      <Flex gap={48} vertical className="products-data">
+        <Row gutter={[{ xs: 8, sm: 16, xl: 24 }, { xs: 8, sm: 16, xl: 24 }]}>
+          {
+            map(products, (product, index) =>
+              <Col key={`product_${index}`} xs={12} sm={8} lg={6} >
+                <CardProduct
+                  loading={loading}
+                  product={product}
+                  onReadDetail={() => onViewProduct(product.id || '')}
+                />
+              </Col>
+            )
+          }
+        </Row>
+      </Flex>
+      {
+        products?.length > 0 ?
+          <div className='read-more'>
+            <ReadMoreBtn path={ROUTE_PATH.SHOP} />
+          </div> :
+          <Empty
+            imageStyle={{ height: 80 }}
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+      }
+    </div>
+  );
+};
 
 export default ProductsNode;

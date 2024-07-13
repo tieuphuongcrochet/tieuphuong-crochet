@@ -1,0 +1,66 @@
+@import 'utils//variables.scss';
+
+.data-list {
+
+	.direction-icon {
+		.ant-btn {
+			padding: 4px 10px;
+
+			&:hover {
+				background: none;
+
+				.anticon {
+					color: $colorPrimary;
+				}
+			}
+
+			.anticon {
+				color: $textPrimaryColor;
+			}
+		}
+	}
+
+	.search-wrap,
+	.pagination {
+		padding: 15px 10px;
+		border-top: 1px solid $borderColor;
+		border-bottom: 1px solid $borderColor;
+	}
+
+	.pagination {
+		margin-top: 60px;
+		display: flex;
+		justify-content: flex-end;
+		position: relative;
+
+		.ant-pagination-total-text {
+			position: absolute;
+			left: 10px;
+		}
+	}
+
+	.tabs-menu {
+		padding: 30px 0;
+		border: none;
+
+		.ant-menu-submenu,
+		.ant-menu-item {
+			opacity: .9 !important;
+			letter-spacing: 0.5px;
+			font-size: $fontSize_large;
+
+			&.ant-menu-item-selected {
+				opacity: 1 !important;
+			}
+		}
+	}
+	.ant-empty{
+		margin-top: 70px;
+	}
+
+	.ant-menu-overflow-item-rest {
+		.anticon {
+			font-size: 30px;
+		}
+	}
+}
