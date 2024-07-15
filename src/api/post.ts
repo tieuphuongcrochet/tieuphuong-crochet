@@ -6,9 +6,9 @@ import { Post } from 'models/post';
 
 const postService = {
 	getAll(params: ListParams): Promise<DataType> {
-		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText} = params;
-		const url = `${API_URL.BLOG}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}`;
-		return axiosClient.get(url);
+		const {_pageNo, _pageSize, _sortBy, _sortDir, filters} = params;
+		const url = `${API_URL.BLOG}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}`;
+		return axiosClient.post(url, filters);
 	},
 
 	add(data: Post): Promise<DataType> {

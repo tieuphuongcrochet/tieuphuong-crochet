@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Alert, Flex } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
-import { DataType, initialViewTableParams } from 'models';
+import {DataType, Filter, initialViewTableParams} from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { ROUTE_PATH } from 'utils';
+import {filterByText, ROUTE_PATH} from 'utils';
 import { postAction, selectPosts, selectTotalRecords, selectLoading } from 'saga/post/postSlice';
 
 const BlogsPage = () => {
@@ -32,9 +32,10 @@ const BlogsPage = () => {
 	}, [params]);
 
 	const onSearchPatterns = (value: string) => {
+		const filters: Filter[] = filterByText(value, 'title');
 		const newParams = {
 			...initialViewTableParams,
-			searchText: value
+			filters
 		};
 		setParams(newParams);
 	}

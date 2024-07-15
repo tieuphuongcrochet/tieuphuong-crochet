@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ALL_ITEM, ROUTE_PATH } from 'utils';
+import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, ROUTE_PATH} from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { DataType, ListParams, initialViewTableParams } from 'models';
+import {DataType, ListParams, initialViewTableParams, Filter} from 'models';
 import { productAction, selectLoading, selectProducts, selectTotalRecords } from 'saga/product/productSlice';
 import { categoryAction } from 'saga/category/categorySlice';
 import ViewTable from 'components/ViewTable';
@@ -39,10 +39,10 @@ const ShopPage = () => {
 	}, [categories.length, dispatch]);
 
 	const onSearchProducts = (value: string) => {
+		const filters: Filter[] = filterByText(value, 'name', 'description');
 		const newParams = {
 			...initialViewTableParams,
-			categoryId: params.categoryId,
-			searchText: value
+			filters
 		};
 		setParams(newParams);
 	}
@@ -52,10 +52,21 @@ const ShopPage = () => {
 	};
 
 	const onTabChange = (key: React.Key) => {
+		const filters : Filter[] = key === ALL_ITEM.key ? [] : [
+			{
+				filterLogic: FILTER_LOGIC.ALL,
+				filterCriteria: [
+					{
+						key: 'category.id',
+						value: [`${key}`],
+						operation: FILTER_OPERATION.IN
+					}
+				]
+			}
+		];
 		const newParams: ListParams = {
 			...initialViewTableParams,
-			searchText: params.searchText || '',
-			categoryId: key === ALL_ITEM.key ? '' : key
+			filters
 		};
 		setParams(newParams);
 	}

@@ -20,29 +20,23 @@ export interface ListParams {
 	_pageSize: number;
 	_sortBy?: string;
 	_sortDir?: 'asc' | 'desc';
-	filters?: Filter[];
-	searchText?: string;
-	categoryId?: React.Key;
-	[key: string]: any;
+	filters: Filter[];
 };
 
 export const initialListParams: ListParams = {
 	_pageNo: 0,
-	_pageSize: 10,
+	_pageSize: 30,
 	_sortBy: 'createdDate',
 	_sortDir: 'desc',
-	searchText: '',
-	filters: [],
-	categoryId: ''
+	filters: []
 };
 
 export const initialViewTableParams: ListParams = {
 	_pageNo: 0,
-	_pageSize: 24,
+	_pageSize: 48,
 	_sortBy: 'createdDate',
 	_sortDir: 'desc',
-	searchText: '',
-	categoryId: ''
+	filters: []
 };
 
 export interface ListTablePayload<T> {
@@ -57,10 +51,14 @@ export interface FileUpload {
 };
 
 export interface Filter {
-	field?: string;
-	operator?: string;
-	value?: string;
-	values?: string[];
+	filterLogic: string;
+	filterCriteria: FilterCriteria[];
+}
+
+export interface FilterCriteria {
+	key: string;
+	operation: string;
+	value: string | number | string[] | number[];
 }
 
 export type UploadMode = 'directory' | 'crop' | 'normal';

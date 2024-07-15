@@ -6,8 +6,9 @@ import { Pattern } from "models";
 
 const patternService = {
 	getAll(params: ListParams): Promise<DataType> {
-		const {_pageNo, _pageSize, _sortBy, _sortDir, searchText, filters, categoryId} = params;
-		const url = `${API_URL.FREE_PATTERN}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}&searchText=${searchText}&categoryId=${categoryId}`;
+		console.log('params:', params);
+		const {_pageNo, _pageSize, _sortBy, _sortDir, filters} = params;
+		const url = `${API_URL.FREE_PATTERN}/${API_URL.PAGINATION}?pageNo=${_pageNo}&pageSize=${_pageSize}&sortBy=${_sortBy}&sortDir=${_sortDir}`;
 		return axiosClient.post(url, filters);
 	},
 
