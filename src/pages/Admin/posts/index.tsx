@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, initialListParams } from 'models';
+import {DataType, Filter, initialListParams} from 'models';
 import { postAction, selectLoading, selectPosts, selectTotalRecords } from 'saga/post/postSlice';
-import { ROUTE_PATH } from 'utils';
+import {filterByText, ROUTE_PATH} from 'utils';
 
 const PostsList = () => {
     const navigate = useNavigate();
@@ -31,9 +31,10 @@ const PostsList = () => {
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
+        const filters: Filter[] = filterByText(value, 'title');
         const newParams = {
             ...params,
-            searchText: value,
+            filters
         }
         setParams(newParams);
     }
