@@ -39,6 +39,7 @@ const PatternDetail = () => {
 
 				{/* Chart detail */}
 				<ViewImagesList
+					isPattern
 					name='pattern'
 					content={pattern.content}
 					images={pattern.files}

@@ -160,7 +160,7 @@ const CRUPattern = () => {
                         label='Pattern text'
                     >
                         <EditorComponent
-                            initialData={pattern?.content || DEFAULT_CHART_EDITOR}
+                            initialData={pattern?.content}
                             onBlur={(_, editor) => {
                                 form.setFieldsValue({ content: editor.getData() })
                             }}

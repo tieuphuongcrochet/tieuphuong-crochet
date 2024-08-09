@@ -4,7 +4,7 @@ import PdfViewer from "components/ViewPdf"
 import { map } from "lodash"
 import { FileUpload } from "models"
 import { FormattedMessage } from "react-intl"
-import { IMAGE_FALLBACK, checkPdfFile, } from "utils"
+import { DEFAULT_CHART_EDITOR, IMAGE_FALLBACK, checkPdfFile, } from "utils"
 
 interface ViewImagesProps {
 	images?: FileUpload[];
@@ -12,9 +12,10 @@ interface ViewImagesProps {
 	content?: string
 	detailId: string;
 	contentId?: string;
+	isPattern?: boolean;
 }
 
-const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProps) => {
+const ViewImagesList = ({ images, detailId, name, content = '', isPattern }: ViewImagesProps) => {
 
 	return (
 		<div>
@@ -61,6 +62,10 @@ const ViewImagesList = ({ images, detailId, name, content = '' }: ViewImagesProp
 							</Flex>
 						</Image.PreviewGroup>
 					}
+
+					{/* crochet symbols default  */}
+					{isPattern && <div className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: DEFAULT_CHART_EDITOR || '' }} />}
+
 					{content &&
 						<>
 							<div className='editor-view disable-select text-box' dangerouslySetInnerHTML={{ __html: content || '' }} />

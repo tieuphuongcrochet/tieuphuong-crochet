@@ -28,7 +28,7 @@ export interface ListParams {
 
 export const initialListParams: ListParams = {
 	_pageNo: 0,
-	_pageSize: 10,
+	_pageSize: 20,
 	_sortBy: 'createdDate',
 	_sortDir: 'desc',
 	searchText: '',
@@ -38,7 +38,7 @@ export const initialListParams: ListParams = {
 
 export const initialViewTableParams: ListParams = {
 	_pageNo: 0,
-	_pageSize: 24,
+	_pageSize: 48,
 	_sortBy: 'createdDate',
 	_sortDir: 'desc',
 	searchText: '',
