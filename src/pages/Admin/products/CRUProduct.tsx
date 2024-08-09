@@ -164,7 +164,7 @@ const CRUProduct = () => {
                         label='Pattern text'
                     >
                         <EditorComponent
-                            initialData={product?.content}
+                            initialData={product?.content || ''}
                             onBlur={(_, editor) => {
                                 form.setFieldsValue({ content: editor.getData() })
                             }} />
