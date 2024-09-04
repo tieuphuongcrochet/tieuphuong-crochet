@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ViewTable from 'components/ViewTable';
+import { SegmentedValue } from 'antd/es/segmented';
+
 import { DataType, ListParams, initialViewTableParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
@@ -60,6 +62,10 @@ const FreePatterns = () => {
 		setParams(newParams);
 	}
 
+	const onStatusFilter = (value: SegmentedValue) =>{
+		console.log('translate', value);
+	}
+
 	return (
 		<div className='free-patterns-page scroll-animate'>
 			<HeaderPart titleId='free_pattern_title' descriptionId='free_pattern_description' />
@@ -76,6 +82,7 @@ const FreePatterns = () => {
 				isShowTabs
 				onTabChange={onTabChange}
 				itemsTabs={categories}
+				onStatusFilter = {onStatusFilter}
 			/>
 		</div>
 	)

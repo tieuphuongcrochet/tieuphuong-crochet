@@ -2,7 +2,7 @@ import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, 
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
 import { map } from 'lodash';
-import { ALL_ITEM, onScrollBody } from 'utils';
+import { SegmentedValue } from 'antd/es/segmented';
 import { FormattedMessage } from 'react-intl';
 
 import { DataType } from 'models';
@@ -12,6 +12,8 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import ListViewItem from 'components/ListViewItem';
 import CardBlog from 'components/CardBlog';
 import { Post } from 'models/post';
+import { ALL_ITEM, onScrollBody, TRANSLATION_STATUS } from 'utils';
+import PatternStatus from 'components/PatternStatus';
 import './style.scss';
 
 export interface ViewTableProps {
@@ -28,6 +30,7 @@ export interface ViewTableProps {
 	itemsTabs?: DataType[];
 	tabsProps?: MenuProps;
 	onTabChange?: (key: React.Key) => void;
+	onStatusFilter?: (value: SegmentedValue) => void;
 }
 
 const ViewTable = (
@@ -41,9 +44,10 @@ const ViewTable = (
 		tabsProps,
 		isShowTabs,
 		mode,
+		loading,
 		onTabChange,
 		onReadDetail,
-		loading,
+		onStatusFilter,
 	}: ViewTableProps) => {
 
 	const [direction, setDirection] = useState<string>('horizontal');
@@ -53,6 +57,13 @@ const ViewTable = (
 	const onSearchBtn = (value: string) => {
 		if (onSeach instanceof Function) {
 			onSeach(value);
+			onScrollBody('.data-list');
+		}
+	};
+
+	const onChangeStatus = (value: SegmentedValue) => {
+		if (onStatusFilter instanceof Function) {
+			onStatusFilter(value);
 			onScrollBody('.data-list');
 		}
 	};
@@ -136,6 +147,30 @@ const ViewTable = (
 					style={{ width: 304 }}
 					onSearch={onSearchBtn}
 				/>
+
+				{/* Translation status */}
+				<PatternStatus
+					defaultValue='ALL'
+					onChange={onChangeStatus}
+					options={[
+						{
+							label: 'ALL',
+							value: 'ALL',
+							tagColor: 'default'
+						},
+						{
+							label: TRANSLATION_STATUS.PENDING,
+							value: TRANSLATION_STATUS.PENDING,
+							tagColor: 'processing'
+						},
+						{
+							label: 'TRANSLATED',
+							value: TRANSLATION_STATUS.SUCCESS,
+							tagColor: 'success'
+						},
+					]}
+				/>
+
 				{/* direction icon */}
 				<Flex align='center' className='direction-icon'>
 					<Tooltip color='#fc8282' title={<FormattedMessage id='btn_grid' />}>
