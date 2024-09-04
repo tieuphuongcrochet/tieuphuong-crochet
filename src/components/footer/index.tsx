@@ -7,9 +7,11 @@ import './style.scss';
 import { FormattedMessage } from 'react-intl';
 import { includes } from 'lodash';
 import CopyRight from 'components/Copyright';
+
 interface FooterProps {
 	currentNav: string
 }
+
 const FooterPage = ({ currentNav }: FooterProps) => {
 
 	const getActiveClass = (path: string) => {

@@ -16,6 +16,7 @@ export interface Pattern {
 	link?: string;
 	currency_code?: string;
 	content?: string;
+	status?: string;
 }
 
 export interface PayloadFile {
