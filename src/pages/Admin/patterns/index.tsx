@@ -83,7 +83,7 @@ const PatternsList = () => {
                     onAddNew={onAddNew}
                     onSearchChange={onSearchChange}
                     loading={loading}
-
+                    searchFields={['name', 'author', 'description']}
                 />
                 <div className='admin-table'>
                     <DataTable
