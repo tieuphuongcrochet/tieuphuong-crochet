@@ -21,12 +21,16 @@
 
   .search-wrap,
   .pagination {
-    padding: 15px 10px;
     border-top: 1px solid $borderColor;
     border-bottom: 1px solid $borderColor;
   }
+  
+  .search-wrap{
+    padding: 5px;
+  }
 
   .pagination {
+    padding: 10px;
     margin-top: 60px;
     display: flex;
     justify-content: flex-end;
@@ -39,18 +43,20 @@
   }
 
   .tabs-menu {
-    padding: 20px 0;
+    padding: 5px 0;
     border: none;
 
     .ant-menu-submenu,
     .ant-menu-item {
       opacity: 0.9 !important;
       letter-spacing: 0.5px;
-      font-size: $fontSize_large;
-
+      
       &.ant-menu-item-selected {
         opacity: 1 !important;
       }
+    }
+    .ant-menu-title-content{
+      font-size: $fontSize_small;
     }
   }
   .ant-empty {

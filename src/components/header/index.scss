@@ -130,15 +130,6 @@
 		}
 	}
 
-	@media screen and (min-width: $xxl) {
-		.header-sidebar {
-			li.ant-menu-item {
-				a {
-					font-size: $fontSize_large;
-				}
-			}
-		}
-	}
 }
 
 .drawer-menu {
@@ -175,7 +166,7 @@
 
 		li.ant-menu-item {
 			a {
-				font-size: $fontSize_middle;
+				font-size: $fontSize_small;
 				text-transform: uppercase;
 				font-weight: $fontWeight_semibold;
 			}

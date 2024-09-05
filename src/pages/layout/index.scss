@@ -205,7 +205,7 @@
 .ant-input-search {
   .ant-input-affix-wrapper,
   .ant-input-group-addon .ant-input-search-button {
-    height: 44px;
+    height: 34px;
   }
 }
 
@@ -323,9 +323,10 @@
     padding: 50px;
   }
 
-  .tabs-menu {
-    .ant-menu-item {
-      font-size: $fontSize_middle;
+  .ant-input-search {
+    .ant-input-affix-wrapper,
+    .ant-input-group-addon .ant-input-search-button {
+      height: 44px;
     }
   }
 
@@ -400,7 +401,15 @@
     }
 
     .data-list {
+      .tabs-menu {
+        padding: 10px 0;
+
+        .ant-menu-title-content{
+          font-size: $fontSize_middle;
+        }
+      }
       .search-wrap {
+        padding: 10px 0;
         flex-wrap: nowrap;
       }
 
@@ -516,6 +525,9 @@
           }
         }
       }
+      .pagination {
+        padding: 20px 0;
+      }
     }
   }
 }
@@ -565,15 +577,23 @@
     margin: 0 auto;
   }
 
-  .tabs-menu {
-    .ant-menu-item {
-      font-size: $fontSize_large;
-    }
-  }
-
   .layout-wrap {
     .view-pdf-wrap {
       padding: 100px 150px;
+    }
+
+    .data-list {
+      .search-wrap {
+        padding: 20px 0;
+      }
+
+      .tabs-menu {
+        padding: 20px 0;
+
+        .ant-menu-title-content{
+          font-size: $fontSize_large;
+        }
+      }
     }
   }
 }
