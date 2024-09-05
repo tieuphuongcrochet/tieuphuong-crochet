@@ -16,7 +16,7 @@ export interface Pattern {
 	link?: string;
 	currency_code?: string;
 	content?: string;
-	status?: string;
+	status?: TTranslationStatus;
 }
 
 export interface PayloadFile {
@@ -34,4 +34,11 @@ export interface PatternState {
 	data: DataType[];
 	totalRecord: number;
 	pattern: Pattern;
+}
+
+export type TTranslationStatus = 'PENDING' | 'SUCCESS' | 'NONE' | 'ALL';
+
+export interface TranslationStatus {
+	label: string;
+	value: TTranslationStatus;
 }

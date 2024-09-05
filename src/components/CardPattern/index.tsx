@@ -1,14 +1,15 @@
 import React from 'react';
-import { Card, Image, Skeleton } from 'antd';
+import { Card, Flex, Image, Skeleton, Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import { Pattern, Product } from 'models';
-import { IMAGE_FALLBACK } from 'utils';
+import { Pattern, TTranslationStatus } from 'models';
+import { IMAGE_FALLBACK, TRANSLATION_STATUS_COLOR } from 'utils';
 import './index.scss';
+import { FormattedMessage } from 'react-intl';
 
 interface CardPatternProps {
 	width?: string | number;
-	pattern: Pattern | Product;
+	pattern: Pattern;
 	onReadDetail: Function;
 	loading?: boolean;
 };
@@ -22,7 +23,11 @@ const CardFreePattern = (
 	}: CardPatternProps) => {
 
 	const { Meta } = Card;
-	const { name, src, author, imagesPreview } = pattern;
+	const { name, src, author, imagesPreview, status } = pattern;
+
+	const getStatusColor = (status: TTranslationStatus) => {
+		return TRANSLATION_STATUS_COLOR[status]
+	}
 
 	return (
 		<Card
@@ -54,9 +59,18 @@ const CardFreePattern = (
 				{name &&
 					<Meta
 						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
-						description={<div className='author'> 
-							<UserOutlined />&nbsp;{author}
-						</div>}
+						description={
+							<Flex justify='space-between' align='center'>
+								<div className='author'>
+									<UserOutlined />&nbsp;{author}
+								</div>
+								{
+									status &&
+									<Tag className='status-tag' color={getStatusColor(status)}><FormattedMessage id={`translation_status.${status}`}/></Tag>
+								}
+
+							</Flex>
+						}
 					/>
 				}
 			</Skeleton>

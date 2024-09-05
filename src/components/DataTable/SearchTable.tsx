@@ -6,15 +6,20 @@ import { SearchProps } from 'antd/es/input';
 import { Filter, SearchParams, SearchTableProps } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction } from 'saga/category/categorySlice';
-import { ALL_ITEM, OPERATOR } from 'utils';
+import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION} from 'utils';
 import './style.scss';
 
 
 const initialFilter: Filter[] = [
     {
-        field: 'isHome',
-        value: '',
-        operator: OPERATOR.EQUALS
+        filterLogic: FILTER_LOGIC.ALL,
+        filterCriteria: [
+            {
+                key: 'isHome',
+                value: '',
+                operation: FILTER_OPERATION.EQUAL
+            }
+        ]
     }
 ];
 
@@ -53,7 +58,7 @@ const SearchTable = ({
 
     const onchangeRadio = (e: RadioChangeEvent) => {
         const newFilter = [...searchParams.filters]
-        newFilter[0].value = e.target.value;
+        newFilter[0].filterCriteria[0].value = e.target.value;
         const newSearchParams: SearchParams = {
             ...searchParams,
             filters: newFilter
@@ -89,7 +94,7 @@ const SearchTable = ({
     const onReset = () => {
         const newFilters = initialFilter;
         form.resetFields();
-        newFilters[0].value = '';
+        newFilters[0].filterCriteria[0].value = '';
         onHandleSearch({
             ...initialSearchParams,
             filters: newFilters

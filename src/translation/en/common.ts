@@ -50,5 +50,10 @@ export default {
 	'notification.success': 'Successfully!',
 	'notification.error': 'Error!',
 	'contact_form.success': 'You have sent email successfully!',
-	'contact_form.error': 'The mail has not been sent yet!!'
+	'contact_form.error': 'The mail has not been sent yet!!',
+
+	'translation_status.ALL': 'ALL',
+	'translation_status.NONE': 'NONE',
+	'translation_status.PENDING': 'PENDING',
+	'translation_status.SUCCESS': 'TRANSLATED',
 };

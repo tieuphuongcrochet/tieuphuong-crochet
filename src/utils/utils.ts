@@ -1,12 +1,13 @@
 import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import moment from 'moment';
 import _get from 'lodash/get';
-import { Category, FileUpload, Paging } from 'models';
-import { filter, forEach, isEmpty, map } from 'lodash';
+import { Category, FileUpload, Filter, Paging } from 'models';
+import { filter, findIndex, forEach, isEmpty, map } from 'lodash';
 import { modal } from './notify';
 import { Banner, TBannerType } from 'models/setting';
 import { checkMobile } from './checkIsMobile';
 import { mobileAndTabletCheck } from './checkMobileOrTablet';
+import { FILTER_LOGIC, FILTER_OPERATION } from './constant';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -293,7 +294,57 @@ export const onScrollBody = (name: string) => {
 }
 
 export const checkPdfFile = (fileName: string) => {
-  
+
   var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
   return ext === 'pdf';
 };
+
+export function filterByText(value: string, ...keys: any[]): Filter {
+  if (!value) return {} as Filter;
+  return {
+    filterLogic: FILTER_LOGIC.ANY,
+    filterCriteria: map(keys, (key) => (
+      {
+        key,
+        operation: FILTER_OPERATION.LIKE,
+        value
+      })
+    )
+  }
+}
+
+
+export const mapNameFilters = (filters: Filter[], name: string, obFilter: Filter): Filter[] => {
+  let tempFilters: Filter[] = [...filters];
+
+  const index = findIndex(tempFilters, f => f.name === name);
+
+  if (index > -1) {
+    (!obFilter || Object.keys(obFilter).length < 1) ?
+      tempFilters.splice(index, 1) :
+      tempFilters[index] = {
+        name,
+        ...obFilter
+      };
+  } else {
+    tempFilters = [
+      ...tempFilters,
+      {
+        name,
+        ...obFilter
+      }
+    ]
+  }
+
+  return tempFilters;
+}
+
+export const getFilters = (filter: Filter[]) => {
+  return map(filter, t => {
+    const newFilter: Filter = {
+      filterLogic: t.filterLogic,
+      filterCriteria: t.filterCriteria
+    }
+    return newFilter
+  })
+}

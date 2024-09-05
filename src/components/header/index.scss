@@ -124,11 +124,12 @@
 			li.ant-menu-item {
 				a {
 					margin: 0 20px;
-					font-size: $fontSize_small;
+					font-size: $fontSize_middle;
 				}
 			}
 		}
 	}
+
 }
 
 .drawer-menu {
@@ -165,7 +166,7 @@
 
 		li.ant-menu-item {
 			a {
-				font-size: $fontSize_middle;
+				font-size: $fontSize_small;
 				text-transform: uppercase;
 				font-weight: $fontWeight_semibold;
 			}

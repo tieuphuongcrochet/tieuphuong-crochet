@@ -4,25 +4,29 @@ import {
     CheckCircleOutlined,
     ClockCircleOutlined,
     SyncOutlined,
-  } from '@ant-design/icons';
+} from '@ant-design/icons';
 import { SegmentedValue } from "antd/es/segmented";
+import { FormattedMessage } from "react-intl";
+import { TTranslationStatus, TranslationStatus } from "models";
+import { TRANSLATION_STATUS_COLOR } from "utils";
 
-type Status = 'processing' | 'success' | 'default';
 
 interface PatternStatusProps {
-    options: { label: string, value: string, tagColor: Status }[],
-    defaultValue: string,
-    size?: 'large' | 'middle' | 'small',
-    onChange?: (value: SegmentedValue) => void
+    options: TranslationStatus[];
+    defaultValue: string;
+    size?: 'large' | 'middle' | 'small';
+    onChange?: (value: SegmentedValue) => void;
+    className?: string;
+
 }
 
-const PatternStatus = ({ size = 'large', defaultValue, options, onChange }: PatternStatusProps) => {
+const PatternStatus = ({ size = 'large', defaultValue, options, onChange, className }: PatternStatusProps) => {
 
-    const getIconTag = (tagColor: Status) => {
-        if(tagColor === 'success'){
-            return <CheckCircleOutlined/>
+    const getIconTag = (status: TTranslationStatus) => {
+        if (status === 'SUCCESS') {
+            return <CheckCircleOutlined />
         }
-        return tagColor === 'processing' ? <SyncOutlined /> : <ClockCircleOutlined />
+        return status === 'PENDING' ? <SyncOutlined /> : <ClockCircleOutlined />
     }
 
     return (
@@ -30,10 +34,13 @@ const PatternStatus = ({ size = 'large', defaultValue, options, onChange }: Patt
             size={size}
             defaultValue={defaultValue}
             onChange={onChange}
+            className={className}
             options={map(options, item => (
                 {
-                    label: (<Tag icon={getIconTag(item.tagColor)} color={item.tagColor}>{item.label}</Tag>),
-                    value: item.value
+                    icon: getIconTag(item.value),
+                    label: (<FormattedMessage id={item.label}/>),
+                    value: item.value,
+                    className: TRANSLATION_STATUS_COLOR[item.value]
                 }
             ))} />
     )
