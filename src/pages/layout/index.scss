@@ -202,6 +202,13 @@
   transform: rotate(180deg);
 }
 
+.ant-input-search {
+  .ant-input-affix-wrapper,
+  .ant-input-group-addon .ant-input-search-button {
+    height: 44px;
+  }
+}
+
 .blog-page {
   .search-wrap {
     margin-bottom: 30px;
@@ -314,13 +321,6 @@
 @media screen and (min-width: $md) {
   .container {
     padding: 50px;
-  }
-
-  .ant-input-search {
-    .ant-input-affix-wrapper,
-    .ant-input-group-addon .ant-input-search-button {
-      height: 44px;
-    }
   }
 
   .layout-wrap {
