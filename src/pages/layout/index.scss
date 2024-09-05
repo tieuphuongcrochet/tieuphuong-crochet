@@ -110,7 +110,7 @@
     padding-right: 10px;
   }
 
-  .image-detail{
+  .image-detail {
     padding: 20px 0;
   }
 }
@@ -384,8 +384,10 @@
           left: 30px;
         }
       }
-      
-      li,p, h4{
+
+      li,
+      p,
+      h4 {
         font-size: $fontSize_middle;
       }
     }
@@ -394,6 +396,21 @@
 
       .react-pdf__Page:not(:last-child) {
         margin-bottom: 50px;
+      }
+    }
+
+    .data-list {
+      .search-wrap {
+        flex-wrap: nowrap;
+      }
+
+      .ant-segmented {
+        &.large-screen {
+          display: flex;
+        }
+        &.small-screen {
+          display: none;
+        }
       }
     }
   }
@@ -490,6 +507,16 @@
         margin: 1.5em 60px;
       }
     }
+
+    .data-list {
+      .ant-segmented {
+        &.large-screen {
+          .ant-segmented-item-label {
+            font-size: 16px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -544,9 +571,9 @@
     }
   }
 
-  .layout-wrap{
+  .layout-wrap {
     .view-pdf-wrap {
-      padding:100px 150px;
+      padding: 100px 150px;
     }
   }
 }
@@ -767,6 +794,23 @@
           }
         }
       }
+    }
+  }
+}
+
+.ant-segmented {
+  background-color: $backgroundColor;
+  align-items: center;
+
+  .ant-segmented-item {
+    margin-left: 2px;
+
+    &.processing {
+      color: $color-info !important;
+    }
+
+    &.success {
+      color: $color-success !important;
     }
   }
 }

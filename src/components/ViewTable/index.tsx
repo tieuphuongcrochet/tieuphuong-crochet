@@ -1,4 +1,4 @@
-import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, Row, Spin } from 'antd';
+import { Input, Button, Flex, Tooltip, Col, Pagination, Menu, MenuProps, Empty, Row, Spin, Affix } from 'antd';
 import React, { useState } from 'react';
 import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
 import { map } from 'lodash';
@@ -12,7 +12,7 @@ import { ItemType } from 'antd/es/menu/hooks/useItems';
 import ListViewItem from 'components/ListViewItem';
 import CardBlog from 'components/CardBlog';
 import { Post } from 'models/post';
-import { ALL_ITEM, onScrollBody, TRANSLATION_STATUS } from 'utils';
+import { ALL_ITEM, onScrollBody, TRANSLATION_OPTIONS, TRANSLATION_STATUS } from 'utils';
 import PatternStatus from 'components/PatternStatus';
 import './style.scss';
 
@@ -31,6 +31,7 @@ export interface ViewTableProps {
 	tabsProps?: MenuProps;
 	onTabChange?: (key: React.Key) => void;
 	onStatusFilter?: (value: SegmentedValue) => void;
+	isShowStatusFilter?: boolean;
 }
 
 const ViewTable = (
@@ -45,6 +46,7 @@ const ViewTable = (
 		isShowTabs,
 		mode,
 		loading,
+		isShowStatusFilter,
 		onTabChange,
 		onReadDetail,
 		onStatusFilter,
@@ -64,7 +66,6 @@ const ViewTable = (
 	const onChangeStatus = (value: SegmentedValue) => {
 		if (onStatusFilter instanceof Function) {
 			onStatusFilter(value);
-			onScrollBody('.data-list');
 		}
 	};
 
@@ -138,90 +139,91 @@ const ViewTable = (
 
 	return (
 		<div className='data-list'>
-			{/* search area */}
-			<Flex className='search-wrap' justify='space-between'>
-				{/* Search */}
-				<Search
-					allowClear
-					placeholder="Tìm kiếm/ Search"
-					style={{ width: 304 }}
-					onSearch={onSearchBtn}
-				/>
+			<Affix offsetTop={0} className='affix-search-area'>
+				<div>
+					{/* search area */}
+					<Flex className='search-wrap' justify='space-between'>
+						{/* Search */}
+						<Search
+							allowClear
+							placeholder="Tìm kiếm/ Search"
+							style={{ width: 304 }}
+							onSearch={onSearchBtn}
+						/>
 
-				{/* Translation status */}
-				<PatternStatus
-					defaultValue='ALL'
-					onChange={onChangeStatus}
-					options={[
-						{
-							label: 'ALL',
-							value: 'ALL',
-							tagColor: 'default'
-						},
-						{
-							label: TRANSLATION_STATUS.PENDING,
-							value: TRANSLATION_STATUS.PENDING,
-							tagColor: 'processing'
-						},
-						{
-							label: 'TRANSLATED',
-							value: TRANSLATION_STATUS.SUCCESS,
-							tagColor: 'success'
-						},
-					]}
-				/>
+						{/* Translation status on large-screen*/}
+						{isShowStatusFilter &&
+							<PatternStatus
+								className='large-screen'
+								defaultValue={TRANSLATION_STATUS.ALL}
+								onChange={onChangeStatus}
+								options={TRANSLATION_OPTIONS}
+							/>
+						}
 
-				{/* direction icon */}
-				<Flex align='center' className='direction-icon'>
-					<Tooltip color='#fc8282' title={<FormattedMessage id='btn_grid' />}>
-						<Button type="text" onClick={() => setDirection('horizontal')}>
-							<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fc8282' : '#707070', fontSize: '24px' }} />
-						</Button>
-					</Tooltip>
-					<Tooltip color='#fc8282' title={<FormattedMessage id='btn_list' />}>
-						<Button type="text" onClick={() => setDirection('vertical')}>
-							<MenuOutlined style={{ color: direction === 'vertical' ? '#fc8282' : '#707070', fontSize: '24px' }} />
-						</Button>
-					</Tooltip>
-				</Flex>
-			</Flex>
+						{/* direction icon */}
+						<Flex align='center' className='direction-icon'>
+							<Tooltip color='#fc8282' title={<FormattedMessage id='btn_grid' />}>
+								<Button type="text" onClick={() => setDirection('horizontal')}>
+									<AppstoreOutlined style={{ color: direction === 'horizontal' ? '#fc8282' : '#707070', fontSize: '24px' }} />
+								</Button>
+							</Tooltip>
+							<Tooltip color='#fc8282' title={<FormattedMessage id='btn_list' />}>
+								<Button type="text" onClick={() => setDirection('vertical')}>
+									<MenuOutlined style={{ color: direction === 'vertical' ? '#fc8282' : '#707070', fontSize: '24px' }} />
+								</Button>
+							</Tooltip>
+						</Flex>
+					</Flex>
 
-			{/* Tabs categories */}
-			{
-				isShowTabs && renderItems &&
-				<Menu
-					className='tabs-menu'
-					selectedKeys={[currentTab]}
-					mode="horizontal"
-					onClick={onClickMenu}
-					{...tabsProps}
-				>
-					{
-						items.map(item => {
-							const { label, key, children, icon } = item;
-							if (children && children.length > 0) {
-								return <Menu.SubMenu onTitleClick={onClickMenu} key={key} title={label}>
-									{
-										children.map((c: any) => {
-											const { label, key, icon } = c;
-											return (
-												<Menu.Item key={key} icon={icon}>
-													{label}
-												</Menu.Item>
-											)
-										})
-									}
-								</Menu.SubMenu>
-							}
-							return (
-								<Menu.Item key={key} icon={icon}>
-									{label}
-								</Menu.Item>
-							)
-						})
+					{/* Translation status on small-screen*/}
+					{isShowStatusFilter &&
+						<PatternStatus
+							className='small-screen'
+							defaultValue={TRANSLATION_STATUS.ALL}
+							onChange={onChangeStatus}
+							options={TRANSLATION_OPTIONS}
+						/>
 					}
-				</Menu>
-			}
+					{/* Tabs categories */}
+					{
+						isShowTabs && renderItems &&
+						<Menu
+							className='tabs-menu'
+							selectedKeys={[currentTab]}
+							mode="horizontal"
+							onClick={onClickMenu}
+							{...tabsProps}
+						>
+							{
+								items.map(item => {
+									const { label, key, children, icon } = item;
+									if (children && children.length > 0) {
+										return <Menu.SubMenu onTitleClick={onClickMenu} key={key} title={label}>
+											{
+												children.map((c: any) => {
+													const { label, key, icon } = c;
+													return (
+														<Menu.Item key={key} icon={icon}>
+															{label}
+														</Menu.Item>
+													)
+												})
+											}
+										</Menu.SubMenu>
+									}
+									return (
+										<Menu.Item key={key} icon={icon}>
+											{label}
+										</Menu.Item>
+									)
+								})
+							}
+						</Menu>
+					}
+				</div>
+			</Affix>
+
 
 			<Spin spinning={loading} tip="Loading...">
 				{/* Data source */}

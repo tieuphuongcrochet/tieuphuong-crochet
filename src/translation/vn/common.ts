@@ -51,5 +51,10 @@ export default {
 	'notification.error': 'Lỗi!',
 	'contact_form.success': 'Bạn đã gửi thư thành công!',
 	'contact_form.error': 'Thư vẫn chưa được gửi!',
+	
+	'translation_status.ALL': 'TẤT CẢ',
+	'translation_status.NONE': 'CHƯA DỊCH',
+	'translation_status.PENDING': 'ĐANG DỊCH',
+	'translation_status.SUCCESS': 'ĐÃ DỊCH',
 }
  

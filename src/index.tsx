@@ -22,6 +22,12 @@ root.render(
             token: {
               colorPrimary: '#fc8282',
             },
+            /* here is your component tokens */
+            components: {
+              Segmented: {
+                itemSelectedBg: '#fecdcd',
+              },
+            },
           }}
         >
           <App notification={{placement: 'topRight'}}>

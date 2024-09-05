@@ -124,7 +124,17 @@
 			li.ant-menu-item {
 				a {
 					margin: 0 20px;
-					font-size: $fontSize_small;
+					font-size: $fontSize_middle;
+				}
+			}
+		}
+	}
+
+	@media screen and (min-width: $xxl) {
+		.header-sidebar {
+			li.ant-menu-item {
+				a {
+					font-size: $fontSize_large;
 				}
 			}
 		}

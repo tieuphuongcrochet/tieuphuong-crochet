@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, ROUTE_PATH} from 'utils';
+import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, mapNameFilters, ROUTE_PATH} from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {DataType, ListParams, initialViewTableParams, Filter} from 'models';
@@ -38,11 +38,13 @@ const ShopPage = () => {
 		}
 	}, [categories.length, dispatch]);
 
-	const onSearchProducts = (value: string) => {
-		const filters: Filter[] = filterByText(value, 'name', 'description');
+	const onSearchProducts = (value: string) => {		
+		const filters: Filter = filterByText(value, 'name', 'description');
+		const tempFilters = mapNameFilters(params.filters, 'searchText', filters);
+
 		const newParams = {
 			...initialViewTableParams,
-			filters
+			filters: tempFilters
 		};
 		setParams(newParams);
 	}
@@ -52,8 +54,9 @@ const ShopPage = () => {
 	};
 
 	const onTabChange = (key: React.Key) => {
-		const filters : Filter[] = key === ALL_ITEM.key ? [] : [
+		const categoryFilter: Filter = key === ALL_ITEM.key ? {} as Filter :
 			{
+				name: 'category',
 				filterLogic: FILTER_LOGIC.ALL,
 				filterCriteria: [
 					{
@@ -61,13 +64,17 @@ const ShopPage = () => {
 						value: [`${key}`],
 						operation: FILTER_OPERATION.IN
 					}
-				]
+				],
 			}
-		];
+			;
+
+		const tempFilters = mapNameFilters(params.filters, 'category', categoryFilter);
+
 		const newParams: ListParams = {
 			...initialViewTableParams,
-			filters
+			filters: tempFilters
 		};
+
 		setParams(newParams);
 	}
 

@@ -7,7 +7,7 @@ import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
 import {DataType, Filter, initialListParams} from 'models';
 import { postAction, selectLoading, selectPosts, selectTotalRecords } from 'saga/post/postSlice';
-import {filterByText, ROUTE_PATH} from 'utils';
+import {filterByText, mapNameFilters, ROUTE_PATH} from 'utils';
 
 const PostsList = () => {
     const navigate = useNavigate();
@@ -31,10 +31,12 @@ const PostsList = () => {
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        const filters: Filter[] = filterByText(value, 'title');
+        const filters: Filter = filterByText(value, 'title');
+		const tempFilters = mapNameFilters(params.filters, 'searchText', filters);
+
         const newParams = {
             ...params,
-            filters
+			filters: tempFilters
         }
         setParams(newParams);
     }

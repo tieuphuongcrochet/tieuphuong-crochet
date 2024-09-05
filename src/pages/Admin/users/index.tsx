@@ -4,7 +4,7 @@ import DataTable from 'components/DataTable';
 import {DataType, Filter, initialListParams} from 'models';
 import {selectLoading, selectUsers, userAction} from './userSlice';
 import {useEffect, useState} from 'react';
-import {filterByText, ROUTE_PATH} from "../../../utils";
+import {filterByText, mapNameFilters, ROUTE_PATH} from "../../../utils";
 import {useNavigate} from "react-router-dom";
 import SearchTable from "../../../components/DataTable/SearchTable";
 
@@ -28,11 +28,12 @@ const UsersList = () => {
     }
 
     const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-        const filters: Filter[] = filterByText(value, 'name', 'role', 'email');
+        const filters: Filter = filterByText(value, 'name', 'role', 'email');
+		const tempFilters = mapNameFilters(params.filters, 'searchText', filters);
 
         const newParams = {
             ...initialListParams,
-            filters
+			filters: tempFilters
         };
         setParams(newParams);
         dispatch(userAction.fetchData(newParams));

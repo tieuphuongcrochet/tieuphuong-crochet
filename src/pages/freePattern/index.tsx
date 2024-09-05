@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ViewTable from 'components/ViewTable';
 import { SegmentedValue } from 'antd/es/segmented';
+import { useNavigate } from 'react-router-dom';
 
-import {DataType, Filter, initialViewTableParams, ListParams} from 'models';
-import {useAppDispatch, useAppSelector} from 'app/hooks';
-import {patternAction, selectLoading, selectPatterns, selectTotalRecords} from 'saga/pattern/patternSlice';
-import {useNavigate} from 'react-router-dom';
-import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, ROUTE_PATH} from 'utils';
-import {categoryAction} from 'saga/category/categorySlice';
+import { DataType, Filter, initialViewTableParams, ListParams } from 'models';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
+import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, getFilters, mapNameFilters, ROUTE_PATH, TRANSLATION_STATUS } from 'utils';
+import { categoryAction } from 'saga/category/categorySlice';
 import HeaderPart from 'components/HeaderPart';
 
 const FreePatterns = () => {
@@ -30,7 +30,11 @@ const FreePatterns = () => {
 	}
 
 	useEffect(() => {
-		dispatch(patternAction.fetchData(params));
+		let tempParams = [...params.filters]
+		if (tempParams.length > 0) {
+			tempParams = getFilters(tempParams);
+		}
+		dispatch(patternAction.fetchData({ ...params, filters: tempParams }));
 	}, [params]);
 
 	useEffect(() => {
@@ -40,12 +44,12 @@ const FreePatterns = () => {
 	}, []);
 
 	const onSearchPatterns = (value: string) => {
-		const filters: Filter[] = filterByText(value, 'name', 'description', 'author');
-		console.log('filters', filters);
-		
+		const filters: Filter = filterByText(value, 'name', 'description', 'author');
+		const tempFilters = mapNameFilters(params.filters, 'searchText', filters);
+
 		const newParams = {
 			...initialViewTableParams,
-			filters
+			filters: tempFilters
 		};
 		setParams(newParams);
 	}
@@ -55,8 +59,9 @@ const FreePatterns = () => {
 	};
 
 	const onTabChange = (key: React.Key) => {
-		const filters : Filter[] = key === ALL_ITEM.key ? [] : [
+		const categoryFilter: Filter = key === ALL_ITEM.key ? {} as Filter :
 			{
+				name: 'category',
 				filterLogic: FILTER_LOGIC.ALL,
 				filterCriteria: [
 					{
@@ -64,20 +69,43 @@ const FreePatterns = () => {
 						value: [`${key}`],
 						operation: FILTER_OPERATION.IN
 					}
-				]
+				],
 			}
-		];
+			;
+
+		const tempFilters = mapNameFilters(params.filters, 'category', categoryFilter);
 
 		const newParams: ListParams = {
 			...initialViewTableParams,
-			filters
+			filters: tempFilters
 		};
-		console.log('newParams', newParams);
+
 		setParams(newParams);
 	}
 
-	const onStatusFilter = (value: SegmentedValue) =>{
-		console.log('translate', value);
+	const onStatusFilter = (value: SegmentedValue) => {
+		const statusFilter: Filter = value === TRANSLATION_STATUS.ALL ? {} as Filter :
+			{
+				name: 'statusFilter',
+				filterLogic: FILTER_LOGIC.ALL,
+				filterCriteria: [
+					{
+						key: 'status',
+						value,
+						operation: FILTER_OPERATION.EQUAL
+					}
+				],
+			}
+			;
+
+		const tempFilters = mapNameFilters(params.filters, 'statusFilter', statusFilter);
+
+		const newParams: ListParams = {
+			...initialViewTableParams,
+			filters: tempFilters
+		};
+
+		setParams(newParams);
 	}
 
 	return (
@@ -96,7 +124,8 @@ const FreePatterns = () => {
 				isShowTabs
 				onTabChange={onTabChange}
 				itemsTabs={categories}
-				onStatusFilter = {onStatusFilter}
+				onStatusFilter={onStatusFilter}
+				isShowStatusFilter
 			/>
 		</div>
 	)

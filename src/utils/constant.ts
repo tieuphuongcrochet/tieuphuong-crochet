@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-escape */
+import { TranslationStatus } from 'models';
 import shopee from '../assets/socials/shope.jpg';
 
 import { TBannerType } from 'models/setting';
@@ -172,5 +173,28 @@ export const FILTER_LOGIC = {
 export const TRANSLATION_STATUS = {
   NONE: 'NONE',
   PENDING: 'PENDING',
-  SUCCESS: 'SUCCESS'
+  SUCCESS: 'SUCCESS',
+  ALL: 'ALL'
 };
+
+export const TRANSLATION_STATUS_COLOR = {
+  ALL: 'default',
+  NONE: 'default',
+  PENDING: 'processing',
+  SUCCESS: 'success'
+};
+
+export const TRANSLATION_OPTIONS: TranslationStatus[] = [
+  {
+    label: "translation_status.ALL",
+    value: 'ALL',
+  },
+  {
+    label: 'translation_status.PENDING',
+    value: 'PENDING',
+  },
+  {
+    label: 'translation_status.SUCCESS',
+    value: 'SUCCESS',
+  },
+]

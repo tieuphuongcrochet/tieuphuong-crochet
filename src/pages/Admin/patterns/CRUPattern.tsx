@@ -149,20 +149,17 @@ const CRUPattern = () => {
                                     defaultValue={TRANSLATION_STATUS.NONE}
                                     options={[
                                         {
-                                            label: TRANSLATION_STATUS.NONE,
-                                            tagColor: "default",
-                                            value: TRANSLATION_STATUS.NONE
+                                            label: "translation_status.NONE",
+                                            value: 'NONE',
                                         },
                                         {
-                                            label: TRANSLATION_STATUS.PENDING,
-                                            tagColor: "processing",
-                                            value: TRANSLATION_STATUS.PENDING
-                                        },
-                                        {
-                                            label: TRANSLATION_STATUS.SUCCESS,
-                                            tagColor: "success",
-                                            value: TRANSLATION_STATUS.SUCCESS
-                                        },
+                                            label: 'translation_status.PENDING',
+                                            value: 'PENDING',
+                                          },
+                                          {
+                                            label: 'translation_status.SUCCESS',
+                                            value: 'SUCCESS',
+                                          },
                                     ]}
                                 />
                             </Item>

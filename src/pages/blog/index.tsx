@@ -31,11 +31,11 @@ const BlogsPage = () => {
 		dispatch(postAction.fetchData(params));
 	}, [params]);
 
-	const onSearchPatterns = (value: string) => {
-		const filters: Filter[] = filterByText(value, 'title');
+	const onSearchPosts = (value: string) => {
+		const filters: Filter= filterByText(value, 'title');
 		const newParams = {
 			...initialViewTableParams,
-			filters
+			filters: [filters]
 		};
 		setParams(newParams);
 	}
@@ -60,7 +60,7 @@ const BlogsPage = () => {
 				pageSize={params._pageSize}
 				dataSource={blogs}
 				onPageChange={onPageChange}
-				onSeach={onSearchPatterns}
+				onSeach={onSearchPosts}
 				total={totalRecords}
 				loading={loading}
 			/>

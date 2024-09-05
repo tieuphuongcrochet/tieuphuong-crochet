@@ -51,6 +51,7 @@ export interface FileUpload {
 };
 
 export interface Filter {
+	name?: string;
 	filterLogic: string;
 	filterCriteria: FilterCriteria[];
 }
