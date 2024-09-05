@@ -86,6 +86,7 @@ const ProductsList = () => {
                     isShowFilter
                     onAddNew={onAddNew}
                     onSearchChange={onSearchChange}
+                    searchFields={['name', 'description']}
                 />
                 <div className='admin-table'>
                     <DataTable

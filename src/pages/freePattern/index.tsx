@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataType, Filter, initialViewTableParams, ListParams } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
-import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, filterByText, getFilters, mapNameFilters, ROUTE_PATH, TRANSLATION_STATUS } from 'utils';
+import { FILTER_LOGIC, FILTER_OPERATION, filterByText, getCategoryFilter, getFilters, mapNameFilters, ROUTE_PATH, TRANSLATION_STATUS } from 'utils';
 import { categoryAction } from 'saga/category/categorySlice';
 import HeaderPart from 'components/HeaderPart';
 
@@ -59,25 +59,13 @@ const FreePatterns = () => {
 	};
 
 	const onTabChange = (key: React.Key) => {
-		const categoryFilter: Filter = key === ALL_ITEM.key ? {} as Filter :
-			{
-				name: 'category',
-				filterLogic: FILTER_LOGIC.ALL,
-				filterCriteria: [
-					{
-						key: 'category.id',
-						value: [`${key}`],
-						operation: FILTER_OPERATION.IN
-					}
-				],
-			}
-			;
+		const categoryFilter = getCategoryFilter(key);
 
-		const tempFilters = mapNameFilters(params.filters, 'category', categoryFilter);
+		const newFilters = mapNameFilters(params.filters, 'category', categoryFilter);
 
 		const newParams: ListParams = {
 			...initialViewTableParams,
-			filters: tempFilters
+			filters: newFilters
 		};
 
 		setParams(newParams);

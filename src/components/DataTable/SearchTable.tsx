@@ -6,40 +6,25 @@ import { SearchProps } from 'antd/es/input';
 import { Filter, SearchParams, SearchTableProps } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction } from 'saga/category/categorySlice';
-import {ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION} from 'utils';
+import { ALL_ITEM, filterByText, getCategoryFilter, getRadioFilter, mapNameFilters } from 'utils';
 import './style.scss';
 
-
-const initialFilter: Filter[] = [
-    {
-        filterLogic: FILTER_LOGIC.ALL,
-        filterCriteria: [
-            {
-                key: 'isHome',
-                value: '',
-                operation: FILTER_OPERATION.EQUAL
-            }
-        ]
-    }
-];
-
 const initialSearchParams: SearchParams = {
-    searchText: '',
-    categoryId: '',
-    filters: initialFilter
+    filters: []
 };
 
 const SearchTable = ({
-                         onAddNew,
-                         onSearch,
-                         onSearchChange,
-                         textAddNew,
-                         loading,
-                         isShowFilter,
-                         isShowSearch = true,
-                         isShowAddNew = true
-                     }: SearchTableProps) => {
-    const {Search} = Input;
+    onAddNew,
+    onSearch,
+    onSearchChange,
+    textAddNew,
+    loading,
+    isShowFilter,
+    isShowSearch = true,
+    isShowAddNew = true,
+    searchFields = ['name']
+}: SearchTableProps) => {
+    const { Search } = Input;
     const [form] = Form.useForm();
     const categories = useAppSelector(state => state.category.data);
     const [searchParams, setSearchParams] = useState(initialSearchParams);
@@ -57,11 +42,12 @@ const SearchTable = ({
     };
 
     const onchangeRadio = (e: RadioChangeEvent) => {
-        const newFilter = [...searchParams.filters]
-        newFilter[0].filterCriteria[0].value = e.target.value;
+        const isHomeFilter = getRadioFilter(e);
+        
+        const newFilters = mapNameFilters(searchParams.filters, 'isHome', isHomeFilter);
+
         const newSearchParams: SearchParams = {
-            ...searchParams,
-            filters: newFilter
+            filters: newFilters
         };
 
         onHandleSearch(newSearchParams);
@@ -72,32 +58,32 @@ const SearchTable = ({
             onSearch(value);
             return;
         }
+        const searchField: Filter = filterByText(value, ...searchFields);
+        const newFilters = mapNameFilters(searchParams.filters, 'searchText', searchField);
 
         const newSearchParams: SearchParams = {
-            ...searchParams,
-            searchText: value
+            filters: newFilters
         };
 
         onHandleSearch(newSearchParams);
     }
 
     const onChangeCategory = (key: string) => {
-        const categoryId = key || '';
+        const categoryFilter = getCategoryFilter(key);
+
+        const newFilters = mapNameFilters(searchParams.filters, 'category', categoryFilter);
+
         const newSearchParams: SearchParams = {
-            ...searchParams,
-            categoryId: key === ALL_ITEM.key ? '' : categoryId
+            filters: newFilters
         };
 
         onHandleSearch(newSearchParams);
     }
 
     const onReset = () => {
-        const newFilters = initialFilter;
         form.resetFields();
-        newFilters[0].filterCriteria[0].value = '';
         onHandleSearch({
-            ...initialSearchParams,
-            filters: newFilters
+            filters: []
         });
     }
 
@@ -150,7 +136,7 @@ const SearchTable = ({
                                             <Radio.Group
                                                 onChange={onchangeRadio}
                                             >
-                                                <Radio value=''>All</Radio>
+                                                <Radio value={ALL_ITEM.key}>All</Radio>
                                                 <Radio value={true}>Yes</Radio>
                                                 <Radio value={false}>No</Radio>
                                             </Radio.Group>
@@ -178,7 +164,7 @@ const SearchTable = ({
             }
             {
                 isShowAddNew &&
-                <Button type="primary" onClick={onAddNew} icon={<PlusOutlined/>}>
+                <Button type="primary" onClick={onAddNew} icon={<PlusOutlined />}>
                     {textAddNew || 'Add new'}
                 </Button>
             }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE_PATH } from 'utils';
+import { getFilters, ROUTE_PATH } from 'utils';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
@@ -17,7 +17,11 @@ const PatternsList = () => {
     const [params, setParams] = useState(initialListParams)
 
     useEffect(() => {
-        dispatch(patternAction.fetchData(params));
+        let tempParams = [...params.filters]
+		if (tempParams.length > 0) {
+			tempParams = getFilters(tempParams);
+		}
+		dispatch(patternAction.fetchData({ ...params, filters: tempParams }));
     }, [params]);
 
     const onEditRecord = (id: React.Key) => {
@@ -63,6 +67,7 @@ const PatternsList = () => {
     }
 
     const onSearchChange = (searchParams: SearchParams) => {
+        
         const newParams = {
             ...params,
             ...searchParams

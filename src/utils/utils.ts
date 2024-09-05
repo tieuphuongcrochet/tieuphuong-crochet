@@ -5,9 +5,10 @@ import { Category, FileUpload, Filter, Paging } from 'models';
 import { filter, findIndex, forEach, isEmpty, map } from 'lodash';
 import { modal } from './notify';
 import { Banner, TBannerType } from 'models/setting';
+import { RadioChangeEvent } from 'antd';
 import { checkMobile } from './checkIsMobile';
 import { mobileAndTabletCheck } from './checkMobileOrTablet';
-import { FILTER_LOGIC, FILTER_OPERATION } from './constant';
+import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION } from './constant';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -347,4 +348,40 @@ export const getFilters = (filter: Filter[]) => {
     }
     return newFilter
   })
+}
+
+export const getCategoryFilter = (key: React.Key) => {
+  const categoryFilter: Filter = (key === ALL_ITEM.key || !key) ? {} as Filter :
+    {
+      name: 'category',
+      filterLogic: FILTER_LOGIC.ALL,
+      filterCriteria: [
+        {
+          key: 'category.id',
+          value: [`${key}`],
+          operation: FILTER_OPERATION.IN
+        }
+      ],
+    };
+  return categoryFilter;
+}
+
+export const getRadioFilter = (e: RadioChangeEvent): Filter => {
+  const value = e.target.value;
+  
+  if (value === ALL_ITEM.key) {
+    return {} as Filter;
+  }
+
+  return {
+    name: 'isHome',
+    filterLogic: FILTER_LOGIC.ALL,
+    filterCriteria: [
+      {
+        key: 'isHome',
+        value: value,
+        operation: FILTER_OPERATION.EQUAL
+      }
+    ]
+  }
 }

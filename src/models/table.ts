@@ -48,8 +48,6 @@ export interface DataTableProps extends TableProps<DataType> {
 }
 
 export interface SearchParams {
-  searchText: string;
-  categoryId: string;
   filters: Filter[];
 };
 
@@ -62,6 +60,7 @@ export interface SearchTableProps {
   isShowFilter?: boolean;
   isShowSearch?: boolean;
   isShowAddNew?: boolean;
+  searchFields?: string[];
 }
 
 export interface Paging {
