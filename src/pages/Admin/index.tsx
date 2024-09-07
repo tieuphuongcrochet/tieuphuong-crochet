@@ -2,7 +2,7 @@ import { Link, useNavigate, Navigate, Outlet, useLocation } from 'react-router-d
 import { useAppSelector } from 'app/hooks';
 import { Button, Layout, Menu, theme } from 'antd';
 import React, { useState } from 'react';
-import { find, map } from 'lodash';
+import { find } from 'lodash';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
