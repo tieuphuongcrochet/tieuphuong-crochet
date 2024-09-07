@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tag } from 'antd';
-import { SegmentedValue } from 'antd/es/segmented';
 import { FormattedMessage } from 'react-intl';
+import { SegmentedValue } from 'antd/es/segmented';
 
 import { getFilters, getStatusColor, ROUTE_PATH } from 'utils';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
@@ -61,7 +61,7 @@ const PatternsList = () => {
                 <Tag className='status-tag' color={getStatusColor(value as TTranslationStatus)}>
                     {
                         value ? <FormattedMessage id={`translation_status.${value}`} /> :
-                            <FormattedMessage id='translation_status' />
+                            <FormattedMessage id='translation_status.NONE' />
                     }
                 </Tag>
             )

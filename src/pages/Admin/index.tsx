@@ -1,7 +1,8 @@
 import { Link, useNavigate, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAppSelector } from 'app/hooks';
-import { Button, Flex, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu, theme } from 'antd';
 import React, { useState } from 'react';
+import { find, map } from 'lodash';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -13,10 +14,10 @@ import {
     UnorderedListOutlined,
     SettingOutlined
 } from '@ant-design/icons';
+
 import { ROUTE_PATH } from 'utils';
 import logo from 'assets/logo.png';
 import './style.scss';
-import { find } from 'lodash';
 
 const items = [
     {
@@ -27,11 +28,12 @@ const items = [
     {
         key: ROUTE_PATH.ADMIN_CATEGORY,
         icon: <UnorderedListOutlined />,
-        label: 'Categories list'
+        label: 'Categories',
     }, {
         key: 'patterns',
         icon: <ReadOutlined />,
         label: 'Patterns',
+
         children: [
             {
                 key: `${ROUTE_PATH.ADMIN_PATTERNS}/${ROUTE_PATH.CREATE}`,
@@ -87,7 +89,7 @@ const items = [
 ]
 
 const LayoutAdmin = () => {
-    const { Header, Sider, Content } = Layout;
+    const { Header, Sider, Content, Footer } = Layout;
     const [key, setKey] = useState(ROUTE_PATH.ADMIN);
 
     const [collapsed, setCollapsed] = useState(true);
@@ -108,40 +110,42 @@ const LayoutAdmin = () => {
     }
 
     return (
-        <Layout className='dashboard-wrap admin-page'>
-            <Sider
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
-                theme='light'>
+        <Layout className='admin-page-layout'>
+            <Header className='admin-page-layout__header' style={{ display: 'flex', alignItems: 'center', padding: 0, background: colorBgContainer, height: 76 }}>
                 <div className="logo-sidebar" >
                     <Link to={ROUTE_PATH.HOME}>
                         <img src={logo} alt='Tiệm len Tiểu Phương' />
                     </Link>
                 </div>
-                <Menu
-                    mode="inline"
-                    defaultSelectedKeys={[ROUTE_PATH.ADMIN]}
-                    onSelect={onSelectItem}
-                    items={items}
+                <Button
+                    className='siderbar-large-screen'
+                    type="text"
+                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                    onClick={() => setCollapsed(!collapsed)}
+                    style={{
+                        fontSize: '16px',
+                        width: 40
+                    }}
                 />
-            </Sider>
-            <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }}>
-                    <Flex align='center'>
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                        />
-                        <span className='table-title'>{getTitle()}</span>
-                    </Flex>
-                </Header>
+                <span className='table-title'>{getTitle()}</span>
+            </Header>
+
+            <Layout className='admin-page-layout__content'>
+                <Sider
+                    trigger={null}
+                    collapsible
+                    collapsed={collapsed}
+                    theme='light'
+                    className='siderbar-large-screen'
+                >
+
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={[ROUTE_PATH.ADMIN]}
+                        onSelect={onSelectItem}
+                        items={items}
+                    />
+                </Sider>
                 <Content
                     style={{
                         margin: '24px 16px',
@@ -153,7 +157,16 @@ const LayoutAdmin = () => {
                 >
                     <Outlet />
                 </Content>
+
             </Layout>
+            <Footer className='admin-page-layout__footer siderbar-small-screen'>
+                <Menu
+                    mode="horizontal"
+                    defaultSelectedKeys={[ROUTE_PATH.ADMIN]}
+                    onSelect={onSelectItem}
+                    items={items}
+                />
+            </Footer>
         </Layout>
     )
 }
