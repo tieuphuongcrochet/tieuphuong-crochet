@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Flex, Form, Input, Radio, RadioChangeEvent, Row, TreeSelect } from 'antd';
+import { Affix, Button, Col, Flex, Form, Input, Radio, RadioChangeEvent, Row, TreeSelect } from 'antd';
 import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import { SearchProps } from 'antd/es/input';
 
@@ -144,7 +144,7 @@ const SearchTable = ({
                                         </Form.Item>
                                     </Col>
                                     {isShowStatusFilter &&
-                                        <Col xs={24} lg={12} xl={10} xxl={7}>
+                                        <Col xs={24} lg={17} xl={13} xxl={9}>
                                             <Form.Item name='status'>
 
 
@@ -152,13 +152,19 @@ const SearchTable = ({
                                                 <PatternStatus
                                                     className='large-screen'
                                                     defaultValue={TRANSLATION_STATUS.ALL}
-                                                    options={TRANSLATION_OPTIONS}
+                                                    options={[
+                                                        ...TRANSLATION_OPTIONS,
+                                                        {
+                                                            label: "translation_status.NONE",
+                                                            value: 'NONE',
+                                                        },
+                                                    ]}
                                                     onChange={onChangeStatus}
                                                 />
                                             </Form.Item>
                                         </Col>
                                     }
-                                    <Col xs={24} lg={12} xl={10} xxl={4}>
+                                    <Col xs={24} lg={7} xl={7} xxl={2}>
                                         <Form.Item
                                             name='isHome'
                                             label='Show on home:'
