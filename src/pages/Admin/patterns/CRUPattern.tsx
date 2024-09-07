@@ -41,8 +41,11 @@ const CRUPattern = () => {
             const newPattern = {
                 ...tempData,
                 category_id: tempData.category?.id,
+                is_home: tempData.home,
                 status: tempData.status || TRANSLATION_STATUS.NONE
             }
+
+            console.log('tempData', tempData);
 
             form.setFieldsValue(newPattern);
         }
@@ -138,15 +141,14 @@ const CRUPattern = () => {
                         </Col>
                     </Row>
                     <Row gutter={48}>
-                        <Col md={12} xs={24}>
+                        <Col xs={24} lg={12}>
                             <Item
                                 name="status"
                                 label="Translation"
-                                rules={[{ required: true, message: 'Please enter pattern Translation' }]}
-
                             >
                                 <PatternStatus
                                     defaultValue={TRANSLATION_STATUS.NONE}
+                                    value={pattern.status}
                                     options={[
                                         {
                                             label: "translation_status.NONE",
@@ -155,16 +157,16 @@ const CRUPattern = () => {
                                         {
                                             label: 'translation_status.PENDING',
                                             value: 'PENDING',
-                                          },
-                                          {
+                                        },
+                                        {
                                             label: 'translation_status.SUCCESS',
                                             value: 'SUCCESS',
-                                          },
+                                        },
                                     ]}
                                 />
                             </Item>
                         </Col>
-                        <Col md={12} xs={24}>
+                        <Col xs={24} lg={12}>
                             <Item
                                 name="link"
                                 label="Link"

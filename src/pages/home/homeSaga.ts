@@ -13,6 +13,7 @@ function* fetchDataHome() {
 		const data: HomeData = yield call(homeApi.getAll);
 
 		const freePatterns: Pattern[] = map(data.freePatterns, pt => ({
+			status: pt.status,
 			id: pt.id,
 			author: pt.author,
 			name: pt.name,

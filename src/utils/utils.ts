@@ -8,7 +8,8 @@ import { Banner, TBannerType } from 'models/setting';
 import { RadioChangeEvent } from 'antd';
 import { checkMobile } from './checkIsMobile';
 import { mobileAndTabletCheck } from './checkMobileOrTablet';
-import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION } from './constant';
+import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, TRANSLATION_STATUS } from './constant';
+import { SegmentedValue } from 'antd/es/segmented';
 
 export function hasResponseError(response: any) {
   const statusCode = _get(response, 'statusCode', null);
@@ -368,7 +369,7 @@ export const getCategoryFilter = (key: React.Key) => {
 
 export const getRadioFilter = (e: RadioChangeEvent): Filter => {
   const value = e.target.value;
-  
+
   if (value === ALL_ITEM.key) {
     return {} as Filter;
   }
@@ -384,4 +385,21 @@ export const getRadioFilter = (e: RadioChangeEvent): Filter => {
       }
     ]
   }
+}
+
+
+export const getStatusFilter = (value: SegmentedValue): Filter => {
+  const statusFilter: Filter = value === TRANSLATION_STATUS.ALL ? {} as Filter :
+    {
+      name: 'statusFilter',
+      filterLogic: FILTER_LOGIC.ALL,
+      filterCriteria: [
+        {
+          key: 'status',
+          value,
+          operation: FILTER_OPERATION.EQUAL
+        }
+      ],
+    };
+  return statusFilter;
 }
