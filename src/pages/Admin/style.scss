@@ -4,9 +4,10 @@
   font-size: 26px;
   font-weight: 700;
   color: $textPrimaryColor;
+  padding: 0 20px;
 }
 
-.admin-page {
+.admin-page-layout {
   .logo-sidebar {
     height: 75px;
 
@@ -23,16 +24,18 @@
     overflow-x: auto;
   }
 
-  // .siderbar-large-screen {
-  //   display: none;
-  // }
+  .siderbar-large-screen {
+    display: none;
+  }
 
   .siderbar-small-screen {
     padding: 0;
     position: fixed;
     bottom: 0;
+    width: 100%;
 
     .ant-menu {
+
       padding-top: 10px;
       .ant-menu-submenu-title,
       .ant-menu-item {
@@ -40,7 +43,15 @@
         flex-direction: column;
         align-items: center;
       }
+      .ant-menu-overflow-item{
+        .anticon-ellipsis {
+          font-size: 30px;
+        }
+      }
     }
+  }
+  .admin-page-layout__content {
+    margin-bottom: 60px;
   }
 }
 

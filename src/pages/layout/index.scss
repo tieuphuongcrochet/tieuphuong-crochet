@@ -424,6 +424,21 @@
       }
     }
   }
+
+  .admin-page-layout{
+    .admin-page-layout__content,
+    .admin-page-layout__header{
+      .siderbar-large-screen {
+        display: block;
+      }
+    }
+
+    .admin-page-layout__footer{
+      &.siderbar-small-screen {
+        display: none;
+      }
+    }
+  }
 }
 
 // Responsive

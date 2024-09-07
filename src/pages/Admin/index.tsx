@@ -110,14 +110,15 @@ const LayoutAdmin = () => {
     }
 
     return (
-        <Layout className='admin-page'>
-            <Header style={{ display: 'flex', alignItems: 'center', padding: 0, background: colorBgContainer, height: 76 }}>
+        <Layout className='admin-page-layout'>
+            <Header className='admin-page-layout__header' style={{ display: 'flex', alignItems: 'center', padding: 0, background: colorBgContainer, height: 76 }}>
                 <div className="logo-sidebar" >
                     <Link to={ROUTE_PATH.HOME}>
                         <img src={logo} alt='Tiệm len Tiểu Phương' />
                     </Link>
                 </div>
                 <Button
+                    className='siderbar-large-screen'
                     type="text"
                     icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                     onClick={() => setCollapsed(!collapsed)}
@@ -129,14 +130,14 @@ const LayoutAdmin = () => {
                 <span className='table-title'>{getTitle()}</span>
             </Header>
 
-            <Layout>
+            <Layout className='admin-page-layout__content'>
                 <Sider
                     trigger={null}
                     collapsible
                     collapsed={collapsed}
                     theme='light'
                     className='siderbar-large-screen'
-                    >
+                >
 
                     <Menu
                         mode="inline"
@@ -158,14 +159,14 @@ const LayoutAdmin = () => {
                 </Content>
 
             </Layout>
-            {/* <Footer className='siderbar-small-screen'>
+            <Footer className='admin-page-layout__footer siderbar-small-screen'>
                 <Menu
                     mode="horizontal"
                     defaultSelectedKeys={[ROUTE_PATH.ADMIN]}
                     onSelect={onSelectItem}
                     items={items}
                 />
-            </Footer> */}
+            </Footer>
         </Layout>
     )
 }
