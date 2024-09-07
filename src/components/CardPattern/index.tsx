@@ -2,8 +2,8 @@ import React from 'react';
 import { Card, Flex, Image, Skeleton, Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import { Pattern, TTranslationStatus } from 'models';
-import { IMAGE_FALLBACK, TRANSLATION_STATUS, TRANSLATION_STATUS_COLOR } from 'utils';
+import { Pattern } from 'models';
+import { getStatusColor, IMAGE_FALLBACK, TRANSLATION_STATUS } from 'utils';
 import './index.scss';
 import { FormattedMessage } from 'react-intl';
 
@@ -24,10 +24,6 @@ const CardFreePattern = (
 
 	const { Meta } = Card;
 	const { name, src, author, imagesPreview, status } = pattern;
-
-	const getStatusColor = (status: TTranslationStatus) => {
-		return TRANSLATION_STATUS_COLOR[status]
-	}
 
 	return (
 		<Card
