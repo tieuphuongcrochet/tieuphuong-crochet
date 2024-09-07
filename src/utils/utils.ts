@@ -1,14 +1,14 @@
 import { DefaultOptionType } from 'rc-tree-select/lib/TreeSelect';
 import moment from 'moment';
 import _get from 'lodash/get';
-import { Category, FileUpload, Filter, Paging } from 'models';
+import { Category, FileUpload, Filter, Paging, TTranslationStatus } from 'models';
 import { filter, findIndex, forEach, isEmpty, map } from 'lodash';
 import { modal } from './notify';
 import { Banner, TBannerType } from 'models/setting';
 import { RadioChangeEvent } from 'antd';
 import { checkMobile } from './checkIsMobile';
 import { mobileAndTabletCheck } from './checkMobileOrTablet';
-import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, TRANSLATION_STATUS } from './constant';
+import { ALL_ITEM, FILTER_LOGIC, FILTER_OPERATION, TRANSLATION_STATUS, TRANSLATION_STATUS_COLOR } from './constant';
 import { SegmentedValue } from 'antd/es/segmented';
 
 export function hasResponseError(response: any) {
@@ -402,4 +402,9 @@ export const getStatusFilter = (value: SegmentedValue): Filter => {
       ],
     };
   return statusFilter;
+}
+
+export const getStatusColor = (status: TTranslationStatus) => {
+  
+  return status ? TRANSLATION_STATUS_COLOR[status] : TRANSLATION_STATUS_COLOR.NONE;
 }

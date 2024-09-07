@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getFilters, ROUTE_PATH } from 'utils';
+import { Tag } from 'antd';
+import { SegmentedValue } from 'antd/es/segmented';
+import { FormattedMessage } from 'react-intl';
+
+import { getFilters, getStatusColor, ROUTE_PATH } from 'utils';
 import { patternAction, selectLoading, selectPatterns, selectTotalRecords } from 'saga/pattern/patternSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import DataTable from 'components/DataTable';
 import SearchTable from 'components/DataTable/SearchTable';
-import { DataType, SearchParams, initialListParams } from 'models';
+import { DataType, SearchParams, TTranslationStatus, initialListParams } from 'models';
 
 const PatternsList = () => {
     const navigate = useNavigate();
@@ -18,10 +22,10 @@ const PatternsList = () => {
 
     useEffect(() => {
         let tempParams = [...params.filters]
-		if (tempParams.length > 0) {
-			tempParams = getFilters(tempParams);
-		}
-		dispatch(patternAction.fetchData({ ...params, filters: tempParams }));
+        if (tempParams.length > 0) {
+            tempParams = getFilters(tempParams);
+        }
+        dispatch(patternAction.fetchData({ ...params, filters: tempParams }));
     }, [params]);
 
     const onEditRecord = (id: React.Key) => {
@@ -50,6 +54,18 @@ const PatternsList = () => {
             dataIndex: 'is_home',
             render: (value: boolean) => value ? 'Yes' : 'No'
         },
+        {
+            title: 'Translation',
+            dataIndex: 'status',
+            render: (value: SegmentedValue) => (
+                <Tag className='status-tag' color={getStatusColor(value as TTranslationStatus)}>
+                    {
+                        value ? <FormattedMessage id={`translation_status.${value}`} /> :
+                            <FormattedMessage id='translation_status' />
+                    }
+                </Tag>
+            )
+        },
     ]
 
     const onAddNew = () => {
@@ -67,7 +83,7 @@ const PatternsList = () => {
     }
 
     const onSearchChange = (searchParams: SearchParams) => {
-        
+
         const newParams = {
             ...params,
             ...searchParams
