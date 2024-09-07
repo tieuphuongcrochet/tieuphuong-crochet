@@ -44,8 +44,8 @@
     }
 
     .images-outer {
+
       position: relative;
-      cursor: pointer;
       overflow-x: scroll;
       transform: translate3d(0, 0, 0);
 
@@ -54,6 +54,7 @@
       }
 
       .images {
+
         .ant-image {
           &:not(:last-child) {
             margin-right: 10px;
@@ -63,6 +64,10 @@
             opacity: 0.5;
             object-fit: fill;
 
+            &:hover {
+              opacity: .7;
+            }
+          
             &.active-thumbnail {
               opacity: 1;
             }
