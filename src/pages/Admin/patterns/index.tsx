@@ -84,6 +84,7 @@ const PatternsList = () => {
                     onSearchChange={onSearchChange}
                     loading={loading}
                     searchFields={['name', 'author', 'description']}
+                    isShowStatusFilter
                 />
                 <div className='admin-table'>
                     <DataTable

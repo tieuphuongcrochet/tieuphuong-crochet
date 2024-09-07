@@ -17,6 +17,7 @@ export interface Pattern {
 	currency_code?: string;
 	content?: string;
 	status?: TTranslationStatus;
+	home?:boolean
 }
 
 export interface PayloadFile {

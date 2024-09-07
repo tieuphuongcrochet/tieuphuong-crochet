@@ -6,8 +6,10 @@ import { SearchProps } from 'antd/es/input';
 import { Filter, SearchParams, SearchTableProps } from 'models';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { categoryAction } from 'saga/category/categorySlice';
-import { ALL_ITEM, filterByText, getCategoryFilter, getRadioFilter, mapNameFilters } from 'utils';
+import { ALL_ITEM, filterByText, getCategoryFilter, getRadioFilter, getStatusFilter, mapNameFilters, TRANSLATION_OPTIONS, TRANSLATION_STATUS } from 'utils';
 import './style.scss';
+import PatternStatus from 'components/PatternStatus';
+import { SegmentedValue } from 'antd/es/segmented';
 
 const initialSearchParams: SearchParams = {
     filters: []
@@ -22,7 +24,8 @@ const SearchTable = ({
     isShowFilter,
     isShowSearch = true,
     isShowAddNew = true,
-    searchFields = ['name']
+    searchFields = ['name'],
+    isShowStatusFilter
 }: SearchTableProps) => {
     const { Search } = Input;
     const [form] = Form.useForm();
@@ -43,7 +46,7 @@ const SearchTable = ({
 
     const onchangeRadio = (e: RadioChangeEvent) => {
         const isHomeFilter = getRadioFilter(e);
-        
+
         const newFilters = mapNameFilters(searchParams.filters, 'isHome', isHomeFilter);
 
         const newSearchParams: SearchParams = {
@@ -80,6 +83,18 @@ const SearchTable = ({
         onHandleSearch(newSearchParams);
     }
 
+    const onChangeStatus = (value: SegmentedValue) => {
+        const statusFilter = getStatusFilter(value);
+
+        const newFilters = mapNameFilters(searchParams.filters, 'statusFilter', statusFilter);
+
+        const newSearchParams: SearchParams = {
+            filters: newFilters
+        };
+
+        onHandleSearch(newSearchParams);
+    }
+
     const onReset = () => {
         form.resetFields();
         onHandleSearch({
@@ -97,12 +112,12 @@ const SearchTable = ({
                     labelWrap
                     form={form}
                     initialValues={{
-                        isHome: '',
+                        isHome: ALL_ITEM.key,
                     }}
                     style={{ flex: 'min-content' }}
                 >
                     <Row style={{ width: '100%' }} gutter={12} className='search'>
-                        <Col xs={24} md={15} lg={8}>
+                        <Col xs={24} md={12} xl={12} xxl={6}>
                             <Form.Item name='searchText'>
                                 <Search
                                     allowClear
@@ -118,7 +133,7 @@ const SearchTable = ({
                         {
                             isShowFilter && (
                                 <>
-                                    <Col xs={24} md={9} lg={6}>
+                                    <Col xs={24} md={12} xl={12} xxl={4}>
                                         <Form.Item name='categoryId'>
                                             <TreeSelect
                                                 allowClear
@@ -128,7 +143,22 @@ const SearchTable = ({
                                             />
                                         </Form.Item>
                                     </Col>
-                                    <Col xs={24} md={15} lg={6}>
+                                    {isShowStatusFilter &&
+                                        <Col xs={24} lg={12} xl={10} xxl={7}>
+                                            <Form.Item name='status'>
+
+
+                                                {/* Translation status on large-screen*/}
+                                                <PatternStatus
+                                                    className='large-screen'
+                                                    defaultValue={TRANSLATION_STATUS.ALL}
+                                                    options={TRANSLATION_OPTIONS}
+                                                    onChange={onChangeStatus}
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    }
+                                    <Col xs={24} lg={12} xl={10} xxl={4}>
                                         <Form.Item
                                             name='isHome'
                                             label='Show on home:'
@@ -142,7 +172,7 @@ const SearchTable = ({
                                             </Radio.Group>
                                         </Form.Item>
                                     </Col>
-                                    <Col xs={16} md={9} lg={4}>
+                                    <Col xs={24} xl={4} xxl={3}>
                                         <span>
                                             <Button
                                                 style={{ textAlign: 'center', width: '120px' }}
