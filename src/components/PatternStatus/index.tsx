@@ -17,10 +17,10 @@ interface PatternStatusProps {
     size?: 'large' | 'middle' | 'small';
     onChange?: (value: SegmentedValue) => void;
     className?: string;
-
+    value?: SegmentedValue;
 }
 
-const PatternStatus = ({ size = 'large', defaultValue, options, onChange, className }: PatternStatusProps) => {
+const PatternStatus = ({ size = 'large', defaultValue, options, onChange, className, value }: PatternStatusProps) => {
 
     const getIconTag = (status: TTranslationStatus) => {
         if (status === 'SUCCESS') {
@@ -32,6 +32,7 @@ const PatternStatus = ({ size = 'large', defaultValue, options, onChange, classN
     return (
         <Segmented
             size={size}
+            value={value}
             defaultValue={defaultValue}
             onChange={onChange}
             className={className}
@@ -42,7 +43,8 @@ const PatternStatus = ({ size = 'large', defaultValue, options, onChange, classN
                     value: item.value,
                     className: TRANSLATION_STATUS_COLOR[item.value]
                 }
-            ))} />
+            ))}
+            />
     )
 }
 

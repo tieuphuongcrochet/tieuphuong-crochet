@@ -3,7 +3,7 @@ import { Card, Flex, Image, Skeleton, Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import { Pattern, TTranslationStatus } from 'models';
-import { IMAGE_FALLBACK, TRANSLATION_STATUS_COLOR } from 'utils';
+import { IMAGE_FALLBACK, TRANSLATION_STATUS, TRANSLATION_STATUS_COLOR } from 'utils';
 import './index.scss';
 import { FormattedMessage } from 'react-intl';
 
@@ -65,8 +65,8 @@ const CardFreePattern = (
 									<UserOutlined />&nbsp;{author}
 								</div>
 								{
-									status &&
-									<Tag className='status-tag' color={getStatusColor(status)}><FormattedMessage id={`translation_status.${status}`}/></Tag>
+									(status && status !== TRANSLATION_STATUS.NONE) &&
+									<Tag className='status-tag' color={getStatusColor(status)}><FormattedMessage id={`translation_status.${status}`} /></Tag>
 								}
 
 							</Flex>
