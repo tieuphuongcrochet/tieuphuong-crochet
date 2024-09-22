@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "app/hooks";
 import IntroductionCard from "components/IntroductionCard";
 import { patternAction, selectLoading, selectPattern } from "saga/pattern/patternSlice";
 import ViewImagesList from "components/ViewImagesList";
+import CustomAdsense from "components/CustomAdsense";
 
 const PatternDetail = () => {
 	const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const PatternDetail = () => {
 				{/* Introducing the pattern */}
 				<IntroductionCard isShowThumbnail data={pattern} />
 				<Divider />
+				<CustomAdsense />
 
 				{/* Chart detail */}
 				<ViewImagesList
