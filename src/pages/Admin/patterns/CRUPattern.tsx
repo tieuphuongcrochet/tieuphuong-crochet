@@ -45,8 +45,6 @@ const CRUPattern = () => {
                 status: tempData.status || TRANSLATION_STATUS.NONE
             }
 
-            console.log('tempData', tempData);
-
             form.setFieldsValue(newPattern);
         }
     }, [pattern, id]);
@@ -62,7 +60,7 @@ const CRUPattern = () => {
 
         const callback = () => {
             form.resetFields();
-            navigate(ROUTE_PATH.ADMIN_PATTERNS);
+            navigate(-1);
         };
         dispatch(patternAction.cUPattern({ params: sendData, callback }));
     }
