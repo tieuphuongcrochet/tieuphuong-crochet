@@ -22,7 +22,7 @@ const PatternDetail = () => {
 		return () => {			
 			dispatch(patternAction.resetPattern());
 		}
-	}, []);
+	}, [dispatch, id]);
 
 	return (
 		<Spin spinning={loading} tip="Loading...">

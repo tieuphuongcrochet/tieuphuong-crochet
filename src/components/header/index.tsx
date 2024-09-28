@@ -12,6 +12,10 @@ import CopyRight from 'components/Copyright';
 
 import './index.scss';
 
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { selectIsLoggedIn } from '../../pages/login/authSlice';
+import { authActions } from '../../pages/login/authSlice';
+
 type MenuType = 'vertical' | 'horizontal' | 'inline';
 
 interface HeaderProps {
@@ -22,7 +26,9 @@ interface HeaderProps {
 const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 	const [isOpenLang, setIsOpenLang] = useState(false);
 	const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-	
+	const isLoggedIn = useAppSelector(selectIsLoggedIn);
+	const dispatch = useAppDispatch();
+
 	const { Header } = Layout;
 	const context = useContext(Context);
 
@@ -30,7 +36,7 @@ const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 		setCurrentNav(e.key);
 		isOpenSidebar && setIsOpenSidebar(false);
 	};
-	
+
 	const onHome = () => {
 		setCurrentNav(ROUTE_PATH.HOME);
 	}
@@ -47,6 +53,21 @@ const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 	const onOpenChange = (open: boolean) => {
 		setIsOpenLang(open);
 	};
+
+	const handleLogout = () => {
+		dispatch(authActions.logout());
+	};
+
+	const userMenu = (
+		<Menu>
+			<Menu.Item key="1">
+				<Link to={ROUTE_PATH.FREEPATTERNS}>Saved Free Patterns</Link>
+			</Menu.Item>
+			<Menu.Item key="2" onClick={handleLogout}>
+				Logout
+			</Menu.Item>
+		</Menu>
+	);
 
 	const getMenu = (mode: MenuType) => (
 		<div className='header-sidebar'>
@@ -101,7 +122,15 @@ const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 								</Space>
 							</Button>
 						</Dropdown>
-						<Button shape='circle' icon={<UserOutlined />} />
+						{isLoggedIn ? (
+							<Dropdown overlay={userMenu} trigger={['click']}>
+								<Button shape='circle' icon={<UserOutlined />} />
+							</Dropdown>
+						) : (
+							<Link to={ROUTE_PATH.LOGIN}>
+								<Button shape='circle' icon={<UserOutlined />} />
+							</Link>
+						)}
 					</div>
 				</div>
 

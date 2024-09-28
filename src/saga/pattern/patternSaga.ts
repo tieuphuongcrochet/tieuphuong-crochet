@@ -1,4 +1,4 @@
-import { FileUpload, ListResponse, Pattern, PatternPayload, PayloadFile, initialListParams } from 'models';
+import { FileUpload, ListResponse, Pattern, PatternPayload, PayloadFile, initialListParams, ListParams } from 'models';
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from '@reduxjs/toolkit';
 import { map } from 'lodash';
@@ -6,7 +6,6 @@ import { patternAction } from './patternSlice';
 import uploadFile from 'api/uploadFile';
 import patternService from 'api/pattern';
 import { getAvatar, mapImagesPreview, notification } from 'utils';
-
 
 function* fetchPatterns({ payload }: any) {
 	
@@ -99,10 +98,22 @@ function* handleDeleteById({ payload }: PayloadAction<React.Key>) {
 	}
 };
 
+function* fetchSavedPatterns(action: PayloadAction<ListParams>) {
+	try {
+		const params: ListParams = action.payload;
+		yield call(patternService.getSavedPatterns, params);
+		yield put(patternAction.loadingSuccess());
+	} catch (error) {
+		console.log('Failed to fetch saved patterns', error);
+		yield put(patternAction.loadingSuccess());
+	}
+}
+
 export default function* patternSaga() {
 	yield takeLatest(patternAction.fetchData.type, fetchPatterns);
 	yield takeLatest(patternAction.cUPattern.type, handleCreateUpdate);
 	yield takeLatest(patternAction.uploadFiles.type, uploadPatterns);
 	yield takeLatest(patternAction.fetchPattern.type, handleGetPatternById);
 	yield takeLatest(patternAction.delete.type, handleDeleteById);
+	yield takeLatest(patternAction.fetchSavedPatterns.type, fetchSavedPatterns);
 };

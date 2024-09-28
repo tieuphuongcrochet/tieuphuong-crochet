@@ -35,7 +35,9 @@ const patternSlice = createSlice({
         delete(_, { payload }: PayloadAction<React.Key>) { },
         uploadFiles(_, { payload }: PayloadAction<PayloadFile>) { },
         fetchPattern(_, { payload }: PayloadAction<string>) { },
-
+        fetchSavedPatterns: (state, action: PayloadAction<ListParams>) => {
+            state.loading = true;
+        },
     }
 });
 
