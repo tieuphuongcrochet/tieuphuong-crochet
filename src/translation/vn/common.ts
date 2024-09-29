@@ -26,27 +26,34 @@ export default {
 	'free_pattern_description': 'Dưới đây là những mẫu móc mà mình đã sưu tầm được ( Mình sẽ dịch dần dần nhé). Trong thời gian sắp tới, mình sẽ tiếp tục cập nhật thêm nhiều mẫu móc len đẹp khác và những mẫu mà mình tự sáng tạo nữa đấy. Hãy tham khảo và lựa chọn cho mình một mẫu ưng ý nhé!',
 	'blog_title':'Nơi chia sẻ những điều tốt đẹp!!',
 	'blog_description':'Nơi chia sẻ những điều tốt đẹp!!',
+	
 	'btn_readmore': 'Xem thêm',
 	'btn_buy': 'Mua hàng',
 	'btn_view_detail': 'Chi tiết',
 	'btn_send': 'Gửi',
+	
 	'about_us_title': 'Chào mừng bạn đến website của tôi!',
 	'about_us_content':'Cảm ơn bạn đã ghé thăm website của mình nhé. Hy vọng bạn sẽ tìm thấy những điều tốt đẹp ở đây. Mình rất thích móc len và tạo ra những mẫu đồ đẹp và độc đáo. Mong bạn sẽ thích những sản phẩm mình làm ra. Trên trang web của mình có rất nhiều mẫu móc len đẹp mà mình đã sưu tầm và dịch, tương lai mình sẽ cập nhật thêm nhiều mẫu móc len đẹp khác nữa và những mấu mà tự mình sáng tạo ra nè, bạn hãy tham khảo và chọn cho mình một mẫu ưng ý nhé. Ngoài những mẫu móc len đẹp ra mình cũng có bán những sản phẩm mình đã móc sẵn. Đối với những sản phẩm mình đặt trước, bạn có thể yêu cầu mình móc theo mẫu bạn muốn bằng cách gửi yêu cầu qua email của mình hoặc qua tin nhắn trên trang facebook của mình. Mình sẽ cố gắng hết sức để mang đến cho bạn những sản phẩm tốt nhất. Cảm ơn bạn đã ủng hộ mình!',
+	
 	'contact_title': 'Liên lạc với tôi',
 	'contact_content': 'Bạn đang gặp vấn đề với đặt hàng hoặc yêu cầu móc theo mẫu bạn muốn? Hãy liên lạc với mình qua email hoặc tin nhắn trên trang facebook của mình nhé. Mình sẽ cố gắng hết sức để giúp bạn!',
 	'contact_form_title': 'Gửi email cho mình nhé',
 	'contact_via': 'Hoặc liên lạc với mình qua',
+
 	'placeholder_input_email':'Nhập email của bạn',
 	'placeholder_input_name':'Nhập tên',
 	'placeholder_input_title':'Nhập tiêu đề',
 	'placeholder_input_content':'Nhập nội dung',
 	'error_msg_incorrect_email': 'Định dạng email không chính xác!',
 	'intro_author': 'Tác giả:',
+	
 	'free_pattern_detail.detail': 'Chi tiết',
 	'free_pattern_detail.content': 'Chart đã dịch',
 	'free_pattern_note': 'Nếu mình nhỡ đăng nhằm chart có bản quyền, xin hãy nói với mình để mình gỡ xuống ạ! Cảm ơn bạn!',
+	
 	'product_detail.detail': 'Hình ảnh sản phẩm',
 	'product_note': 'Nếu bạn muốn đặt mua sản phẩm này theo yêu cầu của bạn, hãy liên hệ với mình nhé. Mình sẽ cố gắng hết sức để mang đến cho bạn những sản phẩm tốt nhất. Cảm ơn bạn!',
+	
 	'notification.success': 'Thành công!',
 	'notification.error': 'Lỗi!',
 	'contact_form.success': 'Bạn đã gửi thư thành công!',

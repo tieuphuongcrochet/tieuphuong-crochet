@@ -35,6 +35,7 @@ export interface PatternState {
 	data: DataType[];
 	totalRecord: number;
 	pattern: Pattern;
+	savedPatterns: Pattern[];
 }
 
 export type TTranslationStatus = 'PENDING' | 'SUCCESS' | 'NONE' | 'ALL';

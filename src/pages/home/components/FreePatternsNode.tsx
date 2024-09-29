@@ -7,16 +7,28 @@ import HeaderPart from "../../../components/HeaderPart";
 
 import { ROUTE_PATH } from "utils/constant";
 import CardFreePattern from "components/CardPattern";
-import { useAppSelector } from "app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import { selectHomeFreePatterns } from "../homeSlice";
 import { useNavigate } from "react-router-dom";
+import { selectIsLoggedIn } from "pages/login/authSlice";
+import { patternAction } from "saga/pattern/patternSlice";
 
 const FreePatternsNode = () => {
 	const patterns = useAppSelector(selectHomeFreePatterns);
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
 	const onViewPattern = (id: React.Key) => {
 		navigate(`${ROUTE_PATH.FREEPATTERNS}/${ROUTE_PATH.DETAIL}/${id}`)
+	}
+
+	const onSavePattern = (id: React.Key) => {
+		if (isLoggedIn) {
+			dispatch(patternAction.savePattern({ id, name: '' }));
+		} else {
+			navigate(ROUTE_PATH.LOGIN);
+		}
 	}
 
 	return (
@@ -33,6 +45,8 @@ const FreePatternsNode = () => {
 							<CardFreePattern
 								pattern={pattern}
 								onReadDetail={() => onViewPattern(pattern.id || '')}
+								onSave={() => onSavePattern(pattern.id || '')}
+								showSaveButton={isLoggedIn}
 							/>
 						</Col>
 					)

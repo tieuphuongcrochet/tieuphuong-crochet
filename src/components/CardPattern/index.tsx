@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Flex, Image, Skeleton, Tag } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, EyeOutlined, SaveOutlined } from '@ant-design/icons';
 
 import { Pattern } from 'models';
 import { getStatusColor, IMAGE_FALLBACK, TRANSLATION_STATUS } from 'utils';
@@ -9,8 +9,11 @@ import { FormattedMessage } from 'react-intl';
 
 interface CardPatternProps {
 	width?: string | number;
-	pattern: Pattern;
-	onReadDetail: Function;
+	pattern: Pattern;	
+	onReadDetail?: () => void;
+	onSave?: () => void;
+
+	showSaveButton: boolean;
 	loading?: boolean;
 };
 
@@ -19,6 +22,8 @@ const CardFreePattern = (
 		pattern = { name: '', author: '', src: '' },
 		width,
 		onReadDetail,
+		onSave,
+		showSaveButton,
 		loading,
 	}: CardPatternProps) => {
 
@@ -50,11 +55,15 @@ const CardFreePattern = (
 					}
 				</>
 			}
+			actions={[
+				<EyeOutlined key="view" onClick={onReadDetail} />,
+				showSaveButton && <SaveOutlined key="save" onClick={onSave} />,
+			].filter(Boolean)}
 		>
 			<Skeleton loading={!name} active>
 				{name &&
 					<Meta
-						title={<span tabIndex={1} className='card-title' onClick={() => onReadDetail()}>{name}</span>}
+						title={<span tabIndex={1} className='card-title' onClick={onReadDetail}>{name}</span>}
 						description={
 							<Flex justify='space-between' align='center'>
 								<div className='author'>

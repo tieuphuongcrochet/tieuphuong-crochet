@@ -6,7 +6,8 @@ const initialState: PatternState = {
     loading: false,
     data: [],
     totalRecord: 0,
-    pattern: { name: '' }
+    pattern: { name: '' },
+    savedPatterns: []
 };
 
 const patternSlice = createSlice({
@@ -26,6 +27,7 @@ const patternSlice = createSlice({
         savePattern(state, { payload }: PayloadAction<Pattern>) {
             state.pattern = payload;
             state.loading = false;
+            state.savedPatterns.push(payload);
         },
         resetPattern(state) {
             state.pattern = {name: ''} as Pattern;

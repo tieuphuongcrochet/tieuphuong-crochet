@@ -27,6 +27,7 @@ import ProductDetail from 'pages/shop/ProductDetail';
 import SettingPage from 'pages/Admin/SettingPage';
 import PostDetail from 'pages/blog/BlogDetail';
 import CRUUser from "../pages/Admin/users/CRUUser";
+import SavedFreePatterns from 'pages/savedFreePattern';
 
 const router = createHashRouter([
   {
@@ -154,6 +155,10 @@ const router = createHashRouter([
     path: '*',
     element: <NotFound />,
   },
+  {
+    path: `${ROUTE_PATH.FREEPATTERNS}/saved`,
+    element: <SavedFreePatterns />,
+  }
 ]);
 
 export default router;

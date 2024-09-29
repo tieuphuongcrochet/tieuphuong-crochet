@@ -61,7 +61,7 @@ const HeaderPage = ({ setCurrentNav, currentNav }: HeaderProps) => {
 	const userMenu = (
 		<Menu>
 			<Menu.Item key="1">
-				<Link to={ROUTE_PATH.FREEPATTERNS}>Saved Free Patterns</Link>
+				<Link to={ROUTE_PATH.FREEPATTERNS}>Saved free patterns</Link>
 			</Menu.Item>
 			<Menu.Item key="2" onClick={handleLogout}>
 				Logout
